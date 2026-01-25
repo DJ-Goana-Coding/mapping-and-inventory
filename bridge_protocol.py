@@ -1,11 +1,3 @@
-"""
-🚀 ADMIRAL'S BRIDGE PROTOCOL (V1.0)
------------------------------------
-MISSION: Force-push handshake to Citadel District 01.
-TARGET: Google Drive 12-District Architecture.
-PAYLOAD: V6 Machine Gun Authorization.
-"""
-
 import os
 import json
 import time
@@ -42,7 +34,7 @@ HANDSHAKE_DATA = {
 }
 
 def authenticate():
-    """Authenticates with the Citadel's Drive API."""
+    """Authenticates with the Citadel's Drive API.""" 
     creds = None
     if os.path.exists(SERVICE_ACCOUNT_FILE):
         creds = service_account.Credentials.from_service_account_file(
