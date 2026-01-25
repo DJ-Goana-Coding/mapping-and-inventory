@@ -4,3 +4,4 @@ google-auth-httplib2
 huggingface_hub
 pandas
 plotly
+streamlit
