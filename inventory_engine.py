@@ -51,7 +51,7 @@ def generate_report(gd_data, hf_data):
 | :--- | :--- | :--- |
 """
     for item in gd_data:
-        report += f"| {item['name']} | `{{item['id']}}` | ✅ Mapped |\n"
+        report += f"| {item['name']} | `{item['id']}` | ✅ Mapped |\n"
         
     report += f"""
 ## 🚀 HUGGING FACE SPACES (Tia's Domains)
@@ -60,9 +60,9 @@ def generate_report(gd_data, hf_data):
 """
     for s in hf_data:
         if isinstance(s, dict):
-            report += f"| {{s['name']}} | {{s['sdk']}} | {{s['lastModified']}} |\n"
+            report += f"| {s['name']} | {s['sdk']} | {s['lastModified']} |\n"
         else:
-            report += f"| {{s}} | - | - |\n"
+            report += f"| {s} | - | - |\n"
 
     with open("INVENTORY_REPORT.md", "w") as f:
         f.write(report)
