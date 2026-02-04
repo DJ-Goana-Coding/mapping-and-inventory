@@ -7,7 +7,7 @@ import asyncio
 import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from backend.services.vortex import VortexBerserker
 
 # Configure logging
@@ -35,6 +35,14 @@ async def lifespan(app: FastAPI):
         # Initialize the VortexBerserker engine
         logger.info("🏰 CITADEL: VortexBerserker Engine Engaged")
         vortex_engine = VortexBerserker()
+        
+        # Check for required environment variables
+        if not vortex_engine.api_key or not vortex_engine.secret:
+            logger.warning("⚠️  MEXC API credentials not configured!")
+            logger.warning("   Set MEXC_API_KEY and MEXC_SECRET_KEY environment variables")
+            logger.warning("   Trading will be disabled until credentials are provided")
+        else:
+            logger.info("✅ MEXC API credentials found")
         
         # Start the trading engine
         await vortex_engine.start()
@@ -105,9 +113,10 @@ async def root():
 @app.head("/")
 async def root_head():
     """
-    HEAD request handler for health checks
+    HEAD request handler for health checks.
+    Returns 200 OK with no body (HEAD requests should only include headers).
     """
-    return JSONResponse(content={}, status_code=200)
+    return Response(status_code=200)
 
 
 @app.get("/health")
