@@ -33,8 +33,16 @@ class VortexBerserker:
         
         # Core settings
         self.running = False
-        self.pulse_interval = 2  # 2 seconds
+        self.pulse_interval = 2  # 2 seconds (can be adjusted by auto-healer)
+        self.default_pulse_interval = 2  # Default pulse interval
+        self.throttled_pulse_interval = 4  # Throttled pulse interval
         self.stake_amount = 8.00  # $8.00 per slot
+        
+        # Auto-Healer settings
+        self.is_throttled = False
+        self.throttle_count = 0
+        self.last_throttle_time = None
+        self.throttle_recovery_wait = 60  # Wait 60 seconds before trying to recover
         
         # Exchange configuration - MEXC
         self.exchange = None
@@ -67,6 +75,39 @@ class VortexBerserker:
             except Exception as e:
                 print(f"❌ Exchange initialization failed: {e}")
     
+    def _handle_rate_limit_error(self, error):
+        """Auto-Healer: Handle rate limiting by adjusting pulse interval"""
+        error_str = str(error).lower()
+        
+        # Check if this is a rate limit error (429 or rate limit message)
+        is_rate_limit = ('429' in error_str or 
+                        'rate limit' in error_str or 
+                        'too many requests' in error_str)
+        
+        if is_rate_limit and not self.is_throttled:
+            self.is_throttled = True
+            self.throttle_count += 1
+            self.last_throttle_time = datetime.now()
+            self.pulse_interval = self.throttled_pulse_interval
+            print(f"🛡️ AUTO-HEALER ACTIVATED: Rate limit detected (#{self.throttle_count})")
+            print(f"   Pulse interval adjusted: {self.default_pulse_interval}s → {self.throttled_pulse_interval}s")
+            return True
+        return False
+    
+    def _check_throttle_recovery(self):
+        """Auto-Healer: Check if we can recover from throttled state"""
+        if not self.is_throttled:
+            return
+        
+        if self.last_throttle_time:
+            time_since_throttle = (datetime.now() - self.last_throttle_time).total_seconds()
+            
+            if time_since_throttle >= self.throttle_recovery_wait:
+                self.is_throttled = False
+                self.pulse_interval = self.default_pulse_interval
+                print(f"✅ AUTO-HEALER RECOVERY: Perimeter clear")
+                print(f"   Pulse interval restored: {self.throttled_pulse_interval}s → {self.default_pulse_interval}s")
+    
     async def _scan_market(self):
         """Scan entire USDT market and sort by 1-minute momentum"""
         if not self.exchange:
@@ -96,7 +137,9 @@ class VortexBerserker:
                 print(f"   Top 3: {[m['symbol'] for m in self.top_movers[:3]]}")
             
         except Exception as e:
-            print(f"⚠️ Market scan error: {e}")
+            # Auto-Healer: Check if this is a rate limit error
+            if not self._handle_rate_limit_error(e):
+                print(f"⚠️ Market scan error: {e}")
             self.top_movers = []
 
     async def _execute_scalp_logic(self, slot):
@@ -189,16 +232,20 @@ class VortexBerserker:
         slot.pnl = 0.0
 
     async def heartbeat(self):
-        """Main pulse loop - executes every 2 seconds"""
+        """Main pulse loop - executes every 2 seconds (or 4 if throttled)"""
         if not self.running:
             return
         
         await self._init_exchange()
         
+        # Auto-Healer: Check if we can recover from throttled state
+        self._check_throttle_recovery()
+        
         # Scan market for opportunities
         await self._scan_market()
         
-        print(f"💓 Hybrid Swarm Pulse - {len(self.slots)} Slots Active")
+        pulse_status = f"⚡ {self.pulse_interval}s" if not self.is_throttled else f"🛡️ {self.pulse_interval}s (Throttled)"
+        print(f"💓 Hybrid Swarm Pulse - {len(self.slots)} Slots Active | {pulse_status}")
         
         # Execute logic for each slot based on type
         for slot in self.slots:
@@ -261,6 +308,13 @@ class VortexBerserker:
             "pulse_interval": self.pulse_interval,
             "stake_amount": self.stake_amount,
             "top_movers_count": len(self.top_movers),
+            "auto_healer": {
+                "is_throttled": self.is_throttled,
+                "throttle_count": self.throttle_count,
+                "current_pulse": f"{self.pulse_interval}s",
+                "default_pulse": f"{self.default_pulse_interval}s",
+                "throttled_pulse": f"{self.throttled_pulse_interval}s"
+            },
             "slots": slots_data
         }
 
