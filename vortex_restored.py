@@ -47,5 +47,7 @@ class VortexBerserker:
             "slots": [{"id": s.id, "status": s.status, "asset": s.asset} for s in self.slots]
         }
 
-# Ensure legacy imports of VortexEngine map to the hardened Berserker class
+# Backward compatibility alias for legacy imports
+# VortexEngine has been renamed to VortexBerserker for the hardened implementation
+# This alias ensures existing code continues to work without breaking changes
 VortexEngine = VortexBerserker
