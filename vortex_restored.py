@@ -9,7 +9,7 @@ class Slot:
         self.status = "IDLE"
         self.asset = "None"
 
-class VortexEngine:
+class VortexBerserker:
     def __init__(self):
         self.slots = [Slot(i+1) for i in range(7)]
         # Logic Placeholder - refer to strategies.py
@@ -46,3 +46,6 @@ class VortexEngine:
             "status": "RUNNING" if self.running else "STOPPED", 
             "slots": [{"id": s.id, "status": s.status, "asset": s.asset} for s in self.slots]
         }
+
+# Ensure legacy imports of VortexEngine map to the hardened Berserker class
+VortexEngine = VortexBerserker
