@@ -104,7 +104,9 @@ class VortexBerserker:
         if slot.status == "IDLE":
             # Look for entry opportunity
             if self.top_movers:
-                candidate = self.top_movers[0]  # Top momentum coin
+                # Distribute scalp slots across top movers to avoid all trading same coin
+                scalp_index = (slot.id - 1) % len(self.top_movers)
+                candidate = self.top_movers[scalp_index]
                 slot.asset = candidate['symbol']
                 slot.entry_price = candidate['price']
                 slot.current_price = candidate['price']
@@ -122,7 +124,7 @@ class VortexBerserker:
                 
                 # Hard take-profit at 0.4%
                 if slot.current_price >= slot.take_profit:
-                    profit = (slot.current_price - slot.entry_price) * (slot.capital / slot.entry_price)
+                    profit = ((slot.current_price - slot.entry_price) / slot.entry_price) * slot.capital
                     print(f"✅ Slot {slot.id} [SCALP] EXIT: {slot.asset} @ ${slot.current_price:.6f} | Profit: ${profit:.2f}")
                     self._reset_slot(slot)
                     
@@ -134,9 +136,10 @@ class VortexBerserker:
         if slot.status == "IDLE":
             # Look for entry opportunity - strongest momentum
             if len(self.top_movers) > 0:
-                # Grid slots target the strongest movers
-                idx = min(slot.id - self.scalp_slots - 1, len(self.top_movers) - 1)
-                candidate = self.top_movers[idx]
+                # Grid slots target the strongest movers, distributed across available pairs
+                # Prevent index out of bounds
+                grid_index = min((slot.id - self.scalp_slots - 1), len(self.top_movers) - 1)
+                candidate = self.top_movers[grid_index]
                 slot.asset = candidate['symbol']
                 slot.entry_price = candidate['price']
                 slot.current_price = candidate['price']
@@ -166,7 +169,7 @@ class VortexBerserker:
                 
                 # Check exit: 1.5% pullback from peak
                 if slot.current_price <= slot.stop_loss:
-                    profit = (slot.current_price - slot.entry_price) * (slot.capital / slot.entry_price)
+                    profit = ((slot.current_price - slot.entry_price) / slot.entry_price) * slot.capital
                     print(f"🛑 Slot {slot.id} [GRID] EXIT: {slot.asset} @ ${slot.current_price:.6f} | Profit: ${profit:.2f}")
                     self._reset_slot(slot)
                     
