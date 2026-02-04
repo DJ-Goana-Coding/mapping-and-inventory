@@ -5,3 +5,5 @@ google-auth-httplib2
 huggingface_hub
 ccxt
 pandas_ta
+fastapi
+uvicorn[standard]
