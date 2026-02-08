@@ -60,7 +60,7 @@ class VortexBerserker:
 
     async def _init_exchange(self):
         """Initialize MEXC exchange connection"""
-        if not self.exchange and self.api_key:
+        if not self.exchange and self.api_key and self.secret:
             try:
                 self.exchange = ccxt.mexc({
                     'apiKey': self.api_key,
@@ -74,6 +74,12 @@ class VortexBerserker:
                 print("✅ MEXC Exchange initialized successfully")
             except Exception as e:
                 print(f"❌ Exchange initialization failed: {e}")
+                print(f"   Check your MEXC_API_KEY and MEXC_SECRET_KEY credentials")
+                self.exchange = None
+        elif not self.api_key or not self.secret:
+            print("⚠️  MEXC API credentials not configured")
+            print("   Trading functionality will be disabled")
+            print("   Set MEXC_API_KEY and MEXC_SECRET_KEY environment variables to enable trading")
     
     def _handle_rate_limit_error(self, error):
         """Auto-Healer: Handle rate limiting by adjusting pulse interval"""
