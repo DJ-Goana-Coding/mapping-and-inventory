@@ -28,13 +28,14 @@ ENV HUGGINGFACE_TOKEN=""
 ENV PIONEER_TRADER_URL=""
 ENV PIONEER_AUTH_TOKEN=""
 ENV SHADOW_ARCHIVE_PATH=/app/shadow_archive
+ENV PORT=8000
 
 # Create shadow archive directory
 RUN mkdir -p /app/shadow_archive
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD python -c "import requests; requests.get('http://localhost:8000/health', timeout=5)" || exit 1
+  CMD python -c "import sys; import requests; sys.exit(0 if requests.get('http://localhost:8000/health', timeout=5).status_code == 200 else 1)" || exit 1
 
 # Expose port for FastAPI
 EXPOSE 8000
