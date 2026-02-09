@@ -7,3 +7,4 @@ ccxt
 pandas_ta
 fastapi
 uvicorn[standard]
+requests
