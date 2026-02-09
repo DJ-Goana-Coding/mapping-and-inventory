@@ -9,7 +9,7 @@ import tempfile
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+SCOPES = ['https://www.googleapis.com/auth/drive']
 DRIVE_FOLDER_NAME = 'CITADEL-BOT'
 
 def get_drive_service():

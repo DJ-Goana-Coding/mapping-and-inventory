@@ -190,7 +190,7 @@ def sync_fleet_manifest():
             logger.warning("fleet_manifest.json not found in CITADEL-BOT folder")
             return None
         
-        # Calculate manifest hash
+        # Calculate manifest hash (MD5 is sufficient for change detection, not security)
         manifest_json = json.dumps(manifest_data, sort_keys=True)
         manifest_hash = hashlib.md5(manifest_json.encode()).hexdigest()
         

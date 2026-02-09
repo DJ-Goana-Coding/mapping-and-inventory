@@ -16,10 +16,11 @@ async def hourly_backup_task(get_positions_callback):
     """
     while True:
         try:
-            await asyncio.sleep(3600)  # 1 hour
-            
+            # Perform backup immediately on start, then every hour
             positions = get_positions_callback()
             backup_active_positions(positions)
+            
+            await asyncio.sleep(3600)  # 1 hour
             
         except Exception as e:
             logger.error(f"Error in hourly backup task: {e}")
