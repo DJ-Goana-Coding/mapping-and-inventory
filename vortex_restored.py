@@ -68,9 +68,13 @@ class VortexBerserker:
         self.piranha_take_profit = 0.004      # 0.4% quick wins
         self.harvester_trail_step = 0.005     # 0.5% trail increment
         self.harvester_exit_pullback = 0.015  # 1.5% stop loss from peak
+        self.harvester_min_momentum = 2.0     # 2% minimum momentum threshold
         self.sniper_ema_fast = 9              # Fast EMA for crossover
         self.sniper_ema_slow = 21             # Slow EMA for crossover
         self.sniper_min_confidence = 0.85     # 85% confidence threshold
+        self.sniper_crossover_threshold = 0.3 # 0.3% minimum EMA separation
+        self.sniper_take_profit_pct = 0.015   # 1.5% target
+        self.sniper_stop_loss_pct = 0.005     # 0.5% stop
         
         # Market data cache
         self.top_movers = []
@@ -206,7 +210,7 @@ class VortexBerserker:
                 candidate = self.top_movers[harvester_index]
                 
                 # Require minimum momentum threshold
-                if candidate['momentum'] < 2.0:  # Must be moving at least 2%
+                if candidate['momentum'] < self.harvester_min_momentum:
                     return
                 
                 slot.asset = candidate['symbol']
@@ -271,16 +275,16 @@ class VortexBerserker:
                     # Check for bullish crossover with strong separation
                     crossover_strength = (ema9 - ema21) / ema21 * 100
                     
-                    # SNIPER FIRES: EMA9 > EMA21 AND separation > 0.3%
-                    if ema9 > ema21 and crossover_strength > 0.3:
+                    # SNIPER FIRES: EMA9 > EMA21 AND separation > threshold
+                    if ema9 > ema21 and crossover_strength > self.sniper_crossover_threshold:
                         confidence = min(0.85 + (crossover_strength * 0.1), 0.99)
                         
                         if confidence >= self.sniper_min_confidence:
                             slot.asset = candidate['symbol']
                             slot.entry_price = candidate['price']
                             slot.current_price = candidate['price']
-                            slot.take_profit = slot.entry_price * 1.015  # 1.5% target
-                            slot.stop_loss = slot.entry_price * 0.995    # 0.5% stop
+                            slot.take_profit = slot.entry_price * (1 + self.sniper_take_profit_pct)
+                            slot.stop_loss = slot.entry_price * (1 - self.sniper_stop_loss_pct)
                             slot.status = "ACTIVE"
                             slot.entry_time = datetime.now()
                             print(f"🎯 [T.I.A.] Slot {slot.id} [SNIPER] LOCKED: {slot.asset} @ ${slot.entry_price:.6f} | Confidence: {confidence:.2%} | Crossover: {crossover_strength:.2f}%")
@@ -308,11 +312,18 @@ class VortexBerserker:
                 print(f"⚠️ [T.I.A.] Slot {slot.id} price check failed: {e}")
 
     def _calculate_ema(self, data, period):
-        """Calculate Exponential Moving Average"""
-        multiplier = 2 / (period + 1)
-        ema = data[0]  # Start with first price
+        """Calculate Exponential Moving Average with proper SMA initialization"""
+        if len(data) < period:
+            return data[-1]  # Not enough data, return last price
         
-        for price in data[1:]:
+        # Start with Simple Moving Average of first 'period' values
+        sma = sum(data[:period]) / period
+        
+        # Apply exponential smoothing to remaining values
+        multiplier = 2 / (period + 1)
+        ema = sma
+        
+        for price in data[period:]:
             ema = (price - ema) * multiplier + ema
         
         return ema

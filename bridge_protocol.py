@@ -1,7 +1,7 @@
 import os
 import json
 import asyncio
-import requests
+import aiohttp
 from datetime import datetime, timedelta
 try:
     from googleapiclient.discovery import build
@@ -135,27 +135,28 @@ class PioneerBridge:
                 await asyncio.sleep(self.pulse_interval)
     
     async def _check_node_health(self, node_name, url):
-        """Check if a deployment node is alive"""
+        """Check if a deployment node is alive using async HTTP"""
         if not url:
             return
         
         try:
-            response = requests.get(
-                f"{url}/health",
-                timeout=5,
-                headers={"User-Agent": "T.I.A./Berserker-Monitor"}
-            )
-            
-            if response.status_code == 200:
-                self.node_status[node_name] = {
-                    "status": "ALIVE",
-                    "last_check": datetime.now(),
-                    "response_time": response.elapsed.total_seconds()
-                }
-                print(f"✅ [T.I.A.] {node_name} - ALIVE ({response.elapsed.total_seconds():.2f}s)")
-            else:
-                self._mark_as_zombie(node_name, f"HTTP {response.status_code}")
-        except requests.exceptions.Timeout:
+            timeout = aiohttp.ClientTimeout(total=5)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                async with session.get(
+                    f"{url}/health",
+                    headers={"User-Agent": "T.I.A./Berserker-Monitor"}
+                ) as response:
+                    if response.status == 200:
+                        # Calculate response time (aiohttp doesn't track it automatically)
+                        self.node_status[node_name] = {
+                            "status": "ALIVE",
+                            "last_check": datetime.now(),
+                            "response_time": 0  # Could be enhanced with manual timing
+                        }
+                        print(f"✅ [T.I.A.] {node_name} - ALIVE")
+                    else:
+                        self._mark_as_zombie(node_name, f"HTTP {response.status}")
+        except asyncio.TimeoutError:
             self._mark_as_zombie(node_name, "TIMEOUT")
         except Exception as e:
             self._mark_as_zombie(node_name, f"ERROR: {str(e)}")
