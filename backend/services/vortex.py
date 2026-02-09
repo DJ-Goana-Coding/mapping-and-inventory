@@ -1,3 +1,4 @@
+from typing import Dict, List, Optional, Tuple, Any, Union
 import os, asyncio, json, logging, time
 import ccxt.async_support as ccxt
 from datetime import datetime

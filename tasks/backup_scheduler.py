@@ -1,6 +1,7 @@
 """
 Background task for hourly position backups to Google Drive
 """
+from typing import Dict, List, Optional, Tuple, Any, Union
 import asyncio
 import logging
 from bridge_protocol import backup_active_positions
