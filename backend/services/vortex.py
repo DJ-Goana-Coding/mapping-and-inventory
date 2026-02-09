@@ -1,7 +1,5 @@
 import os, asyncio, json, logging, time
 import ccxt.async_support as ccxt
-import pandas as pd
-import pandas_ta as ta
 from datetime import datetime
 from huggingface_hub import HfApi
 
@@ -9,6 +7,12 @@ from huggingface_hub import HfApi
 logger = logging.getLogger("vortex")
 
 class VortexBerserker:
+    # Trading constants
+    BANKING_FLOW_THRESHOLD = -1.0  # BTC/USDT percentage threshold for positive flow
+    SNIPER_PROFIT_TARGET = 1.015   # 1.5% profit target for Sniper trades
+    PIRANHA_PROFIT_TARGET = 1.004  # 0.4% profit target for Piranha trades
+    HARVESTER_PULLBACK = 0.985     # 1.5% pullback from peak for Harvester exit
+    
     def __init__(self):
         # 1. FLEET CONFIGURATION (2/3/1/1 Split)
         self.PIRANHA_SLOTS = [1, 2]         # 0.4% Scalps
@@ -19,17 +23,21 @@ class VortexBerserker:
         self.base_stake = 8.00
         self.stop_loss_pct = 0.015
         self.max_slots = 7
+        
+        # Trading universe - reserved for future slot assignment logic
         self.universe = ['SOL/USDT', 'XRP/USDT', 'DOGE/USDT', 'ADA/USDT', 'PEPE/USDT', 'PEOPLE/USDT', 'SUI/USDT']
         
         # 2. EXCHANGE & SECURITY
         self.api_key = os.getenv('MEXC_API_KEY')
-        self.secret = os.getenv('MEXC_SECRET')
+        self.secret = os.getenv('MEXC_SECRET_KEY')  # Matches main.py convention
         self.mexc = ccxt.mexc({
             'apiKey': self.api_key,
             'secret': self.secret,
             'enableRateLimit': True,
             'options': {'defaultType': 'spot'}
         })
+        
+        # Blacklist - reserved for future symbol filtering logic
         self.blacklisted = set(['PENGUIN/USDT'])
         
         # 3. STATE & UPLINKS
@@ -70,24 +78,27 @@ class VortexBerserker:
                     repo_id=self.hf_repo,
                     token=self.hf_token
                 )
-            except Exception as e: self._log(f"⚠️ HF UPLINK FAIL: {e}")
+            except Exception as e:
+                self._log(f"⚠️ HF UPLINK FAIL: {e}")
 
     async def _secure_airgap_dump(self, trade_data):
         try:
             os.makedirs(self.shadow_path, exist_ok=True)
             with open(f"{self.shadow_path}/trades.jsonl", "a") as f:
                 f.write(json.dumps(trade_data) + "\n")
-        except Exception as e: self._log(f"⚠️ AIRGAP FAIL: {e}")
+        except Exception as e:
+            self._log(f"⚠️ AIRGAP FAIL: {e}")
 
     async def analyze_banking_flow(self):
         """Wing D: Slot 7 - Monitors global USDT flow to block risky buys."""
         try:
             # Simplified flow analysis for pulse
             ticker = await self.mexc.fetch_ticker('BTC/USDT')
-            self.banking_flow = 1.0 if ticker['percentage'] > -1.0 else -1.0
+            self.banking_flow = 1.0 if ticker['percentage'] > self.BANKING_FLOW_THRESHOLD else -1.0
             if self.banking_flow < 0:
                 self._log("🛡️ BANKING SENTRY: Negative flow detected. Buys throttled.")
-        except: pass
+        except Exception as e:
+            self._log(f"⚠️ BANKING FLOW CHECK FAIL: {e}")
 
     async def pulse_monitor(self):
         """The 2-second pulse monitoring exits and rungs."""
@@ -98,7 +109,7 @@ class VortexBerserker:
                 
                 # SNIPER/PIRANHA Logic
                 if trade['wing'] == "SNIPER" or trade['wing'] == "PIRANHA":
-                    target = 1.015 if trade['wing'] == "SNIPER" else 1.004
+                    target = self.SNIPER_PROFIT_TARGET if trade['wing'] == "SNIPER" else self.PIRANHA_PROFIT_TARGET
                     if curr >= trade['entry'] * target:
                         await self.execute_exit(slot, "💰 PROFIT")
                     elif curr <= trade['entry'] * (1 - self.stop_loss_pct):
@@ -107,9 +118,10 @@ class VortexBerserker:
                 # HARVESTER Trailing
                 elif trade['wing'] == "HARVESTER":
                     if curr > trade['peak']: trade['peak'] = curr
-                    if curr <= trade['peak'] * 0.985:
+                    if curr <= trade['peak'] * self.HARVESTER_PULLBACK:
                         await self.execute_exit(slot, "🌾 HARVEST")
-            except Exception as e: self._log(f"⚠️ MONITOR FAIL {slot}: {e}")
+            except Exception as e:
+                self._log(f"⚠️ MONITOR FAIL {slot}: {e}")
 
     async def execute_exit(self, slot_id, reason):
         trade = self.active_trades[slot_id]
@@ -125,7 +137,9 @@ class VortexBerserker:
                 await self._secure_airgap_dump(trade)
             del self.active_trades[slot_id]
         except Exception as e:
-            if "30005" in str(e): del self.active_trades[slot_id]
+            # MEXC error code 30005: Order not found / insufficient balance
+            if "30005" in str(e):
+                del self.active_trades[slot_id]
             self._log(f"❌ EXIT ERROR: {e}")
 
     async def start(self):
