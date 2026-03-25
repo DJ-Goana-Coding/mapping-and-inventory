@@ -7,3 +7,6 @@ ccxt
 pandas_ta
 fastapi
 uvicorn[standard]
+# Brain / RAG layer
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
