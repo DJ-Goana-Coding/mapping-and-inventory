@@ -8,16 +8,42 @@ If the proposed content is semantically similar (>= *threshold*, default 85 %)
 to **any** document already in the brain vault the guardian issues a
 **Hard Veto** — raising ``GuardianVetoError`` — so the existing scaffolding
 is never silently overwritten.
+
+Blocked overwrite attempts are appended to ``SECURITY_ALERTS.log`` in the
+repository root so the Commander can audit all veto events.
 """
 from __future__ import annotations
 
+import datetime
 import logging
+import os
+import pathlib
 from dataclasses import dataclass, field
 from typing import Any
 
 from brain.indexer import get_collection, query as vault_query
 
 logger = logging.getLogger(__name__)
+
+# Path for the security audit log (relative to the repo root)
+_REPO_ROOT = pathlib.Path(__file__).parent.parent
+SECURITY_ALERTS_LOG: pathlib.Path = _REPO_ROOT / "SECURITY_ALERTS.log"
+
+
+def _append_security_alert(similarity: float, matching_source: str, proposed_snippet: str) -> None:
+    """Append a single blocked-write record to SECURITY_ALERTS.log."""
+    timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    entry = (
+        f"[{timestamp}] GUARDIAN VETO | "
+        f"similarity={similarity:.1%} | "
+        f"matching_source={matching_source!r} | "
+        f"snippet={proposed_snippet[:80]!r}\n"
+    )
+    try:
+        with SECURITY_ALERTS_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(entry)
+    except OSError as exc:
+        logger.warning("Guardian: could not write SECURITY_ALERTS.log (%s).", exc)
 
 # Default cosine-similarity threshold for issuing a veto (0 = identical, 1 = orthogonal
 # in ChromaDB's cosine-distance representation where distance = 1 - similarity).
@@ -153,6 +179,7 @@ class Guardian:
         )
 
         if best_similarity >= self.threshold:
+            _append_security_alert(best_similarity, best_source, proposed_content)
             result = GuardianResult(
                 vetoed=True,
                 similarity=best_similarity,
