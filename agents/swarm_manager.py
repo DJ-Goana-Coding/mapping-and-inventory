@@ -22,6 +22,7 @@ import asyncio
 import logging
 import os
 import pathlib
+from datetime import datetime, timezone
 from typing import Any
 
 from brain.indexer import (
@@ -43,6 +44,11 @@ MEDIC_INTERVAL: int = int(os.getenv("MEDIC_INTERVAL", "120"))           # 2 min
 MAX_FAILURES: int = int(os.getenv("SWARM_MAX_FAILURES", "3"))
 
 _REPO_ROOT = pathlib.Path(__file__).parent.parent
+
+# Module-level timestamp updated by the Medic each time it completes a
+# 369-frequency signature verification pass.  Exposed via SwarmController
+# so the /api/v1/nexus/status endpoint can report the last verification time.
+_last_freq_verification: datetime | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -199,8 +205,12 @@ async def _medic_worker(
 def _medic_signature_check() -> None:
     """
     Sample records from the vault and verify the 369-frequency signature.
-    Logs warnings for any records that fail verification.
+
+    Logs warnings for any records that fail verification and updates the
+    module-level ``_last_freq_verification`` timestamp on completion.
     """
+    global _last_freq_verification
+
     collection = get_collection()
     try:
         # Peek at up to 50 records
@@ -229,6 +239,8 @@ def _medic_signature_check() -> None:
             len(metadatas),
             FREQ_SIGNATURE,
         )
+
+    _last_freq_verification = datetime.now(timezone.utc)
 
 
 # ---------------------------------------------------------------------------
@@ -301,6 +313,16 @@ class SwarmController:
             else:
                 statuses[name] = "failed" if task.exception() else "stopped"
         return statuses
+
+    @staticmethod
+    def last_freq_verification() -> str | None:
+        """
+        Return the ISO-8601 UTC timestamp of the Medic's most recent
+        369-frequency signature verification, or *None* if not yet run.
+        """
+        if _last_freq_verification is None:
+            return None
+        return _last_freq_verification.isoformat()
 
 
 # ---------------------------------------------------------------------------
