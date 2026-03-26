@@ -18,6 +18,7 @@ import datetime
 import logging
 import os
 import pathlib
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -28,6 +29,40 @@ logger = logging.getLogger(__name__)
 # Path for the security audit log (relative to the repo root)
 _REPO_ROOT = pathlib.Path(__file__).parent.parent
 SECURITY_ALERTS_LOG: pathlib.Path = _REPO_ROOT / "SECURITY_ALERTS.log"
+
+# ---------------------------------------------------------------------------
+# 5-File Purification — protected core-logic filenames
+# ---------------------------------------------------------------------------
+# Writes targeting any of these filenames are unconditionally blocked to
+# preserve the integrity of the sovereign execution environment.
+_PURIFICATION_FILES: frozenset[str] = frozenset(
+    {
+        "brain.py",
+        "logger.py",
+        "bridge.py",
+        "gatekeeper.py",
+        "run_trader.py",
+    }
+)
+
+# ---------------------------------------------------------------------------
+# Ghost Protocol — credential / PII redaction patterns
+# ---------------------------------------------------------------------------
+# Applied before any cloud-mirroring event to strip raw API keys, ABNs, and
+# common PII from outbound content.  Patterns are ordered by specificity.
+_REDACTION_RULES: list[tuple[re.Pattern[str], str]] = [
+    # Australian Business Number: XX XXX XXX XXX or XX-XXX-XXX-XXX
+    (re.compile(r"\b\d{2}[\s\-]\d{3}[\s\-]\d{3}[\s\-]\d{3}\b"), "[REDACTED_ABN]"),
+    # Generic API / secret key — long hex or base64-like token (≥40 chars).
+    # 40-char threshold reduces false positives from long-but-non-sensitive
+    # identifiers (e.g. file hashes, UUIDs) while still catching typical key
+    # formats (HuggingFace: hf_..., GitHub: ghp_..., OpenAI: sk-...).
+    (re.compile(r"\b[A-Za-z0-9_\-]{40,}\b"), "[REDACTED_TOKEN]"),
+    # Email addresses
+    (re.compile(r"\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b"), "[REDACTED_EMAIL]"),
+    # Phone numbers (international and local Australian formats)
+    (re.compile(r"\b(?:\+61|0)[2-9]\d{8}\b"), "[REDACTED_PHONE]"),
+]
 
 
 def _append_security_alert(similarity: float, matching_source: str, proposed_snippet: str) -> None:
@@ -60,6 +95,45 @@ def _append_corruption_alert(system_id: str, matching_source: str, proposed_snip
             fh.write(entry)
     except OSError as exc:
         logger.warning("Guardian: could not write SECURITY_ALERTS.log (%s).", exc)
+
+
+def _append_purification_alert(filepath: str) -> None:
+    """Append a 5-File Purification veto record to SECURITY_ALERTS.log."""
+    timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    entry = (
+        f"[{timestamp}] PURIFICATION VETO | "
+        f"filepath={filepath!r} is a protected sovereign file — write blocked.\n"
+    )
+    try:
+        with SECURITY_ALERTS_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(entry)
+    except OSError as exc:
+        logger.warning("Guardian: could not write SECURITY_ALERTS.log (%s).", exc)
+
+
+def redact_credentials(text: str) -> str:
+    """
+    Ghost Protocol — redact API keys, ABN details, and PII from *text*.
+
+    Applies the :data:`_REDACTION_RULES` patterns in order, replacing each
+    match with its corresponding placeholder.  Call this function before any
+    cloud-mirroring event to prevent raw credentials or personal data from
+    leaving the local environment.
+
+    Parameters
+    ----------
+    text:
+        The raw string to sanitise.
+
+    Returns
+    -------
+    str
+        A copy of *text* with all matched sensitive patterns replaced by
+        safe placeholders (e.g. ``[REDACTED_TOKEN]``, ``[REDACTED_EMAIL]``).
+    """
+    for pattern, placeholder in _REDACTION_RULES:
+        text = pattern.sub(placeholder, text)
+    return text
 
 
 def prepare_system_recovery(system_id: str) -> list[dict]:
@@ -271,11 +345,28 @@ class Guardian:
         Write *content* to *filepath* only after a successful guardian check.
 
         Raises ``GuardianVetoError`` if the content is too similar to
-        existing vault documents.
+        existing vault documents.  Additionally enforces the **5-File
+        Purification** rule: writes to any of the protected sovereign files
+        (``brain.py``, ``logger.py``, ``bridge.py``, ``gatekeeper.py``,
+        ``run_trader.py``) are unconditionally blocked regardless of
+        similarity score.
         """
-        self.check(content, raise_on_veto=True)
-        import pathlib
+        # 5-File Purification — hard block on protected sovereign filenames.
+        target_name = pathlib.Path(filepath).name
+        if target_name in _PURIFICATION_FILES:
+            _append_purification_alert(filepath)
+            logger.warning(
+                "Guardian: 5-File Purification VETO — '%s' is a protected file.",
+                filepath,
+            )
+            raise GuardianVetoError(
+                1.0,
+                filepath,
+                f"5-File Purification Hard Veto — '{filepath}' is a protected "
+                "sovereign file and cannot be overwritten.",
+            )
 
+        self.check(content, raise_on_veto=True)
         path = pathlib.Path(filepath)
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")

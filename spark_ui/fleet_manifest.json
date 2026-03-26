@@ -211,6 +211,48 @@
       "default_status": "INACTIVE"
     }
   },
+  "district_health": {
+    "description": "Per-district integrity metrics. Each entry reports the district canonical ID, its operational status, chunk count in the brain vault, last-indexed timestamp, and the owning sovereign node.",
+    "districts": [
+      {"id": "01", "canonical": "01_GENESIS_CORE",        "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "Genesis"},
+      {"id": "02", "canonical": "02_INTELLIGENCE_LAYER",  "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
+      {"id": "03", "canonical": "03_COMMAND_CONTROL",     "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
+      {"id": "04", "canonical": "04_OUTPUT_HARVEST",      "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
+      {"id": "05", "canonical": "05_MARKET_SIGNALS",      "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "pioneer-trader"},
+      {"id": "06", "canonical": "06_MEMORY_ARCHIVE",      "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
+      {"id": "07", "canonical": "07_TRADER",              "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "pioneer-trader"},
+      {"id": "08", "canonical": "08_SECURITY_PERIMETER",  "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "perimeter-scout"},
+      {"id": "09", "canonical": "09_LEGAL_CLEARANCE",     "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "CGAL_Core"},
+      {"id": "10", "canonical": "10_RESOURCE_ALLOCATION", "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "Harvestmoon"},
+      {"id": "11", "canonical": "11_SWARM_INTELLIGENCE",  "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "perimeter-scout"},
+      {"id": "12", "canonical": "12_ORACLE_ETHICS",       "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "CGAL_Core"}
+    ],
+    "status_values": ["NOMINAL", "SYNCING", "DEGRADED", "OFFLINE", "UNKNOWN"]
+  },
+  "temporal_layer": {
+    "description": "Tracks the ingestion status of time-series and personal-history datasets. Each entry reflects whether the dataset has been ingested into the brain vault and the last-known ingestion timestamp.",
+    "datasets": [
+      {
+        "id": "google_takeout_location",
+        "name": "Google Takeout — Location History",
+        "source": "Google Takeout",
+        "district": "06_MEMORY_ARCHIVE",
+        "ingestion_status": "PENDING",
+        "last_ingested": null,
+        "notes": "Semantic Place History and Timeline JSON exports from Google Takeout."
+      },
+      {
+        "id": "google_takeout_search",
+        "name": "Google Takeout — Search History",
+        "source": "Google Takeout",
+        "district": "06_MEMORY_ARCHIVE",
+        "ingestion_status": "PENDING",
+        "last_ingested": null,
+        "notes": "My Activity JSON exports including Search and YouTube history."
+      }
+    ],
+    "ingestion_status_values": ["PENDING", "IN_PROGRESS", "COMPLETE", "FAILED", "STALE"]
+  },
   "cloud_nodes": [
     {"name": "Tias Pioneer Trader", "env_var": "HF_SPACE_TIAS_PIONEER", "system": "pioneer-trader"},
     {"name": "Tias Sentinel Scout Swarm", "env_var": "HF_SPACE_SENTINEL_SWARM", "system": "perimeter-scout"},

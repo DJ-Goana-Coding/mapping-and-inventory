@@ -116,6 +116,34 @@ _S10_SPOKE_KEYWORDS: dict[str, str] = {
     "Omega": "Oppo_Omega",
 }
 
+# ---------------------------------------------------------------------------
+# Avellaneda-Stoikov Bible Logic Protection
+# ---------------------------------------------------------------------------
+# Tokens that together identify an implementation of the Avellaneda-Stoikov
+# market-making spread formula:
+#   s = γσ²(T-t) + (2/γ) ln(1 + κ/γ)
+# A chunk must contain at least one token from *each* group to be tagged as
+# Bible-Verified.
+_AS_GROUP_A: tuple[str, ...] = (
+    "avellaneda",
+    "stoikov",
+    "reservation_spread",
+    "optimal_spread",
+    "indifference_price",
+)
+_AS_GROUP_B: tuple[str, ...] = (
+    "gamma",
+    "risk_aversion",
+)
+_AS_GROUP_C: tuple[str, ...] = (
+    "kappa",
+    "market_depth",
+)
+_AS_GROUP_D: tuple[str, ...] = (
+    "sigma",
+    "volatility",
+)
+
 # ChromaDB collection name
 _COLLECTION_NAME: str = "mapping_inventory_brain"
 
@@ -224,6 +252,41 @@ def _detect_cgal_link(text: str) -> bool:
         if re.search(pattern, text):
             return True
     return False
+
+
+def _detect_avellaneda_stoikov(text: str) -> bool:
+    """
+    Return *True* when *text* contains an implementation of the
+    Avellaneda-Stoikov market-making spread formula.
+
+    The check uses a two-path heuristic:
+
+    * **Explicit path**: the chunk contains a direct formula name from
+      ``_AS_GROUP_A`` (e.g. ``"avellaneda"``, ``"stoikov"``,
+      ``"reservation_spread"``).  These tokens are specific enough to be
+      conclusive on their own.
+    * **Implicit path**: the chunk simultaneously contains tokens from all
+      three variable groups ``_AS_GROUP_B`` (risk-aversion parameter γ),
+      ``_AS_GROUP_C`` (market-depth parameter κ), and ``_AS_GROUP_D``
+      (volatility σ).  Requiring all three prevents single-variable
+      false-positives (e.g. a file that only mentions ``sigma``).
+
+    When *True* the caller should set ``bible_verified: "Avellaneda-Stoikov"``
+    on the resulting metadata record.
+    """
+    lowered = text.lower()
+
+    def _any(group: tuple[str, ...]) -> bool:
+        return any(tok in lowered for tok in group)
+
+    return (
+        _any(_AS_GROUP_A)
+        or (
+            _any(_AS_GROUP_B)
+            and _any(_AS_GROUP_C)
+            and _any(_AS_GROUP_D)
+        )
+    )
 
 
 def _is_bible_file(filepath: pathlib.Path) -> bool:
@@ -338,6 +401,14 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
         if _detect_cgal_link(chunk):
             meta["cgal_link"] = "CGAL_Core"
             logger.debug("CGAL cross-link detected in %s chunk %d.", filepath, idx)
+        # Bible Logic Protection — Avellaneda-Stoikov formula verification.
+        if _detect_avellaneda_stoikov(chunk):
+            meta["bible_verified"] = "Avellaneda-Stoikov"
+            logger.debug(
+                "Avellaneda-Stoikov formula detected (Bible-Verified) in %s chunk %d.",
+                filepath,
+                idx,
+            )
         metadatas.append(meta)
 
     collection.upsert(ids=ids, documents=documents, metadatas=metadatas)
@@ -433,6 +504,9 @@ def index_text(
         # CGAL / 1986 Legal Stack cross-link — applies to all ingested content.
         if _detect_cgal_link(chunk):
             meta["cgal_link"] = "CGAL_Core"
+        # Bible Logic Protection — Avellaneda-Stoikov formula verification.
+        if _detect_avellaneda_stoikov(chunk):
+            meta["bible_verified"] = "Avellaneda-Stoikov"
         if extra_metadata:
             meta.update(extra_metadata)
         metadatas.append(meta)
