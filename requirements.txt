@@ -1,12 +1,13 @@
-google-api-python-client==2.100.0
-google-auth==2.23.0
-google-auth-oauthlib==1.1.0
-google-auth-httplib2==0.1.1
-huggingface_hub
-ccxt
-pandas_ta
-fastapi
-uvicorn[standard]
+google-api-python-client==2.193.0
+google-auth==2.49.1
+google-auth-oauthlib==1.3.0
+google-auth-httplib2==0.3.0
+requests>=2.32.0
+huggingface_hub>=0.26.0
+ccxt>=4.4.0
+pandas_ta>=0.3.14b
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
 # Brain / RAG layer
 chromadb>=0.5.0
 sentence-transformers>=3.0.0
