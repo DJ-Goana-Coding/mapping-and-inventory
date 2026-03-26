@@ -59,6 +59,8 @@ _SYSTEM_ORIGIN_MAP: list[tuple[str, str]] = [
     ("fleet_registry/Harvestmoon", "Harvestmoon"),
     ("nodes/S10_Phalanx", "S10_Phalanx"),
     ("nodes/Oppo_Omega", "Oppo_Omega"),
+    ("nodes/District_01_COMMAND_INPUT", "District_01_COMMAND_INPUT"),
+    ("nodes/District_04_OUTPUT_HARVEST", "District_04_OUTPUT_HARVEST"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -81,6 +83,21 @@ _DISTRICT_MAP: dict[str, str] = {
     "11": "11_SWARM_INTELLIGENCE",
     "12": "12_ORACLE_ETHICS",
 }
+
+# ---------------------------------------------------------------------------
+# D01→D04 Pipeline loop tag
+# ---------------------------------------------------------------------------
+# Source fragments that identify a vector as flowing through the
+# Command-Harvest (01→04) pipeline.  When any of these appear in a
+# source label the record receives ``district_loop: "01_to_04"`` metadata
+# so T.I.A. can trace a permanent D04 log entry back to its D01 command.
+_D01_TO_D04_SOURCES: tuple[str, ...] = (
+    "District_01_COMMAND_INPUT",
+    "District_04_OUTPUT_HARVEST",
+    "district_1_4_bridge::",
+    "TOTAL_CITADEL_MAP",
+    "MASTER_SYSTEM_MAP",
+)
 
 # Keywords used for CGAL / Legal Stack cross-linking.
 # Any file referencing these strings is tagged with a link to CGAL_Core,
@@ -232,6 +249,24 @@ def _detect_district(source: str) -> str | None:
     return None
 
 
+def _detect_district_loop(source: str) -> str | None:
+    """
+    Return ``"01_to_04"`` when *source* identifies a vector flowing through
+    the Command-Harvest pipeline (District 01 → District 04).
+
+    Matches against :data:`_D01_TO_D04_SOURCES` fragments so that records
+    ingested via the D01 watcher, the D14 bridge, or the D04 archiver are
+    tagged consistently.  T.I.A. uses this tag to trace a permanent D04 log
+    entry back to its originating D01 command.
+
+    Returns ``None`` for all other sources.
+    """
+    for fragment in _D01_TO_D04_SOURCES:
+        if fragment in source:
+            return "01_to_04"
+    return None
+
+
 def _detect_cgal_link(text: str) -> bool:
     """
     Return *True* if *text* references CGAL or the 1986 Legal Stack.
@@ -364,6 +399,9 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
     # District tagging — detect which of the 12 Dimensional Districts this file belongs to.
     district = _detect_district(rel_path)
 
+    # D01→D04 loop tag — marks vectors flowing through the Command-Harvest pipeline.
+    district_loop = _detect_district_loop(rel_path)
+
     # Self-Healing Protocol — flag Bible / core-logic files for reboot export.
     is_bible = _is_bible_file(filepath)
 
@@ -384,6 +422,9 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
         # District tag — identifies which of the 12 Dimensional Districts owns this record.
         if district:
             meta["district"] = district
+        # D01→D04 Command-Harvest pipeline tag — enables T.I.A. closed-loop tracing.
+        if district_loop:
+            meta["district_loop"] = district_loop
         # Self-Healing flag — marks Bible/core-logic records for reboot export.
         if is_bible:
             meta["is_bible"] = "true"
@@ -483,6 +524,9 @@ def index_text(
     # District tagging — detect district from the source label.
     district = _detect_district(source)
 
+    # D01→D04 loop tag — marks vectors flowing through the Command-Harvest pipeline.
+    district_loop = _detect_district_loop(source)
+
     chunks = _chunk_text(text)
     ids, documents, metadatas = [], [], []
     for idx, chunk in enumerate(chunks):
@@ -501,6 +545,9 @@ def index_text(
         # District tag — identifies which of the 12 Dimensional Districts owns this record.
         if district:
             meta["district"] = district
+        # D01→D04 Command-Harvest pipeline tag — enables T.I.A. closed-loop tracing.
+        if district_loop:
+            meta["district_loop"] = district_loop
         # CGAL / 1986 Legal Stack cross-link — applies to all ingested content.
         if _detect_cgal_link(chunk):
             meta["cgal_link"] = "CGAL_Core"
