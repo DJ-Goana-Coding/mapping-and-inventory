@@ -1,0 +1,88 @@
+name: "Nexus Sync — Operation TOTALITY"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  nexus-sync:
+    name: "TOTALITY — Multi-Node Ingestion & Brain Sync"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    env:
+      # Task 1: Inject GitHub Secrets into the runner environment so every
+      # Python module that calls os.environ.get() picks them up automatically.
+      DRIVE_SERVICE_KEY: ${{ secrets.DRIVE_SERVICE_KEY }}
+      HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install dependencies"
+        run: pip install -r requirements.txt
+
+      # Task 2: Ghost-Memory Infiltration
+      # Force-index TOTALITY.json, KNOWLEDGE_GRAPH.json, and *ghost_deep_scan*
+      # files into the brain vault regardless of .gitignore rules.
+      - name: "Task 2 — Ghost-Memory Infiltration (local manifests)"
+        run: |
+          python - <<'EOF'
+          from brain.indexer import index_ghost_manifests, get_collection
+          col = get_collection()
+          total = index_ghost_manifests(col)
+          print(f"✅ Ghost manifests indexed: {total} chunks committed to vault")
+          EOF
+
+      # Task 3: 1TB Rack Recursive Vacuum (Google Drive → Citadel)
+      - name: "Task 3 — 1TB Rack Recursive Vacuum (Google Drive Citadel)"
+        run: |
+          python - <<'EOF'
+          import os
+          if not (os.getenv("DRIVE_SERVICE_KEY") or os.getenv("GOOGLE_CREDENTIALS_B64")):
+              print("⚠️  DRIVE_SERVICE_KEY not configured — skipping Drive sync")
+          else:
+              from core.drive_nexus import ingest_citadel
+              total = ingest_citadel()
+              print(f"✅ Citadel ingestion complete: {total} chunks committed to vault")
+          EOF
+
+      # Task 4: 20GB Garage Model Sync (Hugging Face)
+      - name: "Task 4 — 20GB Garage Model Sync (Hugging Face DJ-Goana)"
+        run: |
+          python - <<'EOF'
+          import os
+          if not (os.getenv("HUGGINGFACE_TOKEN") or os.getenv("HF_TOKEN")):
+              print("⚠️  HUGGINGFACE_TOKEN not configured — skipping HF sync")
+          else:
+              from core.hf_garage_sync import sync_garage
+              added = sync_garage()
+              print(f"✅ Garage sync complete: {added} new assets appended to Master_Garage_Inventory.json")
+          EOF
+
+      # Task 5: Knowledge Graph Synthesis — re-index repo so dependency map
+      # metadata is current after all new assets have been ingested above.
+      - name: "Task 5 — Knowledge Graph Synthesis (repo re-index)"
+        run: |
+          python - <<'EOF'
+          from brain.indexer import index_directory, get_collection
+          import pathlib
+          col = get_collection()
+          root = pathlib.Path(".")
+          total = index_directory(col, root)
+          print(f"✅ Dependency map committed: {total} chunks re-indexed with KG metadata")
+          EOF
+
+      - name: "Report vault status"
+        run: |
+          python - <<'EOF'
+          from brain.indexer import get_collection
+          col = get_collection()
+          print(f"🧠 Brain vault total vectors: {col.count()}")
+          EOF

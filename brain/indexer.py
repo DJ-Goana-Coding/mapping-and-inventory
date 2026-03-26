@@ -31,6 +31,14 @@ FREQ_SIGNATURE: str = "69-333-222-92-93-999-777-88-29-369"
 # Supported source-code extensions for automatic ingestion
 _CODE_EXTENSIONS: tuple[str, ...] = (".py", ".json", ".md", ".txt", ".yaml", ".yml")
 
+# Ghost-manifest filenames targeted by Task 2 (Ghost-Memory Infiltration).
+# These are indexed regardless of .gitignore rules because they are addressed
+# by explicit path, not by directory walk.
+_GHOST_MANIFEST_NAMES: tuple[str, ...] = ("TOTALITY.json", "KNOWLEDGE_GRAPH.json")
+
+# Glob pattern used to discover ghost_deep_scan sidecar files.
+_GHOST_SCAN_PATTERN: str = "*ghost_deep_scan*"
+
 # ChromaDB collection name
 _COLLECTION_NAME: str = "mapping_inventory_brain"
 
@@ -219,6 +227,64 @@ def verify_freq_signature(metadata: dict[str, Any]) -> bool:
     The Medic agent calls this before committing any record to the vault.
     """
     return metadata.get("freq_signature") == FREQ_SIGNATURE
+
+
+def index_ghost_manifests(
+    collection: chromadb.Collection,
+    root: str | pathlib.Path | None = None,
+) -> int:
+    """
+    Task 2 — Ghost-Memory Infiltration.
+
+    Force-index the Oppo/S10 node manifests (``TOTALITY.json``,
+    ``KNOWLEDGE_GRAPH.json``) and any file matching ``*ghost_deep_scan*``
+    found under *root*.  Files are addressed by explicit path so they are
+    ingested regardless of any ``.gitignore`` or ``skip_dirs`` constraints
+    that would normally exclude them.
+
+    Every record is signed with :data:`FREQ_SIGNATURE` (the
+    ``69-333-222-92-93-999-777-88-29-369`` sequence).
+
+    Returns the total number of chunks committed to the vault.
+    """
+    search_root = pathlib.Path(root) if root else pathlib.Path(__file__).parent.parent
+    total = 0
+
+    # 1. Named ghost manifests
+    for name in _GHOST_MANIFEST_NAMES:
+        candidate = search_root / name
+        if candidate.exists():
+            total += index_json_manifest(
+                collection,
+                candidate,
+                source_label=f"ghost_manifest::{name}",
+            )
+            logger.info("Ghost-Memory: indexed manifest '%s'.", name)
+        else:
+            logger.debug("Ghost-Memory: manifest '%s' not found at '%s'.", name, candidate)
+
+    # 2. Files matching *ghost_deep_scan* anywhere under the root
+    for ghost_file in search_root.rglob(_GHOST_SCAN_PATTERN):
+        if not ghost_file.is_file():
+            continue
+        if ghost_file.suffix in _CODE_EXTENSIONS:
+            total += index_file(collection, ghost_file)
+        else:
+            # Unknown extension — ingest raw text best-effort
+            try:
+                text = ghost_file.read_text(encoding="utf-8", errors="replace")
+                total += index_text(
+                    collection,
+                    text,
+                    source=f"ghost_deep_scan::{ghost_file}",
+                    extra_metadata={"file_type": ghost_file.suffix.lstrip(".") or "unknown"},
+                )
+            except OSError as exc:
+                logger.warning("Ghost-Memory: could not read '%s': %s", ghost_file, exc)
+        logger.info("Ghost-Memory: indexed ghost_deep_scan file '%s'.", ghost_file)
+
+    logger.info("Ghost-Memory infiltration complete — %d chunks committed.", total)
+    return total
 
 
 if __name__ == "__main__":

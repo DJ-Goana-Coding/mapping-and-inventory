@@ -258,6 +258,8 @@ async def nexus_status():
     * Total unique vectors stored in the brain memory vault
     * Cloud connection status (Google Drive / Hugging Face)
     * Most recent 'Ghost' assets restored to the vault
+    * Total assets mapped across vault + garage inventory
+    * Timestamp of the latest 369-frequency verification by the Medic
     """
     # --- Swarm agent health ---
     agent_health: dict[str, str] = {
@@ -288,6 +290,19 @@ async def nexus_status():
     except Exception as exc:
         logger.warning("nexus_status: could not query vault (%s).", exc)
 
+    # --- Total assets mapped (vault vectors + garage inventory entries) ---
+    total_assets_mapped: int = vault_vectors
+    try:
+        import json
+        import pathlib
+        garage_path = pathlib.Path(__file__).parent.parent / "Master_Garage_Inventory.json"
+        if garage_path.exists():
+            with garage_path.open(encoding="utf-8") as fh:
+                garage_data = json.load(fh)
+            total_assets_mapped += len(garage_data.get("assets", []))
+    except Exception as exc:
+        logger.warning("nexus_status: could not read garage inventory (%s).", exc)
+
     # --- Cloud connection status ---
     drive_connected = bool(
         os.getenv("DRIVE_SERVICE_KEY") or os.getenv("GOOGLE_CREDENTIALS_B64")
@@ -300,11 +315,18 @@ async def nexus_status():
         "hugging_face": "connected" if hf_connected else "not_configured",
     }
 
+    # --- Latest 369-frequency verification timestamp ---
+    latest_freq_verification: str | None = None
+    if swarm_controller is not None:
+        latest_freq_verification = swarm_controller.last_freq_verification()
+
     return {
         "swarm_agents": agent_health,
         "vault_vectors": vault_vectors,
         "cloud_connections": cloud_status,
         "recent_ghost_assets": recent_assets,
+        "total_assets_mapped": total_assets_mapped,
+        "latest_freq_verification": latest_freq_verification,
     }
 
 
