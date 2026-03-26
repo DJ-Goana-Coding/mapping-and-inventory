@@ -1,0 +1,61 @@
+name: "Wake T.I.A. — Deploy to HF Citadel Command Space"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  wake-tia:
+    name: "WAKE T.I.A. — Package & Deploy District 02 Vault"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install huggingface_hub"
+        run: pip install huggingface_hub
+
+      - name: "Verify T.I.A. Vault contents"
+        run: |
+          echo "📦 Packaging District_02_TIA_VAULT..."
+          ls -lah nodes/District_02_TIA_VAULT/
+          if [ ! -f nodes/District_02_TIA_VAULT/TIA_MASTER_SYSTEM.md ]; then
+            echo "❌ TIA_MASTER_SYSTEM.md not found — aborting deploy"
+            exit 1
+          fi
+          echo "✅ Vault contents verified"
+
+      - name: "Push District_02_TIA_VAULT to HF_SPACE_TIA_CITADEL"
+        run: |
+          python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+
+          token = os.environ.get("HF_TOKEN")
+          hf_space = os.environ.get("HF_SPACE_TIA_CITADEL", "DJ-Goana-Coding/CITADEL_OMEGA")
+          local_dir = "nodes/District_02_TIA_VAULT"
+
+          if not token:
+              print("⚠️  HF_TOKEN not configured — skipping T.I.A. Citadel deploy")
+          else:
+              api = HfApi(token=token)
+              api.upload_folder(
+                  folder_path=local_dir,
+                  repo_id=hf_space,
+                  repo_type="space",
+                  path_in_repo="District_02_TIA_VAULT",
+              )
+              print(f"✅ District_02_TIA_VAULT deployed to {hf_space}")
+          EOF
+        env:
+          HF_SPACE_TIA_CITADEL: ${{ secrets.HF_SPACE_TIA_CITADEL }}

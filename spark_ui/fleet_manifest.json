@@ -265,5 +265,115 @@
     {"name": "Omega Archive", "env_var": "HF_SPACE_OMEGA_ARCHIVE", "system": "CITADEL_OMEGA"},
     {"name": "Shadow Archive", "env_var": "HF_SPACE_SHADOW_ARCHIVE", "system": "CITADEL_OMEGA"}
   ],
+  "sovereign_infrastructure": {
+    "description": "Expanded Sovereign Infrastructure — all physical, mobile, cloud, and HuggingFace compute/storage nodes mapped for Phase 6 Universal Acquisition staging.",
+    "local_edge_nodes": [
+      {
+        "id": "drive_C",
+        "label": "C: (1TB Hidden)",
+        "type": "local_disk",
+        "capacity_gb": 1024,
+        "role": "Hidden primary OS and system drive",
+        "visibility": "hidden"
+      },
+      {
+        "id": "drive_D",
+        "label": "D: (1TB)",
+        "type": "local_disk",
+        "capacity_gb": 1024,
+        "role": "Secondary local storage node",
+        "visibility": "standard"
+      },
+      {
+        "id": "drive_E",
+        "label": "E: (2.5TB)",
+        "type": "local_disk",
+        "capacity_gb": 2560,
+        "role": "High-capacity extended local storage",
+        "visibility": "standard"
+      }
+    ],
+    "mobile_spearhead": [
+      {
+        "id": "S10_Phalanx",
+        "label": "S10_Phalanx (500GB)",
+        "type": "mobile_termux_node",
+        "capacity_gb": 500,
+        "role": "Mobile quantitative analysis spearhead — cross-speaks with CGAL_Core and Oppo_Omega",
+        "fleet_registry_path": "fleet_registry/S10_Phalanx/",
+        "nodes_path": "nodes/S10_Phalanx/"
+      }
+    ],
+    "cloud_drive_array": [
+      {
+        "id": "google_drive_primary",
+        "label": "Google Drive (2TB)",
+        "type": "cloud_drive",
+        "capacity_gb": 2048,
+        "role": "Primary cloud storage — 12 Citadel Districts sourced from this drive",
+        "env_var": "DRIVE_SERVICE_KEY"
+      },
+      {
+        "id": "drive_F_cloud",
+        "label": "F: Cloud (199GB)",
+        "type": "cloud_drive",
+        "capacity_gb": 199,
+        "role": "Auxiliary cloud overflow storage node"
+      },
+      {
+        "id": "email_aux_drive_01",
+        "label": "Email Aux Drive 01",
+        "type": "email_drive",
+        "capacity_gb": 15,
+        "role": "Auxiliary email-linked cloud storage — account slot 1"
+      },
+      {
+        "id": "email_aux_drive_02",
+        "label": "Email Aux Drive 02",
+        "type": "email_drive",
+        "capacity_gb": 15,
+        "role": "Auxiliary email-linked cloud storage — account slot 2"
+      },
+      {
+        "id": "email_aux_drive_03",
+        "label": "Email Aux Drive 03",
+        "type": "email_drive",
+        "capacity_gb": 15,
+        "role": "Auxiliary email-linked cloud storage — account slot 3"
+      },
+      {
+        "id": "email_aux_drive_04",
+        "label": "Email Aux Drive 04",
+        "type": "email_drive",
+        "capacity_gb": 15,
+        "role": "Auxiliary email-linked cloud storage — account slot 4"
+      },
+      {
+        "id": "email_aux_drive_05",
+        "label": "Email Aux Drive 05",
+        "type": "email_drive",
+        "capacity_gb": 15,
+        "role": "Auxiliary email-linked cloud storage — account slot 5"
+      }
+    ],
+    "huggingface_infrastructure": [
+      {
+        "id": "HF_Rack",
+        "label": "HF_Rack (1TB Compute)",
+        "type": "hf_compute",
+        "capacity_gb": 1024,
+        "role": "Primary HuggingFace compute rack — hosts live Spaces and model inference endpoints",
+        "env_var": "HF_TOKEN"
+      },
+      {
+        "id": "HF_Garage",
+        "label": "HF_Garage (20GB Staging Storage)",
+        "type": "hf_staging",
+        "capacity_gb": 20,
+        "role": "HuggingFace staging garage — model and asset staging before promotion to live Spaces",
+        "sync_module": "core.hf_garage_sync"
+      }
+    ]
+  },
   "freq_signature": "69-333-222-92-93-999-777-88-29-369"
 }
