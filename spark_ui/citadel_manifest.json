@@ -1,0 +1,40 @@
+{
+  "manifest_version": "1.0.0",
+  "hub": {
+    "id": "Mapping-and-Inventory",
+    "role": "Hub",
+    "description": "Central coordination node for the DJ-Goana-Coding Hub-and-Spoke network.",
+    "repo": "DJ-Goana-Coding/mapping-and-inventory"
+  },
+  "spokes": [
+    {
+      "id": "S10_Phalanx",
+      "codename": "The Quant Spearhead",
+      "description": "S10 Termux node running quantitative trading and market-analysis pipelines.",
+      "hf_spaces": {
+        "pioneer-trader": "DJ-Goana-Coding/Phalanx_Pioneer",
+        "shadow-sector": "DJ-Goana-Coding/Phalanx_Shadow",
+        "AI_Vault": "DJ-Goana-Coding/Phalanx_Vault"
+      },
+      "env_keys": {}
+    },
+    {
+      "id": "Omega",
+      "codename": "The Swarm",
+      "description": "Distributed swarm intelligence node providing momentum and market-sentiment data.",
+      "hf_spaces": {},
+      "env_keys": {
+        "endpoint": "HF_SPACE_OMEGA_SCOUT"
+      }
+    },
+    {
+      "id": "CGAL_Core",
+      "codename": "The Law",
+      "description": "Legal clearance and compliance gateway (Psinergy-Gate).",
+      "hf_spaces": {},
+      "env_keys": {
+        "endpoint": "HF_SPACE_CGAL_CORE"
+      }
+    }
+  ]
+}

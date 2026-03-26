@@ -39,6 +39,13 @@ _GHOST_MANIFEST_NAMES: tuple[str, ...] = ("TOTALITY.json", "KNOWLEDGE_GRAPH.json
 # Glob pattern used to discover ghost_deep_scan sidecar files.
 _GHOST_SCAN_PATTERN: str = "*ghost_deep_scan*"
 
+# Keywords used to detect cross-spoke API references inside S10_Phalanx code.
+# When found, the chunk is tagged with the linked spoke IDs in metadata.
+_S10_SPOKE_KEYWORDS: dict[str, str] = {
+    "CGAL": "CGAL_Core",
+    "Omega": "Omega",
+}
+
 # ChromaDB collection name
 _COLLECTION_NAME: str = "mapping_inventory_brain"
 
@@ -83,6 +90,21 @@ def _chunk_text(text: str, chunk_size: int = 1000, overlap: int = 100) -> list[s
     return chunks
 
 
+def _detect_s10_spoke_links(text: str) -> list[str]:
+    """
+    Scan *text* for cross-spoke API references (CGAL, Omega).
+
+    Returns a sorted list of spoke IDs that are referenced in the text,
+    e.g. ``["CGAL_Core", "Omega"]``.  Used to populate the
+    ``linked_spokes`` metadata field for S10_Phalanx records.
+    """
+    linked: list[str] = []
+    for keyword, spoke_id in _S10_SPOKE_KEYWORDS.items():
+        if keyword in text and spoke_id not in linked:
+            linked.append(spoke_id)
+    return sorted(linked)
+
+
 def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) -> int:
     """
     Read *filepath* and upsert its content into *collection*.
@@ -97,19 +119,32 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
     chunks = _chunk_text(text)
     rel_path = str(filepath)
 
+    # Determine whether this file belongs to the S10_Phalanx node so that
+    # cross-spoke link detection can be applied to every chunk.
+    is_s10 = "S10_Phalanx" in rel_path
+
     ids, documents, metadatas = [], [], []
     for idx, chunk in enumerate(chunks):
         doc_id = _doc_id(chunk, f"{rel_path}::chunk{idx}")
         ids.append(doc_id)
         documents.append(chunk)
-        metadatas.append(
-            {
-                "source": rel_path,
-                "chunk_index": idx,
-                "freq_signature": FREQ_SIGNATURE,
-                "file_type": filepath.suffix.lstrip("."),
-            }
-        )
+        meta: dict[str, Any] = {
+            "source": rel_path,
+            "chunk_index": idx,
+            "freq_signature": FREQ_SIGNATURE,
+            "file_type": filepath.suffix.lstrip("."),
+        }
+        if is_s10:
+            linked = _detect_s10_spoke_links(chunk)
+            if linked:
+                meta["linked_spokes"] = ",".join(linked)
+                logger.debug(
+                    "S10 cross-spoke links detected in %s chunk %d: %s",
+                    filepath,
+                    idx,
+                    linked,
+                )
+        metadatas.append(meta)
 
     collection.upsert(ids=ids, documents=documents, metadatas=metadatas)
     logger.info("Indexed %d chunks from %s", len(chunks), filepath)
