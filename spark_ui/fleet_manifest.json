@@ -375,5 +375,65 @@
       }
     ]
   },
-  "freq_signature": "69-333-222-92-93-999-777-88-29-369"
+  "freq_signature": "69-333-222-92-93-999-777-88-29-369",
+  "deep_storage_models": {
+    "description": "Phase 8 high-weight binary models staged for migration to the 1TB HF Rack (compute attachment). Source paths are scrubbed from this manifest by the 'No Lemon' sanitizer before cloud mirroring.",
+    "destination_node": "HF_Rack",
+    "status": "PENDING_MIGRATION",
+    "models": [
+      {
+        "id": "deepseek-r1-7b",
+        "filename": "DeepSeek-R1-7B.gguf",
+        "type": "gguf",
+        "role": "Quantitative reasoning — primary inference model",
+        "migration_status": "PENDING",
+        "destination_path": "nodes/HF_Rack/DeepSeek-R1-7B/"
+      },
+      {
+        "id": "mistral-world-knowledge",
+        "filename": "Mistral-World-Knowledge.gguf",
+        "type": "gguf",
+        "role": "General world-knowledge retrieval backbone",
+        "migration_status": "PENDING",
+        "destination_path": "nodes/HF_Rack/Mistral-World-Knowledge/"
+      },
+      {
+        "id": "nomic-embed-text",
+        "filename": "nomic-embed-text-v1.5.Q4_K_M.gguf",
+        "type": "gguf",
+        "role": "Embedding model for RAG / semantic search",
+        "migration_status": "PENDING",
+        "destination_path": "nodes/HF_Rack/nomic-embed-text-v1.5/"
+      },
+      {
+        "id": "amy-onnx",
+        "filename": "amy.onnx",
+        "type": "onnx",
+        "role": "Voice / TTS inference model",
+        "migration_status": "PENDING",
+        "destination_path": "nodes/HF_Rack/amy-onnx/"
+      }
+    ]
+  },
+  "knowledge_saturation": {
+    "description": "Tracks the percentage of 'Universal Knowledge' successfully indexed into District 12 (ORACLE_ETHICS). A value of 100 indicates full saturation of the configured knowledge baseline.",
+    "district": "12_ORACLE_ETHICS",
+    "total_knowledge_units": 0,
+    "indexed_knowledge_units": 0,
+    "saturation_pct": 0.0,
+    "status": "PENDING",
+    "last_updated": null,
+    "status_values": ["PENDING", "INDEXING", "PARTIAL", "SATURATED", "STALE"]
+  },
+  "storage_summary": {
+    "description": "Verified total storage capacity across all infrastructure tiers (Phase 8 snapshot). All capacities are expressed in gigabytes (GB).",
+    "nodes": [
+      {"id": "google_drive_primary", "label": "Google Drive", "capacity_gb": 2048, "status": "Verified"},
+      {"id": "HF_Rack",             "label": "HF Rack",       "capacity_gb": 1024, "status": "Compute Active"},
+      {"id": "HF_Garage",           "label": "HF Garage",     "capacity_gb": 20,   "status": "Staging"},
+      {"id": "S10_Phalanx",         "label": "S10 Phalanx",   "capacity_gb": 500,  "status": "Purified"},
+      {"id": "drive_E",             "label": "Drive E",        "capacity_gb": 2560, "status": "Lore Archive"}
+    ],
+    "total_capacity_gb": 6152
+  }
 }
