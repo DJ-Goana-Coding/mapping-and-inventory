@@ -1,7 +1,7 @@
 {
-  "manifest_version": "2.2.0",
+  "manifest_version": "2.3.0",
   "generated": "2026-03-26",
-  "phase": "Phase 21 — Sovereignty Total-Setup",
+  "phase": "Phase 23 — Lattice Purification & Omniscient Sync",
   "hub": {
     "id": "mapping-and-inventory",
     "role": "Master Brain / Central Hub",
@@ -49,7 +49,9 @@
           "name": "Tias Pioneer Trader",
           "env_var": "HF_SPACE_TIAS_PIONEER"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "CITADEL_OMEGA",
@@ -71,7 +73,9 @@
           "name": "Shadow Archive",
           "env_var": "HF_SPACE_SHADOW_ARCHIVE"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "citadel-vortex",
@@ -80,7 +84,9 @@
       "description": "High-throughput data-processing and signal-routing node. Aggregates and routes multi-source intelligence streams into the fleet.",
       "repo": "DJ-Goana-Coding/citadel-vortex",
       "fleet_registry_path": "fleet_registry/citadel-vortex/",
-      "hf_spaces": []
+      "hf_spaces": [],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "perimeter-scout",
@@ -102,7 +108,9 @@
           "name": "Omega Bots",
           "env_var": "HF_SPACE_OMEGA_BOTS"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "S10_Phalanx",
@@ -117,7 +125,9 @@
           "name": "Omega Trader",
           "env_var": "HF_SPACE_OMEGA_TRADER"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "Oppo_Omega",
@@ -132,7 +142,9 @@
           "name": "Omega Trader",
           "env_var": "HF_SPACE_OMEGA_TRADER"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "CGAL_Core",
@@ -146,7 +158,9 @@
           "name": "CGAL Core",
           "env_var": "HF_SPACE_CGAL_CORE"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "Pioneer_Vortex",
@@ -155,7 +169,9 @@
       "description": "Combined node bridging Pioneer trading logic with Vortex signal-routing. Handles cross-system arbitrage and data-pipeline orchestration.",
       "repo": "DJ-Goana-Coding/citadel-vortex",
       "fleet_registry_path": "fleet_registry/Pioneer_Vortex/",
-      "hf_spaces": []
+      "hf_spaces": [],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "Genesis",
@@ -164,7 +180,9 @@
       "description": "Foundational bootstrap system. Houses the original fleet-genesis logic and acts as the authoritative source of truth for fleet initialisation sequences.",
       "repo": "DJ-Goana-Coding/Genesis",
       "fleet_registry_path": "fleet_registry/Genesis/",
-      "hf_spaces": []
+      "hf_spaces": [],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     },
     {
       "id": "Harvestmoon",
@@ -178,7 +196,9 @@
           "name": "Harvestmoon",
           "env_var": "HF_SPACE_HARVESTMOON"
         }
-      ]
+      ],
+      "health_status": "CONNECTION SEVERED",
+      "last_heartbeat": null
     }
   ],
   "district_map": {
@@ -726,5 +746,11 @@
       "HIPPY",
       "DOOFY"
     ]
+  },
+  "last_heartbeat": null,
+  "health_status_schema": {
+    "ONLINE & PURIFIED": "Node is reachable, purified, and operating within SLA.",
+    "UPGRADE REQUIRED": "Node exists but has stale code or dependency drift flagged by the Medic.",
+    "CONNECTION SEVERED": "Node cannot be reached or does not exist; immediate triage required."
   }
 }

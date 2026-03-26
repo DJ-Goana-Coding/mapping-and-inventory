@@ -9,6 +9,13 @@ import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse, Response
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv is optional; env vars must be set externally
+
 from backend.services.vortex import VortexBerserker
 from agents.swarm_manager import SwarmController
 
