@@ -38,22 +38,54 @@ _CODE_EXTENSIONS: tuple[str, ...] = (".py", ".json", ".md", ".txt", ".yaml", ".y
 # The order matters: more-specific patterns should appear first.
 _SYSTEM_ORIGIN_MAP: list[tuple[str, str]] = [
     ("pioneer-trader", "pioneer-trader"),
+    ("Pioneer_Vortex", "Pioneer_Vortex"),
     ("CITADEL_OMEGA", "CITADEL_OMEGA"),
     ("citadel-vortex", "citadel-vortex"),
     ("perimeter-scout", "perimeter-scout"),
     ("S10_Phalanx", "S10_Phalanx"),
+    ("Oppo_Omega", "Oppo_Omega"),
     ("CGAL_Core", "CGAL_Core"),
     ("Genesis", "Genesis"),
     ("Harvestmoon", "Harvestmoon"),
     ("fleet_registry/pioneer", "pioneer-trader"),
+    ("fleet_registry/Pioneer_Vortex", "Pioneer_Vortex"),
     ("fleet_registry/CITADEL", "CITADEL_OMEGA"),
     ("fleet_registry/citadel-vortex", "citadel-vortex"),
     ("fleet_registry/perimeter", "perimeter-scout"),
     ("fleet_registry/S10_Phalanx", "S10_Phalanx"),
+    ("fleet_registry/Oppo_Omega", "Oppo_Omega"),
     ("fleet_registry/CGAL", "CGAL_Core"),
     ("fleet_registry/Genesis", "Genesis"),
     ("fleet_registry/Harvestmoon", "Harvestmoon"),
+    ("nodes/S10_Phalanx", "S10_Phalanx"),
+    ("nodes/Oppo_Omega", "Oppo_Omega"),
 ]
+
+# ---------------------------------------------------------------------------
+# 12 Dimensional Districts — district tag map
+# ---------------------------------------------------------------------------
+# Maps directory-name fragments (as they appear in Drive / filesystem paths)
+# to their canonical district IDs.  When a file's path contains one of these
+# fragments its metadata receives a ``district`` field.
+_DISTRICT_MAP: dict[str, str] = {
+    "01": "01_GENESIS_CORE",
+    "02": "02_INTELLIGENCE_LAYER",
+    "03": "03_COMMAND_CONTROL",
+    "04": "04_OUTPUT_HARVEST",
+    "05": "05_MARKET_SIGNALS",
+    "06": "06_MEMORY_ARCHIVE",
+    "07": "07_TRADER",
+    "08": "08_SECURITY_PERIMETER",
+    "09": "09_LEGAL_CLEARANCE",
+    "10": "10_RESOURCE_ALLOCATION",
+    "11": "11_SWARM_INTELLIGENCE",
+    "12": "12_ORACLE_ETHICS",
+}
+
+# Keywords used for CGAL / Legal Stack cross-linking.
+# Any file referencing these strings is tagged with a link to CGAL_Core,
+# regardless of which system the file originates from.
+_LEGAL_COMPLIANCE_KEYWORDS: tuple[str, ...] = ("CGAL", "1986 Legal Stack")
 
 # Filename patterns that identify a system's "Bible" (core logic).
 # Records matching these patterns receive ``is_bible: "true"`` in metadata
@@ -81,7 +113,7 @@ _GHOST_SCAN_PATTERN: str = "*ghost_deep_scan*"
 # When found, the chunk is tagged with the linked spoke IDs in metadata.
 _S10_SPOKE_KEYWORDS: dict[str, str] = {
     "CGAL": "CGAL_Core",
-    "Omega": "Omega",
+    "Omega": "Oppo_Omega",
 }
 
 # ChromaDB collection name
@@ -157,6 +189,43 @@ def _detect_system_origin(source: str) -> str | None:
     return None
 
 
+def _detect_district(source: str) -> str | None:
+    """
+    Return the district ID for *source* based on :data:`_DISTRICT_MAP`.
+
+    Scans the path parts for a segment whose name starts with a two-digit
+    district prefix (``"01"``–``"12"``).  Returns the canonical district ID
+    when found, or ``None`` for hub-level / unclassified files.
+    """
+    for part in pathlib.Path(source).parts:
+        for prefix, district_id in _DISTRICT_MAP.items():
+            if part.startswith(prefix + "_") or part == prefix:
+                return district_id
+    return None
+
+
+def _detect_cgal_link(text: str) -> bool:
+    """
+    Return *True* if *text* references CGAL or the 1986 Legal Stack.
+
+    When *True* the caller should attach a ``cgal_link: "CGAL_Core"``
+    metadata field to signal a cross-node legal dependency.
+
+    Uses word-boundary–aware matching to avoid false positives from
+    partial word matches (e.g. ``"MYCGALTEST"`` would not match).
+    """
+    import re
+
+    for kw in _LEGAL_COMPLIANCE_KEYWORDS:
+        # Build a word-boundary pattern: \b works on alphanumeric edges;
+        # for keywords containing spaces (e.g. "1986 Legal Stack") we
+        # anchor on non-alphanumeric boundaries at start/end of the phrase.
+        pattern = r"(?<![A-Za-z0-9])" + re.escape(kw) + r"(?![A-Za-z0-9])"
+        if re.search(pattern, text):
+            return True
+    return False
+
+
 def _is_bible_file(filepath: pathlib.Path) -> bool:
     """
     Return *True* when *filepath* matches a known Bible / core-logic pattern.
@@ -229,6 +298,9 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
     # Origin Isolation — detect which sovereign system owns this file.
     system_origin = _detect_system_origin(rel_path)
 
+    # District tagging — detect which of the 12 Dimensional Districts this file belongs to.
+    district = _detect_district(rel_path)
+
     # Self-Healing Protocol — flag Bible / core-logic files for reboot export.
     is_bible = _is_bible_file(filepath)
 
@@ -246,6 +318,9 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
         # Origin Isolation tag — ensures RAG metadata carries the native system ID.
         if system_origin:
             meta["system_origin"] = system_origin
+        # District tag — identifies which of the 12 Dimensional Districts owns this record.
+        if district:
+            meta["district"] = district
         # Self-Healing flag — marks Bible/core-logic records for reboot export.
         if is_bible:
             meta["is_bible"] = "true"
@@ -259,6 +334,10 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
                     idx,
                     linked,
                 )
+        # CGAL / 1986 Legal Stack cross-link — applies to every file, not just S10.
+        if _detect_cgal_link(chunk):
+            meta["cgal_link"] = "CGAL_Core"
+            logger.debug("CGAL cross-link detected in %s chunk %d.", filepath, idx)
         metadatas.append(meta)
 
     collection.upsert(ids=ids, documents=documents, metadatas=metadatas)
@@ -330,6 +409,9 @@ def index_text(
     # Origin Isolation — derive system_origin from the source label if possible.
     system_origin = _detect_system_origin(source)
 
+    # District tagging — detect district from the source label.
+    district = _detect_district(source)
+
     chunks = _chunk_text(text)
     ids, documents, metadatas = [], [], []
     for idx, chunk in enumerate(chunks):
@@ -345,6 +427,12 @@ def index_text(
         # Attach origin tag when the source can be attributed to a known system.
         if system_origin:
             meta["system_origin"] = system_origin
+        # District tag — identifies which of the 12 Dimensional Districts owns this record.
+        if district:
+            meta["district"] = district
+        # CGAL / 1986 Legal Stack cross-link — applies to all ingested content.
+        if _detect_cgal_link(chunk):
+            meta["cgal_link"] = "CGAL_Core"
         if extra_metadata:
             meta.update(extra_metadata)
         metadatas.append(meta)
