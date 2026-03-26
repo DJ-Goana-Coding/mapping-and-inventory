@@ -607,6 +607,82 @@ def index_ghost_manifests(
     return total
 
 
+# ---------------------------------------------------------------------------
+# District 04 — TOTAL_CITADEL_MAP auto-update (Phase 7 Foundry integration)
+# ---------------------------------------------------------------------------
+
+# Path to the District 04 output directory relative to the repository root.
+_DISTRICT_04_DIR: pathlib.Path = pathlib.Path(__file__).parent.parent / "District_04_OUTPUT_HARVEST"
+
+# Name of the persistent citadel map log file inside District 04.
+_CITADEL_MAP_FILENAME: str = "TOTAL_CITADEL_MAP.txt"
+
+
+def append_model_to_citadel_map(
+    name: str,
+    size_bytes: int,
+    persona_binding: str,
+    sha256: str,
+    destination_node: str = "HF_Rack",
+    *,
+    citadel_map_dir: pathlib.Path | None = None,
+) -> pathlib.Path:
+    """
+    Append a newly purified model's metadata to ``TOTAL_CITADEL_MAP.txt``
+    inside District 04.
+
+    Called by the Foundry Purifier the instant a model clears verification
+    and lands in the 1 TB Rack or District 05 bin.
+
+    Parameters
+    ----------
+    name:
+        Model file name (e.g. ``"qwen2.5-coder-7b-instruct-q4_k_m.gguf"``).
+    size_bytes:
+        File size in bytes.
+    persona_binding:
+        The sovereign persona this model is bound to (e.g.
+        ``"Goanna_Hunter"``).
+    sha256:
+        SHA-256 hex digest of the model file.
+    destination_node:
+        Name of the storage node where the model resides
+        (e.g. ``"HF_Rack"``).
+    citadel_map_dir:
+        Override the default District 04 directory path (useful for testing).
+
+    Returns
+    -------
+    pathlib.Path
+        Absolute path of the ``TOTAL_CITADEL_MAP.txt`` file that was updated.
+    """
+    import datetime
+
+    out_dir = citadel_map_dir if citadel_map_dir is not None else _DISTRICT_04_DIR
+    out_dir.mkdir(parents=True, exist_ok=True)
+    map_path = out_dir / _CITADEL_MAP_FILENAME
+
+    timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    entry = (
+        f"[{timestamp}] "
+        f"NAME={name} | "
+        f"SIZE_BYTES={size_bytes} | "
+        f"PERSONA={persona_binding} | "
+        f"SHA256={sha256} | "
+        f"NODE={destination_node}\n"
+    )
+
+    with map_path.open("a", encoding="utf-8") as fh:
+        fh.write(entry)
+
+    logger.info(
+        "[Indexer] Appended model '%s' to TOTAL_CITADEL_MAP at %s.",
+        name,
+        map_path,
+    )
+    return map_path
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     repo_root = pathlib.Path(__file__).parent.parent
