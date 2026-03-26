@@ -5,10 +5,12 @@ Integrates the 4 Piranha Scalp + 3 Trailing Grid slots with Auto-Healer
 from typing import Dict, List, Optional, Tuple, Any, Union
 import asyncio
 import logging
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse, Response
 from backend.services.vortex import VortexBerserker
+from agents.swarm_manager import SwarmController
 
 # Configure logging
 logging.basicConfig(
@@ -21,6 +23,7 @@ logger = logging.getLogger("main")
 # Global reference to the trading engine
 vortex_engine: VortexBerserker = None
 heartbeat_task = None
+swarm_controller: SwarmController = None
 
 
 @asynccontextmanager
@@ -29,8 +32,15 @@ async def lifespan(app: FastAPI):
     Lifespan context manager for FastAPI application.
     Initializes and starts the VortexBerserker engine on startup.
     """
-    global vortex_engine, heartbeat_task
-    
+    global vortex_engine, heartbeat_task, swarm_controller
+
+    # Reconcile HUGGINGFACE_TOKEN from HF_TOKEN fallback so all modules
+    # that read HUGGINGFACE_TOKEN can find it regardless of which env var
+    # the operator sets.
+    if not os.getenv("HUGGINGFACE_TOKEN") and os.getenv("HF_TOKEN"):
+        os.environ["HUGGINGFACE_TOKEN"] = os.environ["HF_TOKEN"]
+        logger.info("ℹ️  HUGGINGFACE_TOKEN reconciled from HF_TOKEN")
+
     try:
         # Initialize the VortexBerserker engine
         logger.info("🏰 CITADEL: VortexBerserker Engine Engaged")
@@ -59,11 +69,18 @@ async def lifespan(app: FastAPI):
         
         heartbeat_task = asyncio.create_task(heartbeat_loop())
         logger.info("🌊 Hybrid Swarm heartbeat initiated")
+
+        # Start the background swarm agents (Librarian / Harvester / Medic)
+        swarm_controller = SwarmController()
+        await swarm_controller.start()
+        logger.info("🐝 Nexus Swarm activated")
         
         yield
         
     finally:
         # Cleanup on shutdown
+        if swarm_controller:
+            await swarm_controller.stop()
         if vortex_engine:
             await vortex_engine.stop()
         if heartbeat_task:
@@ -228,6 +245,66 @@ async def get_status():
             "throttled_pulse": f"{vortex_engine.throttled_pulse_interval}s",
             "recovery_wait": f"{vortex_engine.throttle_recovery_wait}s"
         }
+    }
+
+
+@app.get("/api/v1/nexus/status")
+async def nexus_status():
+    """
+    Nexus status endpoint — data feed for the GitHub Spark Commander dashboard.
+
+    Returns a JSON summary of:
+    * Swarm agent health (Librarian / Harvester / Medic)
+    * Total unique vectors stored in the brain memory vault
+    * Cloud connection status (Google Drive / Hugging Face)
+    * Most recent 'Ghost' assets restored to the vault
+    """
+    # --- Swarm agent health ---
+    agent_health: dict[str, str] = {
+        "librarian": "stopped",
+        "harvester": "stopped",
+        "medic": "stopped",
+    }
+    if swarm_controller is not None:
+        agent_health.update(swarm_controller.agent_statuses())
+
+    # --- Brain vault vector count and recent Ghost assets ---
+    vault_vectors: int = 0
+    recent_assets: list[dict] = []
+    try:
+        from brain.indexer import get_collection, query as vault_query
+        collection = get_collection()
+        vault_vectors = collection.count()
+        raw = vault_query(collection, "ghost manifest restored asset", n_results=5)
+        metadatas = raw.get("metadatas", [[]])[0]
+        documents = raw.get("documents", [[]])[0]
+        for i, meta in enumerate(metadatas):
+            recent_assets.append(
+                {
+                    "source": (meta or {}).get("source", "unknown"),
+                    "snippet": (documents[i] if i < len(documents) else "")[:80],
+                }
+            )
+    except Exception as exc:
+        logger.warning("nexus_status: could not query vault (%s).", exc)
+
+    # --- Cloud connection status ---
+    drive_connected = bool(
+        os.getenv("DRIVE_SERVICE_KEY") or os.getenv("GOOGLE_CREDENTIALS_B64")
+    )
+    hf_connected = bool(
+        os.getenv("HUGGINGFACE_TOKEN") or os.getenv("HF_TOKEN")
+    )
+    cloud_status = {
+        "google_drive": "connected" if drive_connected else "not_configured",
+        "hugging_face": "connected" if hf_connected else "not_configured",
+    }
+
+    return {
+        "swarm_agents": agent_health,
+        "vault_vectors": vault_vectors,
+        "cloud_connections": cloud_status,
+        "recent_ghost_assets": recent_assets,
     }
 
 

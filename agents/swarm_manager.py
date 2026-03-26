@@ -286,6 +286,22 @@ class SwarmController:
         """True while at least one worker task is still alive."""
         return any(not t.done() for t in self._tasks.values())
 
+    def agent_statuses(self) -> dict[str, str]:
+        """
+        Return a health status string for each named agent.
+
+        Possible values: ``"running"``, ``"failed"``, ``"stopped"``.
+        """
+        statuses: dict[str, str] = {}
+        for name, task in self._tasks.items():
+            if not task.done():
+                statuses[name] = "running"
+            elif task.cancelled():
+                statuses[name] = "stopped"
+            else:
+                statuses[name] = "failed" if task.exception() else "stopped"
+        return statuses
+
 
 # ---------------------------------------------------------------------------
 # Stand-alone entry point
