@@ -5,6 +5,13 @@ import time
 import hashlib
 import logging
 from datetime import datetime
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv is optional; env vars must be set externally
+
 try:
     from googleapiclient.discovery import build
     from google.oauth2 import service_account
