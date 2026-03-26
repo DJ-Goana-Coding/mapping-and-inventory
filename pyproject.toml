@@ -1,4 +1,5 @@
 [tool.ruff]
+# Target Python 3.11 (matches CI setup-python version)
 target-version = "py311"
 line-length = 100
 
@@ -26,6 +27,15 @@ known-first-party = [
     "utils",
     "backend",
 ]
+# Enable: pyflakes (F), pycodestyle (E/W), isort (I), bugbear (B), pyupgrade (UP)
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = [
+    "E501",   # line-too-long — handled by formatter
+    "B008",   # function-call-in-default-argument (common in FastAPI)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["agents", "brain", "core", "nodes", "tasks", "utils", "backend"]
 
 [tool.ruff.format]
 quote-style = "double"

@@ -145,7 +145,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
-      # ── 6. Commit & push updates (Task 4) ──────────────────────────────────
+      # ── 6. Refresh internal dependency graph (Task 4) ──────────────────────
+      - name: "Refresh dependency graph — brain/dependency_graph.json"
+        run: python -m agents.dependency_scanner
+
+      # ── 7. Commit & push updates ────────────────────────────────────────────
       - name: "Commit manifest updates"
         run: |
           git config user.name  "github-actions[bot]"
@@ -153,6 +157,7 @@ jobs:
 
           # Stage all changed/new inventory artefacts
           git add fleet_manifest.json sync_audit.log \
+                  brain/dependency_graph.json \
                   District_05_OPEN_SOURCE_BIN/readme_index/ || true
 
           if git diff --cached --quiet; then
