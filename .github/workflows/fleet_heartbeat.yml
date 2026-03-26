@@ -1,0 +1,184 @@
+name: "Fleet Heartbeat — Real-Time Health Monitor"
+
+# ── Triggers ─────────────────────────────────────────────────────────────────
+on:
+  schedule:
+    # Run daily at 06:00 UTC (after the 03:00 inventory sync)
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log health results without committing updates"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+# ── Permissions ───────────────────────────────────────────────────────────────
+permissions:
+  contents: write   # needed to commit health-status updates back to the manifest
+
+# ── Jobs ──────────────────────────────────────────────────────────────────────
+jobs:
+  fleet-heartbeat:
+    name: "Heartbeat Ping — All Connected Repositories"
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+      DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+    steps:
+      # ── 1. Checkout ────────────────────────────────────────────────────────
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT || github.token }}
+
+      # ── 2. Python setup ────────────────────────────────────────────────────
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── 3. Heartbeat Ping — probe every repository in the manifest ─────────
+      - name: "Heartbeat Ping — probe fleet repositories"
+        run: |
+          python - <<'EOF'
+          import json
+          import os
+          import pathlib
+          import sys
+          import urllib.error
+          import urllib.request
+          from datetime import datetime, timezone
+
+          token = os.environ.get("GITHUB_TOKEN", "")
+          dry_run = os.environ.get("DRY_RUN", "false").lower() == "true"
+
+          # ── Load manifest ─────────────────────────────────────────────────
+          manifest_path = pathlib.Path("spark_ui/fleet_manifest.json")
+          if not manifest_path.exists():
+              print("⚠️  spark_ui/fleet_manifest.json not found — skipping heartbeat.")
+              sys.exit(0)
+
+          with manifest_path.open(encoding="utf-8") as fh:
+              manifest = json.load(fh)
+
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+              "User-Agent": "mapping-and-inventory/fleet-heartbeat",
+          }
+
+          now_utc = datetime.now(timezone.utc).isoformat()
+          counts = {"ONLINE & PURIFIED": 0, "UPGRADE REQUIRED": 0, "CONNECTION SEVERED": 0}
+
+          def _ping(repo_full_name: str) -> str:
+              """Return a health status string for *repo_full_name*."""
+              url = f"https://api.github.com/repos/{repo_full_name}"
+              req = urllib.request.Request(url, headers=headers)
+              try:
+                  with urllib.request.urlopen(req, timeout=15) as resp:
+                      data = json.loads(resp.read().decode())
+                      # Flag archived / disabled repositories as needing attention
+                      if data.get("archived") or data.get("disabled"):
+                          return "UPGRADE REQUIRED"
+                      return "ONLINE & PURIFIED"
+              except urllib.error.HTTPError as exc:
+                  if exc.code in (404, 403):
+                      return "CONNECTION SEVERED"
+                  return "UPGRADE REQUIRED"
+              except Exception:
+                  return "CONNECTION SEVERED"
+
+          # ── Ping sovereign nodes ──────────────────────────────────────────
+          for node in manifest.get("sovereign_nodes", []):
+              repo = node.get("repo", "")
+              if not repo:
+                  continue
+              status = _ping(repo)
+              node["health_status"] = status
+              node["last_heartbeat"] = now_utc
+              counts[status] += 1
+              icon = "✅" if status == "ONLINE & PURIFIED" else ("⚠️" if status == "UPGRADE REQUIRED" else "❌")
+              print(f"  {icon}  {repo}: [{status}]")
+
+          # ── Ping primary spokes ───────────────────────────────────────────
+          for spoke in manifest.get("primary_spokes", []):
+              # Primary spokes may not have a 'repo' field — derive from id
+              repo = spoke.get("repo", "")
+              if not repo:
+                  node_id = spoke.get("id", "")
+                  if node_id:
+                      repo = f"DJ-Goana-Coding/{node_id}"
+              if not repo:
+                  continue
+              status = _ping(repo)
+              spoke["health_status"] = status
+              spoke["last_heartbeat"] = now_utc
+              counts[status] += 1
+              icon = "✅" if status == "ONLINE & PURIFIED" else ("⚠️" if status == "UPGRADE REQUIRED" else "❌")
+              print(f"  {icon}  {repo}: [{status}]")
+
+          # ── Update hub health ─────────────────────────────────────────────
+          hub = manifest.get("hub", {})
+          hub_repo = hub.get("repo", "DJ-Goana-Coding/mapping-and-inventory")
+          hub_status = _ping(hub_repo)
+          hub["health_status"] = hub_status
+          hub["last_heartbeat"] = now_utc
+          manifest["hub"] = hub
+
+          # ── Write summary ─────────────────────────────────────────────────
+          manifest["heartbeat_summary"] = {
+              "last_run_utc": now_utc,
+              "online": counts["ONLINE & PURIFIED"],
+              "upgrade_required": counts["UPGRADE REQUIRED"],
+              "severed": counts["CONNECTION SEVERED"],
+          }
+
+          total = sum(counts.values())
+          print(
+              f"\n📡 Heartbeat complete — "
+              f"{counts['ONLINE & PURIFIED']}/{total} online, "
+              f"{counts['UPGRADE REQUIRED']} need attention, "
+              f"{counts['CONNECTION SEVERED']} severed."
+          )
+
+          if dry_run:
+              print("ℹ️  Dry-run mode — manifest NOT updated on disk.")
+              sys.exit(0)
+
+          with manifest_path.open("w", encoding="utf-8") as fh:
+              json.dump(manifest, fh, indent=2)
+          print("✅ spark_ui/fleet_manifest.json updated with health statuses.")
+          EOF
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+      # ── 4. Refresh dependency graph ────────────────────────────────────────
+      - name: "Refresh internal dependency graph"
+        run: python -m agents.dependency_scanner
+
+      # ── 5. Commit updates (unless dry-run) ────────────────────────────────
+      - name: "Commit heartbeat & graph updates"
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add spark_ui/fleet_manifest.json brain/dependency_graph.json || true
+
+          if git diff --cached --quiet; then
+            echo "ℹ️  No changes detected — nothing to commit."
+          else
+            TIMESTAMP=$(date -u "+%Y-%m-%d %H:%M UTC")
+            git commit -m "chore(heartbeat): fleet health update [${TIMESTAMP}]"
+            git push
+            echo "✅ Heartbeat update committed and pushed."
+          fi
