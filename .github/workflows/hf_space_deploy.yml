@@ -1,0 +1,313 @@
+name: "HF Space Deploy — GPU Compute Staging (Phase 24)"
+
+# ============================================================
+# Phase 24 — 222 Master Builder Resonance
+# GPU Compute Staging: Trinity/Genesis · Pioneer/Omega · Phalanx
+#
+# CONSTRAINT: Live GPU allocation is NOT executed automatically.
+# Each node job is guarded by a manual `workflow_dispatch` input
+# so the Commander can flip the switch when hardware budgets are
+# aligned.  Set the corresponding input to `true` to activate a
+# node deployment.
+# ============================================================
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_trinity:
+        description: "Deploy Trinity/Genesis Node (≥16 GB VRAM — general intelligence & orchestration)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+      deploy_pioneer_omega:
+        description: "Deploy Pioneer/Omega Node (low-latency CPU/GPU — high-speed execution & market calc)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+      deploy_phalanx:
+        description: "Deploy Phalanx Node (heavy Quantum_Goanna modeling)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  # ──────────────────────────────────────────────────────────
+  # Node 1 — Trinity / Genesis
+  # Role    : General intelligence and orchestration
+  # Hardware: A10G (24 GB VRAM) — minimum 16 GB VRAM required
+  # ──────────────────────────────────────────────────────────
+  deploy-trinity-genesis:
+    name: "Trinity/Genesis Node — A10G GPU (General Intelligence)"
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.deploy_trinity == 'true' }}
+    permissions:
+      contents: read
+
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE_TRINITY: ${{ secrets.HF_SPACE_TRINITY }}
+      NODE_ID: "trinity-genesis"
+      TARGET_HARDWARE: "a10g-small"  # 24 GB VRAM — satisfies ≥16 GB requirement
+      MIN_VRAM_GB: "16"
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install huggingface_hub"
+        run: pip install "huggingface_hub>=0.22.0"
+
+      - name: "Stage Trinity/Genesis node config"
+        run: |
+          python - <<'EOF'
+          import json, pathlib, datetime
+
+          config = {
+              "node_id": "trinity-genesis",
+              "codename": "The Genesis Engine",
+              "role": "General Intelligence & Orchestration",
+              "phase": "Phase 24 — 222 Master Builder Resonance",
+              "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+              "hardware": {
+                  "target": "a10g-small",
+                  "vram_gb": 24,
+                  "min_vram_gb": 16,
+                  "rationale": "A10G provides 24 GB VRAM, satisfying the ≥16 GB requirement for LLM orchestration",
+              },
+              "capabilities": [
+                  "LLM inference (7B–13B parameter models)",
+                  "RAG orchestration and knowledge retrieval",
+                  "Multi-agent coordination and task dispatch",
+                  "T.I.A. master-brain hosting",
+              ],
+              "staged_at": datetime.datetime.utcnow().isoformat() + "Z",
+              "status": "STAGED — awaiting Commander activation",
+          }
+          out = pathlib.Path("nodes/HF_Rack/trinity-genesis")
+          out.mkdir(parents=True, exist_ok=True)
+          (out / "node_config.json").write_text(json.dumps(config, indent=2))
+          print(f"✅ Trinity/Genesis node config staged at {out}")
+          EOF
+
+      - name: "Deploy Trinity/Genesis to HF Space"
+        run: |
+          python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+
+          token   = os.environ.get("HF_TOKEN")
+          space   = os.environ.get("HF_SPACE_TRINITY", "DJ-Goana-Coding/Trinity_Genesis")
+          hw      = os.environ.get("TARGET_HARDWARE", "a10g-small")
+
+          if not token:
+              print("⚠️  HF_TOKEN not configured — skipping Trinity/Genesis deploy")
+          else:
+              api = HfApi(token=token)
+              # Upload the staged node directory
+              api.upload_folder(
+                  folder_path="nodes/HF_Rack/trinity-genesis",
+                  repo_id=space,
+                  repo_type="space",
+                  path_in_repo=".",
+              )
+              # Request the target hardware tier
+              api.request_space_hardware(repo_id=space, hardware=hw)
+              print(f"✅ Trinity/Genesis deployed to {space} on hardware={hw}")
+          EOF
+
+  # ──────────────────────────────────────────────────────────
+  # Node 2 — Pioneer / Omega
+  # Role    : High-speed execution and market calculation
+  # Hardware: T4 (16 GB VRAM) — balanced CPU/GPU low-latency
+  # ──────────────────────────────────────────────────────────
+  deploy-pioneer-omega:
+    name: "Pioneer/Omega Node — T4 GPU (High-Speed Execution)"
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.deploy_pioneer_omega == 'true' }}
+    permissions:
+      contents: read
+
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE_PIONEER_OMEGA: ${{ secrets.HF_SPACE_PIONEER_OMEGA }}
+      NODE_ID: "pioneer-omega"
+      TARGET_HARDWARE: "t4-small"  # 16 GB VRAM — optimised for low-latency inference
+      CHANC_HWID: ${{ secrets.CHANC_HWID }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install huggingface_hub"
+        run: pip install "huggingface_hub>=0.22.0"
+
+      - name: "Stage Pioneer/Omega node config"
+        run: |
+          python - <<'EOF'
+          import json, pathlib, datetime
+
+          config = {
+              "node_id": "pioneer-omega",
+              "codename": "The Omega Pioneer",
+              "role": "High-Speed Execution & Market Calculation",
+              "phase": "Phase 24 — 222 Master Builder Resonance",
+              "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+              "hardware": {
+                  "target": "t4-small",
+                  "vram_gb": 16,
+                  "focus": "low-latency CPU/GPU balance",
+                  "rationale": "T4 provides balanced CPU/GPU throughput for real-time market pipelines",
+              },
+              "capabilities": [
+                  "Quantitative trading execution (V23 Architect)",
+                  "Real-time market-signal processing",
+                  "Low-latency inference for time-critical decisions",
+                  "Psinergy-Gate HWID-locked live-trade dispatch",
+              ],
+              "hwid_lock": {
+                  "enabled": True,
+                  "identity": "chanc",
+                  "env_var": "CHANC_HWID",
+              },
+              "staged_at": datetime.datetime.utcnow().isoformat() + "Z",
+              "status": "STAGED — awaiting Commander activation",
+          }
+          out = pathlib.Path("nodes/HF_Rack/pioneer-omega")
+          out.mkdir(parents=True, exist_ok=True)
+          (out / "node_config.json").write_text(json.dumps(config, indent=2))
+          print(f"✅ Pioneer/Omega node config staged at {out}")
+          EOF
+
+      - name: "Deploy Pioneer/Omega to HF Space"
+        run: |
+          python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+
+          token = os.environ.get("HF_TOKEN")
+          space = os.environ.get("HF_SPACE_PIONEER_OMEGA", "DJ-Goana-Coding/Pioneer_Omega")
+          hw    = os.environ.get("TARGET_HARDWARE", "t4-small")
+
+          if not token:
+              print("⚠️  HF_TOKEN not configured — skipping Pioneer/Omega deploy")
+          else:
+              api = HfApi(token=token)
+              api.upload_folder(
+                  folder_path="nodes/HF_Rack/pioneer-omega",
+                  repo_id=space,
+                  repo_type="space",
+                  path_in_repo=".",
+              )
+              api.request_space_hardware(repo_id=space, hardware=hw)
+              print(f"✅ Pioneer/Omega deployed to {space} on hardware={hw}")
+          EOF
+
+  # ──────────────────────────────────────────────────────────
+  # Node 3 — Phalanx
+  # Role    : Heavy Quantum_Goanna modeling
+  # Hardware: A10G large (24 GB VRAM) — compute-intensive workloads
+  # ──────────────────────────────────────────────────────────
+  deploy-phalanx:
+    name: "Phalanx Node — A10G GPU (Quantum_Goanna Heavy Modeling)"
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.deploy_phalanx == 'true' }}
+    permissions:
+      contents: read
+
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE_PHALANX: ${{ secrets.HF_SPACE_PHALANX }}
+      NODE_ID: "S10_Phalanx"
+      TARGET_HARDWARE: "a10g-large"  # maximum throughput for Quantum_Goanna
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install huggingface_hub"
+        run: pip install "huggingface_hub>=0.22.0"
+
+      - name: "Stage Phalanx node config"
+        run: |
+          python - <<'EOF'
+          import json, pathlib, datetime
+
+          config = {
+              "node_id": "S10_Phalanx",
+              "codename": "The Quant Spearhead",
+              "role": "Heavy Quantum_Goanna Modeling",
+              "phase": "Phase 24 — 222 Master Builder Resonance",
+              "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+              "hardware": {
+                  "target": "a10g-large",
+                  "vram_gb": 24,
+                  "focus": "maximum GPU throughput for large-scale quantitative modeling",
+                  "rationale": "A10G large delivers sustained compute for Quantum_Goanna model runs",
+              },
+              "capabilities": [
+                  "Quantum_Goanna heavy quantitative modeling",
+                  "GGUF / safetensors model inference (DeepSeek-R1-7B, Mistral)",
+                  "District 12 Oracle baseline — world-knowledge retrieval",
+                  "Phalanx swarm-intelligence processing",
+              ],
+              "model_targets": [
+                  "DeepSeek-R1-7B.gguf",
+                  "Mistral-World-Knowledge.gguf",
+                  "nomic-embed-text-v1.5.Q4_K_M.gguf",
+              ],
+              "staged_at": datetime.datetime.utcnow().isoformat() + "Z",
+              "status": "STAGED — awaiting Commander activation",
+          }
+          out = pathlib.Path("nodes/HF_Rack/S10_Phalanx")
+          out.mkdir(parents=True, exist_ok=True)
+          (out / "node_config.json").write_text(json.dumps(config, indent=2))
+          print(f"✅ Phalanx node config staged at {out}")
+          EOF
+
+      - name: "Deploy Phalanx to HF Space"
+        run: |
+          python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+
+          token = os.environ.get("HF_TOKEN")
+          space = os.environ.get("HF_SPACE_PHALANX", "DJ-Goana-Coding/Phalanx_Pioneer")
+          hw    = os.environ.get("TARGET_HARDWARE", "a10g-large")
+
+          if not token:
+              print("⚠️  HF_TOKEN not configured — skipping Phalanx deploy")
+          else:
+              api = HfApi(token=token)
+              api.upload_folder(
+                  folder_path="nodes/HF_Rack/S10_Phalanx",
+                  repo_id=space,
+                  repo_type="space",
+                  path_in_repo=".",
+              )
+              api.request_space_hardware(repo_id=space, hardware=hw)
+              print(f"✅ Phalanx deployed to {space} on hardware={hw}")
+          EOF
