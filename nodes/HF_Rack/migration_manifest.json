@@ -1,0 +1,53 @@
+{
+  "manifest_version": "1.0.0",
+  "generated": "2026-03-26",
+  "phase": "Phase 8 — Grand Synthesis & 1TB Rack Migration",
+  "destination": "HF_Rack",
+  "destination_capacity_gb": 1024,
+  "destination_status": "Compute Active",
+  "freq_signature": "69-333-222-92-93-999-777-88-29-369",
+  "targets": [
+    {
+      "id": "deepseek_r1_7b",
+      "filename": "DeepSeek-R1-7B.gguf",
+      "source_path": "C:\\Citadel\\Vault\\DeepSeek-R1-7B.gguf",
+      "keyword": "_Citadel_MODELS",
+      "hf_rack_path": "nodes/HF_Rack/DeepSeek-R1-7B",
+      "status": "STAGED",
+      "role": "Quantised 7B language model — primary inference node",
+      "notes": "Hot-deploy target for Psinergy-Gate scaling"
+    },
+    {
+      "id": "mistral_world_knowledge",
+      "filename": "Mistral-World-Knowledge.gguf",
+      "source_path": "C:\\Citadel\\Vault\\Mistral-World-Knowledge.gguf",
+      "keyword": "_Citadel_MODELS",
+      "hf_rack_path": "nodes/HF_Rack/Mistral-World-Knowledge",
+      "status": "STAGED",
+      "role": "World-knowledge GGUF — District 12 Oracle baseline",
+      "notes": "Hot-deploy target for Psinergy-Gate scaling"
+    },
+    {
+      "id": "nomic_embed_text",
+      "filename": "nomic-embed-text-v1.5.Q4_K_M.gguf",
+      "source_path": "C:\\Users\\<REDACTED>\\.lmstudio\\bundled-models\\nomic-ai\\nomic-embed-text-v1.5-GGUF\\nomic-embed-text-v1.5.Q4_K_M.gguf",
+      "keyword": "_Users_<REDACTED>__lmstudio_MODELS",
+      "hf_rack_path": "nodes/HF_Rack/nomic-embed-text-v1.5-GGUF",
+      "status": "STAGED",
+      "role": "Embedding model — RAG retrieval layer for brain vault",
+      "notes": "Username path sanitised by No-Lemon protocol before cloud mirror"
+    },
+    {
+      "id": "amy_onnx",
+      "filename": "amy.onnx",
+      "source_path": "C:\\Citadel\\Cloud_Staging\\HF_12_Spaces_Rotation\\amy.onnx",
+      "keyword": "_Citadel_MODELS",
+      "hf_rack_path": "nodes/HF_Rack/amy-onnx",
+      "status": "STAGED",
+      "role": "ONNX audio/voice model — Citadel voice synthesis layer",
+      "notes": "Hot-deploy target for Psinergy-Gate scaling"
+    }
+  ],
+  "migration_status": "PENDING",
+  "notes": "Execute via agents.model_shopper.download_model() once HF_TOKEN is active. All source paths containing local usernames have been sanitised by utils.sanitizer (No-Lemon protocol)."
+}

@@ -1,6 +1,7 @@
 {
-  "manifest_version": "2.1.0",
+  "manifest_version": "2.2.0",
   "generated": "2026-03-26",
+  "phase": "Phase 8 — Grand Synthesis & 1TB Rack Migration",
   "hub": {
     "id": "mapping-and-inventory",
     "role": "Master Brain / Central Hub",
@@ -266,7 +267,7 @@
     {"name": "Shadow Archive", "env_var": "HF_SPACE_SHADOW_ARCHIVE", "system": "CITADEL_OMEGA"}
   ],
   "sovereign_infrastructure": {
-    "description": "Expanded Sovereign Infrastructure — all physical, mobile, cloud, and HuggingFace compute/storage nodes mapped for Phase 6 Universal Acquisition staging.",
+    "description": "Expanded Sovereign Infrastructure — all physical, mobile, cloud, and HuggingFace compute/storage nodes mapped for Phase 8 Grand Synthesis & 1TB Rack Migration.",
     "local_edge_nodes": [
       {
         "id": "drive_C",
@@ -286,32 +287,35 @@
       },
       {
         "id": "drive_E",
-        "label": "E: (2.5TB)",
+        "label": "E: (2.5TB — Lore Archive)",
         "type": "local_disk",
         "capacity_gb": 2560,
-        "role": "High-capacity extended local storage",
-        "visibility": "standard"
+        "role": "High-capacity lore archive — RECOVERY_STAGING + BIG DOOFY LAND STORY MAIN FOLDER",
+        "visibility": "standard",
+        "phase8_status": "Lore Archive"
       }
     ],
     "mobile_spearhead": [
       {
         "id": "S10_Phalanx",
-        "label": "S10_Phalanx (500GB)",
+        "label": "S10_Phalanx (500GB — Purified)",
         "type": "mobile_termux_node",
         "capacity_gb": 500,
         "role": "Mobile quantitative analysis spearhead — cross-speaks with CGAL_Core and Oppo_Omega",
         "fleet_registry_path": "fleet_registry/S10_Phalanx/",
-        "nodes_path": "nodes/S10_Phalanx/"
+        "nodes_path": "nodes/S10_Phalanx/",
+        "phase8_status": "Purified"
       }
     ],
     "cloud_drive_array": [
       {
         "id": "google_drive_primary",
-        "label": "Google Drive (2TB)",
+        "label": "Google Drive (2TB — Verified)",
         "type": "cloud_drive",
         "capacity_gb": 2048,
         "role": "Primary cloud storage — 12 Citadel Districts sourced from this drive",
-        "env_var": "DRIVE_SERVICE_KEY"
+        "env_var": "DRIVE_SERVICE_KEY",
+        "phase8_status": "Verified"
       },
       {
         "id": "drive_F_cloud",
@@ -359,21 +363,56 @@
     "huggingface_infrastructure": [
       {
         "id": "HF_Rack",
-        "label": "HF_Rack (1TB Compute)",
+        "label": "HF_Rack (1TB — Compute Active)",
         "type": "hf_compute",
         "capacity_gb": 1024,
         "role": "Primary HuggingFace compute rack — hosts live Spaces and model inference endpoints",
-        "env_var": "HF_TOKEN"
+        "env_var": "HF_TOKEN",
+        "phase8_status": "Compute Active",
+        "migration_manifest": "nodes/HF_Rack/migration_manifest.json"
       },
       {
         "id": "HF_Garage",
-        "label": "HF_Garage (20GB Staging Storage)",
+        "label": "HF_Garage (20GB — Staging)",
         "type": "hf_staging",
         "capacity_gb": 20,
         "role": "HuggingFace staging garage — model and asset staging before promotion to live Spaces",
-        "sync_module": "core.hf_garage_sync"
+        "sync_module": "core.hf_garage_sync",
+        "phase8_status": "Staging"
       }
-    ]
+    ],
+    "total_verified_capacity_tb": 8.0,
+    "capacity_breakdown": {
+      "google_drive_tb": 2.0,
+      "hf_rack_tb": 1.0,
+      "hf_garage_gb": 20,
+      "s10_phalanx_gb": 500,
+      "drive_e_tb": 2.5,
+      "note": "Total 8TB master manifest — Phase 8 Grand Synthesis verified storage"
+    }
+  },
+  "knowledge_saturation": {
+    "description": "Tracks how much of the Universal Knowledge from the AION Trans-Dimensional Mapping (District 12 / ORACLE_ETHICS) has been successfully indexed into the brain vault.",
+    "district": "12_ORACLE_ETHICS",
+    "saturation_pct": 0.0,
+    "total_lore_files_discovered": 0,
+    "total_chunks_indexed": 0,
+    "last_probe_run": null,
+    "state_file": "spark_ui/knowledge_saturation.json",
+    "probe_module": "brain.aion_probe",
+    "status_values": ["DORMANT", "SCANNING", "INDEXING", "SATURATED"],
+    "status": "DORMANT"
+  },
+  "phase8_deep_storage_migration": {
+    "description": "Phase 8 — Deep-Storage Migration status for high-weight binary models staged for the 1TB HF Rack.",
+    "manifest": "nodes/HF_Rack/migration_manifest.json",
+    "targets": [
+      {"filename": "DeepSeek-R1-7B.gguf",                     "status": "STAGED"},
+      {"filename": "Mistral-World-Knowledge.gguf",             "status": "STAGED"},
+      {"filename": "nomic-embed-text-v1.5.Q4_K_M.gguf",       "status": "STAGED"},
+      {"filename": "amy.onnx",                                 "status": "STAGED"}
+    ],
+    "migration_status": "PENDING"
   },
   "freq_signature": "69-333-222-92-93-999-777-88-29-369"
 }
