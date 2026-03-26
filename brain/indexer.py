@@ -31,6 +31,44 @@ FREQ_SIGNATURE: str = "69-333-222-92-93-999-777-88-29-369"
 # Supported source-code extensions for automatic ingestion
 _CODE_EXTENSIONS: tuple[str, ...] = (".py", ".json", ".md", ".txt", ".yaml", ".yml")
 
+# ---------------------------------------------------------------------------
+# Origin Isolation — system-origin tag map
+# ---------------------------------------------------------------------------
+# Maps path fragments / directory names to sovereign system IDs.
+# The order matters: more-specific patterns should appear first.
+_SYSTEM_ORIGIN_MAP: list[tuple[str, str]] = [
+    ("pioneer-trader", "pioneer-trader"),
+    ("CITADEL_OMEGA", "CITADEL_OMEGA"),
+    ("citadel-vortex", "citadel-vortex"),
+    ("perimeter-scout", "perimeter-scout"),
+    ("S10_Phalanx", "S10_Phalanx"),
+    ("CGAL_Core", "CGAL_Core"),
+    ("Genesis", "Genesis"),
+    ("Harvestmoon", "Harvestmoon"),
+    ("fleet_registry/pioneer", "pioneer-trader"),
+    ("fleet_registry/CITADEL", "CITADEL_OMEGA"),
+    ("fleet_registry/citadel-vortex", "citadel-vortex"),
+    ("fleet_registry/perimeter", "perimeter-scout"),
+    ("fleet_registry/S10_Phalanx", "S10_Phalanx"),
+    ("fleet_registry/CGAL", "CGAL_Core"),
+    ("fleet_registry/Genesis", "Genesis"),
+    ("fleet_registry/Harvestmoon", "Harvestmoon"),
+]
+
+# Filename patterns that identify a system's "Bible" (core logic).
+# Records matching these patterns receive ``is_bible: "true"`` in metadata
+# so the Self-Healing Protocol can locate and export them during a reboot.
+_BIBLE_PATTERNS: tuple[str, ...] = (
+    "bible",
+    "BIBLE",
+    "core_logic",
+    "CORE_LOGIC",
+    "TOTALITY",
+    "KNOWLEDGE_GRAPH",
+    "manifest",
+    "MANIFEST",
+)
+
 # Ghost-manifest filenames targeted by Task 2 (Ghost-Memory Infiltration).
 # These are indexed regardless of .gitignore rules because they are addressed
 # by explicit path, not by directory walk.
@@ -105,6 +143,71 @@ def _detect_s10_spoke_links(text: str) -> list[str]:
     return sorted(linked)
 
 
+def _detect_system_origin(source: str) -> str | None:
+    """
+    Return the sovereign system ID for *source* using :data:`_SYSTEM_ORIGIN_MAP`.
+
+    Scans the source string for known path fragments and returns the first
+    match.  Returns ``None`` when the source cannot be attributed to any
+    known system (e.g. hub-level files).
+    """
+    for fragment, system_id in _SYSTEM_ORIGIN_MAP:
+        if fragment in source:
+            return system_id
+    return None
+
+
+def _is_bible_file(filepath: pathlib.Path) -> bool:
+    """
+    Return *True* when *filepath* matches a known Bible / core-logic pattern.
+
+    The Self-Healing Protocol uses this flag to locate the authoritative
+    memory context for each system so the Hub can export and reboot it if
+    the originating node goes offline or corrupts.
+    """
+    name_lower = filepath.stem.lower()
+    for pattern in _BIBLE_PATTERNS:
+        if pattern.lower() in name_lower:
+            return True
+    return False
+
+
+def export_system_bible(
+    collection: chromadb.Collection,
+    system_id: str,
+) -> list[dict[str, Any]]:
+    """
+    Self-Healing Protocol — export the isolated memory context for *system_id*.
+
+    Queries the vault for all records tagged with ``system_origin=system_id``
+    and ``is_bible="true"``.  Returns a list of metadata dicts that can be
+    serialised and used to reboot the target system from a known-good state.
+
+    Parameters
+    ----------
+    collection:
+        The open ChromaDB collection to query.
+    system_id:
+        Sovereign system identifier (e.g. ``"pioneer-trader"``).
+    """
+    results = collection.get(
+        where={"$and": [{"system_origin": system_id}, {"is_bible": "true"}]},
+        include=["metadatas", "documents"],
+    )
+    records: list[dict[str, Any]] = []
+    ids = results.get("ids", [])
+    docs = results.get("documents") or []
+    metas = results.get("metadatas") or []
+    for doc_id, doc, meta in zip(ids, docs, metas):
+        records.append({"id": doc_id, "document": doc, "metadata": meta})
+    logger.info(
+        "Self-Healing: exported %d Bible records for system '%s'.",
+        len(records),
+        system_id,
+    )
+    return records
+
+
 def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) -> int:
     """
     Read *filepath* and upsert its content into *collection*.
@@ -123,6 +226,12 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
     # cross-spoke link detection can be applied to every chunk.
     is_s10 = "S10_Phalanx" in rel_path
 
+    # Origin Isolation — detect which sovereign system owns this file.
+    system_origin = _detect_system_origin(rel_path)
+
+    # Self-Healing Protocol — flag Bible / core-logic files for reboot export.
+    is_bible = _is_bible_file(filepath)
+
     ids, documents, metadatas = [], [], []
     for idx, chunk in enumerate(chunks):
         doc_id = _doc_id(chunk, f"{rel_path}::chunk{idx}")
@@ -134,6 +243,12 @@ def index_file(collection: chromadb.Collection, filepath: str | pathlib.Path) ->
             "freq_signature": FREQ_SIGNATURE,
             "file_type": filepath.suffix.lstrip("."),
         }
+        # Origin Isolation tag — ensures RAG metadata carries the native system ID.
+        if system_origin:
+            meta["system_origin"] = system_origin
+        # Self-Healing flag — marks Bible/core-logic records for reboot export.
+        if is_bible:
+            meta["is_bible"] = "true"
         if is_s10:
             linked = _detect_s10_spoke_links(chunk)
             if linked:
@@ -209,7 +324,12 @@ def index_text(
     Ingest an arbitrary text string (e.g. content streamed from Google Drive).
 
     *source* is a human-readable identifier (e.g. a Drive file name/ID).
+    When *source* contains a known system path fragment the record is
+    automatically tagged with ``system_origin`` (Origin Isolation).
     """
+    # Origin Isolation — derive system_origin from the source label if possible.
+    system_origin = _detect_system_origin(source)
+
     chunks = _chunk_text(text)
     ids, documents, metadatas = [], [], []
     for idx, chunk in enumerate(chunks):
@@ -222,6 +342,9 @@ def index_text(
             "freq_signature": FREQ_SIGNATURE,
             "file_type": "drive",
         }
+        # Attach origin tag when the source can be attributed to a known system.
+        if system_origin:
+            meta["system_origin"] = system_origin
         if extra_metadata:
             meta.update(extra_metadata)
         metadatas.append(meta)

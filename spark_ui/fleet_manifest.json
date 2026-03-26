@@ -1,0 +1,145 @@
+{
+  "manifest_version": "2.0.0",
+  "generated": "2026-03-26",
+  "hub": {
+    "id": "mapping-and-inventory",
+    "role": "Master Brain / Central Hub",
+    "description": "Central coordination node, RAG librarian, and state-map registry for the entire decentralised fleet. All sovereign nodes back up to this hub.",
+    "repo": "DJ-Goana-Coding/mapping-and-inventory",
+    "fleet_registry_path": "fleet_registry/",
+    "brain_vault_path": "brain/memory_vault/"
+  },
+  "sovereign_nodes": [
+    {
+      "id": "pioneer-trader",
+      "codename": "The Pioneer",
+      "role": "Quantitative Trading Engine",
+      "description": "Primary autonomous trading system running quantitative and market-analysis pipelines. Operates independently with its own logic, security, and memory.",
+      "repo": "DJ-Goana-Coding/pioneer-trader",
+      "fleet_registry_path": "fleet_registry/pioneer-trader/",
+      "hf_spaces": [
+        {
+          "name": "Tias Pioneer Trader",
+          "env_var": "HF_SPACE_TIAS_PIONEER"
+        }
+      ]
+    },
+    {
+      "id": "CITADEL_OMEGA",
+      "codename": "The Citadel Omega",
+      "role": "Sovereign Citadel Command Node",
+      "description": "High-security command and control citadel. Houses the primary intelligence core and governance logic for the Omega tier.",
+      "repo": "DJ-Goana-Coding/CITADEL_OMEGA",
+      "fleet_registry_path": "fleet_registry/CITADEL_OMEGA/",
+      "hf_spaces": [
+        {
+          "name": "T.I.A. Citadel",
+          "env_var": "HF_SPACE_TIA_CITADEL"
+        },
+        {
+          "name": "Omega Archive",
+          "env_var": "HF_SPACE_OMEGA_ARCHIVE"
+        },
+        {
+          "name": "Shadow Archive",
+          "env_var": "HF_SPACE_SHADOW_ARCHIVE"
+        }
+      ]
+    },
+    {
+      "id": "citadel-vortex",
+      "codename": "The Vortex",
+      "role": "Dynamic Processing Vortex",
+      "description": "High-throughput data-processing and signal-routing node. Aggregates and routes multi-source intelligence streams into the fleet.",
+      "repo": "DJ-Goana-Coding/citadel-vortex",
+      "fleet_registry_path": "fleet_registry/citadel-vortex/",
+      "hf_spaces": []
+    },
+    {
+      "id": "perimeter-scout",
+      "codename": "The Sentinel Swarm",
+      "role": "Perimeter Reconnaissance & Threat Detection",
+      "description": "Distributed swarm intelligence node providing perimeter scanning, threat-detection, and real-time environmental monitoring.",
+      "repo": "DJ-Goana-Coding/perimeter-scout",
+      "fleet_registry_path": "fleet_registry/perimeter-scout/",
+      "hf_spaces": [
+        {
+          "name": "Tias Sentinel Scout Swarm",
+          "env_var": "HF_SPACE_SENTINEL_SWARM"
+        },
+        {
+          "name": "Omega Scout",
+          "env_var": "HF_SPACE_OMEGA_SCOUT"
+        },
+        {
+          "name": "Omega Bots",
+          "env_var": "HF_SPACE_OMEGA_BOTS"
+        }
+      ]
+    },
+    {
+      "id": "S10_Phalanx",
+      "codename": "The Quant Spearhead",
+      "role": "S10 Termux Quantitative Analysis Node",
+      "description": "S10 hardware node running quantitative trading and market-analysis pipelines. Cross-speaks with CGAL_Core and Omega for compliance clearance and sentiment data.",
+      "repo": "DJ-Goana-Coding/S10_Phalanx",
+      "fleet_registry_path": "fleet_registry/S10_Phalanx/",
+      "hf_spaces": [
+        {
+          "name": "Omega Trader",
+          "env_var": "HF_SPACE_OMEGA_TRADER"
+        }
+      ]
+    },
+    {
+      "id": "CGAL_Core",
+      "codename": "The Law",
+      "role": "Legal Clearance & Compliance Gateway",
+      "description": "Psinergy-Gate legal and compliance engine. Every trade signal from the fleet must pass through CGAL_Core for regulatory clearance before execution.",
+      "repo": "DJ-Goana-Coding/CGAL_Core",
+      "fleet_registry_path": "fleet_registry/CGAL_Core/",
+      "hf_spaces": [
+        {
+          "name": "CGAL Core",
+          "env_var": "HF_SPACE_CGAL_CORE"
+        }
+      ]
+    },
+    {
+      "id": "Genesis",
+      "codename": "The Origin",
+      "role": "Fleet Genesis & Bootstrap Node",
+      "description": "Foundational bootstrap system. Houses the original fleet-genesis logic and acts as the authoritative source of truth for fleet initialisation sequences.",
+      "repo": "DJ-Goana-Coding/Genesis",
+      "fleet_registry_path": "fleet_registry/Genesis/",
+      "hf_spaces": []
+    },
+    {
+      "id": "Harvestmoon",
+      "codename": "The Harvest",
+      "role": "Seasonal Resource Allocation & Harvest Node",
+      "description": "Manages seasonal-cycle harvest, resource-allocation, and long-horizon portfolio rebalancing logic. Independent scheduling and memory.",
+      "repo": "DJ-Goana-Coding/Harvestmoon",
+      "fleet_registry_path": "fleet_registry/Harvestmoon/",
+      "hf_spaces": [
+        {
+          "name": "Harvestmoon",
+          "env_var": "HF_SPACE_HARVESTMOON"
+        }
+      ]
+    }
+  ],
+  "cloud_nodes": [
+    {"name": "Tias Pioneer Trader", "env_var": "HF_SPACE_TIAS_PIONEER", "system": "pioneer-trader"},
+    {"name": "Tias Sentinel Scout Swarm", "env_var": "HF_SPACE_SENTINEL_SWARM", "system": "perimeter-scout"},
+    {"name": "T.I.A. Citadel", "env_var": "HF_SPACE_TIA_CITADEL", "system": "CITADEL_OMEGA"},
+    {"name": "Harvestmoon", "env_var": "HF_SPACE_HARVESTMOON", "system": "Harvestmoon"},
+    {"name": "CGAL Core", "env_var": "HF_SPACE_CGAL_CORE", "system": "CGAL_Core"},
+    {"name": "Omega Bots", "env_var": "HF_SPACE_OMEGA_BOTS", "system": "perimeter-scout"},
+    {"name": "Omega Scout", "env_var": "HF_SPACE_OMEGA_SCOUT", "system": "perimeter-scout"},
+    {"name": "Omega Trader", "env_var": "HF_SPACE_OMEGA_TRADER", "system": "S10_Phalanx"},
+    {"name": "Omega Archive", "env_var": "HF_SPACE_OMEGA_ARCHIVE", "system": "CITADEL_OMEGA"},
+    {"name": "Shadow Archive", "env_var": "HF_SPACE_SHADOW_ARCHIVE", "system": "CITADEL_OMEGA"}
+  ],
+  "freq_signature": "69-333-222-92-93-999-777-88-29-369"
+}
