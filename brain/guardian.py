@@ -11,6 +11,21 @@ is never silently overwritten.
 
 Blocked overwrite attempts are appended to ``SECURITY_ALERTS.log`` in the
 repository root so the Commander can audit all veto events.
+
+HWID Lock (Chance Root)
+-----------------------
+The Pioneer V23 Architect engine is forbidden from executing live trades
+unless two conditions are met:
+
+1. The ``chanc`` hardware signature is present — verified by checking that
+   the ``CHANC_ROOT_PATH`` environment variable resolves to a directory
+   matching ``C:\\Users\\chanc\\`` (or the ``CHANC_HWID`` env var is
+   explicitly set to ``"chanc"``).
+2. The system's Psinergy Score (supplied by the caller or read from the
+   ``PSINERGY_SCORE`` env var) is **> 90 %**.
+
+Call :func:`verify_chanc_execution_gate` before any live-trade dispatch.
+Failures raise :class:`HWIDLockError`.
 """
 from __future__ import annotations
 
@@ -63,6 +78,134 @@ _REDACTION_RULES: list[tuple[re.Pattern[str], str]] = [
     # Phone numbers (international and local Australian formats)
     (re.compile(r"\b(?:\+61|0)[2-9]\d{8}\b"), "[REDACTED_PHONE]"),
 ]
+
+
+# ---------------------------------------------------------------------------
+# HWID Lock — Chance Root (Pioneer V23 Architect live-trade gate)
+# ---------------------------------------------------------------------------
+#: Expected hardware-identity string for the sovereign execution environment.
+CHANC_HWID: str = "chanc"
+
+#: Canonical zero-point root path on the Chance hardware (Windows-specific).
+#: Override at runtime via the ``CHANC_ROOT_PATH`` environment variable.
+#: Detection logic normalises separators and trailing slashes before comparison.
+CHANC_ROOT_PATH: str = r"C:\Users\chanc\\"
+
+#: Minimum Psinergy Score (0–100) required for live-trade authorisation.
+PSINERGY_MIN_SCORE: float = 90.0
+
+
+class HWIDLockError(RuntimeError):
+    """
+    Raised when the Pioneer V23 Architect live-trade gate is not satisfied.
+
+    This occurs when either:
+    * The ``chanc`` hardware signature cannot be verified, or
+    * The Psinergy Score is ≤ 90 %.
+    """
+
+
+def _resolve_psinergy_score(score: float | None) -> float:
+    """
+    Return *score* if provided, else read ``PSINERGY_SCORE`` from the
+    environment.  Falls back to 0.0 if the env var is absent or invalid.
+    """
+    if score is not None:
+        return float(score)
+    raw = os.getenv("PSINERGY_SCORE", "0")
+    try:
+        return float(raw)
+    except ValueError:
+        logger.warning("Guardian: PSINERGY_SCORE env var is not numeric (%r).", raw)
+        return 0.0
+
+
+def _is_chanc_hwid_present() -> bool:
+    """
+    Return True when the ``chanc`` hardware signature is detected.
+
+    Checks (in order):
+    1. ``CHANC_HWID`` env var equals ``"chanc"`` (case-insensitive).
+    2. ``CHANC_ROOT_PATH`` env var resolves to a path whose last two
+       components match ``Users/chanc``.
+    """
+    env_hwid = os.getenv("CHANC_HWID", "")
+    if env_hwid.lower() == CHANC_HWID:
+        return True
+
+    env_root = os.getenv("CHANC_ROOT_PATH", "")
+    if env_root:
+        normalised = env_root.replace("\\", "/").rstrip("/").lower()
+        return normalised.endswith("users/chanc")
+
+    return False
+
+
+def _append_hwid_lock_alert(reason: str) -> None:
+    """Append an HWID lock rejection record to SECURITY_ALERTS.log."""
+    timestamp = datetime.datetime.now(datetime.timezone.utc).strftime(
+        "%Y-%m-%d %H:%M:%S UTC"
+    )
+    entry = (
+        f"[{timestamp}] HWID LOCK VETO | "
+        f"reason={reason!r}\n"
+    )
+    try:
+        with SECURITY_ALERTS_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(entry)
+    except OSError as exc:
+        logger.warning("Guardian: could not write SECURITY_ALERTS.log (%s).", exc)
+
+
+def verify_chanc_execution_gate(psinergy_score: float | None = None) -> None:
+    """
+    Verify that the Pioneer V23 Architect engine is authorised to execute
+    live trades from the Chance Root environment.
+
+    Two conditions must both be satisfied:
+
+    1. The ``chanc`` hardware signature is present (via ``CHANC_HWID`` or
+       ``CHANC_ROOT_PATH`` environment variables).
+    2. The Psinergy Score is **> 90 %** (supplied as *psinergy_score* or
+       read from the ``PSINERGY_SCORE`` env var).
+
+    Parameters
+    ----------
+    psinergy_score:
+        Override for the Psinergy Score (0–100).  If *None* the value is
+        read from the ``PSINERGY_SCORE`` environment variable.
+
+    Raises
+    ------
+    HWIDLockError
+        If either condition is not met.
+    """
+    if not _is_chanc_hwid_present():
+        reason = (
+            "HWID verification failed — 'chanc' hardware signature not detected. "
+            "Set CHANC_HWID=chanc or CHANC_ROOT_PATH=C:\\Users\\chanc\\ "
+            "in the execution environment."
+        )
+        _append_hwid_lock_alert(reason)
+        logger.error("Guardian HWID Lock: %s", reason)
+        raise HWIDLockError(reason)
+
+    score = _resolve_psinergy_score(psinergy_score)
+    if score <= PSINERGY_MIN_SCORE:
+        reason = (
+            f"Psinergy Score {score:.1f}% is not above the required threshold of "
+            f"{PSINERGY_MIN_SCORE:.0f}%. Live trades are forbidden."
+        )
+        _append_hwid_lock_alert(reason)
+        logger.error("Guardian HWID Lock: %s", reason)
+        raise HWIDLockError(reason)
+
+    logger.info(
+        "Guardian HWID Lock: execution gate cleared — HWID=chanc | "
+        "Psinergy=%.1f%% (threshold %.0f%%).",
+        score,
+        PSINERGY_MIN_SCORE,
+    )
 
 
 def _append_security_alert(similarity: float, matching_source: str, proposed_snippet: str) -> None:

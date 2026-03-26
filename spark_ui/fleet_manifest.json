@@ -1,7 +1,7 @@
 {
   "manifest_version": "2.2.0",
   "generated": "2026-03-26",
-  "phase": "Phase 8 — Grand Synthesis & 1TB Rack Migration",
+  "phase": "Phase 21 — Sovereignty Total-Setup",
   "hub": {
     "id": "mapping-and-inventory",
     "role": "Master Brain / Central Hub",
@@ -184,51 +184,199 @@
   "district_map": {
     "description": "12 Dimensional Districts of the Citadel — each district governs a specific operational domain within the fleet intelligence architecture.",
     "districts": [
-      {"id": "01", "canonical": "01_GENESIS_CORE",        "role": "Genesis & Core Bootstrap Logic"},
-      {"id": "02", "canonical": "02_INTELLIGENCE_LAYER",  "role": "Intelligence & Neural Processing Layer"},
-      {"id": "03", "canonical": "03_COMMAND_CONTROL",     "role": "Command & Control Operations"},
-      {"id": "04", "canonical": "04_OUTPUT_HARVEST",      "role": "Output Harvest & Signal Delivery"},
-      {"id": "05", "canonical": "05_MARKET_SIGNALS",      "role": "Market Signals & Quantitative Data"},
-      {"id": "06", "canonical": "06_MEMORY_ARCHIVE",      "role": "Memory Archive & Long-Term Storage"},
-      {"id": "07", "canonical": "07_TRADER",              "role": "Autonomous Trading Execution"},
-      {"id": "08", "canonical": "08_SECURITY_PERIMETER",  "role": "Security Perimeter & Threat Detection"},
-      {"id": "09", "canonical": "09_LEGAL_CLEARANCE",     "role": "Legal Clearance & Compliance (CGAL Gate)"},
-      {"id": "10", "canonical": "10_RESOURCE_ALLOCATION", "role": "Resource Allocation & Harvest Scheduling"},
-      {"id": "11", "canonical": "11_SWARM_INTELLIGENCE",  "role": "Swarm Intelligence & Multi-Agent Coordination"},
-      {"id": "12", "canonical": "12_ORACLE_ETHICS",       "role": "Oracle Ethics & Governance Framework"}
+      {
+        "id": "01",
+        "canonical": "01_GENESIS_CORE",
+        "role": "Genesis & Core Bootstrap Logic"
+      },
+      {
+        "id": "02",
+        "canonical": "02_INTELLIGENCE_LAYER",
+        "role": "Intelligence & Neural Processing Layer"
+      },
+      {
+        "id": "03",
+        "canonical": "03_COMMAND_CONTROL",
+        "role": "Command & Control Operations"
+      },
+      {
+        "id": "04",
+        "canonical": "04_OUTPUT_HARVEST",
+        "role": "Output Harvest & Signal Delivery"
+      },
+      {
+        "id": "05",
+        "canonical": "05_MARKET_SIGNALS",
+        "role": "Market Signals & Quantitative Data"
+      },
+      {
+        "id": "06",
+        "canonical": "06_MEMORY_ARCHIVE",
+        "role": "Memory Archive & Long-Term Storage"
+      },
+      {
+        "id": "07",
+        "canonical": "07_TRADER",
+        "role": "Autonomous Trading Execution"
+      },
+      {
+        "id": "08",
+        "canonical": "08_SECURITY_PERIMETER",
+        "role": "Security Perimeter & Threat Detection"
+      },
+      {
+        "id": "09",
+        "canonical": "09_LEGAL_CLEARANCE",
+        "role": "Legal Clearance & Compliance (CGAL Gate)"
+      },
+      {
+        "id": "10",
+        "canonical": "10_RESOURCE_ALLOCATION",
+        "role": "Resource Allocation & Harvest Scheduling"
+      },
+      {
+        "id": "11",
+        "canonical": "11_SWARM_INTELLIGENCE",
+        "role": "Swarm Intelligence & Multi-Agent Coordination"
+      },
+      {
+        "id": "12",
+        "canonical": "12_ORACLE_ETHICS",
+        "role": "Oracle Ethics & Governance Framework"
+      }
     ]
   },
   "system_health": {
     "local_sovereign_ark": {
       "key": "LOCAL_SOVEREIGN_ARK",
       "description": "Status of the local hardware node fleet (S10_Phalanx, Oppo_Omega). Reflects connectivity, last-sync timestamp, and telemetry liveness.",
-      "status_values": ["ONLINE", "SYNCING", "OFFLINE", "DEGRADED"],
+      "status_values": [
+        "ONLINE",
+        "SYNCING",
+        "OFFLINE",
+        "DEGRADED"
+      ],
       "default_status": "OFFLINE"
     },
     "ghost_protocol": {
       "key": "GHOST_PROTOCOL",
       "description": "Ghost Protocol activation state. When ACTIVE the hub performs silent deep-scan ingestion of node manifests (TOTALITY.json, KNOWLEDGE_GRAPH.json) without alerting downstream spokes.",
-      "status_values": ["INACTIVE", "ACTIVE", "SCANNING", "COMPLETE"],
+      "status_values": [
+        "INACTIVE",
+        "ACTIVE",
+        "SCANNING",
+        "COMPLETE"
+      ],
       "default_status": "INACTIVE"
     }
   },
   "district_health": {
     "description": "Per-district integrity metrics. Each entry reports the district canonical ID, its operational status, chunk count in the brain vault, last-indexed timestamp, and the owning sovereign node.",
     "districts": [
-      {"id": "01", "canonical": "01_GENESIS_CORE",        "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "Genesis"},
-      {"id": "02", "canonical": "02_INTELLIGENCE_LAYER",  "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
-      {"id": "03", "canonical": "03_COMMAND_CONTROL",     "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
-      {"id": "04", "canonical": "04_OUTPUT_HARVEST",      "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
-      {"id": "05", "canonical": "05_MARKET_SIGNALS",      "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "pioneer-trader"},
-      {"id": "06", "canonical": "06_MEMORY_ARCHIVE",      "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "mapping-and-inventory"},
-      {"id": "07", "canonical": "07_TRADER",              "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "pioneer-trader"},
-      {"id": "08", "canonical": "08_SECURITY_PERIMETER",  "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "perimeter-scout"},
-      {"id": "09", "canonical": "09_LEGAL_CLEARANCE",     "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "CGAL_Core"},
-      {"id": "10", "canonical": "10_RESOURCE_ALLOCATION", "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "Harvestmoon"},
-      {"id": "11", "canonical": "11_SWARM_INTELLIGENCE",  "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "perimeter-scout"},
-      {"id": "12", "canonical": "12_ORACLE_ETHICS",       "status": "NOMINAL", "vault_chunks": 0, "last_indexed": null, "primary_node": "CGAL_Core"}
+      {
+        "id": "01",
+        "canonical": "01_GENESIS_CORE",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "Genesis"
+      },
+      {
+        "id": "02",
+        "canonical": "02_INTELLIGENCE_LAYER",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "mapping-and-inventory"
+      },
+      {
+        "id": "03",
+        "canonical": "03_COMMAND_CONTROL",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "mapping-and-inventory"
+      },
+      {
+        "id": "04",
+        "canonical": "04_OUTPUT_HARVEST",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "mapping-and-inventory"
+      },
+      {
+        "id": "05",
+        "canonical": "05_MARKET_SIGNALS",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "pioneer-trader"
+      },
+      {
+        "id": "06",
+        "canonical": "06_MEMORY_ARCHIVE",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "mapping-and-inventory"
+      },
+      {
+        "id": "07",
+        "canonical": "07_TRADER",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "pioneer-trader"
+      },
+      {
+        "id": "08",
+        "canonical": "08_SECURITY_PERIMETER",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "perimeter-scout"
+      },
+      {
+        "id": "09",
+        "canonical": "09_LEGAL_CLEARANCE",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "CGAL_Core"
+      },
+      {
+        "id": "10",
+        "canonical": "10_RESOURCE_ALLOCATION",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "Harvestmoon"
+      },
+      {
+        "id": "11",
+        "canonical": "11_SWARM_INTELLIGENCE",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "perimeter-scout"
+      },
+      {
+        "id": "12",
+        "canonical": "12_ORACLE_ETHICS",
+        "status": "NOMINAL",
+        "vault_chunks": 0,
+        "last_indexed": null,
+        "primary_node": "CGAL_Core"
+      }
     ],
-    "status_values": ["NOMINAL", "SYNCING", "DEGRADED", "OFFLINE", "UNKNOWN"]
+    "status_values": [
+      "NOMINAL",
+      "SYNCING",
+      "DEGRADED",
+      "OFFLINE",
+      "UNKNOWN"
+    ]
   },
   "temporal_layer": {
     "description": "Tracks the ingestion status of time-series and personal-history datasets. Each entry reflects whether the dataset has been ingested into the brain vault and the last-known ingestion timestamp.",
@@ -252,30 +400,78 @@
         "notes": "My Activity JSON exports including Search and YouTube history."
       }
     ],
-    "ingestion_status_values": ["PENDING", "IN_PROGRESS", "COMPLETE", "FAILED", "STALE"]
+    "ingestion_status_values": [
+      "PENDING",
+      "IN_PROGRESS",
+      "COMPLETE",
+      "FAILED",
+      "STALE"
+    ]
   },
   "cloud_nodes": [
-    {"name": "Tias Pioneer Trader", "env_var": "HF_SPACE_TIAS_PIONEER", "system": "pioneer-trader"},
-    {"name": "Tias Sentinel Scout Swarm", "env_var": "HF_SPACE_SENTINEL_SWARM", "system": "perimeter-scout"},
-    {"name": "T.I.A. Citadel", "env_var": "HF_SPACE_TIA_CITADEL", "system": "CITADEL_OMEGA"},
-    {"name": "Harvestmoon", "env_var": "HF_SPACE_HARVESTMOON", "system": "Harvestmoon"},
-    {"name": "CGAL Core", "env_var": "HF_SPACE_CGAL_CORE", "system": "CGAL_Core"},
-    {"name": "Omega Bots", "env_var": "HF_SPACE_OMEGA_BOTS", "system": "perimeter-scout"},
-    {"name": "Omega Scout", "env_var": "HF_SPACE_OMEGA_SCOUT", "system": "perimeter-scout"},
-    {"name": "Omega Trader", "env_var": "HF_SPACE_OMEGA_TRADER", "system": "S10_Phalanx"},
-    {"name": "Omega Archive", "env_var": "HF_SPACE_OMEGA_ARCHIVE", "system": "CITADEL_OMEGA"},
-    {"name": "Shadow Archive", "env_var": "HF_SPACE_SHADOW_ARCHIVE", "system": "CITADEL_OMEGA"}
+    {
+      "name": "Tias Pioneer Trader",
+      "env_var": "HF_SPACE_TIAS_PIONEER",
+      "system": "pioneer-trader"
+    },
+    {
+      "name": "Tias Sentinel Scout Swarm",
+      "env_var": "HF_SPACE_SENTINEL_SWARM",
+      "system": "perimeter-scout"
+    },
+    {
+      "name": "T.I.A. Citadel",
+      "env_var": "HF_SPACE_TIA_CITADEL",
+      "system": "CITADEL_OMEGA"
+    },
+    {
+      "name": "Harvestmoon",
+      "env_var": "HF_SPACE_HARVESTMOON",
+      "system": "Harvestmoon"
+    },
+    {
+      "name": "CGAL Core",
+      "env_var": "HF_SPACE_CGAL_CORE",
+      "system": "CGAL_Core"
+    },
+    {
+      "name": "Omega Bots",
+      "env_var": "HF_SPACE_OMEGA_BOTS",
+      "system": "perimeter-scout"
+    },
+    {
+      "name": "Omega Scout",
+      "env_var": "HF_SPACE_OMEGA_SCOUT",
+      "system": "perimeter-scout"
+    },
+    {
+      "name": "Omega Trader",
+      "env_var": "HF_SPACE_OMEGA_TRADER",
+      "system": "S10_Phalanx"
+    },
+    {
+      "name": "Omega Archive",
+      "env_var": "HF_SPACE_OMEGA_ARCHIVE",
+      "system": "CITADEL_OMEGA"
+    },
+    {
+      "name": "Shadow Archive",
+      "env_var": "HF_SPACE_SHADOW_ARCHIVE",
+      "system": "CITADEL_OMEGA"
+    }
   ],
   "sovereign_infrastructure": {
     "description": "Expanded Sovereign Infrastructure — all physical, mobile, cloud, and HuggingFace compute/storage nodes mapped for Phase 8 Grand Synthesis & 1TB Rack Migration.",
     "local_edge_nodes": [
       {
         "id": "drive_C",
-        "label": "C: (1TB Hidden)",
+        "label": "C: (1TB Hidden / chance-root)",
         "type": "local_disk",
         "capacity_gb": 1024,
-        "role": "Hidden primary OS and system drive",
-        "visibility": "hidden"
+        "role": "Hidden primary OS and sovereign root drive — Authoritative Zero-Point (C:\\Users\\chanc\\)",
+        "visibility": "hidden",
+        "root_affinity": "chanc",
+        "authoritative_zero_point": true
       },
       {
         "id": "drive_D",
@@ -287,10 +483,10 @@
       },
       {
         "id": "drive_E",
-        "label": "E: (2.5TB — Lore Archive)",
+        "label": "E: (2.5TB — Lore & Recovery)",
         "type": "local_disk",
         "capacity_gb": 2560,
-        "role": "High-capacity lore archive — RECOVERY_STAGING + BIG DOOFY LAND STORY MAIN FOLDER",
+        "role": "High-capacity lore and recovery archive — RECOVERY_STAGING + BIG DOOFY LAND STORY MAIN FOLDER",
         "visibility": "standard",
         "phase8_status": "Lore Archive"
       }
@@ -392,25 +588,41 @@
     }
   },
   "knowledge_saturation": {
-    "description": "Tracks how much of the Universal Knowledge from the AION Trans-Dimensional Mapping (District 12 / ORACLE_ETHICS) has been successfully indexed into the brain vault.",
+    "description": "Tracks the percentage of 'Universal Knowledge' successfully indexed into District 12 (ORACLE_ETHICS). A value of 100 indicates full saturation of the configured knowledge baseline.",
     "district": "12_ORACLE_ETHICS",
+    "total_knowledge_units": 0,
+    "indexed_knowledge_units": 0,
     "saturation_pct": 0.0,
-    "total_lore_files_discovered": 0,
-    "total_chunks_indexed": 0,
-    "last_probe_run": null,
-    "state_file": "spark_ui/knowledge_saturation.json",
-    "probe_module": "brain.aion_probe",
-    "status_values": ["DORMANT", "SCANNING", "INDEXING", "SATURATED"],
-    "status": "DORMANT"
+    "status": "PENDING",
+    "last_updated": null,
+    "status_values": [
+      "PENDING",
+      "INDEXING",
+      "PARTIAL",
+      "SATURATED",
+      "STALE"
+    ]
   },
   "phase8_deep_storage_migration": {
     "description": "Phase 8 — Deep-Storage Migration status for high-weight binary models staged for the 1TB HF Rack.",
     "manifest": "nodes/HF_Rack/migration_manifest.json",
     "targets": [
-      {"filename": "DeepSeek-R1-7B.gguf",                     "status": "STAGED"},
-      {"filename": "Mistral-World-Knowledge.gguf",             "status": "STAGED"},
-      {"filename": "nomic-embed-text-v1.5.Q4_K_M.gguf",       "status": "STAGED"},
-      {"filename": "amy.onnx",                                 "status": "STAGED"}
+      {
+        "filename": "DeepSeek-R1-7B.gguf",
+        "status": "STAGED"
+      },
+      {
+        "filename": "Mistral-World-Knowledge.gguf",
+        "status": "STAGED"
+      },
+      {
+        "filename": "nomic-embed-text-v1.5.Q4_K_M.gguf",
+        "status": "STAGED"
+      },
+      {
+        "filename": "amy.onnx",
+        "status": "STAGED"
+      }
     ],
     "migration_status": "PENDING"
   },
@@ -454,25 +666,65 @@
       }
     ]
   },
-  "knowledge_saturation": {
-    "description": "Tracks the percentage of 'Universal Knowledge' successfully indexed into District 12 (ORACLE_ETHICS). A value of 100 indicates full saturation of the configured knowledge baseline.",
-    "district": "12_ORACLE_ETHICS",
-    "total_knowledge_units": 0,
-    "indexed_knowledge_units": 0,
-    "saturation_pct": 0.0,
-    "status": "PENDING",
-    "last_updated": null,
-    "status_values": ["PENDING", "INDEXING", "PARTIAL", "SATURATED", "STALE"]
-  },
   "storage_summary": {
     "description": "Verified total storage capacity across all infrastructure tiers (Phase 8 snapshot). All capacities are expressed in gigabytes (GB).",
     "nodes": [
-      {"id": "google_drive_primary", "label": "Google Drive", "capacity_gb": 2048, "status": "Verified"},
-      {"id": "HF_Rack",             "label": "HF Rack",       "capacity_gb": 1024, "status": "Compute Active"},
-      {"id": "HF_Garage",           "label": "HF Garage",     "capacity_gb": 20,   "status": "Staging"},
-      {"id": "S10_Phalanx",         "label": "S10 Phalanx",   "capacity_gb": 500,  "status": "Purified"},
-      {"id": "drive_E",             "label": "Drive E",        "capacity_gb": 2560, "status": "Lore Archive"}
+      {
+        "id": "google_drive_primary",
+        "label": "Google Drive",
+        "capacity_gb": 2048,
+        "status": "Verified"
+      },
+      {
+        "id": "HF_Rack",
+        "label": "HF Rack",
+        "capacity_gb": 1024,
+        "status": "Compute Active"
+      },
+      {
+        "id": "HF_Garage",
+        "label": "HF Garage",
+        "capacity_gb": 20,
+        "status": "Staging"
+      },
+      {
+        "id": "S10_Phalanx",
+        "label": "S10 Phalanx",
+        "capacity_gb": 500,
+        "status": "Purified"
+      },
+      {
+        "id": "drive_E",
+        "label": "Drive E",
+        "capacity_gb": 2560,
+        "status": "Lore Archive"
+      }
     ],
     "total_capacity_gb": 6152
+  },
+  "authoritative_zero_point": {
+    "path": "C:\\Users\\chanc\\",
+    "identity": "chanc",
+    "role": "Sovereign Root — all nodes report execution signatures to this directory",
+    "hwid_lock": true,
+    "root_affinity": "chanc"
+  },
+  "personas": {
+    "district": "District_02_TIA_VAULT",
+    "personas_path": "nodes/District_02_TIA_VAULT/personas/",
+    "sovereignty_layer": "07",
+    "root_affinity": "chanc",
+    "active_personas": [
+      "TIA",
+      "ORACLE",
+      "AION",
+      "GOANNA",
+      "SNIPER",
+      "WRAITH",
+      "SENTINEL",
+      "SCOUT",
+      "HIPPY",
+      "DOOFY"
+    ]
   }
 }
