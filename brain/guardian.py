@@ -21,7 +21,7 @@ import pathlib
 from dataclasses import dataclass, field
 from typing import Any
 
-from brain.indexer import get_collection, query as vault_query
+from brain.indexer import export_system_bible, get_collection, query as vault_query
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +44,52 @@ def _append_security_alert(similarity: float, matching_source: str, proposed_sni
             fh.write(entry)
     except OSError as exc:
         logger.warning("Guardian: could not write SECURITY_ALERTS.log (%s).", exc)
+
+
+def _append_corruption_alert(system_id: str, matching_source: str, proposed_snippet: str) -> None:
+    """Append a corruption-detection record to SECURITY_ALERTS.log."""
+    timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    entry = (
+        f"[{timestamp}] CORRUPTION DETECTED | "
+        f"system={system_id!r} | "
+        f"matching_source={matching_source!r} | "
+        f"snippet={proposed_snippet[:80]!r}\n"
+    )
+    try:
+        with SECURITY_ALERTS_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(entry)
+    except OSError as exc:
+        logger.warning("Guardian: could not write SECURITY_ALERTS.log (%s).", exc)
+
+
+def prepare_system_recovery(system_id: str) -> list[dict]:
+    """
+    Self-Healing Protocol — prepare a recovery snapshot for *system_id*.
+
+    Queries the brain vault for all Bible / core-logic records tagged with
+    *system_id* and returns them as a list of export dicts.  The caller can
+    serialise the result and use it to reboot the target system from a
+    known-good RAG backup.
+
+    Parameters
+    ----------
+    system_id:
+        Sovereign system identifier (e.g. ``"pioneer-trader"``).
+
+    Returns
+    -------
+    list[dict]
+        Export records — each entry contains ``id``, ``document``, and
+        ``metadata`` fields sourced from the brain vault.
+    """
+    collection = get_collection()
+    records = export_system_bible(collection, system_id)
+    logger.info(
+        "Self-Healing: recovery snapshot prepared for system '%s' — %d records.",
+        system_id,
+        len(records),
+    )
+    return records
 
 # Default cosine-similarity threshold for issuing a veto (0 = identical, 1 = orthogonal
 # in ChromaDB's cosine-distance representation where distance = 1 - similarity).
@@ -180,6 +226,29 @@ class Guardian:
 
         if best_similarity >= self.threshold:
             _append_security_alert(best_similarity, best_source, proposed_content)
+
+            # Self-Healing Protocol — if the matching record is a Bible /
+            # core-logic file, flag the owning system as corrupted and prepare
+            # a recovery snapshot from the RAG backup.
+            best_meta = metadatas[best_idx] or {}
+            if best_meta.get("is_bible") == "true":
+                system_id = best_meta.get("system_origin", "unknown")
+                _append_corruption_alert(system_id, best_source, proposed_content)
+                logger.warning(
+                    "Guardian: Bible record corruption detected for system '%s' "
+                    "(source=%r). Preparing RAG recovery snapshot.",
+                    system_id,
+                    best_source,
+                )
+                try:
+                    prepare_system_recovery(system_id)
+                except Exception as exc:
+                    logger.error(
+                        "Guardian: self-healing recovery failed for system '%s': %s",
+                        system_id,
+                        exc,
+                    )
+
             result = GuardianResult(
                 vetoed=True,
                 similarity=best_similarity,

@@ -1,5 +1,5 @@
 {
-  "manifest_version": "2.0.0",
+  "manifest_version": "2.1.0",
   "generated": "2026-03-26",
   "hub": {
     "id": "mapping-and-inventory",
@@ -9,6 +9,32 @@
     "fleet_registry_path": "fleet_registry/",
     "brain_vault_path": "brain/memory_vault/"
   },
+  "primary_spokes": [
+    {
+      "id": "S10_Phalanx",
+      "codename": "The Quant Spearhead",
+      "role": "S10 Termux Quantitative Analysis Node",
+      "fleet_registry_path": "fleet_registry/S10_Phalanx/"
+    },
+    {
+      "id": "Oppo_Omega",
+      "codename": "The Omega Node",
+      "role": "Oppo Hardware Omega Command & Swarm Intelligence Node",
+      "fleet_registry_path": "fleet_registry/Oppo_Omega/"
+    },
+    {
+      "id": "CGAL_Core",
+      "codename": "The Law",
+      "role": "Legal Clearance & Compliance Gateway",
+      "fleet_registry_path": "fleet_registry/CGAL_Core/"
+    },
+    {
+      "id": "pioneer-trader",
+      "codename": "The Pioneer",
+      "role": "Quantitative Trading Engine",
+      "fleet_registry_path": "fleet_registry/pioneer-trader/"
+    }
+  ],
   "sovereign_nodes": [
     {
       "id": "pioneer-trader",
@@ -81,9 +107,25 @@
       "id": "S10_Phalanx",
       "codename": "The Quant Spearhead",
       "role": "S10 Termux Quantitative Analysis Node",
-      "description": "S10 hardware node running quantitative trading and market-analysis pipelines. Cross-speaks with CGAL_Core and Omega for compliance clearance and sentiment data.",
+      "description": "S10 hardware node running quantitative trading and market-analysis pipelines. Cross-speaks with CGAL_Core and Oppo_Omega for compliance clearance and sentiment data.",
       "repo": "DJ-Goana-Coding/S10_Phalanx",
       "fleet_registry_path": "fleet_registry/S10_Phalanx/",
+      "nodes_path": "nodes/S10_Phalanx/",
+      "hf_spaces": [
+        {
+          "name": "Omega Trader",
+          "env_var": "HF_SPACE_OMEGA_TRADER"
+        }
+      ]
+    },
+    {
+      "id": "Oppo_Omega",
+      "codename": "The Omega Node",
+      "role": "Oppo Hardware Omega Command & Swarm Intelligence Node",
+      "description": "Oppo hardware node running the Omega command tier. Provides swarm intelligence, momentum data, and market-sentiment signals. Cross-speaks with S10_Phalanx and CGAL_Core.",
+      "repo": "DJ-Goana-Coding/CITADEL_OMEGA",
+      "fleet_registry_path": "fleet_registry/Oppo_Omega/",
+      "nodes_path": "nodes/Oppo_Omega/",
       "hf_spaces": [
         {
           "name": "Omega Trader",
@@ -104,6 +146,15 @@
           "env_var": "HF_SPACE_CGAL_CORE"
         }
       ]
+    },
+    {
+      "id": "Pioneer_Vortex",
+      "codename": "The Pioneer-Vortex Nexus",
+      "role": "Pioneer-Vortex Combined Processing Node",
+      "description": "Combined node bridging Pioneer trading logic with Vortex signal-routing. Handles cross-system arbitrage and data-pipeline orchestration.",
+      "repo": "DJ-Goana-Coding/citadel-vortex",
+      "fleet_registry_path": "fleet_registry/Pioneer_Vortex/",
+      "hf_spaces": []
     },
     {
       "id": "Genesis",
@@ -129,6 +180,37 @@
       ]
     }
   ],
+  "district_map": {
+    "description": "12 Dimensional Districts of the Citadel — each district governs a specific operational domain within the fleet intelligence architecture.",
+    "districts": [
+      {"id": "01", "canonical": "01_GENESIS_CORE",        "role": "Genesis & Core Bootstrap Logic"},
+      {"id": "02", "canonical": "02_INTELLIGENCE_LAYER",  "role": "Intelligence & Neural Processing Layer"},
+      {"id": "03", "canonical": "03_COMMAND_CONTROL",     "role": "Command & Control Operations"},
+      {"id": "04", "canonical": "04_OUTPUT_HARVEST",      "role": "Output Harvest & Signal Delivery"},
+      {"id": "05", "canonical": "05_MARKET_SIGNALS",      "role": "Market Signals & Quantitative Data"},
+      {"id": "06", "canonical": "06_MEMORY_ARCHIVE",      "role": "Memory Archive & Long-Term Storage"},
+      {"id": "07", "canonical": "07_TRADER",              "role": "Autonomous Trading Execution"},
+      {"id": "08", "canonical": "08_SECURITY_PERIMETER",  "role": "Security Perimeter & Threat Detection"},
+      {"id": "09", "canonical": "09_LEGAL_CLEARANCE",     "role": "Legal Clearance & Compliance (CGAL Gate)"},
+      {"id": "10", "canonical": "10_RESOURCE_ALLOCATION", "role": "Resource Allocation & Harvest Scheduling"},
+      {"id": "11", "canonical": "11_SWARM_INTELLIGENCE",  "role": "Swarm Intelligence & Multi-Agent Coordination"},
+      {"id": "12", "canonical": "12_ORACLE_ETHICS",       "role": "Oracle Ethics & Governance Framework"}
+    ]
+  },
+  "system_health": {
+    "local_sovereign_ark": {
+      "key": "LOCAL_SOVEREIGN_ARK",
+      "description": "Status of the local hardware node fleet (S10_Phalanx, Oppo_Omega). Reflects connectivity, last-sync timestamp, and telemetry liveness.",
+      "status_values": ["ONLINE", "SYNCING", "OFFLINE", "DEGRADED"],
+      "default_status": "OFFLINE"
+    },
+    "ghost_protocol": {
+      "key": "GHOST_PROTOCOL",
+      "description": "Ghost Protocol activation state. When ACTIVE the hub performs silent deep-scan ingestion of node manifests (TOTALITY.json, KNOWLEDGE_GRAPH.json) without alerting downstream spokes.",
+      "status_values": ["INACTIVE", "ACTIVE", "SCANNING", "COMPLETE"],
+      "default_status": "INACTIVE"
+    }
+  },
   "cloud_nodes": [
     {"name": "Tias Pioneer Trader", "env_var": "HF_SPACE_TIAS_PIONEER", "system": "pioneer-trader"},
     {"name": "Tias Sentinel Scout Swarm", "env_var": "HF_SPACE_SENTINEL_SWARM", "system": "perimeter-scout"},
