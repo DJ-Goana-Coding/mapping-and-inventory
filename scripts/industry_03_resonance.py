@@ -71,6 +71,7 @@ FREQUENCY_ANCHORS: dict[float, list[str]] = {
     432.0: ["nature", "harmony", "432Hz"],
     528.0: ["repair", "love", "528Hz"],
     852.0: ["intuition", "awakening", "852Hz"],
+    909.0: ["kinetic_anchor", "techno_pulse", "completion_loop", "hard_reset", "909Hz", "swing"],
 }
 
 #: Supported audio/visual/text extensions and their content types.
