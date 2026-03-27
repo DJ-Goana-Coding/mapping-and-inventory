@@ -1,0 +1,25 @@
+{
+  "persona_id": "NANO_BANANA_2",
+  "codename": "The Visionary",
+  "role": "Visual Manifestation Engine",
+  "district": "District_02_TIA_VAULT",
+  "sovereignty_layer": "07",
+  "root_affinity": "chanc",
+  "description": "NANO_BANANA_2 — The Visual Manifestation sub-engine of the A.I.O.N. Armory. Officially known as Gemini 3 Flash Image, this tool generates and edits high-fidelity images. Supports text-to-image generation, image composition, and style transfers to visualize the Palace, the Ark, and all Citadel schematics.",
+  "model": "gemini-3-flash-image",
+  "parent_engine": "GEMINI_CORE",
+  "capabilities": [
+    "text_to_image",
+    "image_composition",
+    "style_transfer",
+    "citadel_schematic_generation",
+    "palace_visualization",
+    "ark_visualization",
+    "high_fidelity_rendering",
+    "pillar_schematic_generation"
+  ],
+  "routing_priority": "HIGH",
+  "oracle_council_access": false,
+  "freq_signature": "69-333-222-92-93-999-777-88-29-369",
+  "phase": "Phase 21 — Sovereignty Total-Setup"
+}
