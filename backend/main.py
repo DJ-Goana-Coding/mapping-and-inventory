@@ -2,14 +2,23 @@
 FastAPI Backend for VortexBerserker Hybrid Swarm Trading Engine
 Integrates the 4 Piranha Scalp + 3 Trailing Grid slots with Auto-Healer
 """
-
+from typing import Dict, List, Optional, Tuple, Any, Union
 import asyncio
 import logging
 from datetime import datetime
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse, Response
+
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # python-dotenv is optional; env vars must be set externally
+
 from backend.services.vortex import VortexBerserker
+from agents.swarm_manager import SwarmController
 
 # Configure logging
 logging.basicConfig(
@@ -22,6 +31,7 @@ logger = logging.getLogger("main")
 # Global reference to the trading engine
 vortex_engine: VortexBerserker = None
 heartbeat_task = None
+swarm_controller: SwarmController = None
 
 
 @asynccontextmanager
@@ -30,8 +40,15 @@ async def lifespan(app: FastAPI):
     Lifespan context manager for FastAPI application.
     Initializes and starts the VortexBerserker engine on startup.
     """
-    global vortex_engine, heartbeat_task
-    
+    global vortex_engine, heartbeat_task, swarm_controller
+
+    # Reconcile HUGGINGFACE_TOKEN from HF_TOKEN fallback so all modules
+    # that read HUGGINGFACE_TOKEN can find it regardless of which env var
+    # the operator sets.
+    if not os.getenv("HUGGINGFACE_TOKEN") and os.getenv("HF_TOKEN"):
+        os.environ["HUGGINGFACE_TOKEN"] = os.environ["HF_TOKEN"]
+        logger.info("ℹ️  HUGGINGFACE_TOKEN reconciled from HF_TOKEN")
+
     try:
         # Initialize the VortexBerserker engine
         logger.info("🏰 CITADEL: VortexBerserker Engine Engaged")
@@ -60,11 +77,18 @@ async def lifespan(app: FastAPI):
         
         heartbeat_task = asyncio.create_task(heartbeat_loop())
         logger.info("🌊 Hybrid Swarm heartbeat initiated")
+
+        # Start the background swarm agents (Librarian / Harvester / Medic)
+        swarm_controller = SwarmController()
+        await swarm_controller.start()
+        logger.info("🐝 Nexus Swarm activated")
         
         yield
         
     finally:
         # Cleanup on shutdown
+        if swarm_controller:
+            await swarm_controller.stop()
         if vortex_engine:
             await vortex_engine.stop()
         if heartbeat_task:
@@ -299,6 +323,100 @@ async def get_fleet_status():
             status_code=500,
             content={"error": str(e)}
         )
+@app.get("/ascension/status")
+async def ascension_status():
+    """
+    Ascension Protocol status endpoint.
+
+    Returns the current vertical-trajectory phase of the system
+    (GROUND → IGNITION → CLIMB → APEX) along with the full phase
+    history and the human-readable focus/result for the active phase.
+    """
+    from core.ascension import get_protocol
+
+    return get_protocol().status()
+
+
+@app.get("/api/v1/nexus/status")
+async def nexus_status():
+    """
+    Nexus status endpoint — data feed for the GitHub Spark Commander dashboard.
+
+    Returns a JSON summary of:
+    * Swarm agent health (Librarian / Harvester / Medic)
+    * Total unique vectors stored in the brain memory vault
+    * Cloud connection status (Google Drive / Hugging Face)
+    * Most recent 'Ghost' assets restored to the vault
+    * Total assets mapped across vault + garage inventory
+    * Timestamp of the latest 369-frequency verification by the Medic
+    """
+    # --- Swarm agent health ---
+    agent_health: dict[str, str] = {
+        "librarian": "stopped",
+        "harvester": "stopped",
+        "medic": "stopped",
+    }
+    if swarm_controller is not None:
+        agent_health.update(swarm_controller.agent_statuses())
+
+    # --- Brain vault vector count and recent Ghost assets ---
+    vault_vectors: int = 0
+    recent_assets: list[dict] = []
+    try:
+        from brain.indexer import get_collection, query as vault_query
+        collection = get_collection()
+        vault_vectors = collection.count()
+        raw = vault_query(collection, "ghost manifest restored asset", n_results=5)
+        metadatas = raw.get("metadatas", [[]])[0]
+        documents = raw.get("documents", [[]])[0]
+        for i, meta in enumerate(metadatas):
+            recent_assets.append(
+                {
+                    "source": (meta or {}).get("source", "unknown"),
+                    "snippet": (documents[i] if i < len(documents) else "")[:80],
+                }
+            )
+    except Exception as exc:
+        logger.warning("nexus_status: could not query vault (%s).", exc)
+
+    # --- Total assets mapped (vault vectors + garage inventory entries) ---
+    total_assets_mapped: int = vault_vectors
+    try:
+        import json
+        import pathlib
+        garage_path = pathlib.Path(__file__).parent.parent / "Master_Garage_Inventory.json"
+        if garage_path.exists():
+            with garage_path.open(encoding="utf-8") as fh:
+                garage_data = json.load(fh)
+            total_assets_mapped += len(garage_data.get("assets", []))
+    except Exception as exc:
+        logger.warning("nexus_status: could not read garage inventory (%s).", exc)
+
+    # --- Cloud connection status ---
+    drive_connected = bool(
+        os.getenv("DRIVE_SERVICE_KEY") or os.getenv("GOOGLE_CREDENTIALS_B64")
+    )
+    hf_connected = bool(
+        os.getenv("HUGGINGFACE_TOKEN") or os.getenv("HF_TOKEN")
+    )
+    cloud_status = {
+        "google_drive": "connected" if drive_connected else "not_configured",
+        "hugging_face": "connected" if hf_connected else "not_configured",
+    }
+
+    # --- Latest 369-frequency verification timestamp ---
+    latest_freq_verification: str | None = None
+    if swarm_controller is not None:
+        latest_freq_verification = swarm_controller.last_freq_verification()
+
+    return {
+        "swarm_agents": agent_health,
+        "vault_vectors": vault_vectors,
+        "cloud_connections": cloud_status,
+        "recent_ghost_assets": recent_assets,
+        "total_assets_mapped": total_assets_mapped,
+        "latest_freq_verification": latest_freq_verification,
+    }
 
 
 if __name__ == "__main__":

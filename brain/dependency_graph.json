@@ -1,0 +1,332 @@
+{
+  "generated_utc": "2026-03-27T06:37:00.214605+00:00",
+  "total_nodes": 52,
+  "total_edges": 17,
+  "nodes": [
+    {
+      "id": "agents",
+      "path": "agents/__init__.py"
+    },
+    {
+      "id": "agents.acquisition_compiler",
+      "path": "agents/acquisition_compiler.py"
+    },
+    {
+      "id": "agents.dependency_scanner",
+      "path": "agents/dependency_scanner.py"
+    },
+    {
+      "id": "agents.foundry_purifier",
+      "path": "agents/foundry_purifier.py"
+    },
+    {
+      "id": "agents.harvester",
+      "path": "agents/harvester.py"
+    },
+    {
+      "id": "agents.heartbeat",
+      "path": "agents/heartbeat.py"
+    },
+    {
+      "id": "agents.medic",
+      "path": "agents/medic.py"
+    },
+    {
+      "id": "agents.model_shopper",
+      "path": "agents/model_shopper.py"
+    },
+    {
+      "id": "agents.readme_indexer",
+      "path": "agents/readme_indexer.py"
+    },
+    {
+      "id": "agents.repo_harvester",
+      "path": "agents/repo_harvester.py"
+    },
+    {
+      "id": "agents.swarm_manager",
+      "path": "agents/swarm_manager.py"
+    },
+    {
+      "id": "agents.wraith_monitor",
+      "path": "agents/wraith_monitor.py"
+    },
+    {
+      "id": "backend",
+      "path": "backend/__init__.py"
+    },
+    {
+      "id": "backend.main",
+      "path": "backend/main.py"
+    },
+    {
+      "id": "backend.services",
+      "path": "backend/services/__init__.py"
+    },
+    {
+      "id": "backend.services.vortex",
+      "path": "backend/services/vortex.py"
+    },
+    {
+      "id": "brain",
+      "path": "brain/__init__.py"
+    },
+    {
+      "id": "brain.aion_probe",
+      "path": "brain/aion_probe.py"
+    },
+    {
+      "id": "brain.build_dependency_graph",
+      "path": "brain/build_dependency_graph.py"
+    },
+    {
+      "id": "brain.dimensional_router",
+      "path": "brain/dimensional_router.py"
+    },
+    {
+      "id": "brain.guardian",
+      "path": "brain/guardian.py"
+    },
+    {
+      "id": "brain.indexer",
+      "path": "brain/indexer.py"
+    },
+    {
+      "id": "bridge_protocol",
+      "path": "bridge_protocol.py"
+    },
+    {
+      "id": "core",
+      "path": "core/__init__.py"
+    },
+    {
+      "id": "core.boot_sequence",
+      "path": "core/boot_sequence.py"
+    },
+    {
+      "id": "core.bridge_protocol",
+      "path": "core/bridge_protocol.py"
+    },
+    {
+      "id": "core.district_1_4_bridge",
+      "path": "core/district_1_4_bridge.py"
+    },
+    {
+      "id": "core.drive_nexus",
+      "path": "core/drive_nexus.py"
+    },
+    {
+      "id": "core.fleet_router",
+      "path": "core/fleet_router.py"
+    },
+    {
+      "id": "core.hf_garage_sync",
+      "path": "core/hf_garage_sync.py"
+    },
+    {
+      "id": "core.resonance_sync",
+      "path": "core/resonance_sync.py"
+    },
+    {
+      "id": "inventory_engine",
+      "path": "inventory_engine.py"
+    },
+    {
+      "id": "nodes.District_01_COMMAND_INPUT",
+      "path": "nodes/District_01_COMMAND_INPUT/__init__.py"
+    },
+    {
+      "id": "nodes.District_01_COMMAND_INPUT.quantum_goanna_core",
+      "path": "nodes/District_01_COMMAND_INPUT/quantum_goanna_core.py"
+    },
+    {
+      "id": "nodes.District_01_COMMAND_INPUT.watcher",
+      "path": "nodes/District_01_COMMAND_INPUT/watcher.py"
+    },
+    {
+      "id": "nodes.District_02_TIA_VAULT.routing_core",
+      "path": "nodes/District_02_TIA_VAULT/routing_core.py"
+    },
+    {
+      "id": "nodes.District_04_OUTPUT_HARVEST",
+      "path": "nodes/District_04_OUTPUT_HARVEST/__init__.py"
+    },
+    {
+      "id": "nodes.District_04_OUTPUT_HARVEST.archiver",
+      "path": "nodes/District_04_OUTPUT_HARVEST/archiver.py"
+    },
+    {
+      "id": "scripts.industry_01_forge",
+      "path": "scripts/industry_01_forge.py"
+    },
+    {
+      "id": "scripts.industry_02_obsidian",
+      "path": "scripts/industry_02_obsidian.py"
+    },
+    {
+      "id": "scripts.industry_03_resonance",
+      "path": "scripts/industry_03_resonance.py"
+    },
+    {
+      "id": "scripts.sovereign_industries_init",
+      "path": "scripts/sovereign_industries_init.py"
+    },
+    {
+      "id": "tasks",
+      "path": "tasks/__init__.py"
+    },
+    {
+      "id": "tasks.backup_scheduler",
+      "path": "tasks/backup_scheduler.py"
+    },
+    {
+      "id": "tasks.harvester",
+      "path": "tasks/harvester.py"
+    },
+    {
+      "id": "tasks.knowledge_ingestion",
+      "path": "tasks/knowledge_ingestion.py"
+    },
+    {
+      "id": "tasks.medic",
+      "path": "tasks/medic.py"
+    },
+    {
+      "id": "tasks.upgrade_dependencies",
+      "path": "tasks/upgrade_dependencies.py"
+    },
+    {
+      "id": "utils",
+      "path": "utils/__init__.py"
+    },
+    {
+      "id": "utils.drive_auth",
+      "path": "utils/drive_auth.py"
+    },
+    {
+      "id": "utils.path_sanitizer",
+      "path": "utils/path_sanitizer.py"
+    },
+    {
+      "id": "utils.sanitizer",
+      "path": "utils/sanitizer.py"
+    }
+  ],
+  "edges": [
+    {
+      "from": "agents.harvester",
+      "to": "utils"
+    },
+    {
+      "from": "agents.readme_indexer",
+      "to": "utils"
+    },
+    {
+      "from": "agents.repo_harvester",
+      "to": "utils"
+    },
+    {
+      "from": "agents.swarm_manager",
+      "to": "brain"
+    },
+    {
+      "from": "agents.swarm_manager",
+      "to": "core"
+    },
+    {
+      "from": "backend.main",
+      "to": "agents"
+    },
+    {
+      "from": "backend.main",
+      "to": "brain"
+    },
+    {
+      "from": "bridge_protocol",
+      "to": "utils"
+    },
+    {
+      "from": "core.boot_sequence",
+      "to": "brain"
+    },
+    {
+      "from": "core.district_1_4_bridge",
+      "to": "nodes"
+    },
+    {
+      "from": "core.drive_nexus",
+      "to": "brain"
+    },
+    {
+      "from": "core.fleet_router",
+      "to": "brain"
+    },
+    {
+      "from": "core.hf_garage_sync",
+      "to": "brain"
+    },
+    {
+      "from": "nodes.District_01_COMMAND_INPUT.watcher",
+      "to": "core"
+    },
+    {
+      "from": "tasks.backup_scheduler",
+      "to": "agents"
+    },
+    {
+      "from": "tasks.backup_scheduler",
+      "to": "bridge_protocol"
+    },
+    {
+      "from": "tasks.harvester",
+      "to": "utils"
+    }
+  ],
+  "adjacency": {
+    "agents.harvester": [
+      "utils"
+    ],
+    "agents.readme_indexer": [
+      "utils"
+    ],
+    "agents.repo_harvester": [
+      "utils"
+    ],
+    "agents.swarm_manager": [
+      "brain",
+      "core"
+    ],
+    "backend.main": [
+      "agents",
+      "brain"
+    ],
+    "bridge_protocol": [
+      "utils"
+    ],
+    "core.boot_sequence": [
+      "brain"
+    ],
+    "core.district_1_4_bridge": [
+      "nodes"
+    ],
+    "core.drive_nexus": [
+      "brain"
+    ],
+    "core.fleet_router": [
+      "brain"
+    ],
+    "core.hf_garage_sync": [
+      "brain"
+    ],
+    "nodes.District_01_COMMAND_INPUT.watcher": [
+      "core"
+    ],
+    "tasks.backup_scheduler": [
+      "agents",
+      "bridge_protocol"
+    ],
+    "tasks.harvester": [
+      "utils"
+    ]
+  }
+}

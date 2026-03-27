@@ -1,0 +1,20 @@
+{
+  "persona_id": "SNIPER",
+  "codename": "The Tactician",
+  "role": "Precision Entry & Exit",
+  "district": "District_02_TIA_VAULT",
+  "sovereignty_layer": "07",
+  "root_affinity": "chanc",
+  "description": "SNIPER — Precision tactical intelligence specialising in high-accuracy entry and exit signals. Operates at the intersection of quantitative analysis and sovereign execution mandates.",
+  "capabilities": [
+    "precision_entry_signals",
+    "precision_exit_signals",
+    "risk_calibration",
+    "tactical_analysis",
+    "signal_sharpening"
+  ],
+  "routing_priority": "HIGH",
+  "oracle_council_access": false,
+  "freq_signature": "69-333-222-92-93-999-777-88-29-369",
+  "phase": "Phase 21 — Sovereignty Total-Setup"
+}

@@ -1,0 +1,25 @@
+{
+  "node_id": "pioneer-omega",
+  "codename": "The Omega Pioneer",
+  "role": "High-Speed Execution & Market Calculation",
+  "phase": "Phase 24 — 222 Master Builder Resonance",
+  "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+  "hardware": {
+    "target": "t4-small",
+    "vram_gb": 16,
+    "focus": "low-latency CPU/GPU balance",
+    "rationale": "T4 provides balanced CPU/GPU throughput for real-time market pipelines"
+  },
+  "capabilities": [
+    "Quantitative trading execution (V23 Architect)",
+    "Real-time market-signal processing",
+    "Low-latency inference for time-critical decisions",
+    "Psinergy-Gate HWID-locked live-trade dispatch"
+  ],
+  "hwid_lock": {
+    "enabled": true,
+    "identity": "chanc",
+    "env_var": "CHANC_HWID"
+  },
+  "status": "STAGED — awaiting Commander activation"
+}

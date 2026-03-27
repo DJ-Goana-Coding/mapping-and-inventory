@@ -1,0 +1,20 @@
+{
+  "node_id": "trinity-genesis",
+  "codename": "The Genesis Engine",
+  "role": "General Intelligence & Orchestration",
+  "phase": "Phase 24 — 222 Master Builder Resonance",
+  "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+  "hardware": {
+    "target": "a10g-small",
+    "vram_gb": 24,
+    "min_vram_gb": 16,
+    "rationale": "A10G provides 24 GB VRAM, satisfying the ≥16 GB requirement for LLM orchestration"
+  },
+  "capabilities": [
+    "LLM inference (7B–13B parameter models)",
+    "RAG orchestration and knowledge retrieval",
+    "Multi-agent coordination and task dispatch",
+    "T.I.A. master-brain hosting"
+  ],
+  "status": "STAGED — awaiting Commander activation"
+}

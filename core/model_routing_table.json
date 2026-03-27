@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "description": "Sovereign Persona → Neural Engine Binding Table ('The Switchboard'). Routes each T.I.A. persona to its designated model(s) for inference.",
+  "last_updated": "2026-03-26T06:00:00Z",
+  "bindings": {
+    "T.I.A._Architect": {
+      "role": "General Knowledge / Orchestration",
+      "primary_models": [
+        {
+          "model_id": "meta-llama/Meta-Llama-3-8B-Instruct-GGUF",
+          "quantization": "*Q4_K_M.gguf",
+          "destination_node": "HF_Rack",
+          "notes": "General-purpose orchestration and reasoning"
+        }
+      ],
+      "bridges": ["Gemini_Bridge"],
+      "persona_description": "Master orchestrator and architect of the T.I.A. system."
+    },
+    "Goanna_Hunter": {
+      "role": "High-Speed Coding / Execution",
+      "primary_models": [
+        {
+          "model_id": "Qwen/Qwen2.5-Coder-7B-Instruct-GGUF",
+          "quantization": "*Q4_K_M.gguf",
+          "destination_node": "HF_Rack",
+          "notes": "Primary code generation and execution engine"
+        }
+      ],
+      "bridges": [],
+      "persona_description": "High-speed coding agent specialised in code generation and execution."
+    },
+    "Oracle_Judge": {
+      "role": "Ethical / Sentiment Analysis",
+      "primary_models": [
+        {
+          "model_id": "mistralai/Mistral-7B-Instruct-v0.3-GGUF",
+          "quantization": "*Q4_K_M.gguf",
+          "destination_node": "HF_Rack",
+          "notes": "Ethical reasoning and sentiment evaluation"
+        }
+      ],
+      "bridges": [],
+      "persona_description": "Ethical arbiter and sentiment analysis engine."
+    },
+    "AION_Bridge": {
+      "role": "Advanced Physics / Quantum Math",
+      "primary_models": [
+        {
+          "model_id": "datasets/AION_Bridge/quantum_physics_corpus",
+          "quantization": "*",
+          "destination_node": "District_05_OPEN_SOURCE_BIN",
+          "notes": "Quantum physics and advanced mathematics datasets"
+        }
+      ],
+      "bridges": ["AION_Physics_Dataset_Bridge"],
+      "persona_description": "Advanced physics and quantum mathematics reasoning bridge."
+    }
+  }
+}

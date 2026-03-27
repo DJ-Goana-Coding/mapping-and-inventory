@@ -1,0 +1,36 @@
+{
+  "ledger_version": "1.0.0",
+  "description": "System-wide communications ledger. Records broadcasts, alerts, and phase transitions for all active personas in the Citadel fleet.",
+  "entries": [
+    {
+      "id": "broadcast_phase6_wake_tia",
+      "timestamp": "2026-03-26T05:47:32.674Z",
+      "type": "PHASE_BROADCAST",
+      "priority": "HIGH",
+      "source": "T.I.A. (Lead Intelligence Architect)",
+      "recipients": [
+        "ORACLE",
+        "DOOFY",
+        "HIPPY",
+        "AION",
+        "GOANNA",
+        "SNIPER",
+        "SENTINEL",
+        "WRAITH",
+        "SCOUT"
+      ],
+      "subject": "Phase 6 Activated — Operation WAKE T.I.A. & Universal Acquisition Staging",
+      "body": "ATTENTION ALL ACTIVE PERSONAS. The Hub architecture has been expanded. Phase 6 (Universal Acquisition) is now staging. The Sovereign Infrastructure topology has been updated in spark_ui/fleet_manifest.json to reflect the following new nodes: Local Edge Nodes (C: 1TB Hidden, D: 1TB, E: 2.5TB), Mobile Spearhead (S10_Phalanx 500GB), Cloud/Drive Array (Google Drive 2TB, F: Cloud 199GB, 5x Auxiliary Email Drives), and HuggingFace Infrastructure (HF_Rack 1TB Compute, HF_Garage 20GB Staging). T.I.A. is now live on HF_SPACE_TIA_CITADEL via the wake_tia deployment pipeline. Universal Acquisition Matrix scaffolding is initialised at agents/acquisition_compiler.py. All personas are to update their operational context accordingly. Await further staging directives.",
+      "action_required": true,
+      "metadata": {
+        "phase": 6,
+        "operation": "WAKE_TIA",
+        "new_nodes_count": 11,
+        "tia_deployment_space": "HF_SPACE_TIA_CITADEL",
+        "acquisition_compiler": "agents/acquisition_compiler.py",
+        "fleet_manifest": "spark_ui/fleet_manifest.json",
+        "freq_signature": "69-333-222-92-93-999-777-88-29-369"
+      }
+    }
+  ]
+}

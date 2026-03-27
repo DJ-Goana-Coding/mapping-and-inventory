@@ -1,0 +1,64 @@
+name: "HF Sync — S10 Phalanx Mirror Dispatch"
+
+on:
+  push:
+    paths:
+      - "nodes/S10_Phalanx/**"
+  workflow_dispatch:
+
+jobs:
+  hf-sync:
+    name: "Push ${{ matrix.local_dir }} -> ${{ matrix.hf_space }}"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    strategy:
+      matrix:
+        include:
+          - local_dir: nodes/S10_Phalanx/pioneer-trader
+            hf_space: DJ-Goana-Coding/Phalanx_Pioneer
+          - local_dir: nodes/S10_Phalanx/shadow-sector
+            hf_space: DJ-Goana-Coding/Phalanx_Shadow
+          - local_dir: nodes/S10_Phalanx/AI_Vault
+            hf_space: DJ-Goana-Coding/Phalanx_Vault
+
+    env:
+      HF_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v4
+
+      - name: "Set up Python 3.11"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: "Install huggingface_hub"
+        run: pip install huggingface_hub
+
+      - name: "Push ${{ matrix.local_dir }} to ${{ matrix.hf_space }}"
+        env:
+          LOCAL_DIR: ${{ matrix.local_dir }}
+          HF_SPACE: ${{ matrix.hf_space }}
+        run: |
+          python - <<'EOF'
+          import os
+          from huggingface_hub import HfApi
+
+          token = os.environ.get("HF_TOKEN")
+          local_dir = os.environ["LOCAL_DIR"]
+          hf_space = os.environ["HF_SPACE"]
+
+          if not token:
+              print(f"⚠️  HF_TOKEN not configured — skipping {hf_space} sync")
+          else:
+              api = HfApi(token=token)
+              api.upload_folder(
+                  folder_path=local_dir,
+                  repo_id=hf_space,
+                  repo_type="space",
+              )
+              print(f"✅ {local_dir} synced to {hf_space}")
+          EOF
