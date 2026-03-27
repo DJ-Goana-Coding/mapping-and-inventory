@@ -1,9 +1,24 @@
 #!/bin/bash
 
-# Start script for VortexBerserker Hybrid Swarm
+echo "🏰 [T.I.A.] NODE 08 - COMMAND BRIDGE IGNITION"
+echo "============================================="
 
-echo "🏰 CITADEL V6.9: LIVE FIRE ENGAGED."
-echo "⚔️ SNIPER MODE: RSI<40 + Price>EMA50 | 🛡️ STOP: 1.5%"
+# Validate environment
+if [ -z "$PIONEER_TRADER_URL" ]; then
+    echo "⚠️ WARNING: PIONEER_TRADER_URL not set - Pioneer integration disabled"
+fi
 
-# Run the FastAPI application with uvicorn
-uvicorn backend.main:app --host 0.0.0.0 --port 10000 --log-level info
+if [ -z "$PIONEER_AUTH_TOKEN" ]; then
+    echo "⚠️ WARNING: PIONEER_AUTH_TOKEN not set - Authentication will fail"
+fi
+
+# Create shadow archive if not exists
+mkdir -p ${SHADOW_ARCHIVE_PATH:-/app/shadow_archive}
+
+# Run inventory sync (one-time on startup)
+echo "🛰️ [T.I.A.] Running initial inventory sync..."
+python inventory_engine.py || echo "⚠️ Inventory sync failed (non-critical)"
+
+# Start FastAPI server
+echo "🚀 [T.I.A.] Starting FastAPI server..."
+uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000} --log-level info
