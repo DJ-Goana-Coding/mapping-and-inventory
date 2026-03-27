@@ -255,6 +255,20 @@ async def get_status():
     }
 
 
+@app.get("/ascension/status")
+async def ascension_status():
+    """
+    Ascension Protocol status endpoint.
+
+    Returns the current vertical-trajectory phase of the system
+    (GROUND → IGNITION → CLIMB → APEX) along with the full phase
+    history and the human-readable focus/result for the active phase.
+    """
+    from core.ascension import get_protocol
+
+    return get_protocol().status()
+
+
 @app.get("/api/v1/nexus/status")
 async def nexus_status():
     """

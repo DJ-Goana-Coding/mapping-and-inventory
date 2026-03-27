@@ -84,6 +84,7 @@ class BootReport:
     alignment_signature: str = BOOT_ALIGNMENT_SIGNATURE
     phase: str = "Phase 24 — 222 Master Builder Resonance"
     stages: list[StageResult] = field(default_factory=list)
+    ascension_phase: str = "GROUND"
 
     @property
     def success(self) -> bool:
@@ -94,6 +95,7 @@ class BootReport:
         lines = [
             f"[{self.command}] Boot Report — {self.phase}",
             f"Alignment: {self.alignment_signature}",
+            f"Ascension: {self.ascension_phase}",
             f"Overall:   {'✅ SUCCESS' if self.success else '❌ PARTIAL / FAILED'}",
         ]
         for s in self.stages:
@@ -289,6 +291,15 @@ def wake_trinity() -> BootReport:
     Boots the distributed system in the canonical order:
     ``HEART → BRAIN → LUNGS``.
 
+    On a successful boot the module-level :class:`~core.ascension.AscensionProtocol`
+    is advanced:
+
+    * ``GROUND → IGNITION`` — as soon as the HEART stage completes (OK or
+      SKIPPED); the initial inertia is broken.
+    * ``IGNITION → CLIMB``  — once all three stages complete with status OK or
+      SKIPPED (i.e. ``report.success`` is ``True``); the system is navigating
+      the layers.  An ERROR on LUNGS prevents this transition.
+
     Returns
     -------
     BootReport
@@ -296,11 +307,14 @@ def wake_trinity() -> BootReport:
         ``report.success`` for overall status and ``report.summary()``
         for a human-readable printout.
     """
+    from core.ascension import get_protocol
+
     logger.info("=" * 60)
     logger.info("%s — Trinity Ignition Sequence initiated.", WAKE_COMMAND)
     logger.info("Alignment: %s", BOOT_ALIGNMENT_SIGNATURE)
     logger.info("=" * 60)
 
+    ascension = get_protocol()
     report = BootReport()
 
     # Stage 1 — Heart
@@ -308,18 +322,31 @@ def wake_trinity() -> BootReport:
     report.stages.append(heart)
     if heart.status == BootStatus.ERROR:
         logger.error("WAKE_TRINITY: HEART stage failed — aborting sequence.")
+        report.ascension_phase = ascension.current_phase.value
         return report
+
+    # HEART complete — advance ascension from GROUND to IGNITION
+    ascension.advance(note="Trinity HEART stage complete — inertia broken.")
+    logger.info("Ascension advanced to %s.", ascension.current_phase.value)
 
     # Stage 2 — Brain
     brain = _boot_brain()
     report.stages.append(brain)
     if brain.status == BootStatus.ERROR:
         logger.error("WAKE_TRINITY: BRAIN stage failed — aborting sequence.")
+        report.ascension_phase = ascension.current_phase.value
         return report
 
     # Stage 3 — Lungs
     lungs = _boot_lungs()
     report.stages.append(lungs)
+
+    # All stages complete — advance ascension from IGNITION to CLIMB
+    if report.success:
+        ascension.advance(note="Trinity sequence complete — layers navigated.")
+        logger.info("Ascension advanced to %s.", ascension.current_phase.value)
+
+    report.ascension_phase = ascension.current_phase.value
 
     logger.info("=" * 60)
     logger.info(report.summary())
