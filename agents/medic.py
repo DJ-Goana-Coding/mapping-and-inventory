@@ -79,11 +79,11 @@ def _resolve_targets() -> list[pathlib.Path]:
     for part in raw.split(os.pathsep):  # os.pathsep: ':' on Unix, ';' on Windows
         part = part.strip()
         if part:
-            p = pathlib.Path(part)
-            if p.exists():
-                targets.append(p)
+            target_path = pathlib.Path(part)
+            if target_path.exists():
+                targets.append(target_path)
             else:
-                logger.warning("[Medic] Target path not found, skipping: %s", p)
+                logger.warning("[Medic] Target path not found, skipping: %s", target_path)
     return targets
 
 

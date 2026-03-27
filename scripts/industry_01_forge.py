@@ -139,8 +139,8 @@ def _parse_ledger_entries(ledger_path: pathlib.Path) -> list[dict[str, Any]]:
             kv: dict[str, str] = {}
             for part in parts[1:]:
                 if "=" in part:
-                    k, _, v = part.partition("=")
-                    kv[k.strip()] = v.strip()
+                    field_key, _, field_value = part.partition("=")
+                    kv[field_key.strip()] = field_value.strip()
             entries.append(
                 {
                     "timestamp": timestamp_str,

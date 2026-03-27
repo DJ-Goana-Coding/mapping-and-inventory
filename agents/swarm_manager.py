@@ -55,7 +55,7 @@ _last_freq_verification: datetime | None = None
 # Helper: RAG context preflight
 # ---------------------------------------------------------------------------
 
-def _rag_context(query_text: str, n: int = 3) -> list[dict[str, Any]]:
+def _retrieve_rag_context(query_text: str, n: int = 3) -> list[dict[str, Any]]:
     """
     Retrieve the top-*n* relevant documents from the vault for *query_text*.
 
@@ -101,7 +101,7 @@ async def _librarian_worker(stop_event: asyncio.Event) -> None:
     while not stop_event.is_set():
         try:
             # RAG preflight — understand current inventory state
-            ctx = _rag_context("inventory manifest JSON mapping districts")
+            ctx = _retrieve_rag_context("inventory manifest JSON mapping districts")
             logger.debug("[Librarian] RAG context: %d records", len(ctx))
 
             collection = get_collection()
@@ -133,7 +133,7 @@ async def _harvester_worker(stop_event: asyncio.Event) -> None:
     while not stop_event.is_set():
         try:
             # RAG preflight — check what Drive content is already known
-            ctx = _rag_context("Google Drive district folder content")
+            ctx = _retrieve_rag_context("Google Drive district folder content")
             logger.debug("[Harvester] RAG context: %d records", len(ctx))
 
             from core.drive_nexus import ingest_into_brain
