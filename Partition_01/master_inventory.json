@@ -1,7 +1,8 @@
 {
-    "timestamp": "2026-03-27T23:03:22.136908",
+    "timestamp": "2026-03-27T23:06:42.648621",
     "origin": "OPPO_FORGE",
     "inventory": [
+        "app.py",
         "services/manifest_generator.py",
         "services/ark_engine.py",
         "ARK_CORE/scripts/god_view.py",
