@@ -1,7 +1,7 @@
 {
-  "manifest_version": "2.3.0",
+  "manifest_version": "2.4.0",
   "generated": "2026-03-26",
-  "phase": "Phase 23 — Lattice Purification & Omniscient Sync",
+  "phase": "Phase 24 — 222 Master Builder Resonance (Duality & Alignment)",
   "hub": {
     "id": "mapping-and-inventory",
     "role": "Master Brain / Central Hub",
@@ -646,7 +646,7 @@
     ],
     "migration_status": "PENDING"
   },
-  "freq_signature": "69-333-222-92-93-999-777-88-29-369",
+  "freq_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
   "deep_storage_models": {
     "description": "Phase 8 high-weight binary models staged for migration to the 1TB HF Rack (compute attachment). Source paths are scrubbed from this manifest by the 'No Lemon' sanitizer before cloud mirroring.",
     "destination_node": "HF_Rack",
@@ -752,5 +752,83 @@
     "ONLINE & PURIFIED": "Node is reachable, purified, and operating within SLA.",
     "UPGRADE REQUIRED": "Node exists but has stale code or dependency drift flagged by the Medic.",
     "CONNECTION SEVERED": "Node cannot be reached or does not exist; immediate triage required."
+  },
+  "phase24_gpu_nodes": {
+    "description": "Phase 24 GPU Compute Engine Rooms — staged, awaiting Commander activation.",
+    "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+    "nodes": [
+      {
+        "id": "trinity-genesis",
+        "codename": "The Genesis Engine",
+        "role": "General Intelligence & Orchestration",
+        "hardware": "a10g-small (24 GB VRAM — min 16 GB required)",
+        "hf_space_env": "HF_SPACE_TRINITY",
+        "status": "STAGED — awaiting Commander activation"
+      },
+      {
+        "id": "pioneer-omega",
+        "codename": "The Omega Pioneer",
+        "role": "High-Speed Execution & Market Calculation",
+        "hardware": "t4-small (16 GB VRAM — low-latency CPU/GPU balance)",
+        "hf_space_env": "HF_SPACE_PIONEER_OMEGA",
+        "status": "STAGED — awaiting Commander activation"
+      },
+      {
+        "id": "S10_Phalanx",
+        "codename": "The Quant Spearhead",
+        "role": "Heavy Quantum_Goanna Modeling",
+        "hardware": "a10g-large (24 GB VRAM — maximum GPU throughput)",
+        "hf_space_env": "HF_SPACE_PHALANX",
+        "status": "STAGED — awaiting Commander activation"
+      }
+    ]
+  },
+  "phase24_sync_bridge": {
+    "description": "Phase 24 — 1-to-1 Mirror: bidirectional equilibrium between physical anchor and cloud fleet.",
+    "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+    "sovereignty_rule": "No file is 'Sovereign' until it exists simultaneously in two locations (Physical + Cloud).",
+    "routes": [
+      {
+        "route_id": "recovery-staging-to-drive",
+        "physical_path": "E:\\RECOVERY_STAGING\\",
+        "cloud_destination": "Google Drive 2TB Fleet",
+        "direction": "bidirectional",
+        "description": "Lore/History bridge — E:\\RECOVERY_STAGING\\ ↔ Google Drive 2TB Fleet"
+      },
+      {
+        "route_id": "github-lattice-to-citadel",
+        "physical_path": "C:\\Citadel\\",
+        "cloud_destination": "GitHub Lattice (DJ-Goana-Coding)",
+        "direction": "bidirectional",
+        "description": "Structural change mirror — C:\\Citadel\\ ↔ GitHub lattice"
+      }
+    ]
+  },
+  "hud": {
+    "description": "Phase 24 HUD — real-time telemetry gauges for the Commander.",
+    "gauges": [
+      {
+        "id": "resonance_equilibrium",
+        "label": "Resonance Equilibrium",
+        "description": "Measures exact parity between the local C: drive and the external digital fleet.",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ],
+        "target": 100,
+        "current": null,
+        "status": "PENDING — sync bridge not yet active",
+        "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369"
+      },
+      {
+        "id": "sovereign_file_count",
+        "label": "Sovereign File Count",
+        "description": "Number of files satisfying the 222 Rule (present in both Physical + Cloud).",
+        "unit": "files",
+        "current": null,
+        "status": "PENDING"
+      }
+    ]
   }
 }

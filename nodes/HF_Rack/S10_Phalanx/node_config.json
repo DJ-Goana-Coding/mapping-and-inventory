@@ -1,0 +1,25 @@
+{
+  "node_id": "S10_Phalanx",
+  "codename": "The Quant Spearhead",
+  "role": "Heavy Quantum_Goanna Modeling",
+  "phase": "Phase 24 — 222 Master Builder Resonance",
+  "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
+  "hardware": {
+    "target": "a10g-large",
+    "vram_gb": 24,
+    "focus": "maximum GPU throughput for large-scale quantitative modeling",
+    "rationale": "A10G large delivers sustained compute for Quantum_Goanna model runs"
+  },
+  "capabilities": [
+    "Quantum_Goanna heavy quantitative modeling",
+    "GGUF / safetensors model inference (DeepSeek-R1-7B, Mistral)",
+    "District 12 Oracle baseline — world-knowledge retrieval",
+    "Phalanx swarm-intelligence processing"
+  ],
+  "model_targets": [
+    "DeepSeek-R1-7B.gguf",
+    "Mistral-World-Knowledge.gguf",
+    "nomic-embed-text-v1.5.Q4_K_M.gguf"
+  ],
+  "status": "STAGED — awaiting Commander activation"
+}
