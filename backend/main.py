@@ -5,6 +5,7 @@ Integrates the 4 Piranha Scalp + 3 Trailing Grid slots with Auto-Healer
 from typing import Dict, List, Optional, Tuple, Any, Union
 import asyncio
 import logging
+from datetime import datetime
 import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -255,6 +256,73 @@ async def get_status():
     }
 
 
+@app.post("/sync")
+async def trigger_sync():
+    """
+    Manually trigger a sync with Pioneer Trader and regenerate inventory report.
+    """
+    if not vortex_engine:
+        return JSONResponse(
+            status_code=503,
+            content={"status": "error", "message": "Vortex engine not initialized"}
+        )
+    
+    try:
+        # Import and execute sync
+        from bridge_protocol import PioneerBridge
+        
+        logger.info("[T.I.A.] Manual sync triggered")
+        
+        bridge = PioneerBridge()
+        pioneer_data = bridge.fetch_pioneer_status()
+        
+        # Sync to shadow archive if successful
+        if pioneer_data.get("success"):
+            bridge.sync_to_shadow_archive(pioneer_data)
+        
+        return {
+            "status": "success",
+            "message": "Sync completed",
+            "pioneer_status": pioneer_data.get("success", False),
+            "timestamp": datetime.utcnow().isoformat(),
+            "data": pioneer_data
+        }
+    except Exception as e:
+        logger.error(f"[T.I.A.] Sync error: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+
+
+@app.get("/fleet-status")
+async def get_fleet_status():
+    """
+    Returns combined status from local vortex engine and Pioneer Trader.
+    """
+    try:
+        from bridge_protocol import PioneerBridge
+        
+        bridge = PioneerBridge()
+        pioneer_data = bridge.fetch_pioneer_status()
+        
+        local_telemetry = await vortex_engine.get_telemetry() if vortex_engine else {}
+        
+        return {
+            "local_engine": local_telemetry,
+            "pioneer_trader": pioneer_data,
+            "unified_view": {
+                "brain_status": "RUNNING" if vortex_engine and vortex_engine.running else "STOPPED",
+                "muscle_status": pioneer_data.get("data", {}).get("status", "UNKNOWN") if pioneer_data.get("success") else "OFFLINE",
+                "last_handshake": pioneer_data.get("timestamp", "Never")
+            }
+        }
+    except Exception as e:
+        logger.error(f"[T.I.A.] Fleet status error: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
 @app.get("/ascension/status")
 async def ascension_status():
     """
@@ -352,5 +420,7 @@ async def nexus_status():
 
 
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=10000)
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
