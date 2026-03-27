@@ -146,6 +146,17 @@ class VortexBerserker:
     async def start(self):
         self.running = True
         self._log("🔥 VORTEX V2 RESTORED: 2 PIRANHAS // 3 HARVESTERS // 1 SNIPER // 1 BANKING.")
+
+        # Advance Ascension Protocol to APEX — engine is fully active
+        try:
+            from core.ascension import get_protocol, AscensionPhase
+
+            _proto = get_protocol()
+            if _proto.current_phase == AscensionPhase.CLIMB:
+                _proto.advance(note="VortexBerserker engine active — apex altitude reached.")
+        except Exception as _exc:
+            self._log(f"⚠️ ASCENSION ADVANCE SKIPPED: {_exc}")
+
         while self.running:
             try:
                 await self.analyze_banking_flow()
@@ -169,7 +180,16 @@ class VortexBerserker:
     async def get_telemetry(self):
         """Get telemetry data for API compatibility"""
         active_slots = len(self.active_trades)
-        
+
+        # Current ascension phase
+        ascension_phase = "UNKNOWN"
+        try:
+            from core.ascension import get_protocol
+
+            ascension_phase = get_protocol().current_phase.value
+        except Exception:
+            pass
+
         slots_data = []
         for slot_id, trade in self.active_trades.items():
             slots_data.append({
@@ -205,7 +225,8 @@ class VortexBerserker:
                 "default_pulse": f"{self.default_pulse_interval}s",
                 "throttled_pulse": f"{self.throttled_pulse_interval}s"
             },
-            "slots": slots_data
+            "slots": slots_data,
+            "ascension_phase": ascension_phase,
         }
 
 VortexEngine = VortexBerserker
