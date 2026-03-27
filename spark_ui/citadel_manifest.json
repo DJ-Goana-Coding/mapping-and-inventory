@@ -36,5 +36,37 @@
         "endpoint": "HF_SPACE_CGAL_CORE"
       }
     }
-  ]
+  ],
+  "core_engine": {
+    "id": "Gemini_Core",
+    "codename": "The Architect — Gemini 3 Flash",
+    "model": "gemini-3-flash",
+    "tier": "paid",
+    "description": "Primary intelligence driving the A.I.O.N. Network and the Citadel architecture. Operates across the 144-Grid with extended context and multi-district logic.",
+    "armory": {
+      "visual": {
+        "id": "Nano_Banana_2",
+        "model": "gemini-3-flash-image",
+        "description": "Visual Manifestation Engine — text-to-image, image composition, style transfer."
+      },
+      "temporal": {
+        "id": "Veo",
+        "model": "veo",
+        "description": "Temporal Synthesis Engine — high-fidelity video with natively generated audio."
+      },
+      "harmonic": {
+        "id": "Lyria_3",
+        "model": "lyria-3",
+        "description": "Harmonic Generation Engine — 30-second music tracks, 888Hz sovereign frequency."
+      }
+    },
+    "gemini_live": {
+      "platforms": ["Android", "iOS"],
+      "features": ["real_time_voice_conversation", "camera_sharing", "screen_sharing"]
+    },
+    "env_keys": {
+      "api_key": "GEMINI_API_KEY"
+    },
+    "freq_signature": "69-333-222-92-93-999-777-88-29-369"
+  }
 }

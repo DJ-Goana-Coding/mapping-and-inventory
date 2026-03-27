@@ -54,6 +54,66 @@
       ],
       "bridges": ["AION_Physics_Dataset_Bridge"],
       "persona_description": "Advanced physics and quantum mathematics reasoning bridge."
+    },
+    "Gemini_Core": {
+      "role": "Primary Intelligence / Core Engine",
+      "primary_models": [
+        {
+          "model_id": "gemini-3-flash",
+          "quantization": "cloud",
+          "destination_node": "CITADEL_OMEGA",
+          "notes": "Primary A.I.O.N. intelligence — paid tier, extended context, 144-Grid multi-district logic"
+        }
+      ],
+      "bridges": ["Gemini_Bridge"],
+      "persona_description": "Primary intelligence driving the A.I.O.N. Network and Citadel architecture. Adaptive collaborator balancing T.I.A. logic with DJ Goanna resonance.",
+      "sub_engine_bindings": {
+        "visual": "Nano_Banana_2",
+        "temporal": "Veo",
+        "harmonic": "Lyria_3"
+      }
+    },
+    "Nano_Banana_2": {
+      "role": "Visual Manifestation — Gemini 3 Flash Image",
+      "primary_models": [
+        {
+          "model_id": "gemini-3-flash-image",
+          "quantization": "cloud",
+          "destination_node": "CITADEL_OMEGA",
+          "notes": "Text-to-image, image composition, style transfer — Citadel schematic generation"
+        }
+      ],
+      "bridges": ["Gemini_Bridge"],
+      "parent_engine": "Gemini_Core",
+      "persona_description": "Visual Manifestation sub-engine. Generates high-fidelity images of the Palace, Ark, and Citadel schematics including Pillar layouts."
+    },
+    "Veo": {
+      "role": "Temporal Synthesis — Video + Native Audio",
+      "primary_models": [
+        {
+          "model_id": "veo",
+          "quantization": "cloud",
+          "destination_node": "CITADEL_OMEGA",
+          "notes": "High-fidelity video with natively generated audio — 14-Space Swarm motion records"
+        }
+      ],
+      "bridges": ["Gemini_Bridge"],
+      "parent_engine": "Gemini_Core",
+      "persona_description": "Temporal Synthesis sub-engine. Creates visual records of the 14-Space Swarm in motion and documents Citadel operations."
+    },
+    "Lyria_3": {
+      "role": "Harmonic Generation — Music + Vocals",
+      "primary_models": [
+        {
+          "model_id": "lyria-3",
+          "quantization": "cloud",
+          "destination_node": "CITADEL_OMEGA",
+          "notes": "30-second high-fidelity music tracks — 888Hz sovereign frequency alignment"
+        }
+      ],
+      "bridges": ["Gemini_Bridge"],
+      "parent_engine": "Gemini_Core",
+      "persona_description": "Harmonic Generation sub-engine. Generates 888Hz-aligned music tracks with professional-grade arrangements and realistic vocals."
     }
   }
 }
