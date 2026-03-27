@@ -422,8 +422,8 @@ def harvest(token: str | None = None) -> dict[str, Any]:
     # ------------------------------------------------------------------ district summary
     district_summary: dict[str, list[str]] = {}
     for entry in entries:
-        d = entry["district_id"]
-        district_summary.setdefault(d, []).append(entry["full_name"])
+        district_id = entry["district_id"]
+        district_summary.setdefault(district_id, []).append(entry["full_name"])
 
     manifest: dict[str, Any] = {
         "manifest_version": "3.0.0",

@@ -65,11 +65,11 @@ def _resolve_roots() -> list[pathlib.Path]:
     for part in raw.split(os.pathsep):  # os.pathsep: ':' on Unix, ';' on Windows
         part = part.strip()
         if part:
-            p = pathlib.Path(part)
-            if p.exists():
-                roots.append(p)
+            root_path = pathlib.Path(part)
+            if root_path.exists():
+                roots.append(root_path)
             else:
-                logger.warning("[Harvester] Root path not found, skipping: %s", p)
+                logger.warning("[Harvester] Root path not found, skipping: %s", root_path)
     return roots
 
 

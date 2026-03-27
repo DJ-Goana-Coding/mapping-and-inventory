@@ -24,9 +24,9 @@ def get_gdrive_inventory(service):
     folders = results.get('files', [])
     
     # Filter for Citadel-related folders
-    for f in folders:
-        if any(keyword in f['name'].upper() for keyword in ["CITADEL", "DISTRICT", "COMMAND"]):
-            inventory.append({"name": f['name'], "id": f['id'], "type": "Folder"})
+    for folder in folders:
+        if any(keyword in folder['name'].upper() for keyword in ["CITADEL", "DISTRICT", "COMMAND"]):
+            inventory.append({"name": folder['name'], "id": folder['id'], "type": "Folder"})
     return inventory
 
 def get_hf_inventory():
@@ -39,7 +39,7 @@ def get_hf_inventory():
     except Exception as e:
         return [f"Error: {str(e)}"]
 
-def generate_report(gd_data, hf_data):
+def generate_report(google_drive_data, huggingface_data):
     """Generates the updated INVENTORY_REPORT.md"""
     timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     report = f"""# 🏛️ CITADEL MAPPING & INVENTORY REPORT
@@ -51,7 +51,7 @@ def generate_report(gd_data, hf_data):
 | District / Folder | Drive ID | Status |
 | :--- | :--- | :--- |
 """
-    for item in gd_data:
+    for item in google_drive_data:
         report += f"| {item['name']} | `{item['id']}` | ✅ Mapped |\n"
         
     report += f"""
@@ -59,31 +59,31 @@ def generate_report(gd_data, hf_data):
 | Space Name | SDK | Last Updated |
 | :--- | :--- | :--- |
 """
-    for s in hf_data:
-        if isinstance(s, dict):
-            report += f"| {s['name']} | {s['sdk']} | {s['lastModified']} |\n"
+    for space in huggingface_data:
+        if isinstance(space, dict):
+            report += f"| {space['name']} | {space['sdk']} | {space['lastModified']} |\n"
         else:
-            report += f"| {s} | - | - |\n"
+            report += f"| {space} | - | - |\n"
 
-    with open("INVENTORY_REPORT.md", "w") as f:
-        f.write(report)
+    with open("INVENTORY_REPORT.md", "w") as report_file:
+        report_file.write(report)
     print("✅ INVENTORY_REPORT.md updated.")
 
 def main():
     # 1. GDrive Auth
     if not os.path.exists(SERVICE_ACCOUNT_FILE):
         print(f"⚠️  Missing {SERVICE_ACCOUNT_FILE}. Skipping Drive inventory.")
-        gd_items = []
+        google_drive_items = []
     else:
         creds = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=GD_SCOPES)
         service = build('drive', 'v3', credentials=creds)
-        gd_items = get_gdrive_inventory(service)
+        google_drive_items = get_gdrive_inventory(service)
 
     # 2. HF Auth
-    hf_items = get_hf_inventory()
+    huggingface_items = get_hf_inventory()
 
     # 3. Generate Report
-    generate_report(gd_items, hf_items)
+    generate_report(google_drive_items, huggingface_items)
 
 if __name__ == "__main__":
     main()

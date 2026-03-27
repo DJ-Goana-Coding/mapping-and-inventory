@@ -226,11 +226,11 @@ def _remove_empty_dirs(root: pathlib.Path) -> None:
 
 def _compute_sha256(filepath: pathlib.Path) -> str:
     """Return the lowercase hex SHA-256 digest of *filepath*."""
-    h = hashlib.sha256()
+    sha256_hasher = hashlib.sha256()
     with filepath.open("rb") as fh:
         for block in iter(lambda: fh.read(65536), b""):
-            h.update(block)
-    return h.hexdigest()
+            sha256_hasher.update(block)
+    return sha256_hasher.hexdigest()
 
 
 def _verify_sha256(

@@ -55,13 +55,13 @@ def _parse_requirements(path: pathlib.Path) -> list[dict[str, str]]:
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
             continue
-        m = _REQ_LINE_RE.match(stripped)
-        if m:
+        req_match = _REQ_LINE_RE.match(stripped)
+        if req_match:
             pkgs.append(
                 {
-                    "name": m.group("name"),
-                    "extras": m.group("extras") or "",
-                    "pinned": (m.group("spec") or "").replace("==", ""),
+                    "name": req_match.group("name"),
+                    "extras": req_match.group("extras") or "",
+                    "pinned": (req_match.group("spec") or "").replace("==", ""),
                     "raw": stripped,
                 }
             )
@@ -121,9 +121,9 @@ def upgrade_package(pkg: dict[str, str], *, dry_run: bool = False) -> dict[str, 
         latest = ""
         if result.returncode == 0:
             first_line = result.stdout.strip().splitlines()[0] if result.stdout.strip() else ""
-            m = re.search(r"\(([^)]+)\)", first_line)
-            if m:
-                latest = m.group(1)
+            version_match = re.search(r"\(([^)]+)\)", first_line)
+            if version_match:
+                latest = version_match.group(1)
         return {
             "package": name,
             "status": "dry_run",
@@ -246,12 +246,12 @@ if __name__ == "__main__":
 
     # Pretty summary
     print("\n=== Medic Sweep Report ===")
-    col = {"upgraded": "⬆", "rolled_back": "⏪", "unchanged": "✓", "dry_run": "🔍", "error": "✗"}
-    for r in results:
-        icon = col.get(r["status"], "?")
-        prev = r.get("previous_version") or "unpinned"
-        new = r.get("new_version") or "-"
-        print(f"  {icon}  {r['package']:<35} {prev:<15} → {new}")
+    status_icon_map = {"upgraded": "⬆", "rolled_back": "⏪", "unchanged": "✓", "dry_run": "🔍", "error": "✗"}
+    for pkg_result in results:
+        icon = status_icon_map.get(pkg_result["status"], "?")
+        previous_version = pkg_result.get("previous_version") or "unpinned"
+        new_version = pkg_result.get("new_version") or "-"
+        print(f"  {icon}  {pkg_result['package']:<35} {previous_version:<15} → {new_version}")
 
     if os.path.exists(_AUDIT_LOG):
         print(f"\n  [Medic] Audit log: {_AUDIT_LOG}")
