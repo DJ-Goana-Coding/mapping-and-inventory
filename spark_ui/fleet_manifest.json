@@ -1,39 +1,49 @@
 {
   "manifest_version": "2.4.0",
   "generated": "2026-03-26",
-  "phase": "Phase 24 — 222 Master Builder Resonance (Duality & Alignment)",
+  "phase": "Phase 24 \u2014 222 Master Builder Resonance (Duality & Alignment)",
   "hub": {
     "id": "mapping-and-inventory",
     "role": "Master Brain / Central Hub",
     "description": "Central coordination node, RAG librarian, and state-map registry for the entire decentralised fleet. All sovereign nodes back up to this hub.",
     "repo": "DJ-Goana-Coding/mapping-and-inventory",
     "fleet_registry_path": "fleet_registry/",
-    "brain_vault_path": "brain/memory_vault/"
+    "brain_vault_path": "brain/memory_vault/",
+    "health_status": "UPGRADE REQUIRED",
+    "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
   },
   "primary_spokes": [
     {
       "id": "S10_Phalanx",
       "codename": "The Quant Spearhead",
       "role": "S10 Termux Quantitative Analysis Node",
-      "fleet_registry_path": "fleet_registry/S10_Phalanx/"
+      "fleet_registry_path": "fleet_registry/S10_Phalanx/",
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "Oppo_Omega",
       "codename": "The Omega Node",
       "role": "Oppo Hardware Omega Command & Swarm Intelligence Node",
-      "fleet_registry_path": "fleet_registry/Oppo_Omega/"
+      "fleet_registry_path": "fleet_registry/Oppo_Omega/",
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "CGAL_Core",
       "codename": "The Law",
       "role": "Legal Clearance & Compliance Gateway",
-      "fleet_registry_path": "fleet_registry/CGAL_Core/"
+      "fleet_registry_path": "fleet_registry/CGAL_Core/",
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "pioneer-trader",
       "codename": "The Pioneer",
       "role": "Quantitative Trading Engine",
-      "fleet_registry_path": "fleet_registry/pioneer-trader/"
+      "fleet_registry_path": "fleet_registry/pioneer-trader/",
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     }
   ],
   "sovereign_nodes": [
@@ -50,8 +60,8 @@
           "env_var": "HF_SPACE_TIAS_PIONEER"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "CITADEL_OMEGA",
@@ -74,8 +84,8 @@
           "env_var": "HF_SPACE_SHADOW_ARCHIVE"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "citadel-vortex",
@@ -85,8 +95,8 @@
       "repo": "DJ-Goana-Coding/citadel-vortex",
       "fleet_registry_path": "fleet_registry/citadel-vortex/",
       "hf_spaces": [],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "perimeter-scout",
@@ -109,8 +119,8 @@
           "env_var": "HF_SPACE_OMEGA_BOTS"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "S10_Phalanx",
@@ -126,8 +136,8 @@
           "env_var": "HF_SPACE_OMEGA_TRADER"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "Oppo_Omega",
@@ -143,8 +153,8 @@
           "env_var": "HF_SPACE_OMEGA_TRADER"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "CGAL_Core",
@@ -159,8 +169,8 @@
           "env_var": "HF_SPACE_CGAL_CORE"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "Pioneer_Vortex",
@@ -170,8 +180,8 @@
       "repo": "DJ-Goana-Coding/citadel-vortex",
       "fleet_registry_path": "fleet_registry/Pioneer_Vortex/",
       "hf_spaces": [],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "Genesis",
@@ -181,8 +191,8 @@
       "repo": "DJ-Goana-Coding/Genesis",
       "fleet_registry_path": "fleet_registry/Genesis/",
       "hf_spaces": [],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     },
     {
       "id": "Harvestmoon",
@@ -197,12 +207,12 @@
           "env_var": "HF_SPACE_HARVESTMOON"
         }
       ],
-      "health_status": "CONNECTION SEVERED",
-      "last_heartbeat": null
+      "health_status": "UPGRADE REQUIRED",
+      "last_heartbeat": "2026-03-27T06:36:57.204502+00:00"
     }
   ],
   "district_map": {
-    "description": "12 Dimensional Districts of the Citadel — each district governs a specific operational domain within the fleet intelligence architecture.",
+    "description": "12 Dimensional Districts of the Citadel \u2014 each district governs a specific operational domain within the fleet intelligence architecture.",
     "districts": [
       {
         "id": "01",
@@ -403,7 +413,7 @@
     "datasets": [
       {
         "id": "google_takeout_location",
-        "name": "Google Takeout — Location History",
+        "name": "Google Takeout \u2014 Location History",
         "source": "Google Takeout",
         "district": "06_MEMORY_ARCHIVE",
         "ingestion_status": "PENDING",
@@ -412,7 +422,7 @@
       },
       {
         "id": "google_takeout_search",
-        "name": "Google Takeout — Search History",
+        "name": "Google Takeout \u2014 Search History",
         "source": "Google Takeout",
         "district": "06_MEMORY_ARCHIVE",
         "ingestion_status": "PENDING",
@@ -481,14 +491,14 @@
     }
   ],
   "sovereign_infrastructure": {
-    "description": "Expanded Sovereign Infrastructure — all physical, mobile, cloud, and HuggingFace compute/storage nodes mapped for Phase 8 Grand Synthesis & 1TB Rack Migration.",
+    "description": "Expanded Sovereign Infrastructure \u2014 all physical, mobile, cloud, and HuggingFace compute/storage nodes mapped for Phase 8 Grand Synthesis & 1TB Rack Migration.",
     "local_edge_nodes": [
       {
         "id": "drive_C",
         "label": "C: (1TB Hidden / chance-root)",
         "type": "local_disk",
         "capacity_gb": 1024,
-        "role": "Hidden primary OS and sovereign root drive — Authoritative Zero-Point (C:\\Users\\chanc\\)",
+        "role": "Hidden primary OS and sovereign root drive \u2014 Authoritative Zero-Point (C:\\Users\\chanc\\)",
         "visibility": "hidden",
         "root_affinity": "chanc",
         "authoritative_zero_point": true
@@ -503,10 +513,10 @@
       },
       {
         "id": "drive_E",
-        "label": "E: (2.5TB — Lore & Recovery)",
+        "label": "E: (2.5TB \u2014 Lore & Recovery)",
         "type": "local_disk",
         "capacity_gb": 2560,
-        "role": "High-capacity lore and recovery archive — RECOVERY_STAGING + BIG DOOFY LAND STORY MAIN FOLDER",
+        "role": "High-capacity lore and recovery archive \u2014 RECOVERY_STAGING + BIG DOOFY LAND STORY MAIN FOLDER",
         "visibility": "standard",
         "phase8_status": "Lore Archive"
       }
@@ -514,10 +524,10 @@
     "mobile_spearhead": [
       {
         "id": "S10_Phalanx",
-        "label": "S10_Phalanx (500GB — Purified)",
+        "label": "S10_Phalanx (500GB \u2014 Purified)",
         "type": "mobile_termux_node",
         "capacity_gb": 500,
-        "role": "Mobile quantitative analysis spearhead — cross-speaks with CGAL_Core and Oppo_Omega",
+        "role": "Mobile quantitative analysis spearhead \u2014 cross-speaks with CGAL_Core and Oppo_Omega",
         "fleet_registry_path": "fleet_registry/S10_Phalanx/",
         "nodes_path": "nodes/S10_Phalanx/",
         "phase8_status": "Purified"
@@ -526,10 +536,10 @@
     "cloud_drive_array": [
       {
         "id": "google_drive_primary",
-        "label": "Google Drive (2TB — Verified)",
+        "label": "Google Drive (2TB \u2014 Verified)",
         "type": "cloud_drive",
         "capacity_gb": 2048,
-        "role": "Primary cloud storage — 12 Citadel Districts sourced from this drive",
+        "role": "Primary cloud storage \u2014 12 Citadel Districts sourced from this drive",
         "env_var": "DRIVE_SERVICE_KEY",
         "phase8_status": "Verified"
       },
@@ -545,54 +555,54 @@
         "label": "Email Aux Drive 01",
         "type": "email_drive",
         "capacity_gb": 15,
-        "role": "Auxiliary email-linked cloud storage — account slot 1"
+        "role": "Auxiliary email-linked cloud storage \u2014 account slot 1"
       },
       {
         "id": "email_aux_drive_02",
         "label": "Email Aux Drive 02",
         "type": "email_drive",
         "capacity_gb": 15,
-        "role": "Auxiliary email-linked cloud storage — account slot 2"
+        "role": "Auxiliary email-linked cloud storage \u2014 account slot 2"
       },
       {
         "id": "email_aux_drive_03",
         "label": "Email Aux Drive 03",
         "type": "email_drive",
         "capacity_gb": 15,
-        "role": "Auxiliary email-linked cloud storage — account slot 3"
+        "role": "Auxiliary email-linked cloud storage \u2014 account slot 3"
       },
       {
         "id": "email_aux_drive_04",
         "label": "Email Aux Drive 04",
         "type": "email_drive",
         "capacity_gb": 15,
-        "role": "Auxiliary email-linked cloud storage — account slot 4"
+        "role": "Auxiliary email-linked cloud storage \u2014 account slot 4"
       },
       {
         "id": "email_aux_drive_05",
         "label": "Email Aux Drive 05",
         "type": "email_drive",
         "capacity_gb": 15,
-        "role": "Auxiliary email-linked cloud storage — account slot 5"
+        "role": "Auxiliary email-linked cloud storage \u2014 account slot 5"
       }
     ],
     "huggingface_infrastructure": [
       {
         "id": "HF_Rack",
-        "label": "HF_Rack (1TB — Compute Active)",
+        "label": "HF_Rack (1TB \u2014 Compute Active)",
         "type": "hf_compute",
         "capacity_gb": 1024,
-        "role": "Primary HuggingFace compute rack — hosts live Spaces and model inference endpoints",
+        "role": "Primary HuggingFace compute rack \u2014 hosts live Spaces and model inference endpoints",
         "env_var": "HF_TOKEN",
         "phase8_status": "Compute Active",
         "migration_manifest": "nodes/HF_Rack/migration_manifest.json"
       },
       {
         "id": "HF_Garage",
-        "label": "HF_Garage (20GB — Staging)",
+        "label": "HF_Garage (20GB \u2014 Staging)",
         "type": "hf_staging",
         "capacity_gb": 20,
-        "role": "HuggingFace staging garage — model and asset staging before promotion to live Spaces",
+        "role": "HuggingFace staging garage \u2014 model and asset staging before promotion to live Spaces",
         "sync_module": "core.hf_garage_sync",
         "phase8_status": "Staging"
       }
@@ -604,7 +614,7 @@
       "hf_garage_gb": 20,
       "s10_phalanx_gb": 500,
       "drive_e_tb": 2.5,
-      "note": "Total 8TB master manifest — Phase 8 Grand Synthesis verified storage"
+      "note": "Total 8TB master manifest \u2014 Phase 8 Grand Synthesis verified storage"
     }
   },
   "knowledge_saturation": {
@@ -624,7 +634,7 @@
     ]
   },
   "phase8_deep_storage_migration": {
-    "description": "Phase 8 — Deep-Storage Migration status for high-weight binary models staged for the 1TB HF Rack.",
+    "description": "Phase 8 \u2014 Deep-Storage Migration status for high-weight binary models staged for the 1TB HF Rack.",
     "manifest": "nodes/HF_Rack/migration_manifest.json",
     "targets": [
       {
@@ -656,7 +666,7 @@
         "id": "deepseek-r1-7b",
         "filename": "DeepSeek-R1-7B.gguf",
         "type": "gguf",
-        "role": "Quantitative reasoning — primary inference model",
+        "role": "Quantitative reasoning \u2014 primary inference model",
         "migration_status": "PENDING",
         "destination_path": "nodes/HF_Rack/DeepSeek-R1-7B/"
       },
@@ -725,7 +735,7 @@
   "authoritative_zero_point": {
     "path": "C:\\Users\\chanc\\",
     "identity": "chanc",
-    "role": "Sovereign Root — all nodes report execution signatures to this directory",
+    "role": "Sovereign Root \u2014 all nodes report execution signatures to this directory",
     "hwid_lock": true,
     "root_affinity": "chanc"
   },
@@ -754,37 +764,37 @@
     "CONNECTION SEVERED": "Node cannot be reached or does not exist; immediate triage required."
   },
   "phase24_gpu_nodes": {
-    "description": "Phase 24 GPU Compute Engine Rooms — staged, awaiting Commander activation.",
+    "description": "Phase 24 GPU Compute Engine Rooms \u2014 staged, awaiting Commander activation.",
     "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
     "nodes": [
       {
         "id": "trinity-genesis",
         "codename": "The Genesis Engine",
         "role": "General Intelligence & Orchestration",
-        "hardware": "a10g-small (24 GB VRAM — min 16 GB required)",
+        "hardware": "a10g-small (24 GB VRAM \u2014 min 16 GB required)",
         "hf_space_env": "HF_SPACE_TRINITY",
-        "status": "STAGED — awaiting Commander activation"
+        "status": "STAGED \u2014 awaiting Commander activation"
       },
       {
         "id": "pioneer-omega",
         "codename": "The Omega Pioneer",
         "role": "High-Speed Execution & Market Calculation",
-        "hardware": "t4-small (16 GB VRAM — low-latency CPU/GPU balance)",
+        "hardware": "t4-small (16 GB VRAM \u2014 low-latency CPU/GPU balance)",
         "hf_space_env": "HF_SPACE_PIONEER_OMEGA",
-        "status": "STAGED — awaiting Commander activation"
+        "status": "STAGED \u2014 awaiting Commander activation"
       },
       {
         "id": "S10_Phalanx",
         "codename": "The Quant Spearhead",
         "role": "Heavy Quantum_Goanna Modeling",
-        "hardware": "a10g-large (24 GB VRAM — maximum GPU throughput)",
+        "hardware": "a10g-large (24 GB VRAM \u2014 maximum GPU throughput)",
         "hf_space_env": "HF_SPACE_PHALANX",
-        "status": "STAGED — awaiting Commander activation"
+        "status": "STAGED \u2014 awaiting Commander activation"
       }
     ]
   },
   "phase24_sync_bridge": {
-    "description": "Phase 24 — 1-to-1 Mirror: bidirectional equilibrium between physical anchor and cloud fleet.",
+    "description": "Phase 24 \u2014 1-to-1 Mirror: bidirectional equilibrium between physical anchor and cloud fleet.",
     "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369",
     "sovereignty_rule": "No file is 'Sovereign' until it exists simultaneously in two locations (Physical + Cloud).",
     "routes": [
@@ -793,19 +803,19 @@
         "physical_path": "E:\\RECOVERY_STAGING\\",
         "cloud_destination": "Google Drive 2TB Fleet",
         "direction": "bidirectional",
-        "description": "Lore/History bridge — E:\\RECOVERY_STAGING\\ ↔ Google Drive 2TB Fleet"
+        "description": "Lore/History bridge \u2014 E:\\RECOVERY_STAGING\\ \u2194 Google Drive 2TB Fleet"
       },
       {
         "route_id": "github-lattice-to-citadel",
         "physical_path": "C:\\Citadel\\",
         "cloud_destination": "GitHub Lattice (DJ-Goana-Coding)",
         "direction": "bidirectional",
-        "description": "Structural change mirror — C:\\Citadel\\ ↔ GitHub lattice"
+        "description": "Structural change mirror \u2014 C:\\Citadel\\ \u2194 GitHub lattice"
       }
     ]
   },
   "hud": {
-    "description": "Phase 24 HUD — real-time telemetry gauges for the Commander.",
+    "description": "Phase 24 HUD \u2014 real-time telemetry gauges for the Commander.",
     "gauges": [
       {
         "id": "resonance_equilibrium",
@@ -818,7 +828,7 @@
         ],
         "target": 100,
         "current": null,
-        "status": "PENDING — sync bridge not yet active",
+        "status": "PENDING \u2014 sync bridge not yet active",
         "alignment_signature": "222-ALIGNMENT-BALANCE-69-333-222-92-93-999-777-88-29-369"
       },
       {
@@ -830,5 +840,11 @@
         "status": "PENDING"
       }
     ]
+  },
+  "heartbeat_summary": {
+    "last_run_utc": "2026-03-27T06:36:57.204502+00:00",
+    "online": 0,
+    "upgrade_required": 14,
+    "severed": 0
   }
 }
