@@ -1,0 +1,81 @@
+name: LIBRARIAN-WELD Triple-Sync
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  triple-sync:
+    name: Broadcast to all three nodes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "Architect: Chance"
+          git config user.email "architect-chance@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate manifest inventory
+        run: python services/manifest_generator.py
+
+      - name: Stage and commit manifest update
+        run: |
+          git add .
+          git diff --cached --quiet || git commit -m "[LIBRARIAN-WELD] Mapping & Inventory Sync - Architect: Chance"
+
+      - name: Register remote — Master Ledger (mapping-and-inventory)
+        run: |
+          git remote add inventory \
+            https://x-access-token:${{ secrets.TOKEN_MAPPING_INVENTORY }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git \
+            || git remote set-url inventory \
+            https://x-access-token:${{ secrets.TOKEN_MAPPING_INVENTORY }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git
+
+      - name: Register remote — Central Engine (ARK_CORE)
+        run: |
+          git remote add ark \
+            https://x-access-token:${{ secrets.TOKEN_ARK_CORE }}@github.com/DJ-Goana-Coding/ARK_CORE.git \
+            || git remote set-url ark \
+            https://x-access-token:${{ secrets.TOKEN_ARK_CORE }}@github.com/DJ-Goana-Coding/ARK_CORE.git
+
+      - name: Register remote — Display Space (TIA-ARCHITECT-CORE)
+        run: |
+          git remote add space \
+            https://DJ-Goana-Coding:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE \
+            || git remote set-url space \
+            https://DJ-Goana-Coding:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE
+
+      - name: Broadcast to Master Ledger (inventory)
+        # --force is required by the Librarian-Weld protocol to keep all nodes perfectly aligned
+        run: git push inventory main --force
+
+      - name: Broadcast to Central Engine (ark)
+        # --force is required by the Librarian-Weld protocol to keep all nodes perfectly aligned
+        run: git push ark main --force
+
+      - name: Broadcast to Display Space (space)
+        # --force is required by the Librarian-Weld protocol to keep all nodes perfectly aligned
+        run: git push space main --force
