@@ -27,6 +27,7 @@ def run_sync() -> None:
         [sys.executable, 'services/manifest_generator.py'],
         capture_output=True,
         text=True,
+        encoding='utf-8',
     )
     if result.returncode != 0:
         print(f'[ERROR] Manifest generation failed:\n{result.stderr}')
@@ -41,6 +42,7 @@ def run_sync() -> None:
         ['git', 'commit', '-m', _COMMIT_MSG, '--allow-empty'],
         capture_output=True,
         text=True,
+        encoding='utf-8',
     )
     if commit_result.returncode != 0:
         print(f'[WARN] Commit step returned non-zero:\n{commit_result.stderr}')
@@ -53,6 +55,7 @@ def run_sync() -> None:
             ['git', 'push', remote, _BRANCH, '--force'],
             capture_output=True,
             text=True,
+            encoding='utf-8',
         )
         if push_result.returncode != 0:
             print(f'[ERROR] {remote.upper()} FAILED:\n{push_result.stderr.strip()}')
