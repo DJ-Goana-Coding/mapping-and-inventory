@@ -6,8 +6,9 @@ A project for mapping, indexing, and monitoring files across the ARK_CORE system
 
 ```
 mapping-and-inventory/
+├── streamlit_app.py              # ⚡ Streamlit Faceplate (V39) — primary HF Space entry point candidate
 ├── app.py                        # Gradio chat interface (T.I.A. ARCHITECT CORE)
-├── requirements.txt              # Python dependencies
+├── requirements.txt              # Python dependencies (streamlit, gradio, requests)
 ├── TIA/                          # ⚡ T.I.A. multi-persona chatbot (highlighted)
 │   ├── tia_core.py               # Full multi-persona Gradio interface
 │   ├── personas.json             # Persona definitions (ARCHITECT, ORACLE, CITADEL, LIBRARIAN)
@@ -36,7 +37,24 @@ pip install -r requirements.txt
 
 ## Usage
 
-### ⚡ Launch the T.I.A. multi-persona chatbot
+### ⚡ Launch the Streamlit Faceplate (V39) — recommended
+
+```bash
+streamlit run streamlit_app.py
+```
+
+This launches the **T.I.A. ARCHITECT CORE Omni-Faceplate** in wide-layout mode with two tabs:
+
+| Tab | Description |
+|-----|-------------|
+| 🤖 **T.I.A. Chat** | Session-state persistent multi-persona chat (ARCHITECT · ORACLE · CITADEL · LIBRARIAN) |
+| 📡 **CRYPTO SNIPER** | Real-time God-View dashboard polling the S10 Heartbeat Node (configured in `CRYPTO_SNIPER/sniper_config.json`) |
+
+> **Hugging Face Space entry point:** To switch from the Gradio interface (`app.py`) to the
+> Streamlit faceplate on your HF Space, rename or set `streamlit_app.py` as the entry point in
+> your Space settings (SDK: Streamlit). Both interfaces remain available in the repository.
+
+### ⚡ Launch the T.I.A. multi-persona chatbot (Gradio)
 
 ```bash
 python TIA/tia_core.py
@@ -72,6 +90,7 @@ python services/ark_engine.py
 
 ## Components
 
+- **streamlit_app.py** — Streamlit Faceplate V39. Wide-layout Omni-Faceplate with session-state chat history and real-time CRYPTO SNIPER polling. `st.set_page_config` is called first to satisfy Streamlit's headless-execution requirement. Identified as the primary HF Space entry point candidate when running under the Streamlit SDK.
 - **TIA/tia_core.py** — Full multi-persona T.I.A. chatbot. Loads personas from `personas.json` and provides a Gradio UI with persona switching. This is the primary file to deploy to Hugging Face Spaces.
 - **TIA/personas.json** — Defines all T.I.A. personas: `TIA_ARCHITECT`, `TIA_ORACLE`, `TIA_CITADEL`, `TIA_LIBRARIAN`.
 - **CRYPTO_SNIPER/god_view.py** — Polls a remote ARK node and renders a live extraction/vault dashboard every 30 seconds. Reads connection config from `sniper_config.json`.
