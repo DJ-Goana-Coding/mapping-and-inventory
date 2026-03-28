@@ -1,0 +1,6 @@
+{
+    "_comment": "Copy this file to sniper_config.local.json and fill in your actual values. Never commit credentials.",
+    "s10_ip": "100.97.78.44",
+    "port": 8080,
+    "refresh_seconds": 30
+}

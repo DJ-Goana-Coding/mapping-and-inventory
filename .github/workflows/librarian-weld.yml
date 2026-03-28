@@ -45,14 +45,18 @@ jobs:
       - name: Stage and commit manifest update
         run: |
           git add .
-          git diff --cached --quiet || git commit -m "[LIBRARIAN-WELD] Mapping & Inventory Sync - Architect: Chance"
+          git diff --cached --quiet || git commit -m "[LIBRARIAN-WELD] Total System Indexing - Architect: Chance | $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 
       - name: Register remote — Master Ledger (mapping-and-inventory)
+        env:
+          INVENTORY_TOKEN: ${{ secrets.TOKEN_MAPPING_INVENTORY }}
+          GITHUB_DEFAULT_TOKEN: ${{ github.token }}
         run: |
+          TOKEN="${INVENTORY_TOKEN:-${GITHUB_DEFAULT_TOKEN}}"
           git remote add inventory \
-            https://x-access-token:${{ github.token }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git \
+            "https://x-access-token:${TOKEN}@github.com/DJ-Goana-Coding/mapping-and-inventory.git" \
             || git remote set-url inventory \
-            https://x-access-token:${{ github.token }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git
+            "https://x-access-token:${TOKEN}@github.com/DJ-Goana-Coding/mapping-and-inventory.git"
 
       - name: Register remote — Central Engine (ARK_CORE)
         run: |
@@ -64,9 +68,9 @@ jobs:
       - name: Register remote — Display Space (TIA-ARCHITECT-CORE)
         run: |
           git remote add space \
-            https://DJ-Goana-Coding:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE \
+            https://DJ-Goanna-Coding:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE \
             || git remote set-url space \
-            https://DJ-Goana-Coding:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE
+            https://DJ-Goanna-Coding:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE
 
       - name: Broadcast to Master Ledger (inventory)
         # --force is required by the Librarian-Weld protocol to keep all nodes perfectly aligned
