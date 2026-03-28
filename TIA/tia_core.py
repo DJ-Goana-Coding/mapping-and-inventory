@@ -1,3 +1,11 @@
+"""
+TIA/tia_core.py — T.I.A. ARCHITECT CORE (Multi-Persona Gradio Interface)
+Architect: Chance | OPPO_FORGE Origin
+
+Loads persona definitions from personas.json and provides a Gradio UI
+with four switchable personas and an integrated CRYPTO SNIPER tab.
+"""
+
 import gradio as gr
 import json
 import os
@@ -6,7 +14,7 @@ import requests
 
 # ── Load persona definitions ─────────────────────────────────────────────────
 _PERSONAS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'personas.json')
-with open(_PERSONAS_PATH) as _f:
+with open(_PERSONAS_PATH, encoding='utf-8') as _f:
     PERSONAS = json.load(_f)
 
 PERSONA_NAMES = list(PERSONAS.keys())
@@ -16,7 +24,7 @@ _SNIPER_CFG_PATH = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     'CRYPTO_SNIPER', 'sniper_config.json',
 )
-with open(_SNIPER_CFG_PATH) as _sc:
+with open(_SNIPER_CFG_PATH, encoding='utf-8') as _sc:
     _SNIPER_CFG = json.load(_sc)
 
 _S10_IP = _SNIPER_CFG.get('s10_ip', '100.97.78.44')

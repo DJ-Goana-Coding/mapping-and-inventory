@@ -7,32 +7,41 @@ Provides a Streamlit-based interface covering:
   • CRYPTO SNIPER God-View Dashboard
 """
 
-import sys
-import os
 import datetime
+import json
+import os
+import sys
 
+import requests
 import streamlit as st
 
 # Ensure repo root is importable so TIA package resolves correctly
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-import json
-import requests
-
 # ── Load persona definitions ──────────────────────────────────────────────────
-_PERSONAS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'TIA', 'personas.json')
-with open(_PERSONAS_PATH) as _f:
-    PERSONAS: dict = json.load(_f)
+@st.cache_data
+def _load_personas() -> dict:
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'TIA', 'personas.json')
+    with open(path, encoding='utf-8') as fh:
+        return json.load(fh)
+
+
+@st.cache_data
+def _load_sniper_cfg() -> dict:
+    path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        'CRYPTO_SNIPER', 'sniper_config.json',
+    )
+    with open(path, encoding='utf-8') as fh:
+        return json.load(fh)
+
+
+PERSONAS: dict = _load_personas()
 
 PERSONA_NAMES = list(PERSONAS.keys())
 
 # ── Load CRYPTO SNIPER config ─────────────────────────────────────────────────
-_SNIPER_CFG_PATH = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)),
-    'CRYPTO_SNIPER', 'sniper_config.json',
-)
-with open(_SNIPER_CFG_PATH) as _sc:
-    _SNIPER_CFG = json.load(_sc)
+_SNIPER_CFG = _load_sniper_cfg()
 
 _S10_IP = _SNIPER_CFG.get('s10_ip', '100.97.78.44')
 _PORT   = _SNIPER_CFG.get('port', 8080)
