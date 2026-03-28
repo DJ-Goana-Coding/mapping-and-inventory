@@ -35,7 +35,7 @@ def run_sync() -> None:
     print(result.stdout.strip())
 
     # Step 2: Stage all changes
-    subprocess.run(['git', 'add', '.'], check=True)
+    subprocess.run(['git', 'add', '.'], check=True, text=True, encoding='utf-8')
 
     # Step 3: Commit (allow empty commits in case nothing changed)
     commit_result = subprocess.run(
