@@ -1,8 +1,9 @@
 import os, json, datetime
 def generate_manifest():
-    root = os.path.expanduser('~/ARK_CORE')
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     manifest = {'timestamp': datetime.datetime.now().isoformat(), 'origin': 'OPPO_FORGE', 'inventory': []}
     for r, d, f in os.walk(root):
+        d[:] = [x for x in d if x != '.git']
         for file in f:
             if file.endswith(('.py', '.sh', '.json', '.csv', '.log')):
                 manifest['inventory'].append(os.path.relpath(os.path.join(r, file), root))
