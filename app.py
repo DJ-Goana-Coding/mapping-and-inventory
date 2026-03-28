@@ -1,12 +1,12 @@
-import gradio as gr
+import sys
 import os
 
-def tia_architect(message, history):
-    return f'T.I.A. ARCHITECT CORE ONLINE. Connected to ARK_CORE. Analyzing: {message}'
+# Ensure the repo root is on the path so TIA package is importable
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-with gr.Blocks(theme=gr.themes.Soft()) as demo:
-    gr.Markdown('# T.I.A. ARCHITECT CORE // D57')
-    gr.ChatInterface(tia_architect)
+from TIA.tia_core import build_ui  # noqa: E402
+
+demo = build_ui()
 
 if __name__ == '__main__':
     demo.launch()
