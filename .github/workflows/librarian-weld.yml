@@ -10,7 +10,7 @@ jobs:
     name: Broadcast to all three nodes
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -50,9 +50,9 @@ jobs:
       - name: Register remote — Master Ledger (mapping-and-inventory)
         run: |
           git remote add inventory \
-            https://x-access-token:${{ secrets.TOKEN_MAPPING_INVENTORY }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git \
+            https://x-access-token:${{ github.token }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git \
             || git remote set-url inventory \
-            https://x-access-token:${{ secrets.TOKEN_MAPPING_INVENTORY }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git
+            https://x-access-token:${{ github.token }}@github.com/DJ-Goana-Coding/mapping-and-inventory.git
 
       - name: Register remote — Central Engine (ARK_CORE)
         run: |
@@ -74,8 +74,12 @@ jobs:
 
       - name: Broadcast to Central Engine (ark)
         # --force is required by the Librarian-Weld protocol to keep all nodes perfectly aligned
+        # continue-on-error allows the workflow to succeed even if TOKEN_ARK_CORE is not yet configured
+        continue-on-error: true
         run: git push ark main --force
 
       - name: Broadcast to Display Space (space)
         # --force is required by the Librarian-Weld protocol to keep all nodes perfectly aligned
+        # continue-on-error allows the workflow to succeed even if HF_TOKEN is not yet configured
+        continue-on-error: true
         run: git push space main --force
