@@ -1,0 +1,18 @@
+{
+  "SYSTEM_NAME": "CITADEL_OMEGA",
+  "OWNER": "DJ_GOANNA_CHANCE",
+  "ACCESS_KEYS": {
+    "MEXC_KEY": "[Already in your .mexc_auth file]",
+    "MEXC_SECRET": "[Already in your .mexc_auth file]",
+    "HUGGINGFACE_TOKEN": "[Already in your .nexus_auth file]",
+    "GITHUB_TOKEN": "[Already in your .nexus_auth file]",
+    "KILL_AUTH_TOKEN": "AlphaGoanna2026!",
+    "BINANCE_API_KEY": "REPLACE_WITH_DRIVE_FIND",
+    "DEX_PRIVATE_KEY": "REPLACE_WITH_DRIVE_FIND"
+  },
+  "LORE_RESOURCES": {
+    "1986_STACK": "13th_Zone_Lore/1986_strike.md",
+    "MAGNA_CARTA": "13th_Zone_Lore/magna_carta.md"
+  }
+}
+

@@ -1,0 +1,46 @@
+{
+  "asset": "XRP",
+  "base": 1.3373,
+  "grid_144": [
+    {
+      "node": "L1_UP",
+      "price": 1.3566,
+      "action": "SELL"
+    },
+    {
+      "node": "L2_UP",
+      "price": 1.3758,
+      "action": "SELL"
+    },
+    {
+      "node": "L3_UP",
+      "price": 1.3951,
+      "action": "SELL"
+    },
+    {
+      "node": "L4_UP",
+      "price": 1.4143,
+      "action": "SELL"
+    },
+    {
+      "node": "L1_DOWN",
+      "price": 1.318,
+      "action": "BUY"
+    },
+    {
+      "node": "L2_DOWN",
+      "price": 1.2988,
+      "action": "BUY"
+    },
+    {
+      "node": "L3_DOWN",
+      "price": 1.2795,
+      "action": "BUY"
+    },
+    {
+      "node": "L4_DOWN",
+      "price": 1.2603,
+      "action": "BUY"
+    }
+  ]
+}

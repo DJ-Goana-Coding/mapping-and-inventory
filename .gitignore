@@ -1,0 +1,16 @@
+# Ignore the heavy cargo
+Districts/D07_ARCHIVE_SCROLLS/gdrive_research/
+Districts/D07_ARCHIVE_SCROLLS/genesis_research/
+# Ignore local python noise
+__pycache__/
+*.pyc
+Districts/D02_TIA_VAULT/credentials.json
+Partition_01/credentials.json
+*.json.bak
+credentials.json
+*.json.bak
+omni_vault.json
+discovery_report.json
+omni_map.json
+config
+credentials.json
