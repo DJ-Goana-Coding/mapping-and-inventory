@@ -3,3 +3,5 @@ pandas
 huggingface_hub
 requests
 google-genai
+plotly
+networkx
