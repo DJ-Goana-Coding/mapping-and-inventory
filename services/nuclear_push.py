@@ -2,7 +2,7 @@ import os, subprocess
 def execute_push():
     gh = os.getenv("GITHUB_TOKEN")
     hf = os.getenv("HF_TOKEN")
-    user = "DJ-Goanna-Coding"
+    user = "DJ-Goana-Coding"
     if not gh or not hf: return "[-] Error: Tokens missing from environment."
     
     os.chdir(os.path.expanduser("~/ARK_CORE"))

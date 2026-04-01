@@ -12,7 +12,7 @@ def reforge():
     # Extract Keys
     gh_token = creds.get("GITHUB_TOKEN")
     hf_token = creds.get("HF_TOKEN")
-    user = "DJ-Goanna-Coding"
+    user = "DJ-Goana-Coding"
 
     if not gh_token or not hf_token:
         print("[!] ERROR: Missing tokens in credentials.json.")

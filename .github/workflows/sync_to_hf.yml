@@ -1,0 +1,29 @@
+name: Sync to HuggingFace Space
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push to HuggingFace Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config --global credential.helper store
+          echo "https://DJ-Goana-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          git remote add hf https://huggingface.co/spaces/DJ-Goana-Coding/mapping-and-inventory 2>/dev/null || \
+            git remote set-url hf https://huggingface.co/spaces/DJ-Goana-Coding/mapping-and-inventory
+          git push hf main --force
