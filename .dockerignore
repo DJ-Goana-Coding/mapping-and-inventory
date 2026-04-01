@@ -1,0 +1,47 @@
+# Git files
+.git
+.gitignore
+.github
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Heavy archives (if not needed in runtime)
+Districts/D07_ARCHIVE_SCROLLS/gdrive_research/
+Districts/D07_ARCHIVE_SCROLLS/genesis_research/
+
+# Credentials and secrets
+credentials.json
+*.json.bak
+omni_vault.json
+discovery_report.json
+omni_map.json
+config
+
+# Build artifacts
+*.log
+*.tmp
+
+# Documentation that's not needed at runtime
+INSTRUCTIONS.md
+SOVEREIGN_AI_DIRECTIVE.md
