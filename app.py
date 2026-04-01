@@ -35,6 +35,9 @@ from services.dataset_connector import (
     get_inventory_stats,
 )
 
+# ── Configuration ──────────────────────────────────────────────────────────────
+HF_SPACE_ID = "DJ-Goana-Coding/mapping-and-inventory"
+
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="CITADEL OMEGA — Mapping & Inventory",
@@ -87,12 +90,85 @@ _TYPE_COLOR = {
 def _repo_icon(repo_type: str) -> str:
     return _TYPE_ICON.get(repo_type, "🔷")
 
+
+# ── Modal dialog definitions ────────────────────────────────────────────────
+
+
+@st.dialog("🔷 Repo / Node Detail")
+def _modal_repo_detail(repo: dict):
+    st.markdown(f"## {_repo_icon(repo['type'])} {repo['name']}")
+    st.markdown(f"**Type:** {repo['type']}")
+    st.markdown(f"**Role:** {repo['role']}")
+    st.markdown(f"**Framework:** {repo['framework']}")
+    if repo["url"] != "local":
+        st.markdown(f"**URL:** [{repo['url']}]({repo['url']})")
+    st.markdown(f"**Connections:** {', '.join(repo['connected_to'])}")
+    st.divider()
+    if st.button("🧠 Ask T.I.A. about this node", key="tia_repo_modal"):
+        with st.spinner("T.I.A. processing…"):
+            resp = get_tia_response(
+                f"Describe the role of '{repo['name']}' ({repo['type']}, framework: {repo['framework']}) "
+                f"in the Citadel Omega system. Connected to: {', '.join(repo['connected_to'])}."
+            )
+        st.info(resp)
+
+
+@st.dialog("📄 Inventory Item Detail")
+def _modal_item_detail(item: dict):
+    for k, v in item.items():
+        st.markdown(f"**{k}:** `{v}`")
+    st.divider()
+    if st.button("🧠 Ask T.I.A. about this item", key="tia_item_modal"):
+        with st.spinner("T.I.A. processing…"):
+            tia_resp = get_tia_response(
+                f"Tell me about this inventory item and its role in the system: {json.dumps(item)}"
+            )
+        st.info(tia_resp)
+
+
+@st.dialog("📦 Dataset Detail")
+def _modal_dataset_detail(ds_item: dict, inv: list):
+    st.markdown(f"## 📦 {ds_item['name']}")
+    st.markdown(f"**Type:** {ds_item['type']}")
+    st.markdown(f"**Path/URL:** `{ds_item['path']}`")
+    st.markdown(f"**Description:** {ds_item['description']}")
+    st.markdown(f"**Status:** {ds_item['status']}")
+    st.divider()
+    if ds_item["type"] == "local" and ds_item["path"] == "master_inventory.json":
+        if inv:
+            st.write(f"📋 Showing first 20 of {len(inv)} entries:")
+            st.dataframe(pd.DataFrame(inv[:20]), use_container_width=True, hide_index=True)
+        else:
+            st.info("Inventory not loaded.")
+    elif ds_item["type"] == "local" and ds_item["path"] == "Forever_Learning":
+        neurons_data = load_neuron_data()
+        if neurons_data:
+            st.write(f"📋 {len(neurons_data)} neuron files found:")
+            st.dataframe(pd.DataFrame(neurons_data), use_container_width=True, hide_index=True)
+        else:
+            st.info("No neuron files found.")
+    elif ds_item["type"] == "local" and ds_item["path"] == "Archive_Vault":
+        archive_path = os.path.join(os.getcwd(), "Archive_Vault", "master_backup.json")
+        if os.path.exists(archive_path):
+            with open(archive_path) as f:
+                backup_data = json.load(f)
+            if isinstance(backup_data, list):
+                st.dataframe(pd.DataFrame(backup_data[:20]), use_container_width=True, hide_index=True)
+            else:
+                st.json(backup_data)
+        else:
+            st.info("Archive vault file not found locally.")
+    elif ds_item["type"] in ("gdrive", "huggingface"):
+        st.info(f"Remote dataset — use the Cloud Sync tab to pull data, or visit {ds_item['path']}")
+
+
 tabs = st.tabs([
     "🗺️ System Map",
     "📚 Librarian",
     "📦 Datasets",
     "🧠 T.I.A. Oracle",
     "☁️ Cloud Sync",
+    "🤗 HF Space",
 ])
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -190,6 +266,8 @@ with tabs[0]:
                 if repo["url"] != "local":
                     st.markdown(f"**URL:** [{repo['url']}]({repo['url']})")
                 st.markdown(f"**Connections:** {', '.join(repo['connected_to'])}")
+                if st.button("🔎 Full Details + T.I.A.", key=f"repo_modal_{i}"):
+                    _modal_repo_detail(repo)
 
     st.divider()
 
@@ -261,22 +339,15 @@ with tabs[1]:
                 df = pd.DataFrame(results)
                 st.dataframe(df, use_container_width=True, hide_index=True)
 
-                # ── Item detail modal (expander) ───────────────────────────────
+                # ── Item detail modal ──────────────────────────────────────────
                 st.subheader("🔎 Item Detail")
                 item_names = [str(r.get("name", i)) for i, r in enumerate(results[:50])]
                 selected_name = st.selectbox("Select an item to inspect:", item_names)
                 if selected_name:
                     idx = item_names.index(selected_name)
                     item = results[idx]
-                    with st.expander(f"📄 Detail: {selected_name}", expanded=True):
-                        for k, v in item.items():
-                            st.markdown(f"**{k}:** `{v}`")
-                        if st.button("🧠 Ask T.I.A. about this item"):
-                            with st.spinner("T.I.A. processing…"):
-                                tia_resp = get_tia_response(
-                                    f"Tell me about this inventory item and its role in the system: {json.dumps(item)}"
-                                )
-                            st.info(tia_resp)
+                    if st.button("📄 Open Item Modal", key="open_item_modal"):
+                        _modal_item_detail(item)
         else:
             # Default: show first 50 and stats charts
             st.subheader("📊 File Type Distribution")
@@ -345,36 +416,8 @@ with tabs[2]:
     if selected_ds:
         ds_item = next((d for d in ds_summary if d["name"] == selected_ds), None)
         if ds_item:
-            with st.expander(f"📦 {selected_ds}", expanded=True):
-                st.markdown(f"**Type:** {ds_item['type']}")
-                st.markdown(f"**Path/URL:** `{ds_item['path']}`")
-                st.markdown(f"**Description:** {ds_item['description']}")
-                st.markdown(f"**Status:** {ds_item['status']}")
-
-                if ds_item["type"] == "local" and ds_item["path"] == "master_inventory.json":
-                    if inventory:
-                        st.write(f"📋 Showing first 20 of {len(inventory)} entries:")
-                        st.dataframe(pd.DataFrame(inventory[:20]), use_container_width=True, hide_index=True)
-
-                elif ds_item["type"] == "local" and ds_item["path"] == "Forever_Learning":
-                    neurons = load_neuron_data()
-                    if neurons:
-                        st.dataframe(pd.DataFrame(neurons), use_container_width=True, hide_index=True)
-
-                elif ds_item["type"] == "local" and ds_item["path"] == "Archive_Vault":
-                    archive_path = os.path.join(os.getcwd(), "Archive_Vault", "master_backup.json")
-                    if os.path.exists(archive_path):
-                        with open(archive_path) as f:
-                            backup_data = json.load(f)
-                        if isinstance(backup_data, list):
-                            st.dataframe(pd.DataFrame(backup_data[:20]), use_container_width=True, hide_index=True)
-                        else:
-                            st.json(backup_data)
-                    else:
-                        st.info("Archive vault file not found locally.")
-
-                elif ds_item["type"] in ("gdrive", "huggingface"):
-                    st.info(f"Remote dataset — use the Cloud Sync tab to pull data, or visit {ds_item['path']}")
+            if st.button("📦 Open Dataset Modal", key="open_ds_modal"):
+                _modal_dataset_detail(ds_item, inventory)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # TAB 4 — T.I.A. ORACLE
@@ -510,3 +553,95 @@ with tabs[4]:
         st.dataframe(df_rem, use_container_width=True, hide_index=True)
     else:
         st.info("No git remotes detected in current directory.")
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 6 — HUGGINGFACE SPACE
+# ══════════════════════════════════════════════════════════════════════════════
+with tabs[5]:
+    st.title("🤗 HuggingFace Space — Push & Status")
+    st.caption(
+        f"Push the latest changes from this repo to the Citadel Omega HuggingFace Space "
+        f"([{HF_SPACE_ID}](https://huggingface.co/spaces/{HF_SPACE_ID}))."
+    )
+
+    hf_token = os.getenv("HF_TOKEN")
+
+    # ── Status banner ─────────────────────────────────────────────────────────
+    if hf_token:
+        st.success("✅ HF_TOKEN detected — push is available.")
+    else:
+        st.warning("⚠️ HF_TOKEN not set — add it to your HuggingFace Space secrets to enable push.")
+
+    st.markdown(f"**Space ID:** `{HF_SPACE_ID}`")
+    st.markdown(
+        f"**Space URL:** [https://huggingface.co/spaces/{HF_SPACE_ID}]"
+        f"(https://huggingface.co/spaces/{HF_SPACE_ID})"
+    )
+    st.markdown(
+        "**Auto-sync:** Every push to the `main` branch triggers the "
+        "`sync_to_hf.yml` GitHub Actions workflow."
+    )
+
+    st.divider()
+
+    # ── Manual push controls ──────────────────────────────────────────────────
+    st.subheader("🚀 Manual Push")
+    hf_push_cols = st.columns(2)
+
+    with hf_push_cols[0]:
+        if st.button("🚀 Push to HF Space", type="primary", disabled=not hf_token, key="hf_push"):
+            with st.spinner("Uploading repo to HuggingFace Space…"):
+                try:
+                    from huggingface_hub import HfApi
+                    api = HfApi(token=hf_token)
+                    api.upload_folder(
+                        folder_path=os.getcwd(),
+                        repo_id=HF_SPACE_ID,
+                        repo_type="space",
+                        ignore_patterns=[
+                            ".git*", "__pycache__", "*.pyc", ".env",
+                            "node_modules", "*.egg-info",
+                        ],
+                    )
+                    st.success("✅ Successfully pushed to HuggingFace Space!")
+                except Exception as e:
+                    st.error(f"❌ Push failed: {e}")
+
+    with hf_push_cols[1]:
+        if st.button("📊 Space Status", disabled=not hf_token, key="hf_status"):
+            with st.spinner("Fetching space info…"):
+                try:
+                    from huggingface_hub import HfApi
+                    api = HfApi(token=hf_token)
+                    space_info = api.space_info(HF_SPACE_ID)
+                    runtime_stage = (
+                        str(space_info.runtime.stage)
+                        if space_info.runtime
+                        else "unknown"
+                    )
+                    sdk = (
+                        space_info.cardData.get("sdk", "unknown")
+                        if space_info.cardData
+                        else "unknown"
+                    )
+                    st.json({
+                        "id": space_info.id,
+                        "sdk": sdk,
+                        "runtime_stage": runtime_stage,
+                    })
+                except Exception as e:
+                    st.error(f"❌ Could not fetch space status: {e}")
+
+    st.divider()
+
+    # ── Workflow info ─────────────────────────────────────────────────────────
+    st.subheader("⚙️ GitHub Actions Workflow")
+    st.markdown(
+        "The `sync_to_hf.yml` workflow pushes to HF Space automatically on every merge to `main`. "
+        "Ensure the `HF_TOKEN` secret is set in the GitHub repository settings."
+    )
+    st.code(
+        "Trigger: push to main branch\n"
+        f"Target:  https://huggingface.co/spaces/{HF_SPACE_ID}",
+        language="text",
+    )
