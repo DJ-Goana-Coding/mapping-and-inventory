@@ -35,15 +35,3 @@ def transmute_signal_to_lore():
                 return f"❌ AI Error: {str(e)[:50]}"
                 
     return "⏳ TOTAL BRAIN OVERHEAT: Both Cores at capacity. Wait 5 mins."
-EO
-cat << 'EOF' > ~/ARK_CORE/broadcast.sh
-echo "🚀 BROADCASTING DUAL-CORE ENGINE TO FLEET..."
-git add .
-git commit -m "WELD: V97.0 - Dual Gemini Key Support + Cooldown Logic"
-
-# Update all your major nodes
-for remote in inventory ark space; do
-    echo "📡 Syncing: $remote"
-    git push $remote main --force
-done
-echo "✅ FLEET SYNC COMPLETE."
