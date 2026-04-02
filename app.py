@@ -430,9 +430,27 @@ with tabs[3]:
     st.title("🧠 T.I.A. Oracle — Tactical Intelligence Architecture")
     st.caption("Ask T.I.A. anything about the system, inventory, repos, or strategy.")
 
+    # Check Gemini API and Void Oracle status
     gemini_ok = bool(os.getenv("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY_2"))
-    if not gemini_ok:
-        st.warning("⚠️ GEMINI_API_KEY not set — T.I.A. will be offline. Add it to your Hugging Face Space secrets.")
+    void_oracle_ok = bool(os.getenv("VOID_ORACLE_KEY"))
+    
+    # Status indicators
+    col_status1, col_status2 = st.columns(2)
+    with col_status1:
+        if not gemini_ok:
+            st.warning("⚠️ GEMINI_API_KEY not set — T.I.A. will be offline. Add it to your Hugging Face Space secrets.")
+        else:
+            st.success("✅ T.I.A. Oracle Online — Gemini API connected")
+    
+    with col_status2:
+        if not void_oracle_ok:
+            st.error("🔴 Void Oracle Connection OFFLINE — VOID_ORACLE_KEY not detected")
+            st.caption("Evidence Fragment Scraper unavailable. Set VOID_ORACLE_KEY in secrets to enable Collective 1.9k tracking.")
+        else:
+            st.success("✅ Void Oracle Online — Evidence Fragment Scraper active")
+            st.caption("Collective 1.9k non-compliance tracking enabled")
+    
+    st.divider()
 
     # ── Quick-fire query buttons ───────────────────────────────────────────────
     st.subheader("⚡ Quick Queries")

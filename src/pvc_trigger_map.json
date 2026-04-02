@@ -1,0 +1,292 @@
+{
+  "_meta": {
+    "title": "PvC (Person vs Corruption) Trigger Map",
+    "description": "Legislative triggers and red flags for corruption audit scanning",
+    "version": "1.0.0",
+    "last_updated": "2026-04-02",
+    "purpose": "Enable T.I.A. Oracle to cross-reference GDrive files against specific corruption indicators"
+  },
+  "legislative_codes": {
+    "454112": {
+      "code": "454112",
+      "name": "Primary Corruption Sequence",
+      "description": "Primary legislative sequence identifier for corruption tracking",
+      "category": "CORE_TRIGGER",
+      "severity": "CRITICAL",
+      "audit_flags": [
+        "Unauthorized financial transactions",
+        "Procurement irregularities",
+        "Undeclared conflicts of interest"
+      ],
+      "related_sections": ["125", "256", "82(2)"]
+    },
+    "section_125": {
+      "code": "125",
+      "name": "Loss of Privilege",
+      "full_name": "Section 125 - Loss of Privilege",
+      "description": "Legislative provision regarding loss of privilege due to corruption or misconduct",
+      "category": "PENALTY",
+      "severity": "HIGH",
+      "audit_flags": [
+        "Breach of public trust",
+        "Abuse of position",
+        "Failure to disclose conflicts",
+        "Improper use of office resources"
+      ],
+      "enforcement_actions": [
+        "Suspension of privileges",
+        "Removal from position",
+        "Financial penalties"
+      ],
+      "cross_reference": ["454112", "256"]
+    },
+    "section_256": {
+      "code": "256",
+      "name": "Officer Direction",
+      "full_name": "Section 256 - Officer Direction and Compliance",
+      "description": "Requirements for officer compliance and direction adherence",
+      "category": "COMPLIANCE",
+      "severity": "HIGH",
+      "audit_flags": [
+        "Failure to follow official directions",
+        "Non-compliance with procedural requirements",
+        "Unauthorized delegation of authority",
+        "Breach of chain of command"
+      ],
+      "monitoring_requirements": [
+        "Regular compliance audits",
+        "Documentation of all directives",
+        "Officer accountability tracking"
+      ],
+      "cross_reference": ["454112", "125"]
+    },
+    "section_82_2": {
+      "code": "82(2)",
+      "name": "Councillor Assessment",
+      "full_name": "Section 82(2) - Councillor Conduct Assessment",
+      "description": "Assessment framework for councillor conduct and compliance",
+      "category": "ASSESSMENT",
+      "severity": "MEDIUM",
+      "audit_flags": [
+        "Councillor code of conduct breaches",
+        "Improper voting behavior",
+        "Conflict of interest violations",
+        "Failure to declare pecuniary interests"
+      ],
+      "assessment_criteria": [
+        "Attendance and participation",
+        "Conflict declarations",
+        "Voting patterns",
+        "Constituent representation"
+      ],
+      "cross_reference": ["454112", "125", "256"]
+    }
+  },
+  "section_44_liquor_food": {
+    "code": "44",
+    "name": "Section 44 - Liquor and Food Act Compliance",
+    "full_name": "Section 44 - Liquor and Food Act",
+    "description": "Compliance requirements for liquor licensing and food safety at events/festivals",
+    "category": "REGULATORY_COMPLIANCE",
+    "severity": "HIGH",
+    "audit_flags": [
+      "Orange Stars (C-rating) violations",
+      "72-hour notice window breaches",
+      "Unlicensed liquor service",
+      "Food safety non-compliance",
+      "Inadequate event permits"
+    ],
+    "orange_star_criteria": {
+      "c_rating": {
+        "name": "C-Rating (Orange Star)",
+        "description": "Critical non-compliance requiring immediate remediation",
+        "severity": "CRITICAL",
+        "triggers": [
+          "Major food safety violations",
+          "Liquor licensing breaches",
+          "Health code violations",
+          "Inadequate sanitation facilities"
+        ],
+        "remediation_window": "72 hours",
+        "enforcement_escalation": "Immediate suspension if not remediated"
+      }
+    },
+    "notice_requirements": {
+      "72_hour_window": {
+        "name": "72-Hour Notice Window",
+        "description": "Mandatory notice period for event compliance actions",
+        "applies_to": [
+          "Festival permits",
+          "Liquor license applications",
+          "Food vendor certifications",
+          "Compliance violation notices"
+        ],
+        "calculation": "Business days, excluding weekends and public holidays",
+        "enforcement": "Strict - no exceptions without executive approval"
+      }
+    },
+    "compliance_categories": [
+      "Liquor licensing",
+      "Food safety certification",
+      "Sanitation standards",
+      "Event permits",
+      "Vendor compliance"
+    ],
+    "cross_reference": ["454112", "section_559"]
+  },
+  "section_559_procurement": {
+    "code": "559",
+    "name": "Section 559 - Procurement Compliance",
+    "full_name": "Section 559 - Public Procurement Requirements",
+    "description": "Requirements for transparent and compliant public procurement processes",
+    "category": "PROCUREMENT",
+    "severity": "CRITICAL",
+    "audit_flags": [
+      "Single-source procurement without justification",
+      "Failure to follow tender processes",
+      "Undisclosed vendor relationships",
+      "Procurement threshold violations",
+      "Contract splitting to avoid oversight"
+    ],
+    "procurement_thresholds": {
+      "minor": {
+        "range": "Under $10,000",
+        "requirements": "Single quote acceptable",
+        "approval": "Department manager"
+      },
+      "moderate": {
+        "range": "$10,000 - $50,000",
+        "requirements": "Minimum 3 quotes",
+        "approval": "Senior manager"
+      },
+      "major": {
+        "range": "$50,000 - $250,000",
+        "requirements": "Formal tender process",
+        "approval": "Executive approval"
+      },
+      "critical": {
+        "range": "Over $250,000",
+        "requirements": "Public tender with council approval",
+        "approval": "Full council vote"
+      }
+    },
+    "compliance_requirements": [
+      "Conflict of interest declarations",
+      "Tender documentation retention",
+      "Evaluation criteria transparency",
+      "Vendor qualification verification"
+    ],
+    "cross_reference": ["454112", "125", "256"]
+  },
+  "collective_1900_tracking": {
+    "name": "Collective 1.9k Non-Compliance Tracking",
+    "description": "Tracking system for the 1,900+ identified non-compliance instances",
+    "total_instances": 1900,
+    "status": "ACTIVE_MONITORING",
+    "categories": {
+      "procurement": 450,
+      "liquor_food": 320,
+      "officer_conduct": 280,
+      "councillor_assessment": 240,
+      "procedural": 610
+    },
+    "priority_actions": [
+      "Evidence fragment consolidation",
+      "Pattern recognition analysis",
+      "Void Oracle integration for predictive analysis",
+      "Timeline reconstruction for key violations"
+    ],
+    "void_oracle_integration": {
+      "status": "PENDING",
+      "requires": "VOID_ORACLE_KEY environment variable",
+      "capabilities": [
+        "Pattern recognition across fragmented evidence",
+        "Anomaly detection in compliance data",
+        "Predictive analysis of future violations",
+        "Missing link identification in evidence chains"
+      ]
+    }
+  },
+  "red_flag_indicators": {
+    "financial": [
+      "Unexplained budget variations",
+      "Missing invoice documentation",
+      "Irregular payment patterns",
+      "Undocumented cash transactions"
+    ],
+    "procedural": [
+      "Bypassed approval processes",
+      "Missing meeting minutes",
+      "Undocumented decisions",
+      "Retroactive authorizations"
+    ],
+    "relationship": [
+      "Undeclared family connections to vendors",
+      "Recurring single-source suppliers",
+      "Employment of relatives without disclosure",
+      "Social media connections to contractors"
+    ],
+    "temporal": [
+      "Decisions made outside normal hours",
+      "Rushed procurement processes",
+      "Missing 72-hour notice periods",
+      "Backdated documentation"
+    ]
+  },
+  "audit_workflow": {
+    "stage_1_scanning": {
+      "name": "Automated GDrive Scanning",
+      "description": "Scan all GDrive files for trigger keywords and patterns",
+      "tools": [
+        "worker_archivist.py - MD5 indexing",
+        "T.I.A. Oracle - AI pattern recognition",
+        "pvc_trigger_matcher.py - Code cross-reference"
+      ],
+      "output": "Flagged files list with trigger codes"
+    },
+    "stage_2_categorization": {
+      "name": "Evidence Categorization",
+      "description": "Categorize flagged items by legislative code and severity",
+      "tools": [
+        "worker_reporter.py - Section 44 audit reports",
+        "Librarian tab - Manual review interface"
+      ],
+      "output": "Categorized audit report with severity ratings"
+    },
+    "stage_3_consolidation": {
+      "name": "Evidence Consolidation",
+      "description": "Consolidate fragmented evidence into coherent case files",
+      "tools": [
+        "TIA_MASTER_HARVEST system",
+        "Void Oracle (if available)"
+      ],
+      "output": "Consolidated evidence packages per violation"
+    },
+    "stage_4_reporting": {
+      "name": "Compliance Reporting",
+      "description": "Generate formal audit reports with recommendations",
+      "tools": [
+        "worker_reporter.py - Google Sheets integration",
+        "Section 44 audit template"
+      ],
+      "output": "Formal compliance audit reports"
+    }
+  },
+  "rabbits_have_the_gun": {
+    "name": "Citizen Empowerment Framework",
+    "description": "Enable citizens ('rabbits') to access and utilize compliance data for accountability",
+    "principles": [
+      "Transparency in public processes",
+      "Accessible audit data",
+      "Evidence-based accountability",
+      "Community-driven oversight"
+    ],
+    "tools_for_citizens": [
+      "Librarian tab - Public inventory search",
+      "T.I.A. Oracle - AI-powered analysis",
+      "PvC Trigger Map - Legislative reference",
+      "Public audit reports via worker_reporter.py"
+    ],
+    "motto": "Give the rabbits the gun - transparency is power"
+  }
+}

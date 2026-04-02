@@ -41,31 +41,33 @@ jobs:
             --exclude "OPPO_CARGO/**" \
             --exclude "S10_CARGO/**" \
             --exclude "LAPTOP_CARGO/**" \
+            --links \
+            --skip-links \
             --progress
 
       - name: Pull Oppo Cargo
         run: |
           echo "🛸 Pulling Oppo cargo → ./Research/Oppo ..."
           mkdir -p ./Research/Oppo
-          rclone copy gdrive:GENESIS_VAULT/OPPO_CARGO ./Research/Oppo --progress
+          rclone copy gdrive:GENESIS_VAULT/OPPO_CARGO ./Research/Oppo --skip-links --progress
 
       - name: Pull S10 Cargo
         run: |
           echo "📱 Pulling S10 cargo → ./Research/S10 ..."
           mkdir -p ./Research/S10
-          rclone copy gdrive:GENESIS_VAULT/S10_CARGO ./Research/S10 --progress
+          rclone copy gdrive:GENESIS_VAULT/S10_CARGO ./Research/S10 --skip-links --progress
 
       - name: Pull S10 CITADEL_OMEGA_INTEL
         run: |
           echo "📱 Pulling S10 CITADEL_OMEGA_INTEL → ./S10_CITADEL_OMEGA_INTEL ..."
           mkdir -p ./S10_CITADEL_OMEGA_INTEL
-          rclone copy gdrive:CITADEL_OMEGA_INTEL ./S10_CITADEL_OMEGA_INTEL --progress
+          rclone copy gdrive:CITADEL_OMEGA_INTEL ./S10_CITADEL_OMEGA_INTEL --skip-links --progress
 
       - name: Pull Laptop Cargo
         run: |
           echo "💻 Pulling Laptop cargo → ./Research/Laptop ..."
           mkdir -p ./Research/Laptop
-          rclone copy gdrive:GENESIS_VAULT/LAPTOP_CARGO ./Research/Laptop --progress
+          rclone copy gdrive:GENESIS_VAULT/LAPTOP_CARGO ./Research/Laptop --skip-links --progress
 
       - name: Setup Python
         uses: actions/setup-python@v5
