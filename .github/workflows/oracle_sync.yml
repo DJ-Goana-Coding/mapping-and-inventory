@@ -66,20 +66,18 @@ jobs:
             echo "  ➖ Deletions: $DELETIONS"
             
             # Save summary
-            cat > oracle_diffs/summary.txt << EOF
-Oracle Diff Analysis - $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-CHANGE SUMMARY:
-  Additions: $ADDITIONS lines
-  Deletions: $DELETIONS lines
-  Net Change: $((ADDITIONS - DELETIONS)) lines
-
-ANALYSIS:
-$(head -50 oracle_diffs/latest_diff.txt)
-
-Full diff available in: oracle_diffs/latest_diff.txt
-EOF
+            echo "Oracle Diff Analysis - $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > oracle_diffs/summary.txt
+            echo "================================================================" >> oracle_diffs/summary.txt
+            echo "" >> oracle_diffs/summary.txt
+            echo "CHANGE SUMMARY:" >> oracle_diffs/summary.txt
+            echo "  Additions: $ADDITIONS lines" >> oracle_diffs/summary.txt
+            echo "  Deletions: $DELETIONS lines" >> oracle_diffs/summary.txt
+            echo "  Net Change: $((ADDITIONS - DELETIONS)) lines" >> oracle_diffs/summary.txt
+            echo "" >> oracle_diffs/summary.txt
+            echo "ANALYSIS:" >> oracle_diffs/summary.txt
+            head -50 oracle_diffs/latest_diff.txt >> oracle_diffs/summary.txt 2>/dev/null || true
+            echo "" >> oracle_diffs/summary.txt
+            echo "Full diff available in: oracle_diffs/latest_diff.txt" >> oracle_diffs/summary.txt
             
             cat oracle_diffs/summary.txt
           else
