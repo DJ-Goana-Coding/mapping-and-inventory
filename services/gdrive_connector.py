@@ -14,17 +14,17 @@ GDRIVE_TARGETS = {
     "GENESIS_VAULT": {
         "label": "Genesis Vault (Oppo 23GB)",
         "remote": f"{RCLONE_REMOTE}:GENESIS_VAULT",
-        "local": "/data/Research/Genesis",
+        "local": "./Research/Genesis",
     },
     "LAPTOP_CARGO": {
         "label": "Laptop Cargo (321GB)",
         "remote": f"{RCLONE_REMOTE}:GENESIS_VAULT/LAPTOP_CARGO",
-        "local": "/data/Research/Laptop",
+        "local": "./Research/Laptop",
     },
     "S10_VAULT": {
         "label": "S10 Vault",
         "remote": f"{RCLONE_REMOTE}:S10_VAULT",
-        "local": "/data/Research/S10",
+        "local": "./Research/S10",
     },
 }
 
