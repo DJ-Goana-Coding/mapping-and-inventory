@@ -1,0 +1,75 @@
+name: TIA_CITADEL_DEEP_SCAN
+on:
+  workflow_dispatch:
+
+jobs:
+  heavy_lift:
+    runs-on: ubuntu-latest
+    # Using Node.js 24 for all JavaScript actions to ensure high-performance execution
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Rclone
+        run: sudo apt-get install -y rclone
+
+      - name: Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
+
+      - name: Test Connection
+        run: |
+          echo "📡 Testing Vault Link..."
+          rclone lsd gdrive:
+
+      - name: Deep Scan
+        run: |
+          echo "🔭 T.I.A. Mapping the 321GB Empire..."
+          rclone lsf gdrive: --max-depth 2 > master_intelligence_map.txt
+
+      - name: Pull GDrive Full Vault
+        run: |
+          echo "☁️ Pulling full GDrive vault (root files only) → ./Research/GDrive ..."
+          mkdir -p ./Research/GDrive
+          rclone copy gdrive:GENESIS_VAULT ./Research/GDrive \
+            --exclude "OPPO_CARGO/**" \
+            --exclude "S10_CARGO/**" \
+            --exclude "LAPTOP_CARGO/**" \
+            --progress
+
+      - name: Pull Oppo Cargo
+        run: |
+          echo "🛸 Pulling Oppo cargo → ./Research/Oppo ..."
+          mkdir -p ./Research/Oppo
+          rclone copy gdrive:GENESIS_VAULT/OPPO_CARGO ./Research/Oppo --progress
+
+      - name: Pull S10 Cargo
+        run: |
+          echo "📱 Pulling S10 cargo → ./Research/S10 ..."
+          mkdir -p ./Research/S10
+          rclone copy gdrive:GENESIS_VAULT/S10_CARGO ./Research/S10 --progress
+
+      - name: Pull S10 CITADEL_OMEGA_INTEL
+        run: |
+          echo "📱 Pulling S10 CITADEL_OMEGA_INTEL → ./S10_CITADEL_OMEGA_INTEL ..."
+          mkdir -p ./S10_CITADEL_OMEGA_INTEL
+          rclone copy gdrive:CITADEL_OMEGA_INTEL ./S10_CITADEL_OMEGA_INTEL --progress
+
+      - name: Pull Laptop Cargo
+        run: |
+          echo "💻 Pulling Laptop cargo → ./Research/Laptop ..."
+          mkdir -p ./Research/Laptop
+          rclone copy gdrive:GENESIS_VAULT/LAPTOP_CARGO ./Research/Laptop --progress
+
+      - name: Upload Intelligence Map
+        uses: actions/upload-artifact@v4
+        with:
+          name: intelligence-map
+          path: master_intelligence_map.txt
+          if-no-files-found: error
