@@ -20,6 +20,16 @@ Connects ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 - 🧠 **T.I.A. Oracle** — Gemini-powered AI chat with system context
 - ☁️ **Cloud Sync** — rclone-based GDrive sync controls
 
+## Workflows
+
+### TIA_CITADEL_DEEP_SCAN
+Deep scan workflow that maps the entire Google Drive structure and pulls cargo from different device nodes.
+
+**Monitoring Live Runs:**
+- Use `gh run watch <run-id>` to monitor in real-time
+- See [WORKFLOW_MONITORING_GUIDE.md](WORKFLOW_MONITORING_GUIDE.md) for detailed instructions
+- Use the helper script: `./watch_workflow.sh --compact` for easy monitoring
+
 ## Secrets Required
 | Secret | Purpose |
 |--------|---------|
