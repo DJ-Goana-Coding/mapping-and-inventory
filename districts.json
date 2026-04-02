@@ -1,0 +1,152 @@
+{
+  "registry_version": "1.0.0",
+  "last_updated": "2026-04-02T17:17:00Z",
+  "total_districts": 10,
+  "districts": [
+    {
+      "id": "D01",
+      "name": "COMMAND_INPUT",
+      "path": "Districts/D01_COMMAND_INPUT",
+      "pillar": "LORE",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D02",
+      "name": "TIA_VAULT",
+      "path": "Districts/D02_TIA_VAULT",
+      "pillar": "LORE",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D03",
+      "name": "VORTEX_ENGINE",
+      "path": "Districts/D03_VORTEX_ENGINE",
+      "pillar": "WEB3",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D04",
+      "name": "OMEGA_TRADER",
+      "path": "Districts/D04_OMEGA_TRADER",
+      "pillar": "TRADING",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D06",
+      "name": "RANDOM_FUTURES",
+      "path": "Districts/D06_RANDOM_FUTURES",
+      "pillar": "TRADING",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D07",
+      "name": "ARCHIVE_SCROLLS",
+      "path": "Districts/D07_ARCHIVE_SCROLLS",
+      "pillar": "LORE",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D09",
+      "name": "MEDIA_CODING",
+      "path": "Districts/D09_MEDIA_CODING",
+      "pillar": "MEMORY",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D11",
+      "name": "PERSONA_MODULES",
+      "path": "Districts/D11_PERSONA_MODULES",
+      "pillar": "LORE",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "D12",
+      "name": "ZENITH_VIEW",
+      "path": "Districts/D12_ZENITH_VIEW",
+      "pillar": "OVERSIGHT",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    },
+    {
+      "id": "RESEARCH",
+      "name": "Research",
+      "path": "Research",
+      "pillar": "MEMORY",
+      "status": "active",
+      "artifacts": {
+        "tree": "TREE.md",
+        "inventory": "INVENTORY.json",
+        "scaffold": "SCAFFOLD.md"
+      }
+    }
+  ],
+  "external_nodes": [
+    {
+      "id": "TIA_CORE",
+      "name": "TIA-ARCHITECT-CORE",
+      "type": "oracle",
+      "repository": "https://github.com/DJ-Goana-Coding/TIA-ARCHITECT-CORE",
+      "agent": "oracle.agent.md",
+      "status": "pending"
+    },
+    {
+      "id": "OPPO_NODE",
+      "name": "Oppo Mobile Bridge",
+      "type": "bridge",
+      "repository": "local",
+      "agent": "bridge.agent.md",
+      "status": "pending"
+    }
+  ],
+  "metadata": {
+    "schema_version": "1.0.0",
+    "surveyor_agent": ".github/agents/surveyor.agent.md",
+    "harvest_schedule": "every 6 hours",
+    "artifacts_required": ["TREE.md", "INVENTORY.json", "SCAFFOLD.md"],
+    "output_files": ["master_intelligence_map.txt", "district_status_report.json"]
+  }
+}
