@@ -38,7 +38,7 @@ from services.dataset_connector import (
 )
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-HF_SPACE_ID = "DJ-Goana-Coding/Mapping-and-Inventory"
+HF_SPACE_ID = "DJ-Goanna-Coding/Mapping-and-Inventory"
 
 # ── Load PvC Trigger Map for Orange Star Vision ───────────────────────────────
 PVC_TRIGGER_MAP_PATH = Path(__file__).parent / "src" / "pvc_trigger_map.json"
