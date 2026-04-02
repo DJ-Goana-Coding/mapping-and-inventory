@@ -24,8 +24,24 @@ Connects ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 
 ## Workflows
 
-### TIA_CITADEL_DEEP_SCAN
-Deep scan workflow that maps the entire Google Drive structure and pulls cargo from different device nodes.
+**📋 Quick Start - Run All Workflows:**
+
+```bash
+# Use the automated trigger script
+./trigger_all_workflows.sh
+```
+
+Or trigger manually via GitHub Actions web interface:
+1. Go to: https://github.com/DJ-Goana-Coding/mapping-and-inventory/actions
+2. Click each workflow and select "Run workflow"
+
+**See [WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md) for complete documentation.**
+
+### Active Workflows
+
+1. **TIA_CITADEL_DEEP_SCAN** - Scans 321GB across 5 partitions, generates intelligence map
+2. **S10_PUSH_TO_VAULT** - Syncs S10 device data to Google Drive vault
+3. **Sync to HuggingFace Space** - Deploys dashboard to HuggingFace (auto-triggers on push to main)
 
 **Monitoring Live Runs:**
 - Use `gh run watch <run-id>` to monitor in real-time
