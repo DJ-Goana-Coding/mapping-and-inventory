@@ -205,9 +205,14 @@ class ReporterWorker:
     
     def create_section_44_audit_report(self, dry_run: bool = False) -> Optional[str]:
         """
-        Create Section 44 Audit Report
+        Create Section 44 Audit Report (Liquor/Food Act Compliance)
         
-        This report analyzes the GDrive structure and provides audit information.
+        This report analyzes the GDrive structure and provides audit information,
+        with special focus on Section 44 compliance including:
+        - Orange Stars (C-rating) violations
+        - 72-hour notice window tracking
+        - Liquor licensing compliance
+        - Food safety certifications
         
         Args:
             dry_run: If True, don't actually create the sheet
@@ -215,7 +220,7 @@ class ReporterWorker:
         Returns:
             URL of the created spreadsheet or None on error
         """
-        print("📊 Creating Section 44 Audit Report...")
+        print("📊 Creating Section 44 Audit Report (Liquor/Food Act)...")
         
         try:
             intelligence_map = self.load_intelligence_map()
@@ -224,12 +229,53 @@ class ReporterWorker:
             folders = [line for line in intelligence_map if line.endswith('/')]
             files = [line for line in intelligence_map if not line.endswith('/')]
             
+            # Section 44 specific analysis - flag potential compliance issues
+            orange_star_keywords = ['c-rating', 'orange star', 'critical', 'violation', 'non-compliance']
+            liquor_keywords = ['liquor', 'license', 'alcohol', 'festival', 'event']
+            notice_keywords = ['72-hour', '72 hour', 'notice', 'deadline', 'compliance']
+            
+            # Categorize files for Section 44 audit
+            orange_star_flags = []
+            liquor_related = []
+            notice_tracking = []
+            
+            for file_entry in files:
+                file_lower = file_entry.lower()
+                
+                # Check for Orange Star (C-rating) indicators
+                if any(keyword in file_lower for keyword in orange_star_keywords):
+                    orange_star_flags.append({
+                        "path": file_entry,
+                        "category": "ORANGE_STAR",
+                        "severity": "CRITICAL",
+                        "requires_action": "72-hour remediation window"
+                    })
+                
+                # Check for liquor licensing files
+                if any(keyword in file_lower for keyword in liquor_keywords):
+                    liquor_related.append({
+                        "path": file_entry,
+                        "category": "LIQUOR_LICENSE",
+                        "requires_review": True
+                    })
+                
+                # Check for notice/deadline tracking
+                if any(keyword in file_lower for keyword in notice_keywords):
+                    notice_tracking.append({
+                        "path": file_entry,
+                        "category": "NOTICE_TRACKING",
+                        "window": "72 hours"
+                    })
+            
             report_data = {
-                "title": f"Section 44 Audit - {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}",
+                "title": f"Section 44 Audit (Liquor/Food) - {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}",
                 "summary": {
                     "total_entries": len(intelligence_map),
                     "total_folders": len(folders),
                     "total_files": len(files),
+                    "orange_star_flags": len(orange_star_flags),
+                    "liquor_related_files": len(liquor_related),
+                    "notice_tracking_items": len(notice_tracking),
                     "report_generated": datetime.datetime.utcnow().isoformat()
                 }
             }
@@ -238,35 +284,89 @@ class ReporterWorker:
                 print("\n📋 DRY RUN - Section 44 Audit Summary:")
                 print(f"   Title: {report_data['title']}")
                 print(f"   Total Entries: {report_data['summary']['total_entries']}")
-                print(f"   Folders: {report_data['summary']['total_folders']}")
-                print(f"   Files: {report_data['summary']['total_files']}")
+                print(f"   🔴 Orange Star Flags: {report_data['summary']['orange_star_flags']}")
+                print(f"   🍺 Liquor-Related Files: {report_data['summary']['liquor_related_files']}")
+                print(f"   ⏰ 72-Hour Notice Items: {report_data['summary']['notice_tracking_items']}")
+                
+                if orange_star_flags:
+                    print("\n   🔴 CRITICAL - Orange Star (C-Rating) Flags:")
+                    for flag in orange_star_flags[:5]:
+                        print(f"      - {flag['path']} [SEVERITY: {flag['severity']}]")
+                
                 return "DRY_RUN_SUCCESS"
             
             # Create Google Sheet
             spreadsheet = self.gspread_client.create(report_data['title'])
             worksheet = spreadsheet.sheet1
-            worksheet.update_title("GDrive Structure")
+            worksheet.update_title("Section 44 Compliance")
             
-            # Write data
+            # Write summary data
             data = [
-                ["Section 44 Audit Report - GDrive Structure"],
+                ["Section 44 Audit Report - Liquor & Food Act Compliance"],
                 [""],
                 ["Report Generated", report_data['summary']['report_generated']],
                 ["Total Entries", report_data['summary']['total_entries']],
                 ["Total Folders", report_data['summary']['total_folders']],
                 ["Total Files", report_data['summary']['total_files']],
                 [""],
-                ["Type", "Path"],
+                ["🔴 COMPLIANCE ALERTS"],
+                ["Orange Star (C-Rating) Flags", report_data['summary']['orange_star_flags']],
+                ["Liquor-Related Files Requiring Review", report_data['summary']['liquor_related_files']],
+                ["72-Hour Notice Window Items", report_data['summary']['notice_tracking_items']],
+                [""],
+                ["🔴 ORANGE STAR (C-RATING) FLAGS - CRITICAL"],
+                ["Path", "Category", "Severity", "Required Action"],
             ]
             
-            for entry in intelligence_map[:1000]:  # Limit to 1000 entries
-                entry_type = "Folder" if entry.endswith('/') else "File"
-                data.append([entry_type, entry])
+            # Add Orange Star flags
+            for flag in orange_star_flags[:100]:
+                data.append([
+                    flag['path'],
+                    flag['category'],
+                    flag['severity'],
+                    flag['requires_action']
+                ])
             
+            # Add separator for liquor licensing section
+            data.append([""])
+            data.append(["🍺 LIQUOR LICENSING FILES"])
+            data.append(["Path", "Category", "Requires Review"])
+            
+            for item in liquor_related[:100]:
+                data.append([
+                    item['path'],
+                    item['category'],
+                    "Yes" if item['requires_review'] else "No"
+                ])
+            
+            # Add separator for notice tracking
+            data.append([""])
+            data.append(["⏰ 72-HOUR NOTICE WINDOW TRACKING"])
+            data.append(["Path", "Category", "Notice Window"])
+            
+            for item in notice_tracking[:100]:
+                data.append([
+                    item['path'],
+                    item['category'],
+                    item['window']
+                ])
+            
+            # Update worksheet
             worksheet.update('A1', data)
+            
+            # Format critical sections in red
+            if orange_star_flags:
+                worksheet.format('A13:D13', {
+                    'backgroundColor': {'red': 0.9, 'green': 0.2, 'blue': 0.2},
+                    'textFormat': {'bold': True, 'foregroundColor': {'red': 1, 'green': 1, 'blue': 1}}
+                })
             
             self.reports_generated += 1
             print(f"✅ Section 44 Audit Report created: {spreadsheet.url}")
+            print(f"   🔴 {len(orange_star_flags)} Orange Star (C-Rating) flags identified")
+            print(f"   🍺 {len(liquor_related)} liquor-related files flagged for review")
+            print(f"   ⏰ {len(notice_tracking)} items with 72-hour notice windows")
+            
             return spreadsheet.url
             
         except Exception as e:

@@ -47,6 +47,12 @@ PARTITIONS:
 SPACES:
   • DJ-Goana-Coding/Mapping-and-Inventory  → HuggingFace Librarian HUD
 
+PERSONA ENTITIES (Active Audit Operators):
+  • Wizard Mafia                  → Centralized power entity / System oversight
+  • The Tiny Mystic               → Pattern recognition specialist
+  • Curious Magpie                → Evidence gathering & correlation
+  • Spiritua Hanson               → Integrity verification & validation
+
 ═══════════════════════════════════════════════════════════════════════════════
 🧠 PILLAR 3: MEMORY
 ═══════════════════════════════════════════════════════════════════════════════
