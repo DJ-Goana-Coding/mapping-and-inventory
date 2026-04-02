@@ -26,3 +26,5 @@ Synced from Google Drive: `gdrive:CITADEL_OMEGA_INTEL/`
 ## Usage
 
 Data is automatically synced during GitHub Actions workflows and should not be manually edited in this repository.
+# S10 CITADEL OMEGA INTEL - Forensic District
+Audit data and forensic telemetry from S10 device.

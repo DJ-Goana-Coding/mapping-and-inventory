@@ -19,7 +19,7 @@ TRADE_QTY = 12.00
 TARGET_XRP = 500.00
 SENTRY_LOSS_LIMIT = -2.0 
 
-GDRIVE_PATH = "/data/data/com.termux/files/home/storage/shared/ArkFleet"
+GDRIVE_PATH = "./Research/S10"
 try: os.makedirs(GDRIVE_PATH, exist_ok=True)
 except: pass
 STATE_FILE = f"{GDRIVE_PATH}/market_state.json"

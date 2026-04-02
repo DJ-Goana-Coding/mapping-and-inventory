@@ -32,3 +32,5 @@ All scripts must use **relative paths** from the repository root:
 ```
 
 Never use absolute paths like `/data/` to ensure cross-platform compatibility.
+# Research Directory - ARK_CORE Cargo Bays
+This directory contains synced data from GDrive using relative paths only.

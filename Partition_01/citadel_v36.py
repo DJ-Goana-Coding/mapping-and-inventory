@@ -11,7 +11,7 @@ SAFE_ASSETS = ["XRP", "HBAR", "XLM", "USDT"]
 TRADE_QTY = 12.00 
 MAX_INVENTORY_PER_COIN = 3 # Avellaneda-Stoikov limit: Don't hold more than 3 units of one coin
 
-GDRIVE_PATH = "/data/data/com.termux/files/home/storage/shared/ArkFleet"
+GDRIVE_PATH = "./Research/S10"
 os.makedirs(GDRIVE_PATH, exist_ok=True)
 LEDGER_FILE = f"{GDRIVE_PATH}/ABN_Trade_Ledger.csv"
 STATE_FILE = f"{GDRIVE_PATH}/market_state.json"
