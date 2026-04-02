@@ -28,6 +28,28 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# Print functions
+print_pass() {
+    echo -e "${GREEN}✅ $1${NC}"
+}
+
+print_fail() {
+    echo -e "${RED}❌ $1${NC}"
+}
+
+print_warn() {
+    echo -e "${YELLOW}⚠️  $1${NC}"
+}
+
+print_header() {
+    echo ""
+    echo -e "${BLUE}$1${NC}"
+}
+
+print_info() {
+    echo -e "${NC}ℹ️  $1${NC}"
+}
+
 # Check 1: Directory Structure
 echo -e "${BLUE}📂 Checking Directory Structure...${NC}"
 REQUIRED_DIRS=(
