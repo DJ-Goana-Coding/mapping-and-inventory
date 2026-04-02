@@ -28,97 +28,117 @@ jobs:
           echo "📡 Testing Vault Link..."
           rclone lsd gdrive:
 
-      - name: Deep Scan
+      - name: Initialize Intelligence Map
         run: |
-          echo "🔭 T.I.A. Mapping the 321GB Empire..."
-          rclone lsf gdrive: --max-depth 2 > master_intelligence_map.txt
+          echo "🔭 T.I.A. Initializing Streamed Partition Scan..."
+          echo "# CITADEL OMEGA Intelligence Map - Section 142 Cycle" > master_intelligence_map.txt
+          echo "# Generated: $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> master_intelligence_map.txt
+          echo "# Scan Method: Shallow Metadata Extraction (Section 159 Register)" >> master_intelligence_map.txt
+          echo "# Total Expected: 321GB across 5 Vessels" >> master_intelligence_map.txt
+          echo "" >> master_intelligence_map.txt
 
-      - name: Pull GDrive Full Vault
+      - name: Partition 1 - GDrive Root Scan
         run: |
-          echo "☁️ Pulling full GDrive vault (root files only) → ./Research/GDrive ..."
-          mkdir -p ./Research/GDrive
-          rclone copy gdrive:GENESIS_VAULT ./Research/GDrive \
+          echo "☁️ PARTITION 1/5: Scanning GDrive Root (Shallow)..."
+          echo "## PARTITION 1: GDrive Root - GENESIS_VAULT" >> master_intelligence_map.txt
+          rclone lsf gdrive:GENESIS_VAULT --recursive --max-depth 3 \
             --exclude "OPPO_CARGO/**" \
             --exclude "S10_CARGO/**" \
-            --exclude "LAPTOP_CARGO/**" \
-            --links \
-            --skip-links \
-            --progress
+            --exclude "LAPTOP_CARGO/**" >> master_intelligence_map.txt
+          echo "" >> master_intelligence_map.txt
+          echo "✅ Partition 1 complete. Disk usage:"
+          df -h /
 
-      - name: Pull Oppo Cargo
+      - name: Cache Reset - Partition 1
         run: |
-          echo "🛸 Pulling Oppo cargo → ./Research/Oppo ..."
-          mkdir -p ./Research/Oppo
-          rclone copy gdrive:GENESIS_VAULT/OPPO_CARGO ./Research/Oppo --skip-links --progress
+          echo "🧹 Section 2.0k Vessel Reset - Clearing cache..."
+          rm -rf ~/.cache/rclone/* || true
+          echo "Cache cleared. Current disk:"
+          df -h /
 
-      - name: Pull S10 Cargo
+      - name: Partition 2 - Oppo Cargo Scan
         run: |
-          echo "📱 Pulling S10 cargo → ./Research/S10 ..."
-          mkdir -p ./Research/S10
-          rclone copy gdrive:GENESIS_VAULT/S10_CARGO ./Research/S10 --skip-links --progress
+          echo "🛸 PARTITION 2/5: Scanning Oppo Cargo (Shallow)..."
+          echo "## PARTITION 2: Oppo Cargo - OPPO_CARGO" >> master_intelligence_map.txt
+          rclone lsf gdrive:GENESIS_VAULT/OPPO_CARGO --recursive --max-depth 5 >> master_intelligence_map.txt
+          echo "" >> master_intelligence_map.txt
+          echo "✅ Partition 2 complete. Disk usage:"
+          df -h /
 
-      - name: Pull S10 CITADEL_OMEGA_INTEL
+      - name: Cache Reset - Partition 2
         run: |
-          echo "📱 Pulling S10 CITADEL_OMEGA_INTEL → ./S10_CITADEL_OMEGA_INTEL ..."
-          mkdir -p ./S10_CITADEL_OMEGA_INTEL
-          rclone copy gdrive:CITADEL_OMEGA_INTEL ./S10_CITADEL_OMEGA_INTEL --skip-links --progress
+          echo "🧹 Section 2.0k Vessel Reset - Clearing cache..."
+          rm -rf ~/.cache/rclone/* || true
+          df -h /
 
-      - name: Pull Laptop Cargo
+      - name: Partition 3 - S10 Cargo Scan
         run: |
-          echo "💻 Pulling Laptop cargo → ./Research/Laptop ..."
-          mkdir -p ./Research/Laptop
-          rclone copy gdrive:GENESIS_VAULT/LAPTOP_CARGO ./Research/Laptop --skip-links --progress
+          echo "📱 PARTITION 3/5: Scanning S10 Cargo (Shallow)..."
+          echo "## PARTITION 3: S10 Cargo - S10_CARGO" >> master_intelligence_map.txt
+          rclone lsf gdrive:GENESIS_VAULT/S10_CARGO --recursive --max-depth 5 >> master_intelligence_map.txt
+          echo "" >> master_intelligence_map.txt
+          echo "✅ Partition 3 complete. Disk usage:"
+          df -h /
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Python Dependencies
+      - name: Cache Reset - Partition 3
         run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          echo "🧹 Section 2.0k Vessel Reset - Clearing cache..."
+          rm -rf ~/.cache/rclone/* || true
+          df -h /
 
-      - name: Run Archivist Worker
+      - name: Partition 4 - CITADEL_OMEGA_INTEL Scan
         run: |
-          echo "🗄️  Running The Archivist Worker..."
-          python3 services/worker_archivist.py --test
-        continue-on-error: true
+          echo "🏛️ PARTITION 4/5: Scanning CITADEL_OMEGA_INTEL (Shallow)..."
+          echo "## PARTITION 4: CITADEL_OMEGA_INTEL" >> master_intelligence_map.txt
+          rclone lsf gdrive:CITADEL_OMEGA_INTEL --recursive --max-depth 5 >> master_intelligence_map.txt
+          echo "" >> master_intelligence_map.txt
+          echo "✅ Partition 4 complete. Disk usage:"
+          df -h /
 
-      - name: Run Bridge Worker
+      - name: Cache Reset - Partition 4
         run: |
-          echo "🌉 Running The Bridge Worker..."
-          python3 services/worker_bridge.py
-        continue-on-error: true
+          echo "🧹 Section 2.0k Vessel Reset - Clearing cache..."
+          rm -rf ~/.cache/rclone/* || true
+          df -h /
 
-      - name: Update Worker Status
-        env:
-          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Partition 5 - Laptop Cargo Scan
         run: |
-          echo "📊 Updating worker_status.json..."
-          python3 -c "
-          import json
-          import datetime
-          
-          with open('worker_status.json', 'r') as f:
-              status = json.load(f)
-          
-          status['last_updated'] = datetime.datetime.utcnow().isoformat()
-          status['sync_status']['gdrive_last_sync'] = datetime.datetime.utcnow().isoformat()
-          status['sync_status']['github_last_pull'] = datetime.datetime.utcnow().isoformat()
-          
-          with open('worker_status.json', 'w') as f:
-              json.dump(status, f, indent=2)
-          "
+          echo "💻 PARTITION 5/5: Scanning Laptop Cargo (Shallow)..."
+          echo "## PARTITION 5: Laptop Cargo - LAPTOP_CARGO" >> master_intelligence_map.txt
+          rclone lsf gdrive:GENESIS_VAULT/LAPTOP_CARGO --recursive --max-depth 5 >> master_intelligence_map.txt
+          echo "" >> master_intelligence_map.txt
+          echo "✅ Partition 5 complete. Disk usage:"
+          df -h /
 
-      - name: Commit Intelligence Map and Worker Status
+      - name: Final Cache Reset
+        run: |
+          echo "🧹 Final Section 2.0k Vessel Reset - Clearing all temporary data..."
+          rm -rf ~/.cache/rclone/* || true
+          echo "✅ All 5 Partitions scanned. Final disk usage:"
+          df -h /
+          echo "📊 Intelligence Map size:"
+          ls -lh master_intelligence_map.txt
+          wc -l master_intelligence_map.txt
+
+      - name: Generate Intelligence Summary
+        run: |
+          echo "📊 Generating intelligence summary..."
+          echo ""
+          echo "=== CITADEL OMEGA Intelligence Map Summary ==="
+          echo "Total files mapped: $(grep -c '^' master_intelligence_map.txt || echo '0')"
+          echo "Map size: $(wc -c < master_intelligence_map.txt) bytes"
+          echo "Scan completed: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          echo "Method: Section 142 Cycle + Section 159 Register (Shallow Metadata Only)"
+          echo "Disk usage: $(df -h / | tail -n 1 | awk '{print $5 " used of " $2}')"
+          echo "Status: ✅ Scan complete without disk overflow"
+          echo "=============================================="
+
+      - name: Commit Intelligence Map
         run: |
           git config --global user.email "chance@citadel.omega"
           git config --global user.name "Architect"
-          git add master_intelligence_map.txt worker_status.json archive_index.json || true
-          git diff --staged --quiet || git commit -m "🔭 TIA Deep Scan: Update intelligence map and worker status [automated]"
+          git add master_intelligence_map.txt
+          git diff --staged --quiet || git commit -m "🔭 TIA Deep Scan (Section 142): Update intelligence map - $(date -u +'%Y-%m-%d %H:%M:%S UTC') [automated]"
           git push || echo "⚠️  Push failed - may need force push or branch protection bypass"
 
       - name: Upload Intelligence Map
@@ -127,30 +147,3 @@ jobs:
           name: intelligence-map
           path: master_intelligence_map.txt
           if-no-files-found: error
-
-      - name: Upload Worker Status
-        uses: actions/upload-artifact@v4
-        with:
-          name: worker-status
-          path: worker_status.json
-          if-no-files-found: warn
-
-      - name: Upload Archive Index
-        uses: actions/upload-artifact@v4
-        with:
-          name: archive-index
-          path: archive_index.json
-          if-no-files-found: warn
-      - name: Commit Intelligence Map to Repository
-        run: |
-          echo "📝 Committing master_intelligence_map.txt to repository..."
-          git config --local user.email "chance@citadel.omega"
-          git config --local user.name "Architect"
-          git add master_intelligence_map.txt
-          git diff --staged --quiet || git commit -m "🗺️ Update master intelligence map - $(date +'%Y-%m-%d %H:%M:%S UTC')"
-      
-      - name: Push Intelligence Map
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
