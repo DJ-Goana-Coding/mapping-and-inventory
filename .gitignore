@@ -1,16 +1,39 @@
 # Ignore the heavy cargo
 Districts/D07_ARCHIVE_SCROLLS/gdrive_research/
 Districts/D07_ARCHIVE_SCROLLS/genesis_research/
+
+# Research data (synced from GDrive - too large for git)
+Research/GDrive/**
+Research/Oppo/**
+Research/S10/**
+Research/Laptop/**
+!Research/README.md
+
+# S10 forensic data
+S10_CITADEL_OMEGA_INTEL/**
+!S10_CITADEL_OMEGA_INTEL/README.md
+
+# Vault database
+Partition_01/tracker.db
+Partition_01/*.db
+
 # Ignore local python noise
 __pycache__/
 *.pyc
+
+# Credentials and sensitive config
 Districts/D02_TIA_VAULT/credentials.json
 Partition_01/credentials.json
 *.json.bak
 credentials.json
-*.json.bak
 omni_vault.json
 discovery_report.json
 omni_map.json
 config
-credentials.json
+rclone.conf
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+.DS_Store

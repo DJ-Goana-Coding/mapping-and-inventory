@@ -12,7 +12,7 @@ TRADE_QTY = 12.00
 BASE_LOSS_LIMIT = -2.0 
 HARVEST_TARGET = 1.5
 
-GDRIVE_PATH = "/data/data/com.termux/files/home/storage/shared/ArkFleet"
+GDRIVE_PATH = "./Research/S10"
 os.makedirs(GDRIVE_PATH, exist_ok=True)
 STATE_FILE = f"{GDRIVE_PATH}/market_state.json"
 LEDGER_FILE = f"{GDRIVE_PATH}/ABN_Trade_Ledger.csv"
