@@ -67,9 +67,75 @@ jobs:
           mkdir -p ./Research/Laptop
           rclone copy gdrive:GENESIS_VAULT/LAPTOP_CARGO ./Research/Laptop --progress
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Archivist Worker
+        run: |
+          echo "🗄️  Running The Archivist Worker..."
+          python3 services/worker_archivist.py --test
+        continue-on-error: true
+
+      - name: Run Bridge Worker
+        run: |
+          echo "🌉 Running The Bridge Worker..."
+          python3 services/worker_bridge.py
+        continue-on-error: true
+
+      - name: Update Worker Status
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "📊 Updating worker_status.json..."
+          python3 -c "
+          import json
+          import datetime
+          
+          with open('worker_status.json', 'r') as f:
+              status = json.load(f)
+          
+          status['last_updated'] = datetime.datetime.utcnow().isoformat()
+          status['sync_status']['gdrive_last_sync'] = datetime.datetime.utcnow().isoformat()
+          status['sync_status']['github_last_pull'] = datetime.datetime.utcnow().isoformat()
+          
+          with open('worker_status.json', 'w') as f:
+              json.dump(status, f, indent=2)
+          "
+
+      - name: Commit Intelligence Map and Worker Status
+        run: |
+          git config --global user.name "TIA Citadel Bot"
+          git config --global user.email "citadel-bot@ark-core.system"
+          git add master_intelligence_map.txt worker_status.json archive_index.json || true
+          git diff --staged --quiet || git commit -m "🔭 TIA Deep Scan: Update intelligence map and worker status [automated]"
+          git push || echo "⚠️  Push failed - may need force push or branch protection bypass"
+
       - name: Upload Intelligence Map
         uses: actions/upload-artifact@v4
         with:
           name: intelligence-map
           path: master_intelligence_map.txt
           if-no-files-found: error
+
+      - name: Upload Worker Status
+        uses: actions/upload-artifact@v4
+        with:
+          name: worker-status
+          path: worker_status.json
+          if-no-files-found: warn
+
+      - name: Upload Archive Index
+        uses: actions/upload-artifact@v4
+        with:
+          name: archive-index
+          path: archive_index.json
+          if-no-files-found: warn

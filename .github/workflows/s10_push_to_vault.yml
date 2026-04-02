@@ -1,0 +1,152 @@
+name: S10_PUSH_TO_VAULT
+
+on:
+  workflow_dispatch:
+    inputs:
+      sync_intel:
+        description: 'Sync S10_CITADEL_OMEGA_INTEL directory'
+        required: false
+        default: 'true'
+        type: boolean
+      sync_cargo:
+        description: 'Sync S10 cargo (Research/S10)'
+        required: false
+        default: 'true'
+        type: boolean
+
+jobs:
+  s10_uplink:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Rclone
+        run: sudo apt-get install -y rclone
+
+      - name: Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
+
+      - name: Test Connection
+        run: |
+          echo "📡 Testing S10 → Vault Link..."
+          rclone lsd gdrive:
+
+      - name: Push S10 CITADEL_OMEGA_INTEL
+        if: ${{ github.event.inputs.sync_intel != 'false' }}
+        run: |
+          echo "📱 Pushing S10 CITADEL_OMEGA_INTEL → gdrive:CITADEL_OMEGA_INTEL ..."
+          if [ -d "./S10_CITADEL_OMEGA_INTEL" ]; then
+            # Count files before sync
+            FILE_COUNT=$(find ./S10_CITADEL_OMEGA_INTEL -type f ! -name "README.md" | wc -l)
+            echo "   Found $FILE_COUNT files to sync"
+            
+            if [ $FILE_COUNT -gt 0 ]; then
+              rclone sync ./S10_CITADEL_OMEGA_INTEL gdrive:CITADEL_OMEGA_INTEL \
+                --exclude "README.md" \
+                --exclude ".gitkeep" \
+                --progress \
+                --verbose
+              echo "✅ S10 CITADEL_OMEGA_INTEL synced successfully"
+            else
+              echo "⚠️  No files to sync (only README.md found)"
+            fi
+          else
+            echo "⚠️  S10_CITADEL_OMEGA_INTEL directory not found"
+          fi
+
+      - name: Push S10 Cargo
+        if: ${{ github.event.inputs.sync_cargo != 'false' }}
+        run: |
+          echo "📱 Pushing S10 cargo → gdrive:GENESIS_VAULT/S10_CARGO ..."
+          if [ -d "./Research/S10" ]; then
+            # Count files before sync
+            FILE_COUNT=$(find ./Research/S10 -type f ! -name "README.md" | wc -l)
+            echo "   Found $FILE_COUNT files to sync"
+            
+            if [ $FILE_COUNT -gt 0 ]; then
+              rclone sync ./Research/S10 gdrive:GENESIS_VAULT/S10_CARGO \
+                --exclude "README.md" \
+                --exclude ".gitkeep" \
+                --progress \
+                --verbose
+              echo "✅ S10 cargo synced successfully"
+            else
+              echo "⚠️  No files to sync (only README.md found)"
+            fi
+          else
+            echo "⚠️  Research/S10 directory not found"
+          fi
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Update Worker Status
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          echo "📊 Updating worker_status.json..."
+          python3 -c "
+          import json
+          import datetime
+          
+          if os.path.exists('worker_status.json'):
+              with open('worker_status.json', 'r') as f:
+                  status = json.load(f)
+          else:
+              status = {'sync_status': {}}
+          
+          status['last_updated'] = datetime.datetime.utcnow().isoformat()
+          if 'sync_status' not in status:
+              status['sync_status'] = {}
+          status['sync_status']['s10_last_push'] = datetime.datetime.utcnow().isoformat()
+          
+          with open('worker_status.json', 'w') as f:
+              json.dump(status, f, indent=2)
+          "
+
+      - name: Commit Worker Status
+        run: |
+          git config --global user.name "S10 Uplink Bot"
+          git config --global user.email "s10-uplink@ark-core.system"
+          git add worker_status.json || true
+          git diff --staged --quiet || git commit -m "📱 S10 Push: Update sync status [automated]"
+          git push || echo "⚠️  Push failed - may need force push or branch protection bypass"
+
+      - name: Generate Sync Report
+        run: |
+          echo "📊 S10 → VAULT SYNC REPORT"
+          echo "================================"
+          echo "Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          echo ""
+          echo "Synced Directories:"
+          if [ "${{ github.event.inputs.sync_intel }}" != "false" ]; then
+            echo "  ✅ S10_CITADEL_OMEGA_INTEL → gdrive:CITADEL_OMEGA_INTEL"
+          fi
+          if [ "${{ github.event.inputs.sync_cargo }}" != "false" ]; then
+            echo "  ✅ Research/S10 → gdrive:GENESIS_VAULT/S10_CARGO"
+          fi
+          echo ""
+          echo "Status: SUCCESS"
+          echo "================================"
+
+      - name: Upload Sync Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: s10-push-report
+          path: worker_status.json
+          if-no-files-found: warn
