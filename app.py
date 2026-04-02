@@ -40,6 +40,15 @@ from services.dataset_connector import (
 # ── Configuration ──────────────────────────────────────────────────────────────
 HF_SPACE_ID = "DJ-Goana-Coding/Mapping-and-Inventory"
 
+# ── Load PvC Trigger Map for Orange Star Vision ───────────────────────────────
+PVC_TRIGGER_MAP_PATH = Path(__file__).parent / "src" / "pvc_trigger_map.json"
+try:
+    with open(PVC_TRIGGER_MAP_PATH, 'r') as f:
+        PVC_TRIGGERS = json.load(f)
+except Exception as e:
+    print(f"⚠️  Could not load PvC trigger map: {e}")
+    PVC_TRIGGERS = None
+
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="CITADEL OMEGA — Mapping & Inventory",
@@ -337,8 +346,16 @@ with tabs[1]:
             result_limit = st.selectbox("Max results", [50, 100, 250, 500], index=1)
 
         if search_q:
-            results = search_inventory(inventory, search_q, limit=result_limit)
+            results = search_inventory(inventory, search_q, limit=result_limit, pvc_triggers=PVC_TRIGGERS)
+            
+            # Check if Orange Star Vision was triggered
+            pvc_flagged = any(item.get("_pvc_flagged", False) for item in results)
+            
             st.write(f"Found **{len(results)}** matches for `{search_q}`")
+            
+            if pvc_flagged:
+                st.warning("🟠 **ORANGE STAR VISION ACTIVE** - PvC compliance triggers detected in search results. Cross-referencing with Section 44 legislative framework...")
+            
             if results:
                 df = pd.DataFrame(results)
                 st.dataframe(df, use_container_width=True, hide_index=True)

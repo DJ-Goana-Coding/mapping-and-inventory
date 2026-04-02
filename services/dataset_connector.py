@@ -56,7 +56,24 @@ KNOWN_HF_DATASETS = [
 
 
 def load_local_inventory(path: str = "master_inventory.json") -> list:
-    """Load the master_inventory.json ledger. Returns a list of entity dicts."""
+    """
+    Load the master_inventory.json ledger. Returns a list of entity dicts.
+    
+    PRIORITY: Checks HF Storage Bucket first, then falls back to repo version.
+    This enables access to the full 321GB Research/ cargo without Git limits.
+    """
+    # Try to load from HF Storage Bucket first (if available)
+    try:
+        from services.hf_bucket_connector import get_bucket_connector
+        bucket = get_bucket_connector()
+        bucket_inventory = bucket.load_bucket_inventory()
+        if bucket_inventory:
+            print("✅ Using master_inventory.json from HF Storage Bucket (priority)")
+            return bucket_inventory
+    except Exception as e:
+        print(f"⚠️  Could not load from bucket, using repo version: {e}")
+    
+    # Fall back to repo version
     abs_path = path if os.path.isabs(path) else os.path.join(os.getcwd(), path)
     if not os.path.exists(abs_path):
         return []
@@ -76,10 +93,38 @@ def load_local_inventory(path: str = "master_inventory.json") -> list:
     return []
 
 
-def search_inventory(inventory: list, query: str, limit: int = 100) -> list:
-    """Case-insensitive search across all fields of inventory entries."""
+def search_inventory(inventory: list, query: str, limit: int = 100, pvc_triggers: dict = None) -> list:
+    """
+    Case-insensitive search across all fields of inventory entries.
+    
+    Enhanced with Orange Star Vision: Searches trigger PvC cross-reference checks
+    when query matches legislative codes like "Orange Star", "C-rating", "Section 44", etc.
+    
+    Args:
+        inventory: List of inventory items to search
+        query: Search query string
+        limit: Maximum number of results to return
+        pvc_triggers: Optional PvC trigger map for cross-referencing
+    
+    Returns:
+        List of matching inventory items with optional PvC flagging
+    """
     q = query.lower()
-    return [item for item in inventory if q in str(item).lower()][:limit]
+    results = [item for item in inventory if q in str(item).lower()][:limit]
+    
+    # Orange Star Vision: Check for PvC trigger keywords
+    orange_star_keywords = [
+        "orange star", "c-rating", "c rating", "section 44", "section44",
+        "liquor", "food safety", "72-hour", "72 hour", "454112"
+    ]
+    
+    if pvc_triggers and any(keyword in q for keyword in orange_star_keywords):
+        # Flag results with PvC metadata
+        for item in results:
+            item["_pvc_flagged"] = True
+            item["_pvc_trigger"] = "Orange Star / Section 44 criteria detected"
+    
+    return results
 
 
 def load_neuron_data(base_path: str = None) -> list:

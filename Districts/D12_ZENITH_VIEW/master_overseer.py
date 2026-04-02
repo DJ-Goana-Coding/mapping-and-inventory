@@ -98,6 +98,7 @@ class MasterOverseer:
         self.status = "SKELETON_MODE"
         self.sectors_online = []
         self.errors = []
+        self.bucket_status = {}
         
         # Verify security protocols
         self._verify_security_protocols()
@@ -105,6 +106,34 @@ class MasterOverseer:
         # Load system configuration
         self._load_system_map()
         self._load_pvc_triggers()
+        
+        # Check HF Bucket health
+        self._check_bucket_health()
+    
+    def _check_bucket_health(self):
+        """Check HuggingFace Storage Bucket health and connectivity"""
+        try:
+            # Import bucket connector
+            sys.path.insert(0, str(REPO_ROOT / "services"))
+            from hf_bucket_connector import get_bucket_connector
+            
+            bucket = get_bucket_connector()
+            self.bucket_status = bucket.get_bucket_status()
+            
+            if self.bucket_status.get("available"):
+                print(f"✅ HF Storage Bucket online at: {self.bucket_status.get('mount_point')}")
+                if self.bucket_status.get("inventory_available"):
+                    print(f"   📦 Inventory: {self.bucket_status.get('inventory_count')} entities")
+                if self.bucket_status.get("research_cargo_available"):
+                    print(f"   📂 Research cargo: {self.bucket_status.get('research_size_gb')} GB")
+            else:
+                warning = "HF Storage Bucket not detected - using local storage only"
+                self.errors.append(warning)
+                print(f"⚠️  {warning}")
+        except Exception as e:
+            error = f"Failed to check bucket health: {e}"
+            self.errors.append(error)
+            print(f"⚠️  {error}")
     
     def _verify_security_protocols(self):
         """Verify Unbreakable security protocols are active"""
@@ -273,6 +302,15 @@ class MasterOverseer:
         print(f"✅ Sectors Online: {len(self.sectors_online)}/13")
         print(f"{'✅' if symlink_ok else '❌'} Symlink Protection: {'ACTIVE' if symlink_ok else 'INCOMPLETE'}")
         print(f"📋 PvC Triggers Loaded: {len(self.pvc_triggers.get('legislative_codes', {}))}")
+        
+        # Bucket status
+        if self.bucket_status.get("available"):
+            print(f"✅ HF Storage Bucket: ONLINE ({self.bucket_status.get('mount_point')})")
+            print(f"   📦 Inventory: {self.bucket_status.get('inventory_count')} entities")
+            print(f"   📂 Research: {self.bucket_status.get('research_size_gb')} GB")
+        else:
+            print("⚠️  HF Storage Bucket: OFFLINE (using local storage)")
+        
         print(f"⚠️  Errors Detected: {len(self.errors)}")
         
         if self.errors:

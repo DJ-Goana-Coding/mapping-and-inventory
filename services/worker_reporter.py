@@ -78,7 +78,10 @@ class ReporterWorker:
     def load_intelligence_map(self) -> List[str]:
         """Load the master intelligence map"""
         if not MASTER_INTELLIGENCE_MAP.exists():
-            self.errors.append("master_intelligence_map.txt not found")
+            warning = "master_intelligence_map.txt not found - running in dry-run mode"
+            self.errors.append(warning)
+            print(f"⚠️  {warning}")
+            print("   This is expected for fresh deployments. Run tia_citadel_deep_scan.yml to generate.")
             return []
         
         with open(MASTER_INTELLIGENCE_MAP, 'r') as f:
