@@ -44,6 +44,12 @@ omni_map.json
 config
 rclone.conf
 
+# RAG vector store (generated artifacts)
+rag_store/
+
+# Oracle diff artifacts (generated)
+oracle_diffs/
+
 # Temporary files
 *.tmp
 *.log
