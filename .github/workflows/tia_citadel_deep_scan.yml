@@ -73,3 +73,17 @@ jobs:
           name: intelligence-map
           path: master_intelligence_map.txt
           if-no-files-found: error
+
+      - name: Commit Intelligence Map to Repository
+        run: |
+          echo "📝 Committing master_intelligence_map.txt to repository..."
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add master_intelligence_map.txt
+          git diff --staged --quiet || git commit -m "🗺️ Update master intelligence map - $(date +'%Y-%m-%d %H:%M:%S UTC')"
+      
+      - name: Push Intelligence Map
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

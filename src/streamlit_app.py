@@ -43,6 +43,7 @@ with tabs[0]:
     if st.button("🔥 START HEAVY LIFT"):
         st.info("🚀 L4 ENGINE: SYNCING G-DRIVE -> SOUL VAULT...")
         # Cloud-to-cloud pull
+        cmd = ["rclone", "sync", "gdrive:GENESIS_VAULT", "./Research/Genesis", "--progress"]
         cmd = ["rclone", "sync", "gdrive:GENESIS_VAULT", "./Research/GDrive", "--progress"]
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         st.success("✅ Ingestion started in background. Monitor logs for arrival.")
@@ -61,4 +62,5 @@ with tabs[1]:
 
 with tabs[2]:
     st.header("🧠 T.I.A. Oracle (L4 GPU)")
+    st.info("Ready to process research data at ./Research/Genesis")
     st.info("Ready to process research data at ./Research/GDrive")
