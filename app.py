@@ -38,7 +38,7 @@ from services.dataset_connector import (
 )
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-HF_SPACE_ID = "DJ-Goana-Coding/mapping-and-inventory"
+HF_SPACE_ID = "DJ-Goana-Coding/Mapping-and-Inventory"
 
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
