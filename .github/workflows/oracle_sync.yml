@@ -1,0 +1,153 @@
+name: Oracle-Sync-Protocol
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run after Surveyor (every 6 hours, offset by 30 minutes)
+    - cron: '30 */6 * * *'
+
+jobs:
+  oracle-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "Oracle-Agent"
+          git config --global user.email "oracle@citadel.omega"
+
+      - name: Pull Latest Atlas
+        run: |
+          echo "🔮 Oracle Sync Protocol Initiated"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          git fetch origin main
+          git pull origin main
+          
+          echo "✅ Latest Atlas pulled from Surveyor"
+
+      - name: Perform Diff Scan
+        run: |
+          echo ""
+          echo "🔍 Analyzing Atlas Changes"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Create diff directory if it doesn't exist
+          mkdir -p oracle_diffs
+          
+          # Check if previous state exists
+          if [ -f "oracle_diffs/previous_map.txt" ]; then
+            echo "Previous map found. Computing diff..."
+            
+            # Create diff report
+            diff oracle_diffs/previous_map.txt master_intelligence_map.txt > oracle_diffs/latest_diff.txt || true
+            
+            # Count changes
+            ADDITIONS=$(grep "^>" oracle_diffs/latest_diff.txt | wc -l || echo 0)
+            DELETIONS=$(grep "^<" oracle_diffs/latest_diff.txt | wc -l || echo 0)
+            
+            echo ""
+            echo "📊 Change Summary:"
+            echo "  ➕ Additions: $ADDITIONS"
+            echo "  ➖ Deletions: $DELETIONS"
+            
+            # Save summary
+            echo "Oracle Diff Analysis - $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > oracle_diffs/summary.txt
+            echo "================================================================" >> oracle_diffs/summary.txt
+            echo "" >> oracle_diffs/summary.txt
+            echo "CHANGE SUMMARY:" >> oracle_diffs/summary.txt
+            echo "  Additions: $ADDITIONS lines" >> oracle_diffs/summary.txt
+            echo "  Deletions: $DELETIONS lines" >> oracle_diffs/summary.txt
+            echo "  Net Change: $((ADDITIONS - DELETIONS)) lines" >> oracle_diffs/summary.txt
+            echo "" >> oracle_diffs/summary.txt
+            echo "ANALYSIS:" >> oracle_diffs/summary.txt
+            head -50 oracle_diffs/latest_diff.txt >> oracle_diffs/summary.txt 2>/dev/null || true
+            echo "" >> oracle_diffs/summary.txt
+            echo "Full diff available in: oracle_diffs/latest_diff.txt" >> oracle_diffs/summary.txt
+            
+            cat oracle_diffs/summary.txt
+          else
+            echo "⚠️  No previous map found. This is the first Oracle sync."
+            echo "Creating baseline snapshot..."
+          fi
+          
+          # Save current state as previous for next run
+          cp master_intelligence_map.txt oracle_diffs/previous_map.txt
+          
+          echo ""
+          echo "✅ Diff analysis complete"
+
+      - name: RAG Ingestion
+        run: |
+          echo ""
+          echo "🧠 RAG Ingestion Engine"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Install RAG dependencies
+          pip install sentence-transformers faiss-cpu numpy
+          
+          # Run RAG ingestion
+          python scripts/rag_ingest.py
+          
+          echo ""
+          echo "✅ RAG ingestion complete"
+
+      - name: Commit Oracle Artifacts
+        run: |
+          echo ""
+          echo "💾 Committing Oracle Analysis"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Add all Oracle artifacts
+          git add oracle_diffs/ rag_store/ || true
+          
+          # Commit if there are changes
+          if git diff-index --quiet HEAD --; then
+            echo "No changes to commit"
+          else
+            git commit -m "Oracle Sync: Atlas diff analysis and RAG ingestion [$(date -u +"%Y-%m-%d %H:%M:%S UTC")]"
+            git push origin main
+            echo "✅ Oracle artifacts pushed to repository"
+          fi
+
+      - name: Generate Intelligence Report
+        run: |
+          echo ""
+          echo "📋 Intelligence Report"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Check for RAG store
+          if [ -d "rag_store" ]; then
+            echo "🔮 RAG Memory Status: ACTIVE"
+            ls -lh rag_store/
+            echo ""
+            
+            if [ -f "rag_store/metadata.json" ]; then
+              echo "📊 RAG Metadata:"
+              cat rag_store/metadata.json
+            fi
+          else
+            echo "⚠️  RAG Memory Status: NOT INITIALIZED"
+          fi
+          
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ Oracle Sync Protocol Complete"
+          echo "🔮 Reasoning loop active"
+          echo "🧠 Memory updated"
+          echo "📡 Ready for queries"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
