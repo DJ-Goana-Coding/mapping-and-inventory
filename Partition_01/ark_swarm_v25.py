@@ -15,7 +15,7 @@ TARGET_XRP = 500.00
 SENTRY_LOSS_LIMIT = -2.0 
 
 # --- ☁️ BRIDGES: G-DRIVE & CITADEL ---
-GDRIVE_PATH = "/data/data/com.termux/files/home/storage/shared/ArkFleet"
+GDRIVE_PATH = "./Research/S10"
 try:
     os.makedirs(GDRIVE_PATH, exist_ok=True)
 except Exception as e:

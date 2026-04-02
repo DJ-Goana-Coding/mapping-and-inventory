@@ -7,7 +7,7 @@ def run_recon():
         "nodes": {
             "OPPO_TERMUX": os.path.expanduser("~"),
             "ARK_CORE": os.path.expanduser("~/ARK_CORE"),
-            "UBUNTU_ROOT": "/data/data/com.termux/files/usr/lib" # Typical Termux/Ubuntu path
+            "TERMUX_ROOT": os.path.expanduser("~/../usr/lib") # Relative Termux path
         },
         "tokens": {
             "GITHUB_TOKEN": "DETECTED" if os.environ.get("GITHUB_TOKEN") else "MISSING",
