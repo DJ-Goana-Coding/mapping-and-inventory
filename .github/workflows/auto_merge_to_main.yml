@@ -1,0 +1,119 @@
+name: Auto-Merge to Main
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to auto-merge (leave empty to check all)'
+        required: false
+        type: string
+
+jobs:
+  auto_merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Check PR eligibility for auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.inputs.pr_number || github.event.pull_request.number }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔍 Checking PR eligibility for auto-merge"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          if [ -z "$PR_NUMBER" ]; then
+            echo "ℹ️  No specific PR provided, checking all open PRs"
+            gh pr list --state open --json number,title,headRefName,labels
+          else
+            echo "📋 Checking PR #$PR_NUMBER"
+            
+            # Get PR details
+            PR_INFO=$(gh pr view $PR_NUMBER --json number,title,state,mergeable,statusCheckRollup,labels,author)
+            
+            echo "$PR_INFO" | jq '.'
+            
+            # Check if PR has auto-merge label
+            HAS_AUTO_MERGE=$(echo "$PR_INFO" | jq -r '.labels[]? | select(.name == "auto-merge") | .name')
+            
+            # Check if all status checks pass
+            STATUS_CHECKS=$(echo "$PR_INFO" | jq -r '.statusCheckRollup[]? | .state')
+            ALL_PASSED=true
+            for status in $STATUS_CHECKS; do
+              if [ "$status" != "SUCCESS" ] && [ "$status" != "SKIPPED" ]; then
+                ALL_PASSED=false
+              fi
+            done
+            
+            # Check if mergeable
+            MERGEABLE=$(echo "$PR_INFO" | jq -r '.mergeable')
+            
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "📊 PR #$PR_NUMBER Status:"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "Auto-merge label: ${HAS_AUTO_MERGE:-❌ Not found}"
+            echo "Status checks: $([ "$ALL_PASSED" = true ] && echo "✅ All passed" || echo "⚠️ Not all passed")"
+            echo "Mergeable: ${MERGEABLE}"
+            echo ""
+            
+            if [ "$HAS_AUTO_MERGE" = "auto-merge" ] && [ "$ALL_PASSED" = true ] && [ "$MERGEABLE" = "MERGEABLE" ]; then
+              echo "✅ PR #$PR_NUMBER is eligible for auto-merge"
+              echo "ELIGIBLE=true" >> $GITHUB_ENV
+              echo "PR_NUM=$PR_NUMBER" >> $GITHUB_ENV
+            else
+              echo "⚠️  PR #$PR_NUMBER is NOT eligible for auto-merge"
+              echo ""
+              echo "Requirements for auto-merge:"
+              echo "  1. ✅ Must have 'auto-merge' label"
+              echo "  2. ✅ All status checks must pass"
+              echo "  3. ✅ Must be mergeable (no conflicts)"
+              echo ""
+              echo "ELIGIBLE=false" >> $GITHUB_ENV
+            fi
+          fi
+      
+      - name: Auto-merge PR
+        if: env.ELIGIBLE == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔀 Auto-merging PR #$PR_NUM"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Merge the PR
+          gh pr merge $PR_NUM --squash --auto --delete-branch
+          
+          echo ""
+          echo "✅ PR #$PR_NUM merged successfully"
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚀 Main branch updated. Workflows will trigger automatically."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      
+      - name: Report status
+        if: always()
+        run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "ℹ️  Auto-Merge Status Report"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "To enable auto-merge for a PR:"
+          echo "  1. Add the 'auto-merge' label to the PR"
+          echo "  2. Ensure all status checks pass"
+          echo "  3. Ensure there are no merge conflicts"
+          echo ""
+          echo "Manual merge command:"
+          echo "  gh pr merge <pr-number> --squash --delete-branch"
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

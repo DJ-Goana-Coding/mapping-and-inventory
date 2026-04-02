@@ -24,10 +24,32 @@ Connects ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 
 ## Workflows
 
-**📋 Quick Start - Run All Workflows:**
+### 🤖 Full Automation System
+
+**⚡ Quick Start - Complete Automation:**
 
 ```bash
-# Use the automated trigger script
+# Interactive automation menu (recommended)
+./automate_all.sh
+
+# Or trigger automated workflows
+gh workflow run auto_sync_and_run.yml
+```
+
+**New Automation Features:**
+- ✅ **Scheduled Operations** - Daily auto-sync and workflow runs
+- ✅ **Auto-Merge PRs** - Safely merge approved PRs to main
+- ✅ **Multi-Repo Sync** - Coordinate across all CITADEL repos
+- ✅ **Status Monitoring** - Real-time repository health checks
+
+**See [FULL_AUTOMATION_GUIDE.md](FULL_AUTOMATION_GUIDE.md) for complete automation documentation.**
+
+---
+
+**📋 Manual Workflow Triggers:**
+
+```bash
+# Use the manual trigger script
 ./trigger_all_workflows.sh
 ```
 
@@ -35,13 +57,19 @@ Or trigger manually via GitHub Actions web interface:
 1. Go to: https://github.com/DJ-Goana-Coding/mapping-and-inventory/actions
 2. Click each workflow and select "Run workflow"
 
-**See [WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md) for complete documentation.**
+**See [WORKFLOW_GUIDE.md](WORKFLOW_GUIDE.md) for workflow-specific documentation.**
 
-### Active Workflows
+### Core Workflows
 
 1. **TIA_CITADEL_DEEP_SCAN** - Scans 321GB across 5 partitions, generates intelligence map
 2. **S10_PUSH_TO_VAULT** - Syncs S10 device data to Google Drive vault
 3. **Sync to HuggingFace Space** - Deploys dashboard to HuggingFace (auto-triggers on push to main)
+
+### Automation Workflows (New)
+
+4. **Auto Sync and Run All Workflows** - Daily automated sync + workflow triggers (2 AM UTC)
+5. **Multi-Repository Sync Orchestrator** - Every 6 hours, syncs all related repos
+6. **Auto-Merge to Main** - Automatically merges approved PRs with safety checks
 
 **Monitoring Live Runs:**
 - Use `gh run watch <run-id>` to monitor in real-time
