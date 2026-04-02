@@ -5,3 +5,7 @@ requests
 google-genai
 plotly
 networkx
+gspread
+google-auth
+google-auth-oauthlib
+google-auth-httplib2

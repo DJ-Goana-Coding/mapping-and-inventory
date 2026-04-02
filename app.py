@@ -5,6 +5,8 @@ Connects: ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 """
 import sys
 import os
+import subprocess
+from pathlib import Path
 
 # Ensure services are importable from this file's location
 sys.path.insert(0, os.path.dirname(__file__))
@@ -169,6 +171,7 @@ tabs = st.tabs([
     "🧠 T.I.A. Oracle",
     "☁️ Cloud Sync",
     "🤗 HF Space",
+    "🤖 Worker Status",
 ])
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -645,3 +648,237 @@ with tabs[5]:
         f"Target:  https://huggingface.co/spaces/{HF_SPACE_ID}",
         language="text",
     )
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 7 — WORKER STATUS
+# ══════════════════════════════════════════════════════════════════════════════
+with tabs[6]:
+    st.title("🤖 Worker Status — CITADEL-BOT Automation")
+    st.caption("Real-time monitoring of The Archivist, The Reporter, The Hive Master, and The Bridge workers.")
+
+    # Load worker status
+    worker_status_path = Path("worker_status.json")
+    if worker_status_path.exists():
+        with open(worker_status_path, 'r') as f:
+            worker_status = json.load(f)
+    else:
+        worker_status = {
+            "last_updated": None,
+            "system_status": "UNKNOWN",
+            "workers": {},
+            "sync_status": {}
+        }
+
+    # ── System Status Banner ──────────────────────────────────────────────────
+    st.subheader("📊 System Status")
+    
+    system_status = worker_status.get("system_status", "UNKNOWN")
+    last_updated = worker_status.get("last_updated", "Never")
+    
+    if system_status == "OPERATIONAL":
+        st.success(f"✅ System Status: {system_status}")
+    elif system_status == "ERROR":
+        st.error(f"❌ System Status: {system_status}")
+    else:
+        st.info(f"ℹ️ System Status: {system_status}")
+    
+    st.markdown(f"**Last Updated:** {last_updated}")
+    
+    st.divider()
+
+    # ── Worker Cards ──────────────────────────────────────────────────────────
+    st.subheader("🤖 Worker Status")
+    
+    workers = worker_status.get("workers", {})
+    
+    if not workers:
+        st.warning("⚠️ No worker data available. Workers have not been initialized yet.")
+    else:
+        # Create columns for workers
+        cols = st.columns(2)
+        
+        worker_configs = [
+            ("archivist", "🗄️", 0),
+            ("reporter", "📰", 1),
+            ("hive_master", "🐝", 0),
+            ("bridge", "🌉", 1),
+        ]
+        
+        for worker_id, icon, col_idx in worker_configs:
+            worker = workers.get(worker_id, {})
+            
+            with cols[col_idx]:
+                with st.expander(f"{icon} {worker.get('worker_name', worker_id.title())}", expanded=True):
+                    status = worker.get("status", "UNKNOWN")
+                    
+                    # Status indicator
+                    if status == "OPERATIONAL":
+                        st.success(f"Status: ✅ {status}")
+                    elif status == "STANDBY":
+                        st.info(f"Status: ⏸️ {status}")
+                    elif status == "ERROR":
+                        st.error(f"Status: ❌ {status}")
+                    else:
+                        st.warning(f"Status: ⚠️ {status}")
+                    
+                    # Worker details
+                    st.markdown(f"**Jurisdiction:** {worker.get('jurisdiction', 'N/A')}")
+                    st.markdown(f"**Primary Task:** {worker.get('primary_task', 'N/A')}")
+                    
+                    # Metrics
+                    metric_cols = st.columns(3)
+                    with metric_cols[0]:
+                        st.metric("Total Runs", worker.get("total_runs", 0))
+                    with metric_cols[1]:
+                        if worker_id == "archivist":
+                            st.metric("Files Processed", worker.get("total_files_processed", 0))
+                        elif worker_id == "reporter":
+                            st.metric("Reports Generated", worker.get("total_reports_generated", 0))
+                        elif worker_id == "hive_master":
+                            st.metric("Syncs", worker.get("total_syncs", 0))
+                        elif worker_id == "bridge":
+                            st.metric("Tunnels", worker.get("total_tunnels_maintained", 0))
+                    with metric_cols[2]:
+                        errors = worker.get("errors", [])
+                        st.metric("Errors", len(errors))
+                    
+                    # Last run info
+                    last_run = worker.get("last_run")
+                    last_success = worker.get("last_success")
+                    
+                    if last_run:
+                        st.markdown(f"**Last Run:** {last_run}")
+                    if last_success:
+                        st.markdown(f"**Last Success:** {last_success}")
+                    
+                    # Show errors if any
+                    if errors:
+                        with st.expander("⚠️ Recent Errors", expanded=False):
+                            for error in errors[-5:]:  # Show last 5 errors
+                                st.code(error, language="text")
+                    
+                    # Special info for specific workers
+                    if worker_id == "bridge":
+                        tunnel_status = worker.get("tunnel_status", {})
+                        if tunnel_status:
+                            st.markdown("**Tunnel Status:**")
+                            for tunnel_name, tunnel_info in tunnel_status.items():
+                                connected = tunnel_info.get("connected", False)
+                                icon = "✅" if connected else "❌"
+                                message = tunnel_info.get("message", tunnel_info.get("status", "Unknown"))
+                                st.markdown(f"  {icon} {tunnel_name}: {message}")
+
+    st.divider()
+
+    # ── Sync Status ───────────────────────────────────────────────────────────
+    st.subheader("☁️ Sync Status")
+    
+    sync_status = worker_status.get("sync_status", {})
+    
+    sync_cols = st.columns(4)
+    with sync_cols[0]:
+        st.metric("GDrive Last Sync", 
+                  sync_status.get("gdrive_last_sync", "Never")[:10] if sync_status.get("gdrive_last_sync") else "Never")
+    with sync_cols[1]:
+        st.metric("GitHub Last Pull", 
+                  sync_status.get("github_last_pull", "Never")[:10] if sync_status.get("github_last_pull") else "Never")
+    with sync_cols[2]:
+        st.metric("HF Last Push", 
+                  sync_status.get("hf_last_push", "Never")[:10] if sync_status.get("hf_last_push") else "Never")
+    with sync_cols[3]:
+        st.metric("S10 Last Push", 
+                  sync_status.get("s10_last_push", "Never")[:10] if sync_status.get("s10_last_push") else "Never")
+
+    st.divider()
+
+    # ── Manual Worker Controls ────────────────────────────────────────────────
+    st.subheader("⚙️ Manual Worker Controls")
+    
+    st.markdown("Run workers manually:")
+    
+    worker_cols = st.columns(4)
+    
+    with worker_cols[0]:
+        if st.button("🗄️ Run Archivist", key="run_archivist"):
+            with st.spinner("Running Archivist Worker..."):
+                try:
+                    result = subprocess.run(
+                        ["python3", "services/worker_archivist.py", "--test"],
+                        capture_output=True,
+                        text=True,
+                        timeout=60
+                    )
+                    if result.returncode == 0:
+                        st.success("✅ Archivist completed successfully!")
+                        st.code(result.stdout, language="text")
+                    else:
+                        st.error("❌ Archivist failed!")
+                        st.code(result.stderr, language="text")
+                except Exception as e:
+                    st.error(f"❌ Error running Archivist: {e}")
+    
+    with worker_cols[1]:
+        if st.button("📰 Run Reporter", key="run_reporter"):
+            with st.spinner("Running Reporter Worker..."):
+                try:
+                    result = subprocess.run(
+                        ["python3", "services/worker_reporter.py", "--dry-run"],
+                        capture_output=True,
+                        text=True,
+                        timeout=60
+                    )
+                    if result.returncode == 0:
+                        st.success("✅ Reporter completed successfully!")
+                        st.code(result.stdout, language="text")
+                    else:
+                        st.error("❌ Reporter failed!")
+                        st.code(result.stderr, language="text")
+                except Exception as e:
+                    st.error(f"❌ Error running Reporter: {e}")
+    
+    with worker_cols[2]:
+        if st.button("🐝 Run Hive Master", key="run_hive_master"):
+            with st.spinner("Running Hive Master Worker..."):
+                try:
+                    result = subprocess.run(
+                        ["python3", "services/worker_hive_master.py", "--no-hf-sync"],
+                        capture_output=True,
+                        text=True,
+                        timeout=60
+                    )
+                    if result.returncode == 0:
+                        st.success("✅ Hive Master completed successfully!")
+                        st.code(result.stdout, language="text")
+                    else:
+                        st.error("❌ Hive Master failed!")
+                        st.code(result.stderr, language="text")
+                except Exception as e:
+                    st.error(f"❌ Error running Hive Master: {e}")
+    
+    with worker_cols[3]:
+        if st.button("🌉 Run Bridge", key="run_bridge"):
+            with st.spinner("Running Bridge Worker..."):
+                try:
+                    result = subprocess.run(
+                        ["python3", "services/worker_bridge.py"],
+                        capture_output=True,
+                        text=True,
+                        timeout=60
+                    )
+                    if result.returncode == 0:
+                        st.success("✅ Bridge completed successfully!")
+                        st.code(result.stdout, language="text")
+                    else:
+                        st.error("❌ Bridge failed!")
+                        st.code(result.stderr, language="text")
+                except Exception as e:
+                    st.error(f"❌ Error running Bridge: {e}")
+
+    st.divider()
+
+    # ── Worker Status JSON ────────────────────────────────────────────────────
+    st.subheader("📄 Raw Worker Status Data")
+    
+    with st.expander("View worker_status.json", expanded=False):
+        st.json(worker_status)
+

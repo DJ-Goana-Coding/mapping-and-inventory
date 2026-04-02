@@ -2,6 +2,18 @@
 Districts/D07_ARCHIVE_SCROLLS/gdrive_research/
 Districts/D07_ARCHIVE_SCROLLS/genesis_research/
 
+# Ignore Research cargo bays (synced from GDrive)
+Research/GDrive/*
+Research/Oppo/*
+Research/S10/*
+Research/Laptop/*
+!Research/README.md
+!Research/*/.gitkeep
+
+# Ignore S10 forensic data (synced from GDrive)
+S10_CITADEL_OMEGA_INTEL/*
+!S10_CITADEL_OMEGA_INTEL/README.md
+!S10_CITADEL_OMEGA_INTEL/.gitkeep
 # Research data (synced from GDrive - too large for git)
 Research/GDrive/**
 Research/Oppo/**
