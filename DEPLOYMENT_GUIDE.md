@@ -23,7 +23,7 @@ By pushing from this repo, you're turning on the lights across the entire system
 
 The sync_to_hf.yml workflow is configured with the correct case-sensitive URL:
 ```yaml
-https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory
+https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
 ```
 
 **Verification:**
@@ -158,7 +158,7 @@ When you push to `main` branch, the `sync_to_hf.yml` workflow automatically:
 gh run watch
 
 # Or check HuggingFace Space directly
-# https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory
+# https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
 ```
 
 ### Step 4: Trigger Data Sync
@@ -179,7 +179,7 @@ This will:
 - Commit changes back to repo
 
 ### Step 5: Verify HuggingFace Space
-1. Visit: https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory
+1. Visit: https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
 2. Check status changes from "Runtime Error" → "Running"
 3. Verify the UI displays:
    - File count (1264+)
@@ -280,7 +280,7 @@ Ensure S10_CITADEL_OMEGA_INTEL dataset is accessible:
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │             HUGGINGFACE SPACE (FACEPLATE)                   │
-│         DJ-Goana-Coding/Mapping-and-Inventory               │
+│         DJ-Goanna-Coding/Mapping-and-Inventory               │
 │                                                             │
 │  ┌─────────────┐  ┌──────────────┐  ┌──────────────┐      │
 │  │ Streamlit   │  │ File Browser │  │ Forensic     │      │

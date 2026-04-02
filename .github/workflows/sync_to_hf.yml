@@ -24,13 +24,13 @@ jobs:
         run: |
           # Configure git credentials
           git config --global credential.helper store
-          echo "https://DJ-Goana-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          echo "https://DJ-Goanna-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           
-          # Add HuggingFace remote
-          git remote add hf https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory 2>/dev/null || \
-            git remote set-url hf https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory
+          # Add HuggingFace remote (DJ-Goanna-Coding with two N's)
+          git remote add hf https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory 2>/dev/null || \
+            git remote set-url hf https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
           
           # Force push to HuggingFace (space was recreated)
           echo "Force pushing entire repository to HuggingFace..."

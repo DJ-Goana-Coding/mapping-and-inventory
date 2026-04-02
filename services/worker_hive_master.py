@@ -37,7 +37,7 @@ class HiveMasterWorker:
             return False
         return True
     
-    def sync_to_huggingface(self, space_id: str = "DJ-Goana-Coding/Mapping-and-Inventory") -> bool:
+    def sync_to_huggingface(self, space_id: str = "DJ-Goanna-Coding/Mapping-and-Inventory") -> bool:
         """
         Sync repository to HuggingFace Space
         

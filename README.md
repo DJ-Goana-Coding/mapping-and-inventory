@@ -88,7 +88,7 @@ This is critical for the D12_ZENITH_VIEW command center when it's implemented.
 
 ### HuggingFace Space Secrets
 These secrets must also be configured in your HuggingFace Space settings at:
-`https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory/settings`
+`https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory/settings`
 
 | Secret | Purpose |
 |--------|---------|
