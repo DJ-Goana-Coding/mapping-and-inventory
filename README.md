@@ -7,10 +7,6 @@ sdk: docker
 pinned: false
 datasets:
   - DJ-Goana-Coding/master-inventory
-models:
-  - deepseek-ai/DeepSeek-V3
-  - Qwen/Qwen2.5-72B-Instruct
-  - hexgrad/Kokoro-82M
 ---
 
 # CITADEL OMEGA — Mapping & Inventory Librarian
@@ -18,15 +14,6 @@ models:
 Central mapping and inventory dashboard for the Q.G.T.N.L. Citadel Omega system.
 
 Connects ARK repos, GDrive, T.I.A., datasets, and all device nodes.
-
-## 🤖 AI/ML Capabilities
-
-This space supports:
-- **Transformers** (>=4.48.0) — HuggingFace model loading and inference
-- **vLLM** (>=0.7.0) — High-performance inference for DeepSeek/Qwen models
-- **ONNX Runtime** — Lightweight inference for Kokoro TTS
-- **Accelerate** — Distributed training and multi-GPU support
-- **BitsAndBytes** — Model quantization for memory efficiency
 
 ## Tabs
 - 🗺️ **System Map** — Interactive connection graph of all repos, spaces, and nodes
