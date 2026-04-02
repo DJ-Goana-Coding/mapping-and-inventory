@@ -1,0 +1,163 @@
+═══════════════════════════════════════════════════════════════════════════════
+  CITADEL OMEGA SYSTEM MAP — Four Pillar Architecture
+═══════════════════════════════════════════════════════════════════════════════
+
+This manifest categorizes all repos, spaces, nodes, and directories across the
+four foundational pillars of the Q.G.T.N.L. system:
+
+  🏛️ PILLAR 1: TRADING     — Market operations, automation, strategies
+  📜 PILLAR 2: LORE         — Documentation, memory, knowledge preservation
+  🧠 PILLAR 3: MEMORY       — Data storage, archives, intelligence maps
+  🌐 PILLAR 4: WEB3         — Blockchain, decentralized systems, crypto
+
+═══════════════════════════════════════════════════════════════════════════════
+🏛️ PILLAR 1: TRADING
+═══════════════════════════════════════════════════════════════════════════════
+
+REPOSITORIES:
+  • omega-trading-system          → Core trading engine & automation
+  • forever-learning              → ML models for market analysis
+  • CITADEL_ARK                   → Trading infrastructure & worker bots
+
+DISTRICTS/SECTORS:
+  • D04_OMEGA_TRADER              → Trading algorithms & strategies
+  • D06_RANDOM_FUTURES            → Monte Carlo simulations, futures analysis
+
+PARTITIONS:
+  • Partition_04                  → Agentic swarm trading bots
+
+═══════════════════════════════════════════════════════════════════════════════
+📜 PILLAR 2: LORE
+═══════════════════════════════════════════════════════════════════════════════
+
+REPOSITORIES:
+  • mapping-and-inventory         → Central librarian & system documentation
+  • memory-codex                  → Knowledge base & lore preservation
+
+DISTRICTS/SECTORS:
+  • D01_COMMAND_INPUT             → User interface & command center
+  • D02_TIA_VAULT                 → T.I.A. Oracle knowledge repository
+  • D07_ARCHIVE_SCROLLS           → Historical records & documentation
+  • D11_PERSONA_MODULES           → AI personality frameworks
+
+PARTITIONS:
+  • Partition_01                  → ARK Core blueprints & tooling
+  • Partition_02                  → Lore extensions & narrative systems
+
+SPACES:
+  • DJ-Goana-Coding/Mapping-and-Inventory  → HuggingFace Librarian HUD
+
+═══════════════════════════════════════════════════════════════════════════════
+🧠 PILLAR 3: MEMORY
+═══════════════════════════════════════════════════════════════════════════════
+
+REPOSITORIES:
+  • master-inventory              → 9,354-entity master ledger (HuggingFace Dataset)
+  • forever-learning              → Neuron files & learning data
+
+DISTRICTS/SECTORS:
+  • D09_MEDIA_CODING              → Media archives & coding resources
+
+PARTITIONS:
+  • Partition_46                  → Washing harvest & data processing
+
+LOCAL DIRECTORIES:
+  • Research/GDrive               → Google Drive root vault
+  • Research/Oppo                 → Oppo device cargo bay
+  • Research/S10                  → S10 device cargo bay
+  • Research/Laptop               → Laptop cargo bay
+  • S10_CITADEL_OMEGA_INTEL       → Forensic intelligence data (321GB)
+  • Archive_Vault                 → Master backup repository
+  • Forever_Learning              → Neuron data & ML artifacts
+
+═══════════════════════════════════════════════════════════════════════════════
+🌐 PILLAR 4: WEB3
+═══════════════════════════════════════════════════════════════════════════════
+
+REPOSITORIES:
+  • (To be established)           → Blockchain integration layer
+
+DISTRICTS/SECTORS:
+  • D03_VORTEX_ENGINE             → Decentralized compute orchestration
+
+PARTITIONS:
+  • Partition_03                  → Web3 infrastructure components
+
+═══════════════════════════════════════════════════════════════════════════════
+🗺️ SECTOR-TO-DISTRICT MAPPING (D01-D13)
+═══════════════════════════════════════════════════════════════════════════════
+
+Currently Implemented Sectors:
+  ✅ D01_COMMAND_INPUT       → LORE (Command center & UI)
+  ✅ D02_TIA_VAULT           → LORE (T.I.A. Oracle vault)
+  ✅ D03_VORTEX_ENGINE       → WEB3 (Decentralized engine)
+  ✅ D04_OMEGA_TRADER        → TRADING (Core trading logic)
+  ⚠️  D05                    → [NOT YET MAPPED]
+  ✅ D06_RANDOM_FUTURES      → TRADING (Futures & simulations)
+  ✅ D07_ARCHIVE_SCROLLS     → LORE (Archives & history)
+  ⚠️  D08                    → [NOT YET MAPPED]
+  ✅ D09_MEDIA_CODING        → MEMORY (Media archives)
+  ⚠️  D10                    → [NOT YET MAPPED]
+  ✅ D11_PERSONA_MODULES     → LORE (AI personalities)
+  ⚠️  D12_ZENITH_VIEW        → [PLANNED - Command Center Hub]
+  ⚠️  D13                    → [NOT YET MAPPED]
+
+Missing Sectors (D05, D08, D10, D12, D13):
+  These sectors are referenced in system lore but not yet implemented as
+  directory structures. D12_ZENITH_VIEW is planned as the master command
+  center and overseer hub.
+
+═══════════════════════════════════════════════════════════════════════════════
+🔗 CROSS-PILLAR CONNECTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+TRADING ↔ MEMORY:
+  • Trading bots pull market data from Research/ cargo bays
+  • Forever_Learning neurons train on historical trade data
+
+LORE ↔ MEMORY:
+  • mapping-and-inventory indexes all MEMORY archives
+  • T.I.A. Oracle (LORE) queries Archive_Vault (MEMORY)
+
+TRADING ↔ LORE:
+  • D04_OMEGA_TRADER strategies documented in D07_ARCHIVE_SCROLLS
+  • T.I.A. Oracle provides trading analysis and insights
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 INTEGRATION POINTS
+═══════════════════════════════════════════════════════════════════════════════
+
+GITHUB ACTIONS:
+  • tia_citadel_deep_scan.yml    → Syncs GDrive → Research/ (MEMORY pillar)
+  • sync_to_hf.yml               → Deploys to HuggingFace Space (LORE pillar)
+  • s10_push_to_vault.yml        → Pushes S10 intel to GDrive (MEMORY pillar)
+
+WORKER SYSTEMS:
+  • worker_archivist.py          → MEMORY (MD5 hashing, index management)
+  • worker_reporter.py           → LORE (Google Sheets reporting)
+  • worker_hive_master.py        → LORE (HuggingFace sync orchestration)
+  • worker_bridge.py             → Cross-pillar (Tunnel monitoring)
+
+HUGGINGFACE DATASETS:
+  • DJ-Goana-Coding/master-inventory  → MEMORY (9,354 entities)
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 CRITICAL PATH DEPENDENCIES
+═══════════════════════════════════════════════════════════════════════════════
+
+For D12_ZENITH_VIEW Command Center:
+  1. Requires relative paths (./Research/GDrive) to prevent symlink loops
+  2. Needs symlink protection in all rclone operations (--skip-links flag)
+  3. Must bypass Android permission blocks in HUD interfaces
+  4. Central oversight for all 13 sectors when fully implemented
+
+For Full System Deployment:
+  1. All four pillars must be synchronized
+  2. MEMORY pillar (GDrive sync) must complete before LORE pillar updates
+  3. TRADING pillar depends on MEMORY for historical data
+  4. WEB3 pillar integration pending blockchain infrastructure
+
+═══════════════════════════════════════════════════════════════════════════════
+End of System Map
+Last Updated: 2026-04-02
+═══════════════════════════════════════════════════════════════════════════════

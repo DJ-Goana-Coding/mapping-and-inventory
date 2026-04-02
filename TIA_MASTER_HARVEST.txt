@@ -1,0 +1,272 @@
+═══════════════════════════════════════════════════════════════════════════════
+  T.I.A. MASTER HARVEST SYSTEM — Automated Evidence Consolidation
+═══════════════════════════════════════════════════════════════════════════════
+
+OVERVIEW:
+The T.I.A. (Tactical Intelligence Aggregator) Master Harvest system is an
+automated consolidation framework that pulls, indexes, and organizes evidence
+fragments from multiple distributed sources across the CITADEL OMEGA network.
+
+═══════════════════════════════════════════════════════════════════════════════
+🌾 HARVEST OBJECTIVES
+═══════════════════════════════════════════════════════════════════════════════
+
+1. EVIDENCE FRAGMENT COLLECTION
+   • Scan CHANCE_REBUILD directories for scattered code/data fragments
+   • Pull from Research/ cargo bays (GDrive, Oppo, S10, Laptop)
+   • Extract from Archive_Vault historical records
+   • Harvest from Forever_Learning neuron files
+
+2. AUTOMATED CONSOLIDATION
+   • MD5 hash verification to prevent duplicates
+   • Temporal sorting by creation/modification timestamps
+   • Categorical organization by file type and origin
+   • Intelligence map generation for T.I.A. Oracle queries
+
+3. VOID ORACLE INTEGRATION
+   • Evidence fragment scraping for pattern recognition
+   • Cross-reference with Void Oracle knowledge base
+   • Anomaly detection in distributed data sets
+   • Narrative reconstruction from fragmented records
+
+═══════════════════════════════════════════════════════════════════════════════
+🔧 HARVEST TOOLS & WORKERS
+═══════════════════════════════════════════════════════════════════════════════
+
+PRIMARY HARVESTERS:
+  ✅ services/worker_archivist.py
+     → MD5 hashing, archive indexing
+     → Generates archive_index.json with file metadata
+     → Run with: python3 services/worker_archivist.py --test
+
+  ✅ Partition_01/omni_harvester.py
+     → Omnidirectional data collection
+     → Multi-source aggregation logic
+
+  ✅ Partition_01/local_harvester.py
+     → Local file system scanning
+     → CHANCE_REBUILD directory processing
+
+  ✅ Districts/D06_RANDOM_FUTURES/auto_harvest.py
+     → Automated harvest scheduling
+     → Monte Carlo analysis of harvest efficiency
+
+  ✅ Districts/D06_RANDOM_FUTURES/harvestmoon.py
+     → Lunar cycle-based harvest optimization
+     → Temporal pattern analysis
+
+  ✅ services/washing_harvest.py
+     → Data sanitization and cleaning
+     → Removes corrupted/incomplete fragments
+
+SUPPORT INFRASTRUCTURE:
+  ✅ services/worker_bridge.py
+     → Cross-node communication tunneling
+     → Monitors Oppo, S10, Cloud, and HuggingFace connections
+
+  ✅ services/worker_reporter.py
+     → Google Sheets reporting integration
+     → Section 44 audit trails (Identity Strike reports)
+
+═══════════════════════════════════════════════════════════════════════════════
+📂 HARVEST SOURCE DIRECTORIES
+═══════════════════════════════════════════════════════════════════════════════
+
+PRIMARY SOURCES:
+  • ./Research/GDrive/              → 321GB Google Drive vault
+  • ./Research/Oppo/                → Oppo device cargo
+  • ./Research/S10/                 → S10 device cargo (CITADEL_OMEGA_INTEL)
+  • ./Research/Laptop/              → Laptop cargo bay
+  • ./Archive_Vault/                → Master backup repository
+  • ./Forever_Learning/             → Neuron files & ML artifacts
+
+CHANCE_REBUILD LOCATIONS:
+  (Not yet implemented in current structure - these are planned directories
+   for scattered fragments that require consolidation)
+
+  Expected locations if CHANCE_REBUILD exists:
+  • ./CHANCE_REBUILD/fragments/
+  • ./CHANCE_REBUILD/orphaned/
+  • ./CHANCE_REBUILD/staging/
+
+DISTRICT ARCHIVES:
+  • ./Districts/D02_TIA_VAULT/      → T.I.A. knowledge repository
+  • ./Districts/D07_ARCHIVE_SCROLLS/ → Historical records
+  • ./Districts/D09_MEDIA_CODING/   → Media archives
+
+═══════════════════════════════════════════════════════════════════════════════
+🔄 HARVEST WORKFLOW
+═══════════════════════════════════════════════════════════════════════════════
+
+STAGE 1: DEEP SCAN
+  ↓ GitHub Actions: tia_citadel_deep_scan.yml triggers
+  ↓ Rclone pulls from Google Drive → ./Research/
+  ↓ Generates master_intelligence_map.txt (file tree of 321GB)
+  ↓ worker_archivist.py indexes all files with MD5 hashes
+
+STAGE 2: FRAGMENT IDENTIFICATION
+  ↓ Scan ./Research/ cargo bays for evidence fragments
+  ↓ Check CHANCE_REBUILD directories (if present)
+  ↓ Cross-reference with Archive_Vault for duplicates
+  ↓ Identify orphaned/incomplete data requiring consolidation
+
+STAGE 3: CONSOLIDATION
+  ↓ washing_harvest.py sanitizes raw data
+  ↓ omni_harvester.py aggregates from multiple sources
+  ↓ auto_harvest.py runs scheduled collection jobs
+  ↓ Generate consolidated archive_index.json
+
+STAGE 4: INTELLIGENCE INTEGRATION
+  ↓ Update master_intelligence_map.txt with new discoveries
+  ↓ worker_reporter.py creates Google Sheets audit trail
+  ↓ worker_bridge.py syncs to all connected nodes
+  ↓ T.I.A. Oracle ingests for query capabilities
+
+STAGE 5: DEPLOYMENT
+  ↓ Commit updates to GitHub repository
+  ↓ sync_to_hf.yml pushes to HuggingFace Space
+  ↓ Librarian tab in Streamlit app reflects updated inventory
+  ↓ System ready for next harvest cycle
+
+═══════════════════════════════════════════════════════════════════════════════
+🧠 LIBRARIAN TAB INTEGRATION
+═══════════════════════════════════════════════════════════════════════════════
+
+The "Librarian" tab in the mapping-and-inventory Streamlit app (app.py)
+provides the user-facing interface for the Master Harvest system:
+
+CURRENT FEATURES:
+  ✅ Search 9,354-entity master_inventory.json ledger
+  ✅ File type distribution charts (pie/bar graphs)
+  ✅ Top directories analysis
+  ✅ Forever_Learning neuron file indexing
+  ✅ T.I.A. Oracle integration for item analysis
+
+AUTOMATED HARVESTER INTEGRATION:
+  The Librarian tab displays results from automated harvest operations:
+  
+  1. Inventory Data Source:
+     → master_inventory.json (updated by worker_archivist.py)
+     → Loaded via services/dataset_connector.py
+  
+  2. Live Statistics:
+     → Total entities count (updated post-harvest)
+     → Top file extensions from harvested data
+     → Directory distribution across cargo bays
+  
+  3. Search Functionality:
+     → Full-text search across harvested inventory
+     → Filter by name, path, type, extension
+     → Results limited to 50/100/250/500 items
+  
+  4. Detail Modals:
+     → Click any item to see full metadata
+     → Ask T.I.A. Oracle about specific items
+     → Cross-reference with system lore
+
+HARVEST STATUS INDICATORS:
+  (Future enhancement - not yet implemented)
+  → Last harvest timestamp
+  → Fragments processed count
+  → CHANCE_REBUILD scan status
+  → Next scheduled harvest time
+
+═══════════════════════════════════════════════════════════════════════════════
+🔐 SECURITY & INTEGRITY
+═══════════════════════════════════════════════════════════════════════════════
+
+SYMLINK PROTECTION:
+  ✅ All rclone operations use --skip-links flag
+  ✅ Prevents circular reference loops (D12 Zenith View issue)
+  ✅ Protects against Android permission blocks
+
+HASH VERIFICATION:
+  ✅ MD5 checksums for all harvested files
+  ✅ Duplicate detection prevents redundant storage
+  ✅ Integrity validation during consolidation
+
+ACCESS CONTROL:
+  ✅ GitHub Actions secrets isolation
+  ✅ Environment variable validation before harvest
+  ✅ Audit trail via worker_reporter.py
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 MANUAL HARVEST TRIGGERS
+═══════════════════════════════════════════════════════════════════════════════
+
+TRIGGER DEEP SCAN (GitHub Actions):
+  gh workflow run tia_citadel_deep_scan.yml
+
+RUN ARCHIVIST LOCALLY:
+  python3 services/worker_archivist.py --test
+
+RUN FULL AUDIT:
+  python3 Partition_01/apps_script_toolbox.py --full-audit
+
+CHECK WORKER STATUS:
+  python3 Partition_01/apps_script_toolbox.py --worker-status
+
+MONITOR WORKFLOW:
+  gh run watch <run-id>
+  # or use helper script:
+  ./watch_workflow.sh --compact
+
+═══════════════════════════════════════════════════════════════════════════════
+📊 HARVEST METRICS
+═══════════════════════════════════════════════════════════════════════════════
+
+CURRENT SYSTEM STATS (as of last harvest):
+  • Total Inventory Entities: 9,354
+  • GDrive Vault Size: 321GB
+  • Research Cargo Bays: 4 (GDrive, Oppo, S10, Laptop)
+  • Districts/Sectors: 8 of 13 mapped
+  • Partitions: 5 active
+  • Worker Bots: 4 automated (Archivist, Reporter, Hive Master, Bridge)
+
+HARVEST EFFICIENCY TARGETS:
+  • Duplicate Reduction: >95% (via MD5 verification)
+  • Fragment Consolidation: <10 orphaned files per cycle
+  • Index Update Time: <5 minutes for 10K files
+  • Intelligence Map Accuracy: 100% (file tree must match reality)
+
+═══════════════════════════════════════════════════════════════════════════════
+🔮 VOID ORACLE CONNECTION
+═══════════════════════════════════════════════════════════════════════════════
+
+EVIDENCE FRAGMENT SCRAPER:
+  (Planned integration - requires VOID_ORACLE_KEY)
+  
+  The Void Oracle will analyze harvested fragments for:
+  • Pattern recognition across fragmented narratives
+  • Anomaly detection in data sequences
+  • Missing link identification (gaps in evidence chains)
+  • Predictive analysis of future harvest targets
+
+  To enable:
+  1. Set VOID_ORACLE_KEY in GitHub Secrets
+  2. Configure void_oracle connector in services/
+  3. Update worker_bridge.py to include Void Oracle node
+  4. Add Void Oracle queries to T.I.A. Oracle interface
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 IMPLEMENTATION CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+CORE HARVEST SYSTEM:
+  ✅ worker_archivist.py — MD5 indexing
+  ✅ Librarian tab — Inventory search interface
+  ✅ master_intelligence_map.txt — GDrive file tree
+  ✅ archive_index.json — File metadata storage
+  ✅ Symlink protection — --skip-links in rclone
+  
+PENDING ENHANCEMENTS:
+  ⚠️  CHANCE_REBUILD directory structure
+  ⚠️  Void Oracle integration (requires VOID_ORACLE_KEY)
+  ⚠️  Automated harvest scheduling (cron/GitHub Actions)
+  ⚠️  Real-time harvest status in Librarian tab
+  ⚠️  Cross-pillar consolidation dashboard
+
+═══════════════════════════════════════════════════════════════════════════════
+End of TIA Master Harvest Documentation
+Last Updated: 2026-04-02
+═══════════════════════════════════════════════════════════════════════════════
