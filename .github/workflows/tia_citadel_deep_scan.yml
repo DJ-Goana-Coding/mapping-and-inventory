@@ -23,6 +23,75 @@ jobs:
           mkdir -p ~/.config/rclone
           echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
 
+      - name: Validate Rclone Configuration
+        run: |
+          echo "🔍 Validating Rclone configuration..."
+          
+          # Check if config file exists and is not empty
+          if [ ! -s ~/.config/rclone/rclone.conf ]; then
+            echo "❌ ERROR: Rclone configuration is empty or missing!"
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "⚠️  MISSING SECRET: RCLONE_CONFIG_DATA"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo ""
+            echo "The TIA_CITADEL_DEEP_SCAN workflow requires Google Drive access"
+            echo "via rclone to scan 321GB of intelligence data across 5 partitions."
+            echo ""
+            echo "📋 TO FIX THIS:"
+            echo ""
+            echo "1. Generate your rclone config file locally:"
+            echo "   rclone config"
+            echo ""
+            echo "2. Follow the prompts to configure a Google Drive remote named 'gdrive'"
+            echo ""
+            echo "3. Copy your config file content:"
+            echo "   cat ~/.config/rclone/rclone.conf"
+            echo ""
+            echo "4. Add it as a GitHub Secret:"
+            echo "   • Go to: Settings → Secrets and variables → Actions"
+            echo "   • Click: New repository secret"
+            echo "   • Name: RCLONE_CONFIG_DATA"
+            echo "   • Value: Paste your entire rclone.conf content"
+            echo ""
+            echo "5. Re-run this workflow"
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo ""
+            echo "For more information, see README.md (Secrets Required section)"
+            echo ""
+            exit 1
+          fi
+          
+          # Check if gdrive remote is configured
+          if ! grep -q "^\[gdrive\]" ~/.config/rclone/rclone.conf; then
+            echo "❌ ERROR: 'gdrive' remote not found in rclone configuration!"
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "⚠️  INVALID CONFIG: Missing [gdrive] section"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo ""
+            echo "Your RCLONE_CONFIG_DATA secret exists but doesn't contain"
+            echo "a configuration for the 'gdrive' remote."
+            echo ""
+            echo "Expected format in your config:"
+            echo ""
+            echo "  [gdrive]"
+            echo "  type = drive"
+            echo "  scope = drive"
+            echo "  token = {\"access_token\":\"...\"}"
+            echo ""
+            echo "Please update your RCLONE_CONFIG_DATA secret with a valid"
+            echo "rclone configuration that includes the [gdrive] section."
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            exit 1
+          fi
+          
+          echo "✅ Rclone configuration validated successfully"
+          echo "   - Config file exists and is not empty"
+          echo "   - 'gdrive' remote is configured"
+
       - name: Test Connection
         run: |
           echo "📡 Testing Vault Link..."
