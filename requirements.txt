@@ -1,20 +1,35 @@
+# Core Streamlit & Web Framework
 streamlit==1.36.0
-pandas==2.0.3
-huggingface_hub==0.23.0
 requests==2.31.0
-google-genai==0.7.2
+
+# Data Processing & Visualization
+pandas==2.0.3
 plotly==5.22.0
 networkx==3.3
+
+# Google Services Integration
+google-genai==0.8.3
 gspread==6.1.2
 google-auth==2.29.0
 google-auth-oauthlib==1.2.0
 google-auth-httplib2==0.2.0
-huggingface_hub==0.23.4
-requests==2.31.0
-google-genai==0.8.3
-plotly==5.18.0
-networkx==3.1
-gspread==5.12.0
-google-auth==2.23.4
-google-auth-oauthlib==1.1.0
-google-auth-httplib2==0.1.1
+
+# HuggingFace & AI/ML Core
+huggingface_hub[cli,hf_transfer]==0.26.2
+transformers>=4.48.0
+accelerate>=0.34.0
+sentencepiece>=0.2.0
+
+# Model Optimization & Quantization
+bitsandbytes>=0.44.0
+
+# Inference Engines
+onnxruntime>=1.19.0
+vllm>=0.7.0
+
+# Additional Dependencies for Model Support
+torch>=2.5.0
+safetensors>=0.4.0
+tokenizers>=0.20.0
+peft>=0.13.0
+datasets>=3.0.0
