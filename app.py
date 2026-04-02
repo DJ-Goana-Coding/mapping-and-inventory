@@ -52,6 +52,7 @@ _rclone_ok, _rclone_msg = setup_rclone_config()
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
+    st.image("https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg", width=180)
     st.image("https://img.shields.io/badge/CITADEL-OMEGA-blueviolet?style=for-the-badge", width=220)
     st.markdown("## 🏰 SOVEREIGN HUD")
 
