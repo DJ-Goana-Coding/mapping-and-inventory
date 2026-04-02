@@ -18,12 +18,48 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Push to HuggingFace Space
+      - name: Push to HuggingFace Space (Safe Sync)
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
+          # Configure git credentials
           git config --global credential.helper store
           echo "https://DJ-Goana-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
+          # Add HuggingFace remote
           git remote add hf https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory 2>/dev/null || \
             git remote set-url hf https://huggingface.co/spaces/DJ-Goana-Coding/Mapping-and-Inventory
-          git push hf main --force
+          
+          # Fetch HuggingFace main branch to check for divergence
+          echo "Fetching from HuggingFace Space..."
+          git fetch hf main || echo "No existing main branch on HuggingFace"
+          
+          # Try to push without force first
+          echo "Attempting safe push to HuggingFace..."
+          if git push hf main; then
+            echo "✅ Successfully pushed to HuggingFace without force"
+          else
+            echo "⚠️  Push rejected - branches may have diverged"
+            echo "Fetching and merging HuggingFace changes..."
+            
+            # Fetch and merge any changes from HuggingFace
+            git fetch hf main
+            
+            # Check if there are any differences
+            if git diff main hf/main --quiet; then
+              echo "No differences found, retrying push..."
+              git push hf main
+            else
+              echo "Merging HuggingFace changes..."
+              git merge hf/main --no-edit --allow-unrelated-histories || {
+                echo "Merge conflict detected - using ours strategy for conflicts"
+                git merge --strategy-option=ours hf/main --no-edit --allow-unrelated-histories
+              }
+              echo "Pushing merged changes..."
+              git push hf main
+            fi
+          fi
+          
+          echo "✅ Sync to HuggingFace Space complete"
