@@ -1,0 +1,166 @@
+name: Multi-Repository Sync Orchestrator
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repos:
+        description: 'Comma-separated list of repos to sync (or "all")'
+        required: false
+        default: 'all'
+        type: string
+      operation:
+        description: 'Operation to perform'
+        required: true
+        default: 'sync'
+        type: choice
+        options:
+          - sync
+          - pull
+          - status
+      trigger_workflows:
+        description: 'Trigger workflows after sync'
+        required: false
+        default: 'false'
+        type: boolean
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    
+    steps:
+      - name: Checkout mapping-and-inventory
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Define Repository List
+        id: repo_list
+        run: |
+          # Define all known repositories in the CITADEL OMEGA system
+          # Based on SYSTEM_MAP.txt
+          
+          cat > repos.json << 'EOF'
+          {
+            "repos": [
+              {
+                "name": "mapping-and-inventory",
+                "owner": "DJ-Goana-Coding",
+                "pillar": "LORE",
+                "description": "Central librarian & system documentation"
+              }
+            ],
+            "future_repos": [
+              "omega-trading-system",
+              "forever-learning",
+              "CITADEL_ARK",
+              "memory-codex"
+            ]
+          }
+          EOF
+          
+          echo "Repository list created"
+          cat repos.json
+      
+      - name: Sync Current Repository (mapping-and-inventory)
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📥 Syncing mapping-and-inventory repository"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Fetch all branches
+          git fetch origin
+          
+          # Check current status
+          echo ""
+          echo "Current branch:"
+          git branch --show-current
+          
+          echo ""
+          echo "Status:"
+          git status --short
+          
+          echo ""
+          echo "Remote branches:"
+          git branch -r | head -10
+          
+          # Pull main branch
+          echo ""
+          echo "Pulling main branch..."
+          git checkout main
+          git pull origin main
+          
+          echo ""
+          echo "✅ mapping-and-inventory synchronized"
+      
+      - name: Check Repository Status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📊 Repository Status Report"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          echo ""
+          echo "📍 Current Repository: DJ-Goana-Coding/mapping-and-inventory"
+          echo ""
+          
+          # Recent commits
+          echo "Recent commits:"
+          git log --oneline -5
+          echo ""
+          
+          # Open PRs
+          echo "Open Pull Requests:"
+          gh pr list --state open || echo "No open PRs"
+          echo ""
+          
+          # Workflow runs
+          echo "Recent workflow runs:"
+          gh run list --limit 5 || echo "No recent runs"
+          echo ""
+          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "ℹ️  Note: This workflow currently manages mapping-and-inventory"
+          echo "    Future repositories will be added as they are created:"
+          echo "    - omega-trading-system"
+          echo "    - forever-learning"
+          echo "    - CITADEL_ARK"
+          echo "    - memory-codex"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      
+      - name: Trigger workflows (if enabled)
+        if: github.event.inputs.trigger_workflows == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚀 Triggering workflows in mapping-and-inventory"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          gh workflow run tia_citadel_deep_scan.yml --ref main && \
+            echo "✅ TIA_CITADEL_DEEP_SCAN triggered" || \
+            echo "⚠️  TIA_CITADEL_DEEP_SCAN failed"
+          
+          gh workflow run s10_push_to_vault.yml --ref main \
+            -f sync_intel=true -f sync_cargo=true && \
+            echo "✅ S10_PUSH_TO_VAULT triggered" || \
+            echo "⚠️  S10_PUSH_TO_VAULT failed"
+          
+          gh workflow run sync_to_hf.yml --ref main && \
+            echo "✅ sync_to_hf triggered" || \
+            echo "⚠️  sync_to_hf failed"
+          
+          echo ""
+          echo "✅ Workflow trigger complete"
