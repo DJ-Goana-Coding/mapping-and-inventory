@@ -15,6 +15,7 @@ GDRIVE_TARGETS = {
         "label": "Genesis Vault (Oppo 23GB)",
         "remote": f"{RCLONE_REMOTE}:GENESIS_VAULT",
         "local": "./Research/Genesis",
+        "local": "./Research/GDrive",
     },
     "LAPTOP_CARGO": {
         "label": "Laptop Cargo (321GB)",

@@ -12,7 +12,7 @@ TARGET_XRP = 500.00
 BASE_USDT_CAP = 70.00 # Level-Up target baseline
 
 # --- ☁️ G-DRIVE BRIDGE (S10 UPLINK) ---
-GDRIVE_PATH = "/data/data/com.termux/files/home/storage/shared/ArkFleet"
+GDRIVE_PATH = "./Research/S10"
 os.makedirs(GDRIVE_PATH, exist_ok=True)
 STATE_FILE = f"{GDRIVE_PATH}/market_state.json"
 SIGNAL_FILE = f"{GDRIVE_PATH}/ai_signal.json"
