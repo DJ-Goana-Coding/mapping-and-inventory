@@ -125,7 +125,8 @@ jobs:
           echo "📊 Generating intelligence summary..."
           echo ""
           echo "=== CITADEL OMEGA Intelligence Map Summary ==="
-          echo "Total files mapped: $(grep -c '^' master_intelligence_map.txt || echo '0')"
+          echo "Total lines in map: $(wc -l < master_intelligence_map.txt || echo '0')"
+          echo "Total file entries: $(grep -v '^#' master_intelligence_map.txt | grep -v '^##' | grep -v '^$' | wc -l || echo '0')"
           echo "Map size: $(wc -c < master_intelligence_map.txt) bytes"
           echo "Scan completed: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           echo "Method: Section 142 Cycle + Section 159 Register (Shallow Metadata Only)"
@@ -138,7 +139,7 @@ jobs:
           git config --global user.email "chance@citadel.omega"
           git config --global user.name "Architect"
           git add master_intelligence_map.txt
-          git diff --staged --quiet || git commit -m "🔭 TIA Deep Scan (Section 142): Update intelligence map - $(date -u +'%Y-%m-%d %H:%M:%S UTC') [automated]"
+          git diff --staged --quiet || git commit -m "🔭 TIA Deep Scan (Section 142): Update intelligence map [automated]"
           git push || echo "⚠️  Push failed - may need force push or branch protection bypass"
 
       - name: Upload Intelligence Map
