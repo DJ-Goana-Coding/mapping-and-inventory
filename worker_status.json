@@ -1,0 +1,62 @@
+{
+  "last_updated": "2026-04-02T04:18:00.000Z",
+  "system_status": "OPERATIONAL",
+  "workers": {
+    "archivist": {
+      "worker_name": "The Archivist",
+      "jurisdiction": "GENESIS_VAULT",
+      "status": "STANDBY",
+      "last_run": null,
+      "last_success": null,
+      "total_runs": 0,
+      "total_files_processed": 0,
+      "primary_task": "Automatic filing, MD5 hashing, and folder structuring",
+      "script_path": "services/worker_archivist.py",
+      "errors": []
+    },
+    "reporter": {
+      "worker_name": "The Reporter",
+      "jurisdiction": "Google Sheets/Docs",
+      "status": "STANDBY",
+      "last_run": null,
+      "last_success": null,
+      "total_runs": 0,
+      "total_reports_generated": 0,
+      "primary_task": "Real-time logging of Section 44 audits and trading bot ROI",
+      "script_path": "services/worker_reporter.py",
+      "requires_secret": "GOOGLE_SHEETS_CREDENTIALS",
+      "errors": []
+    },
+    "hive_master": {
+      "worker_name": "The Hive Master",
+      "jurisdiction": "V41_Hive_Master",
+      "status": "STANDBY",
+      "last_run": null,
+      "last_success": null,
+      "total_runs": 0,
+      "total_syncs": 0,
+      "primary_task": "Coordinating the Co-pilot agents and Hugging Face syncs",
+      "script_path": "services/worker_hive_master.py",
+      "errors": []
+    },
+    "bridge": {
+      "worker_name": "The Bridge",
+      "jurisdiction": "Trinity_Master_Cloud",
+      "status": "STANDBY",
+      "last_run": null,
+      "last_success": null,
+      "total_runs": 0,
+      "total_tunnels_maintained": 0,
+      "primary_task": "Maintaining tunnels between the Oppo, S10, and Cloud",
+      "script_path": "services/worker_bridge.py",
+      "errors": []
+    }
+  },
+  "sync_status": {
+    "gdrive_last_sync": null,
+    "github_last_pull": null,
+    "hf_last_push": null,
+    "s10_last_push": null
+  },
+  "alerts": []
+}
