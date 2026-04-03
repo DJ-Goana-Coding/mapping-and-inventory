@@ -236,11 +236,12 @@ git push origin main
 
 ## 🔮 COMPATIBILITY MATRIX
 
-| Space | Python | Streamlit | pandas | numpy | Status |
-|-------|--------|-----------|--------|-------|--------|
-| Mapping-and-Inventory | 3.11 | 1.42+ | 2.2+ | - | ✅ Active |
-| tias-citadel | 3.11+ | 1.36+ | 2.2+ | 2.1+ | 🔴 Needs Fix |
-| TIA-ARCHITECT-CORE | 3.13 | 1.56 | 2.2+ | 2.0+ | 🔴 Needs Fix |
+| Space | Python | Streamlit | pandas | numpy | pandas-ta | Status |
+|-------|--------|-----------|--------|-------|-----------|--------|
+| Mapping-and-Inventory | 3.11 | 1.42+ | 2.2+ | - | - | ✅ Active |
+| tias-citadel | 3.11+ | 1.36+ | 2.2+ | 2.1+ | - | 🔴 Needs Fix |
+| TIA-ARCHITECT-CORE | 3.13 | 1.56 | 2.2+ | 2.0+ | - | 🔴 Needs Fix |
+| tias-sentinel-scout-swarm-2 | 3.11+ | - | 2.2+ | 1.26+ | 0.3.14b0+ | 🔴 Needs Fix |
 
 ---
 
@@ -281,8 +282,9 @@ A Space is considered **OPERATIONAL** when:
 ---
 
 **Last Updated:** 2026-04-03  
-**Architect Version:** v25.0.OMNI  
-**Repair Status:** 1/3 Spaces Operational
+**Architect Version:** v26.0.SELF_HEAL+  
+**Repair Status:** 1/4 Spaces Operational  
+**Self-Healing:** Active (scripts/self_healing_worker.py)
 
 **Weld. Pulse. Ignite.**
 
