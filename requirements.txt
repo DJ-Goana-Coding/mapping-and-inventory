@@ -9,12 +9,12 @@ networkx>=3.4.2
 
 # Google Services Integration
 google-genai>=1.70.0
-google-api-python-client
+google-api-python-client>=2.100.0
 gspread>=6.1.2
 google-auth>=2.35.0
 google-auth-oauthlib>=1.2.0
 google-auth-httplib2>=0.2.0
-pygsheets
+pygsheets>=2.0.6
 
 # HuggingFace Integration
 huggingface_hub>=0.28.1
@@ -30,6 +30,15 @@ faiss-cpu>=1.9.0
 sentence-transformers>=3.1.0
 
 # System Utilities
-setuptools
+setuptools>=75.0.0
 python-dotenv>=1.0.1
 rich>=13.9.0
+
+# Trading & Web3 (for AION & ORACLE spaces)
+ccxt>=4.0.0
+web3>=6.0.0
+eth-account>=0.10.0
+
+# AI Agents & Orchestration
+instructor>=1.0.0
+pydantic>=2.0.0

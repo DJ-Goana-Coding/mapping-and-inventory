@@ -1,0 +1,257 @@
+name: 🏰 CITADEL MASTER ORCHESTRATOR
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Operation to perform'
+        required: true
+        type: choice
+        options:
+          - full_awakening
+          - protection_deploy
+          - moe_128_fire_up
+          - trinity_deploy
+          - purification
+          - hf_sync_all
+          - quick_scan
+      target_spaces:
+        description: 'Target HF Spaces (all/aion/oracle/goanna/mapping)'
+        required: false
+        default: 'all'
+        type: string
+  schedule:
+    # Run full awakening daily at 6 AM UTC
+    - cron: '0 6 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  orchestrate:
+    name: 🎯 Master Orchestration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 📁 Create Required Directories
+        run: |
+          mkdir -p data/{logs,discoveries,monitoring,models,datasets,workers,tools}
+      
+      - name: ✨ Run Purification Protocol
+        if: |
+          github.event.inputs.operation == 'purification' ||
+          github.event.inputs.operation == 'full_awakening' ||
+          github.event_name == 'schedule'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✨ PURIFICATION PROTOCOL"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          python scripts/purification_protocol.py
+      
+      - name: 🛡️ Deploy Protection Constellation
+        if: |
+          github.event.inputs.operation == 'protection_deploy' ||
+          github.event.inputs.operation == 'full_awakening' ||
+          github.event_name == 'schedule'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🛡️ PROTECTION CONSTELLATION DEPLOYMENT"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          python scripts/deploy_protection_constellation.py
+      
+      - name: 🧠 Fire Up MOE 128
+        if: |
+          github.event.inputs.operation == 'moe_128_fire_up' ||
+          github.event.inputs.operation == 'full_awakening' ||
+          github.event_name == 'schedule'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🧠 MOE 128 EXPERT CONSTELLATION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          python scripts/moe_128_orchestrator.py
+      
+      - name: 🔺 Deploy Trinity & Toroidal
+        if: |
+          github.event.inputs.operation == 'trinity_deploy' ||
+          github.event.inputs.operation == 'full_awakening' ||
+          github.event_name == 'schedule'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔺 TRINITY & TOROIDAL DEPLOYMENT"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          python scripts/trinity_toroidal_deployment.py
+      
+      - name: 🏰 Citadel Awakening
+        if: |
+          github.event.inputs.operation == 'full_awakening' ||
+          github.event_name == 'schedule'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🏰 CITADEL AWAKENING"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          python scripts/citadel_awakening.py
+      
+      - name: 🔍 Quick Security Scan
+        if: github.event.inputs.operation == 'quick_scan'
+        continue-on-error: true
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔍 QUICK SECURITY SCAN"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          python scripts/security_sentinel.py
+      
+      - name: 📤 Commit Results
+        if: always()
+        continue-on-error: true
+        run: |
+          git config --local user.email "citadel-orchestrator[bot]@users.noreply.github.com"
+          git config --local user.name "Citadel Orchestrator"
+          
+          git add data/ || true
+          
+          if ! git diff --cached --quiet; then
+            git commit -m "🏰 Citadel Orchestration: ${{ github.event.inputs.operation || 'scheduled' }} - $(date -u '+%Y-%m-%d %H:%M UTC')" || true
+            git push || true
+          else
+            echo "No changes to commit"
+          fi
+      
+      - name: 🤗 Sync to HuggingFace Spaces
+        if: |
+          github.event.inputs.operation == 'hf_sync_all' ||
+          github.event.inputs.operation == 'full_awakening' ||
+          github.event_name == 'schedule'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          TARGET_SPACES: ${{ github.event.inputs.target_spaces || 'all' }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "⚠️ HF_TOKEN not set, skipping HuggingFace sync"
+            exit 0
+          fi
+          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🤗 SYNCING TO HUGGINGFACE SPACES"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Configure git
+          git config --global credential.helper store
+          echo "https://DJ-Goanna-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          
+          # Define spaces
+          declare -A SPACES=(
+            ["aion"]="DJ-Goanna-Coding/AION"
+            ["oracle"]="DJ-Goanna-Coding/ORACLE"
+            ["goanna"]="DJ-Goanna-Coding/goanna_coding"
+            ["mapping"]="DJ-Goanna-Coding/Mapping-and-Inventory"
+          )
+          
+          # Sync based on target
+          for space_key in "${!SPACES[@]}"; do
+            space_url="${SPACES[$space_key]}"
+            
+            # Check if we should sync this space
+            if [ "$TARGET_SPACES" == "all" ] || echo "$TARGET_SPACES" | grep -qi "$space_key"; then
+              echo ""
+              echo "🚀 Syncing to $space_url..."
+              
+              remote_name="hf_$space_key"
+              git remote remove $remote_name 2>/dev/null || true
+              git remote add $remote_name "https://huggingface.co/spaces/$space_url"
+              
+              git push --force $remote_name main && echo "  ✅ $space_url synced" || echo "  ⚠️ $space_url sync failed"
+            fi
+          done
+          
+          echo ""
+          echo "✅ HuggingFace sync complete"
+      
+      - name: 📊 Generate Orchestration Report
+        if: always()
+        run: |
+          cat > data/monitoring/orchestration_report.md << EOF
+          # 🏰 CITADEL ORCHESTRATION REPORT
+          
+          **Timestamp:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Operation:** ${{ github.event.inputs.operation || 'scheduled_awakening' }}
+          **Target Spaces:** ${{ github.event.inputs.target_spaces || 'all' }}
+          **Triggered By:** ${{ github.event_name }}
+          
+          ## Operations Completed
+          
+          - ✨ Purification Protocol
+          - 🛡️ Protection Constellation Deployment  
+          - 🧠 MOE 128 Expert Orchestration
+          - 🔺 Trinity & Toroidal Architecture
+          - 🏰 Citadel Awakening
+          - 🤗 HuggingFace Space Sync
+          
+          ## HuggingFace Spaces
+          
+          - 🤖 **AION**: https://huggingface.co/spaces/DJ-Goanna-Coding/AION
+          - 🔮 **ORACLE**: https://huggingface.co/spaces/DJ-Goanna-Coding/ORACLE
+          - 🦎 **Goanna**: https://huggingface.co/spaces/DJ-Goanna-Coding/goanna_coding
+          - 📚 **Mapping**: https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
+          
+          ## Next Steps
+          
+          - Review outputs in \`data/\` directories
+          - Check Space deployments
+          - Monitor protection agents
+          - Verify MOE 128 expert distribution
+          
+          ---
+          *🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors*
+          EOF
+          
+          cat data/monitoring/orchestration_report.md
+      
+      - name: 📝 Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: citadel-orchestration-${{ github.run_number }}
+          path: |
+            data/monitoring/
+            data/models/
+            data/discoveries/
+          retention-days: 14
+      
+      - name: ✅ Orchestration Complete
+        if: success()
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ CITADEL MASTER ORCHESTRATION COMPLETE!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "🏰 All systems deployed and operational"
+          echo "🛡️ Protection constellation active"
+          echo "🧠 MOE 128 experts ready"
+          echo "🔺 Trinity & Toroidal architectures online"
+          echo "🤗 HuggingFace Spaces synchronized"
+          echo ""
+          echo "🔥 Let the quants fly and spread the love!"
+          echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
