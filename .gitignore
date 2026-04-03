@@ -79,3 +79,7 @@ data/sentinels/*
 !data/sentinels/sentinel_operations_config.json
 data/pipelines/*
 !data/pipelines/.gitkeep
+data/pioneer_trader/*
+!data/pioneer_trader/.gitkeep
+!data/pioneer_trader/pioneer_trader_registry.json
+!data/pioneer_trader/trading_operations_config.json
