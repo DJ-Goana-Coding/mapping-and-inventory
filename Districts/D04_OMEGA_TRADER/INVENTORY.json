@@ -1,0 +1,98 @@
+{
+  "district": "D04_OMEGA_TRADER",
+  "generated": "2026-04-03T07:21:01.478841",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "vanguard_trade_weld.py",
+      "name": "vanguard_trade_weld.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1199,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "bd2ce9c9b9a5f8ae4a7d34bc7912ca22"
+    },
+    {
+      "path": "market_sensor.py",
+      "name": "market_sensor.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 2421,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "b092cba0e956059b7ed547fb4687604d"
+    },
+    {
+      "path": "omega_trader.py",
+      "name": "omega_trader.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 335,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "51ae6b213d4fac300fa2cdba53689195"
+    },
+    {
+      "path": "ABN_Trade_Ledger.csv",
+      "name": "ABN_Trade_Ledger.csv",
+      "type": "file",
+      "extension": ".csv",
+      "size_bytes": 55,
+      "modified": "2026-04-03T07:09:27.813243",
+      "md5": "e53a8482308335579ca07560bb893adb"
+    },
+    {
+      "path": "live_sensor.py",
+      "name": "live_sensor.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1416,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "38166e31793f7fb5e33f56566617915e"
+    },
+    {
+      "path": "vanguard_live_trader.py",
+      "name": "vanguard_live_trader.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1160,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "0bcd68d79b9fad6ef7f12f620ff7d928"
+    },
+    {
+      "path": "solana_radar.py",
+      "name": "solana_radar.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1880,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "9f4b14c82d125b3d08c62de7df019734"
+    },
+    {
+      "path": "mexc_balance.py",
+      "name": "mexc_balance.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 2034,
+      "modified": "2026-04-03T07:09:27.813393",
+      "md5": "a0bba3238daad36a26c62b3e25e6c4a3"
+    },
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 416,
+      "modified": "2026-04-03T07:21:01.478745",
+      "md5": "4f963ee9164de062410cab8096d5fae2"
+    }
+  ],
+  "statistics": {
+    "total_files": 9,
+    "total_directories": 0,
+    "total_size_bytes": 10916,
+    "file_types": {
+      ".py": 7,
+      ".csv": 1,
+      ".md": 1
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "district": "Research",
+  "generated": "2026-04-03T07:21:01.522744",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 244,
+      "modified": "2026-04-03T07:21:01.522649",
+      "md5": "93f8a348cd6e73c8b07daf88dd9c147f"
+    },
+    {
+      "path": "README.md",
+      "name": "README.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 1083,
+      "modified": "2026-04-03T07:09:27.848815",
+      "md5": "df0731ad50de0427523dc3fadd213bac"
+    }
+  ],
+  "statistics": {
+    "total_files": 2,
+    "total_directories": 4,
+    "total_size_bytes": 1327,
+    "file_types": {
+      ".md": 2
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "district": "D03_VORTEX_ENGINE",
+  "generated": "2026-04-03T07:21:01.477564",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "91144d4e41c08e8e5761953ab94ff6a3249fb8",
+      "name": "91144d4e41c08e8e5761953ab94ff6a3249fb8",
+      "type": "file",
+      "extension": "",
+      "size_bytes": 343,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "545d4849672eb2d81f0804d19d1c3ea1"
+    },
+    {
+      "path": "vortex_calc.py",
+      "name": "vortex_calc.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 646,
+      "modified": "2026-04-03T07:09:27.813243",
+      "md5": "a5bde2e2eab93801816d0877e092a9d6"
+    },
+    {
+      "path": "fe1cd160765d15e4047b0f1441a17b65220b26",
+      "name": "fe1cd160765d15e4047b0f1441a17b65220b26",
+      "type": "file",
+      "extension": "",
+      "size_bytes": 628,
+      "modified": "2026-04-03T07:09:27.813243",
+      "md5": "cde08728be352011fc3d84cdb3d4c528"
+    },
+    {
+      "path": "active_grid.json",
+      "name": "active_grid.json",
+      "type": "file",
+      "extension": ".json",
+      "size_bytes": 717,
+      "modified": "2026-04-03T07:09:27.813243",
+      "md5": "2609493fd6502b91655f5f8267cb555c"
+    },
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 320,
+      "modified": "2026-04-03T07:21:01.477451",
+      "md5": "0e487de4ed8cccb2c4d56f08f2cd1761"
+    }
+  ],
+  "statistics": {
+    "total_files": 5,
+    "total_directories": 0,
+    "total_size_bytes": 2654,
+    "file_types": {
+      "no_extension": 2,
+      ".py": 1,
+      ".json": 1,
+      ".md": 1
+    }
+  }
+}
