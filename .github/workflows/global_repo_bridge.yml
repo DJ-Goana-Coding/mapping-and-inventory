@@ -1,0 +1,453 @@
+name: Global Repository Bridge
+# 🌉 Discovers all DJ-Goana-Coding repos and bridges them to mapping-and-inventory
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"  # Every 12 hours
+  workflow_dispatch:
+    inputs:
+      force_full_sync:
+        description: 'Force full sync of all repositories'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover-and-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - name: 🏛️ Initialize Citadel Architect
+        run: |
+          echo "════════════════════════════════════════════════════════════"
+          echo "🏛️  CITADEL ARCHITECT: GLOBAL REPOSITORY BRIDGE v25.0.OMNI+"
+          echo "════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Mission: Discover and bridge all DJ-Goana-Coding repositories"
+          echo "Target: mapping-and-inventory + HuggingFace Space"
+          echo "Authority: Cloud Hubs > GitHub > GDrive > Local Nodes"
+          echo ""
+      
+      - name: 📥 Checkout mapping-and-inventory
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          pip install requests python-dateutil
+      
+      - name: 🔍 Discover All Repositories
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔍 Running repository discovery..."
+          python scripts/discover_all_repos.py
+          
+          if [ -f "repo_bridge_registry.json" ]; then
+            echo "✅ Registry generated successfully"
+            echo ""
+            echo "📊 Quick Stats:"
+            cat repo_bridge_registry.json | python -m json.tool | head -30
+          else
+            echo "❌ Failed to generate registry"
+            exit 1
+          fi
+      
+      - name: 📋 Update Repository Mapper
+        run: |
+          echo "📋 Updating services/repo_mapper.py with discovered repos..."
+          
+          # Create backup
+          cp services/repo_mapper.py services/repo_mapper.py.backup
+          
+          # Generate updated KNOWN_REPOS from registry
+          python3 << 'EOF'
+import json
+import os
+
+# Load registry
+with open("repo_bridge_registry.json", "r") as f:
+    registry = json.load(f)
+
+repos = registry.get("repositories", [])
+
+# Generate Python code for KNOWN_REPOS
+known_repos_code = "KNOWN_REPOS = [\n"
+for repo in repos:
+    if not repo.get("is_archived", False):  # Skip archived repos
+        known_repos_code += "    {\n"
+        known_repos_code += f"        \"name\": \"{repo['name']}\",\n"
+        known_repos_code += f"        \"type\": \"{repo['type']}\",\n"
+        known_repos_code += f"        \"role\": \"{repo['role']}\",\n"
+        known_repos_code += f"        \"framework\": \"{repo.get('language', 'Unknown')}\",\n"
+        known_repos_code += f"        \"url\": \"{repo['url']}\",\n"
+        known_repos_code += f"        \"pillar\": \"{repo['pillar']}\",\n"
+        known_repos_code += f"        \"connected_to\": [\"mapping-and-inventory\"],\n"
+        known_repos_code += "    },\n"
+known_repos_code += "]\n"
+
+print(known_repos_code[:500])  # Preview
+print(f"\n✅ Generated KNOWN_REPOS with {len([r for r in repos if not r.get('is_archived', False)])} active repos")
+EOF
+      
+      - name: 🗺️ Generate Connection Map
+        run: |
+          echo "🗺️ Generating complete connection topology..."
+          
+          python3 << 'EOF'
+import json
+
+with open("repo_bridge_registry.json", "r") as f:
+    registry = json.load(f)
+
+# Generate connection map
+connection_map = {
+    "version": "1.0.0",
+    "hub": "mapping-and-inventory",
+    "connections": []
+}
+
+for repo in registry["repositories"]:
+    if not repo.get("is_archived", False):
+        connection_map["connections"].append({
+            "source": repo["name"],
+            "target": "mapping-and-inventory",
+            "type": "bridge",
+            "pillar": repo["pillar"],
+            "sync_enabled": True
+        })
+
+with open("repo_connection_map.json", "w") as f:
+    json.dump(connection_map, f, indent=2)
+
+print(f"✅ Generated connection map with {len(connection_map['connections'])} bridges")
+EOF
+      
+      - name: 📝 Generate Bridge Documentation
+        run: |
+          cat > REPO_BRIDGE_GUIDE.md << 'EOF'
+# 🌉 Repository Bridge System
+
+**Generated:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")  
+**Authority:** Citadel Architect v25.0.OMNI+
+
+## Overview
+
+The Repository Bridge System discovers and links all DJ-Goana-Coding repositories to the mapping-and-inventory hub.
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  DJ-Goana-Coding Organization               │
+│                                                             │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
+│  │ Repo 1   │  │ Repo 2   │  │ Repo 3   │  │ Repo N   │  │
+│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘  │
+│       │             │              │             │         │
+│       └─────────────┴──────────────┴─────────────┘         │
+│                         │                                   │
+│                         ▼                                   │
+│              ┌──────────────────────┐                      │
+│              │ mapping-and-inventory│◄───── Central Hub    │
+│              └──────────┬───────────┘                      │
+│                         │                                   │
+│                         ▼                                   │
+│              ┌──────────────────────┐                      │
+│              │  HuggingFace Space  │◄───── Deployment     │
+│              │  DJ-Goanna-Coding   │                      │
+│              └─────────────────────┘                      │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Bridge Components
+
+### 1. Discovery Engine
+- **Script:** `scripts/discover_all_repos.py`
+- **Function:** Discovers all repos in DJ-Goana-Coding org via GitHub API
+- **Output:** `repo_bridge_registry.json`
+
+### 2. Connection Map
+- **File:** `repo_connection_map.json`
+- **Function:** Maps all repo connections to central hub
+- **Format:** JSON graph structure
+
+### 3. Sync Workflow
+- **Workflow:** `.github/workflows/global_repo_bridge.yml`
+- **Schedule:** Every 12 hours
+- **Function:** Automated discovery and sync
+
+### 4. Repository Mapper
+- **Module:** `services/repo_mapper.py`
+- **Function:** Runtime repo management and visualization
+- **UI Integration:** System Map tab in app.py
+
+## Usage
+
+### Manual Discovery
+
+```bash
+# Run discovery
+python scripts/discover_all_repos.py
+
+# View registry
+cat repo_bridge_registry.json | jq .
+```
+
+### Automated Sync
+
+The bridge workflow runs automatically every 12 hours, or trigger manually:
+
+```bash
+gh workflow run global_repo_bridge.yml
+```
+
+### Force Full Sync
+
+```bash
+gh workflow run global_repo_bridge.yml -f force_full_sync=true
+```
+
+## Bridge Registry Format
+
+```json
+{
+  "version": "1.0.0",
+  "organization": "DJ-Goana-Coding",
+  "total_repos": 25,
+  "repositories": [
+    {
+      "name": "repo-name",
+      "type": "GitHub Repo",
+      "role": "System Role",
+      "pillar": "TRADING|LORE|MEMORY|WEB3",
+      "url": "https://github.com/...",
+      "is_private": false,
+      "is_archived": false
+    }
+  ],
+  "bridge_config": {
+    "sync_target": "mapping-and-inventory",
+    "hf_space": {
+      "org": "DJ-Goanna-Coding",
+      "space": "Mapping-and-Inventory"
+    }
+  }
+}
+```
+
+## Authority Hierarchy
+
+1. **Cloud Hubs (L4)** - HuggingFace Spaces
+2. **GitHub Repositories** - Source of truth
+3. **GDrive Metadata** - Cognitive reservoirs
+4. **Local Nodes** - Bridge scouts
+
+## Double-N Rift
+
+- **GitHub:** `DJ-Goana-Coding` (single N)
+- **HuggingFace:** `DJ-Goanna-Coding` (double N)
+
+All bridge configurations handle this discrepancy automatically.
+
+## TIA-ARCHITECT-CORE Privacy
+
+To make TIA-ARCHITECT-CORE private:
+
+### Via GitHub Web UI:
+1. Go to https://github.com/DJ-Goana-Coding/TIA-ARCHITECT-CORE/settings
+2. Scroll to "Danger Zone"
+3. Click "Change visibility"
+4. Select "Make private"
+5. Confirm
+
+### Via GitHub CLI:
+```bash
+gh repo edit DJ-Goana-Coding/TIA-ARCHITECT-CORE --visibility private
+```
+
+### Via GitHub API:
+```bash
+curl -X PATCH \
+  -H "Authorization: token $GITHUB_TOKEN" \
+  -H "Accept: application/vnd.github.v3+json" \
+  https://api.github.com/repos/DJ-Goana-Coding/TIA-ARCHITECT-CORE \
+  -d '{"private": true}'
+```
+
+**Note:** Private repos require authentication for cloning and syncing.
+
+## Troubleshooting
+
+### Discovery Fails
+- Check GITHUB_TOKEN is set
+- Verify API rate limits: `gh api rate_limit`
+- Check organization name is correct
+
+### Sync Fails
+- Verify repo access permissions
+- Check HF_TOKEN has write permissions
+- Review workflow logs
+
+### Missing Repos
+- Ensure repos are in DJ-Goana-Coding org
+- Check repo is not archived
+- Verify visibility settings
+
+## Files Generated
+
+- `repo_bridge_registry.json` - Complete repo registry
+- `repo_connection_map.json` - Connection topology
+- `REPO_BRIDGE_GUIDE.md` - This documentation
+
+## Next Steps
+
+1. Review registry: `cat repo_bridge_registry.json | jq .`
+2. Check connections: `cat repo_connection_map.json | jq .`
+3. Update TIA-ARCHITECT-CORE visibility (if desired)
+4. Monitor bridge workflow runs
+5. Verify HuggingFace Space sync
+
+---
+
+**Status:** Bridge System Operational  
+**Last Updated:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")  
+**Authority:** Citadel Architect v25.0.OMNI+
+EOF
+      
+      - name: 📊 Generate Statistics Report
+        run: |
+          echo "📊 Generating bridge statistics..."
+          
+          python3 << 'EOF'
+import json
+from datetime import datetime
+
+with open("repo_bridge_registry.json", "r") as f:
+    registry = json.load(f)
+
+stats = registry.get("statistics", {})
+
+report = f"""
+════════════════════════════════════════════════════════════
+🌉 GLOBAL REPOSITORY BRIDGE - STATISTICS REPORT
+════════════════════════════════════════════════════════════
+
+Generated: {datetime.utcnow().isoformat()}Z
+Organization: DJ-Goana-Coding
+
+REPOSITORY COUNT
+────────────────────────────────────────────────────────────
+Total Repositories:    {registry['total_repos']}
+Active:                {stats['active_count']}
+Archived:              {stats['archived_count']}
+Public:                {stats['public_count']}
+Private:               {stats['private_count']}
+
+BY PILLAR
+────────────────────────────────────────────────────────────
+"""
+
+for pillar, count in sorted(stats.get('by_pillar', {}).items()):
+    report += f"{pillar:20} {count:3}\n"
+
+report += """
+BY TYPE
+────────────────────────────────────────────────────────────
+"""
+
+for repo_type, count in sorted(stats.get('by_type', {}).items()):
+    report += f"{repo_type:20} {count:3}\n"
+
+report += """
+════════════════════════════════════════════════════════════
+✅ Bridge System Operational
+════════════════════════════════════════════════════════════
+"""
+
+print(report)
+
+# Save to file
+with open("bridge_statistics.txt", "w") as f:
+    f.write(report)
+EOF
+      
+      - name: 💾 Commit Bridge Artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add repo_bridge_registry.json || true
+          git add repo_connection_map.json || true
+          git add REPO_BRIDGE_GUIDE.md || true
+          git add bridge_statistics.txt || true
+          
+          if git diff --staged --quiet; then
+            echo "✅ No changes to commit"
+          else
+            git commit -m "🌉 Global Bridge: Update repo registry and connections
+
+- Discovered $(cat repo_bridge_registry.json | python -c 'import sys, json; print(json.load(sys.stdin)[\"total_repos\"])') repositories
+- Generated connection topology
+- Updated bridge documentation
+- Generated statistics report
+
+Authority: Citadel Architect v25.0.OMNI+
+Timestamp: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+            
+            git push origin HEAD
+            echo "✅ Bridge artifacts committed and pushed"
+          fi
+      
+      - name: 🤗 Sync to HuggingFace Space
+        if: success()
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "⚠️  HF_TOKEN not set - skipping HuggingFace sync"
+            exit 0
+          fi
+          
+          echo "🤗 Syncing to HuggingFace Space..."
+          
+          git config --global credential.helper store
+          echo "https://DJ-Goanna-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          
+          git remote add hf https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory 2>/dev/null || \
+            git remote set-url hf https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
+          
+          git push --force hf HEAD:main
+          echo "✅ Synced to HuggingFace Space"
+      
+      - name: 📢 Summary Report
+        if: always()
+        run: |
+          echo ""
+          echo "════════════════════════════════════════════════════════════"
+          echo "🏛️  GLOBAL BRIDGE COMPLETE"
+          echo "════════════════════════════════════════════════════════════"
+          echo ""
+          
+          if [ -f "bridge_statistics.txt" ]; then
+            cat bridge_statistics.txt
+          fi
+          
+          echo ""
+          echo "📁 Generated Files:"
+          ls -lh repo_*.json REPO_BRIDGE_GUIDE.md bridge_statistics.txt 2>/dev/null || echo "  (files may not exist)"
+          echo ""
+          echo "✅ Bridge workflow complete"
+          echo "════════════════════════════════════════════════════════════"

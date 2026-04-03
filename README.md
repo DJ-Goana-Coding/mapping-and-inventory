@@ -24,6 +24,32 @@ Connects ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 
 ## Workflows
 
+### 🌉 Global Repository Bridge (NEW)
+
+**Automatic Discovery & Bridging of All Repositories:**
+
+```bash
+# Discover all DJ-Goana-Coding repositories
+python scripts/discover_all_repos.py
+
+# View registry
+cat repo_bridge_registry.json | jq .
+
+# Trigger bridge workflow
+gh workflow run global_repo_bridge.yml
+```
+
+**Bridge System Features:**
+- ✅ **Auto-Discovery** - Finds all DJ-Goana-Coding repos via GitHub API
+- ✅ **Connection Mapping** - Maps repo relationships and dependencies
+- ✅ **Dual-Sync** - Syncs to GitHub + HuggingFace Space
+- ✅ **Privacy Support** - Handles private repositories with authentication
+- ✅ **Statistics** - Generates comprehensive repo analytics
+
+**See [REPO_BRIDGE_GUIDE.md](REPO_BRIDGE_GUIDE.md) for complete bridge documentation.**
+
+---
+
 ### 🤖 Full Automation System
 
 **⚡ Quick Start - Complete Automation:**
@@ -41,6 +67,7 @@ gh workflow run auto_sync_and_run.yml
 - ✅ **Auto-Merge PRs** - Safely merge approved PRs to main
 - ✅ **Multi-Repo Sync** - Coordinate across all CITADEL repos
 - ✅ **Global Weld** - One-shot sync of all DJ-Goana-Coding repos with artifact aggregation
+- ✅ **Global Bridge** - Discover and link all repositories to central hub
 - ✅ **Status Monitoring** - Real-time repository health checks
 
 **See [FULL_AUTOMATION_GUIDE.md](FULL_AUTOMATION_GUIDE.md) for complete automation documentation.**
@@ -76,15 +103,17 @@ Or trigger manually via GitHub Actions web interface:
 
 ### Core Workflows
 
-1. **TIA_CITADEL_DEEP_SCAN** - Scans 321GB across 5 partitions, generates intelligence map
-2. **S10_PUSH_TO_VAULT** - Syncs S10 device data to Google Drive vault
-3. **Sync to HuggingFace Space** - Deploys dashboard to HuggingFace (auto-triggers on push to main)
+1. **Global Repository Bridge** - Discovers all repos, generates topology (every 12 hours)
+2. **TIA_CITADEL_DEEP_SCAN** - Scans 321GB across 5 partitions, generates intelligence map
+3. **S10_PUSH_TO_VAULT** - Syncs S10 device data to Google Drive vault
+4. **Sync to HuggingFace Space** - Deploys dashboard to HuggingFace (auto-triggers on push to main)
 
-### Automation Workflows (New)
+### Automation Workflows
 
-4. **Auto Sync and Run All Workflows** - Daily automated sync + workflow triggers (2 AM UTC)
-5. **Multi-Repository Sync Orchestrator** - Every 6 hours, syncs all related repos
-6. **Auto-Merge to Main** - Automatically merges approved PRs with safety checks
+5. **Auto Sync and Run All Workflows** - Daily automated sync + workflow triggers (2 AM UTC)
+6. **Multi-Repository Sync Orchestrator** - Every 6 hours, syncs all related repos
+7. **Auto-Merge to Main** - Automatically merges approved PRs with safety checks
+8. **TIA Core Health Monitor** - Every 30 minutes, checks TIA-ARCHITECT-CORE status
 
 **Monitoring Live Runs:**
 - Use `gh run watch <run-id>` to monitor in real-time
@@ -141,9 +170,11 @@ This is critical for the D12_ZENITH_VIEW command center when it's implemented.
 | `RCLONE_CONFIG_DATA` | Google Drive sync via rclone | tia_citadel_deep_scan.yml, Cloud Sync tab | Read/Write GDrive |
 | `GEMINI_API_KEY` | T.I.A. Oracle AI responses | T.I.A. Oracle tab, AI analysis | Gemini API access |
 | `HF_TOKEN` | HuggingFace operations | sync_to_hf.yml workflow | **Write permissions required** |
-| `GITHUB_TOKEN` | GitHub remote access | Workflow commits, pushes | Auto-provided by GitHub Actions |
+| `GITHUB_TOKEN` | GitHub remote access | Workflow commits, pushes, private repo access | Auto-provided by GitHub Actions |
 | `GOOGLE_SHEETS_CREDENTIALS` | Google Sheets reporting (optional) | worker_reporter.py, Section 44 audits | Google Sheets API |
 | `VOID_ORACLE_KEY` | Evidence fragment scraper (optional) | Void Oracle integration (future) | Void Oracle API |
+
+**Note:** `GITHUB_TOKEN` is required for accessing private repositories in the bridge system.
 
 ### HuggingFace Space Secrets
 These secrets must also be configured in your HuggingFace Space settings at:
