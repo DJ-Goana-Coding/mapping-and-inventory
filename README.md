@@ -40,9 +40,24 @@ gh workflow run auto_sync_and_run.yml
 - ✅ **Scheduled Operations** - Daily auto-sync and workflow runs
 - ✅ **Auto-Merge PRs** - Safely merge approved PRs to main
 - ✅ **Multi-Repo Sync** - Coordinate across all CITADEL repos
+- ✅ **Global Weld** - One-shot sync of all DJ-Goana-Coding repos with artifact aggregation
 - ✅ **Status Monitoring** - Real-time repository health checks
 
 **See [FULL_AUTOMATION_GUIDE.md](FULL_AUTOMATION_GUIDE.md) for complete automation documentation.**
+
+**🛡️ Global Weld - Multi-Repository Sync:**
+
+```bash
+# Sync all repos, aggregate artifacts, push to GitHub + HuggingFace
+./global_sync.sh
+
+# With credentials for private repos
+export GITHUB_TOKEN="ghp_your_token"
+export HF_TOKEN="hf_your_token"
+./global_sync.sh
+```
+
+**See [GLOBAL_WELD_GUIDE.md](GLOBAL_WELD_GUIDE.md) for complete Global Weld documentation.**
 
 ---
 
