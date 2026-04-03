@@ -161,7 +161,9 @@ clone_repos() {
         # Skip if already exists and update
         if [ -d "${repo_dir}" ]; then
             log "  Repository exists, pulling latest..."
-            (cd "${repo_dir}" && git pull origin main 2>&1) || warn "  Pull failed for ${repo_name}"
+            # Detect default branch
+            local default_branch=$(cd "${repo_dir}" && git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "main")
+            (cd "${repo_dir}" && git pull origin "${default_branch}" 2>&1) || warn "  Pull failed for ${repo_name}"
         else
             # Clone repository
             local clone_url="https://github.com/${repo_full_name}.git"
@@ -349,7 +351,10 @@ commit_to_repo() {
     log "Copying aggregated files..."
     cp "${WORKSPACE}/aggregated/master_inventory.json" "${repo_root}/" 2>/dev/null || warn "No master_inventory.json to copy"
     cp "${WORKSPACE}/aggregated/master_intelligence_map.txt" "${repo_root}/" 2>/dev/null || warn "No master_intelligence_map.txt to copy"
-    cp "${WORKSPACE}/${SYNC_REPORT}" "${repo_root}/sync_reports/" 2>/dev/null || mkdir -p "${repo_root}/sync_reports" && cp "${WORKSPACE}/${SYNC_REPORT}" "${repo_root}/sync_reports/"
+    
+    # Ensure sync_reports directory exists and copy report
+    mkdir -p "${repo_root}/sync_reports"
+    cp "${WORKSPACE}/${SYNC_REPORT}" "${repo_root}/sync_reports/" 2>/dev/null || warn "No sync report to copy"
     
     # Git status
     log "Checking git status..."
@@ -411,9 +416,15 @@ push_to_huggingface() {
     
     log "Configuring HuggingFace remote..."
     
-    # Configure git credentials
+    # Configure git credentials (check for duplicates)
     git config --global credential.helper store
-    echo "https://${HF_ORG}:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+    local creds_file="${HOME}/.git-credentials"
+    local hf_cred="https://${HF_ORG}:${HF_TOKEN}@huggingface.co"
+    
+    # Only add if not already present
+    if [ ! -f "${creds_file}" ] || ! grep -Fq "huggingface.co" "${creds_file}"; then
+        echo "${hf_cred}" >> "${creds_file}"
+    fi
     
     # Add or update HF remote
     if git remote get-url hf 2>/dev/null; then
@@ -438,6 +449,15 @@ push_to_huggingface() {
 
 cleanup() {
     banner "🧹 Cleanup"
+    
+    # Clean up HF credentials from git-credentials file
+    local creds_file="${HOME}/.git-credentials"
+    if [ -f "${creds_file}" ] && [ -n "${HF_TOKEN}" ]; then
+        log "Cleaning up HuggingFace credentials..."
+        # Remove HF credentials line
+        sed -i.bak '/huggingface\.co/d' "${creds_file}" 2>/dev/null || true
+        rm -f "${creds_file}.bak" 2>/dev/null || true
+    fi
     
     if [ "${KEEP_WORKSPACE:-false}" = "true" ]; then
         warn "KEEP_WORKSPACE=true, preserving workspace"
@@ -471,7 +491,13 @@ main() {
     
     banner "✅ GLOBAL WELD COMPLETE"
     success "All operations completed successfully"
-    success "Sync report: ${WORKSPACE}/${SYNC_REPORT}"
+    
+    # Report location depends on whether workspace was kept
+    if [ "${KEEP_WORKSPACE:-false}" = "true" ]; then
+        success "Sync report: ${WORKSPACE}/${SYNC_REPORT}"
+    else
+        success "Sync report saved to: sync_reports/${SYNC_REPORT}"
+    fi
 }
 
 # Run main if executed directly
