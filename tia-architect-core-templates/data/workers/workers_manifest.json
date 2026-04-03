@@ -1,0 +1,31 @@
+{
+  "registry_version": "1.0.0",
+  "last_updated": "2026-04-03T07:09:24.279746Z",
+  "total_workers": 0,
+  "categories": {
+    "Vacuums": {
+      "count": 0,
+      "workers": []
+    },
+    "Harvesters": {
+      "count": 0,
+      "workers": []
+    },
+    "Librarians": {
+      "count": 0,
+      "workers": []
+    },
+    "Reporters": {
+      "count": 0,
+      "workers": []
+    },
+    "Archivists": {
+      "count": 0,
+      "workers": []
+    },
+    "Utility": {
+      "count": 0,
+      "workers": []
+    }
+  }
+}
