@@ -83,3 +83,6 @@ data/pioneer_trader/*
 !data/pioneer_trader/.gitkeep
 !data/pioneer_trader/pioneer_trader_registry.json
 !data/pioneer_trader/trading_operations_config.json
+data/personas/*
+!data/personas/.gitkeep
+!data/personas/ai_personas_for_tia.json
