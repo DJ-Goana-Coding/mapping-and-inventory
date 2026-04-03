@@ -55,3 +55,21 @@ oracle_diffs/
 *.log
 *.bak
 .DS_Store
+
+# Data directory artifacts (except .gitkeep files)
+data/models/*
+!data/models/.gitkeep
+!data/models/models_manifest.json
+data/workers/*
+!data/workers/.gitkeep
+!data/workers/workers_manifest.json
+data/tools/*
+!data/tools/.gitkeep
+data/datasets/*
+!data/datasets/.gitkeep
+data/Mapping-and-Inventory-storage/*
+!data/Mapping-and-Inventory-storage/.gitkeep
+data/gdrive_manifests/*
+!data/gdrive_manifests/.gitkeep
+data/laptop_inventory/*
+!data/laptop_inventory/.gitkeep

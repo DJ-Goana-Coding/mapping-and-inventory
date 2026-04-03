@@ -1,0 +1,231 @@
+name: GDrive Partition Harvester
+# Section 142 Cycle - Metadata-only partition scanner
+# TOP PRIORITY: Scans GDrive partitions without downloading files
+
+on:
+  # Run every 6 hours (aligned with Surveyor pulse)
+  schedule:
+    - cron: '0 */6 * * *'
+  # Manual trigger
+  workflow_dispatch:
+  # Webhook trigger from external systems
+  repository_dispatch:
+    types: [gdrive_harvest_trigger]
+
+jobs:
+  harvest_partitions:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Rclone
+        run: sudo apt-get install -y rclone
+
+      - name: Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
+
+      - name: Validate Rclone Configuration
+        run: |
+          echo "🔍 Validating Rclone configuration..."
+          
+          if [ ! -s ~/.config/rclone/rclone.conf ]; then
+            echo "❌ ERROR: Rclone configuration is empty or missing!"
+            echo "Please configure RCLONE_CONFIG_DATA secret in repository settings."
+            exit 1
+          fi
+          
+          if ! grep -q "\[gdrive\]" ~/.config/rclone/rclone.conf; then
+            echo "❌ ERROR: [gdrive] section not found in rclone config!"
+            exit 1
+          fi
+          
+          echo "✅ Rclone configuration validated"
+
+      - name: Section 142 Cycle - Partition 1
+        run: |
+          echo "🔍 Scanning Partition 1..."
+          mkdir -p data/gdrive_manifests
+          
+          rclone lsf gdrive: --recursive --format "pst" --max-depth 5 \
+            > data/gdrive_manifests/partition_01_raw.txt 2>&1 || echo "Partition 1 scan completed with warnings"
+          
+          echo "✅ Partition 1: $(wc -l < data/gdrive_manifests/partition_01_raw.txt) entries"
+
+      - name: Section 142 Cycle - Partition 2
+        run: |
+          echo "🔍 Scanning Partition 2..."
+          
+          rclone lsf "gdrive:Archives" --recursive --format "pst" --max-depth 5 \
+            > data/gdrive_manifests/partition_02_raw.txt 2>&1 || echo "Partition 2 scan completed with warnings"
+          
+          echo "✅ Partition 2: $(wc -l < data/gdrive_manifests/partition_02_raw.txt) entries"
+
+      - name: Section 142 Cycle - Partition 3
+        run: |
+          echo "🔍 Scanning Partition 3..."
+          
+          rclone lsf "gdrive:Research" --recursive --format "pst" --max-depth 5 \
+            > data/gdrive_manifests/partition_03_raw.txt 2>&1 || echo "Partition 3 scan completed with warnings"
+          
+          echo "✅ Partition 3: $(wc -l < data/gdrive_manifests/partition_03_raw.txt) entries"
+
+      - name: Section 142 Cycle - Partition 4
+        run: |
+          echo "🔍 Scanning Partition 4..."
+          
+          rclone lsf "gdrive:Models" --recursive --format "pst" --max-depth 5 \
+            > data/gdrive_manifests/partition_04_raw.txt 2>&1 || echo "Partition 4 scan completed with warnings"
+          
+          echo "✅ Partition 4: $(wc -l < data/gdrive_manifests/partition_04_raw.txt) entries"
+
+      - name: Section 142 Cycle - Partition 5
+        run: |
+          echo "🔍 Scanning Partition 5..."
+          
+          rclone lsf "gdrive:Scripts" --recursive --format "pst" --max-depth 5 \
+            > data/gdrive_manifests/partition_05_raw.txt 2>&1 || echo "Partition 5 scan completed with warnings"
+          
+          echo "✅ Partition 5: $(wc -l < data/gdrive_manifests/partition_05_raw.txt) entries"
+
+      - name: Generate JSON Manifests
+        run: |
+          echo "📊 Converting raw manifests to JSON..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import os
+          from datetime import datetime
+          from pathlib import Path
+
+          manifest_dir = Path("data/gdrive_manifests")
+          
+          for partition_num in range(1, 6):
+              raw_file = manifest_dir / f"partition_{partition_num:02d}_raw.txt"
+              json_file = manifest_dir / f"partition_{partition_num:02d}.json"
+              
+              if not raw_file.exists():
+                  print(f"⚠️  Skipping Partition {partition_num} - raw file not found")
+                  continue
+              
+              files = []
+              with open(raw_file, 'r', encoding='utf-8', errors='ignore') as f:
+                  for line in f:
+                      line = line.strip()
+                      if not line:
+                          continue
+                      
+                      # Parse rclone lsf output: path;size;timestamp
+                      parts = line.split(';')
+                      if len(parts) >= 3:
+                          path = parts[0]
+                          size = parts[1] if len(parts) > 1 else "0"
+                          timestamp = parts[2] if len(parts) > 2 else ""
+                          
+                          files.append({
+                              "path": path,
+                              "size_bytes": int(size) if size.isdigit() else 0,
+                              "modified": timestamp
+                          })
+              
+              manifest = {
+                  "partition_id": f"partition_{partition_num:02d}",
+                  "scan_timestamp": datetime.utcnow().isoformat() + "Z",
+                  "total_files": len(files),
+                  "files": files
+              }
+              
+              with open(json_file, 'w') as f:
+                  json.dump(manifest, f, indent=2)
+              
+              print(f"✅ Partition {partition_num}: {len(files)} files → {json_file.name}")
+          
+          print("\n📊 Partition Harvest Complete")
+          PYTHON_SCRIPT
+
+      - name: Generate Master GDrive Index
+        run: |
+          echo "🗂️ Creating master GDrive index..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          manifest_dir = Path("data/gdrive_manifests")
+          master_index = {
+              "harvest_timestamp": datetime.utcnow().isoformat() + "Z",
+              "total_partitions": 5,
+              "partitions": [],
+              "summary": {
+                  "total_files": 0,
+                  "total_size_bytes": 0
+              }
+          }
+          
+          for partition_num in range(1, 6):
+              json_file = manifest_dir / f"partition_{partition_num:02d}.json"
+              
+              if json_file.exists():
+                  with open(json_file, 'r') as f:
+                      partition_data = json.load(f)
+                  
+                  total_size = sum(f.get("size_bytes", 0) for f in partition_data.get("files", []))
+                  
+                  master_index["partitions"].append({
+                      "partition_id": partition_data["partition_id"],
+                      "file_count": partition_data["total_files"],
+                      "total_size_bytes": total_size,
+                      "manifest_file": str(json_file.name)
+                  })
+                  
+                  master_index["summary"]["total_files"] += partition_data["total_files"]
+                  master_index["summary"]["total_size_bytes"] += total_size
+          
+          with open(manifest_dir / "master_gdrive_index.json", 'w') as f:
+              json.dump(master_index, f, indent=2)
+          
+          print(f"✅ Master GDrive Index:")
+          print(f"   Total Files: {master_index['summary']['total_files']:,}")
+          print(f"   Total Size: {master_index['summary']['total_size_bytes'] / (1024**3):.2f} GB")
+          PYTHON_SCRIPT
+
+      - name: Commit and Push Manifests
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/gdrive_manifests/*.json
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🔍 GDrive Partition Harvest - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Manifests pushed to repository"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🏛️ GDRIVE PARTITION HARVEST COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Manifests generated in data/gdrive_manifests/"
+          echo "• partition_01.json - Root partition"
+          echo "• partition_02.json - Archives"
+          echo "• partition_03.json - Research"
+          echo "• partition_04.json - Models"
+          echo "• partition_05.json - Scripts"
+          echo "• master_gdrive_index.json - Master index"
+          echo ""
+          echo "Next steps:"
+          echo "• Model Ingester will scan partition_04.json for model files"
+          echo "• Worker Harvester will scan partition_05.json for .gs files"
+          echo "• Master Harvester will aggregate all manifests"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
