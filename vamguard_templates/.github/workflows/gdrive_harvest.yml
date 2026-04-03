@@ -1,0 +1,125 @@
+name: ☁️ GDrive Data Harvest
+# Harvest metadata from GDrive TIA_CITADEL into Mapping-and-Inventory-storage
+# Uses Section 142 Cycle for partitioned scanning
+
+on:
+  schedule:
+    - cron: "0 0,12 * * *"  # Twice daily at midnight and noon UTC
+  workflow_dispatch:
+
+jobs:
+  gdrive_harvest:
+    runs-on: ubuntu-latest
+    name: GDrive Metadata Harvest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          rclone version
+      
+      - name: ⚙️ Configure rclone
+        run: |
+          echo "⚙️ Setting up rclone configuration..."
+          
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
+          
+          # Verify configuration
+          if rclone listremotes | grep -q "gdrive"; then
+            echo "✅ rclone configured successfully"
+          else
+            echo "❌ rclone configuration failed"
+            exit 1
+          fi
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+      
+      - name: ☁️ Run GDrive Harvester (Section 142 Cycle)
+        run: |
+          echo "☁️ Starting Section 142 Cycle: GDrive metadata harvest..."
+          
+          # Use template if worker not deployed yet
+          if [ -f "workers/gdrive_harvester.py" ]; then
+            python workers/gdrive_harvester.py
+          else
+            python vamguard_templates/workers/gdrive_harvester.py
+          fi
+        timeout-minutes: 30
+        continue-on-error: true
+      
+      - name: 📊 Generate Harvest Report
+        run: |
+          echo "📊 Generating GDrive harvest report..."
+          
+          # Count manifests
+          MANIFESTS=$(find data/Mapping-and-Inventory-storage/gdrive -type f -name "*_manifest.json" 2>/dev/null | wc -l || echo "0")
+          
+          # Get aggregate stats if available
+          AGGREGATE=$(find data/Mapping-and-Inventory-storage/gdrive -type f -name "gdrive_aggregate_*.json" 2>/dev/null | sort | tail -1)
+          
+          if [ -f "$AGGREGATE" ]; then
+            TOTAL_FILES=$(jq -r '.total_files // 0' "$AGGREGATE")
+            TIA_FILES=$(jq -r '.tia_files // 0' "$AGGREGATE")
+            MODELS=$(jq -r '.models // 0' "$AGGREGATE")
+            DATASETS=$(jq -r '.datasets // 0' "$AGGREGATE")
+          else
+            TOTAL_FILES=0
+            TIA_FILES=0
+            MODELS=0
+            DATASETS=0
+          fi
+          
+          cat << EOF > data/Mapping-and-Inventory-storage/gdrive_harvest_summary.json
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "partitions_scanned": $MANIFESTS,
+            "total_files": $TOTAL_FILES,
+            "tia_files": $TIA_FILES,
+            "models": $MODELS,
+            "datasets": $DATASETS,
+            "source": "gdrive",
+            "status": "complete"
+          }
+          EOF
+          
+          cat data/Mapping-and-Inventory-storage/gdrive_harvest_summary.json
+      
+      - name: 📤 Commit Harvested Metadata
+        run: |
+          git config user.name "VAMGUARD GDrive Harvester"
+          git config user.email "gdrive-harvest@citadel.mesh"
+          
+          # Add harvested metadata
+          git add data/Mapping-and-Inventory-storage/gdrive/ || true
+          git add data/Mapping-and-Inventory-storage/gdrive_harvest_summary.json || true
+          
+          # Commit if there are changes
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "☁️ GDrive Harvest: Section 142 Cycle metadata extraction @ $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+            echo "✅ Harvested metadata committed and pushed"
+          else
+            echo "ℹ️  No new metadata to harvest"
+          fi
+        continue-on-error: true
+      
+      - name: 🔔 Notify Status
+        run: |
+          echo "=" * 60
+          echo "☁️ GDRIVE HARVEST COMPLETE (Section 142 Cycle)"
+          echo "=" * 60
+          if [ -f "data/Mapping-and-Inventory-storage/gdrive_harvest_summary.json" ]; then
+            cat data/Mapping-and-Inventory-storage/gdrive_harvest_summary.json
+          fi
+          echo "=" * 60
