@@ -1,0 +1,306 @@
+{
+  "datasets": {
+    "trading_data": {
+      "name": "Citadel Trading Data",
+      "spaces": ["AION"],
+      "hf_datasets": [
+        {
+          "name": "market-ohlcv-data",
+          "repo": "DJ-Goanna-Coding/market-ohlcv-data",
+          "description": "OHLCV market data for crypto and traditional markets",
+          "size": "15GB+",
+          "update_frequency": "Daily"
+        },
+        {
+          "name": "trading-signals-historical",
+          "repo": "DJ-Goanna-Coding/trading-signals-historical",
+          "description": "Historical trading signals and backtests",
+          "size": "3.4GB",
+          "update_frequency": "Weekly"
+        },
+        {
+          "name": "crypto-sentiment-data",
+          "repo": "DJ-Goanna-Coding/crypto-sentiment-data",
+          "description": "Cryptocurrency sentiment from social media and news",
+          "size": "20GB+",
+          "update_frequency": "Daily"
+        }
+      ]
+    },
+    "consciousness_data": {
+      "name": "Consciousness & Spiritual Data",
+      "spaces": ["ORACLE", "GOANNA"],
+      "hf_datasets": [
+        {
+          "name": "spiritual-networks-mapping",
+          "repo": "DJ-Goanna-Coding/spiritual-networks-mapping",
+          "description": "Mapped spiritual communities and consciousness resources",
+          "size": "500MB",
+          "update_frequency": "Weekly"
+        },
+        {
+          "name": "sacred-geometry-patterns",
+          "repo": "DJ-Goanna-Coding/sacred-geometry-patterns",
+          "description": "Sacred geometry patterns and frequency data",
+          "size": "200MB",
+          "update_frequency": "Monthly"
+        },
+        {
+          "name": "consciousness-research",
+          "repo": "DJ-Goanna-Coding/consciousness-research",
+          "description": "Research papers and findings on consciousness",
+          "size": "2GB",
+          "update_frequency": "Monthly"
+        }
+      ]
+    },
+    "system_intelligence": {
+      "name": "System Intelligence & Mapping",
+      "spaces": ["MAPPING", "ORACLE"],
+      "hf_datasets": [
+        {
+          "name": "district-artifacts",
+          "repo": "DJ-Goanna-Coding/district-artifacts",
+          "description": "TREE, INVENTORY, SCAFFOLD from all Districts",
+          "size": "100MB",
+          "update_frequency": "Hourly"
+        },
+        {
+          "name": "repository-metadata",
+          "repo": "DJ-Goanna-Coding/repository-metadata",
+          "description": "Metadata from all DJ-Goana-Coding repositories",
+          "size": "50MB",
+          "update_frequency": "Daily"
+        },
+        {
+          "name": "master-intelligence-map",
+          "repo": "DJ-Goanna-Coding/master-intelligence-map",
+          "description": "Aggregated intelligence across the Citadel",
+          "size": "200MB",
+          "update_frequency": "Every 6 hours"
+        }
+      ]
+    },
+    "model_training_data": {
+      "name": "Model Training & Fine-tuning",
+      "spaces": ["AION", "ORACLE", "GOANNA"],
+      "hf_datasets": [
+        {
+          "name": "financial-qa-pairs",
+          "repo": "DJ-Goanna-Coding/financial-qa-pairs",
+          "description": "Question-answer pairs for financial domain",
+          "size": "1GB",
+          "update_frequency": "Weekly"
+        },
+        {
+          "name": "code-generation-examples",
+          "repo": "DJ-Goanna-Coding/code-generation-examples",
+          "description": "Code examples for training generation models",
+          "size": "5GB",
+          "update_frequency": "Monthly"
+        },
+        {
+          "name": "multi-modal-embeddings",
+          "repo": "DJ-Goanna-Coding/multi-modal-embeddings",
+          "description": "Pre-computed embeddings for various modalities",
+          "size": "10GB",
+          "update_frequency": "Weekly"
+        }
+      ]
+    }
+  },
+  "buckets": {
+    "gdrive_partitions": {
+      "name": "GDrive Partitioned Storage",
+      "spaces": ["MAPPING"],
+      "partitions": [
+        {
+          "id": "Partition_01",
+          "description": "Core system artifacts",
+          "sync_target": "data/gdrive/partition_01"
+        },
+        {
+          "id": "Partition_02",
+          "description": "Trading data and strategies",
+          "sync_target": "data/gdrive/partition_02"
+        },
+        {
+          "id": "Partition_03",
+          "description": "Research and learning materials",
+          "sync_target": "data/gdrive/partition_03"
+        },
+        {
+          "id": "Partition_04",
+          "description": "Consciousness and spiritual resources",
+          "sync_target": "data/gdrive/partition_04"
+        },
+        {
+          "id": "Partition_46",
+          "description": "Archive and historical data",
+          "sync_target": "data/gdrive/partition_46"
+        }
+      ],
+      "sync_frequency": "Every 6 hours",
+      "protocol": "rclone with manifest-only mode"
+    },
+    "workers_bucket": {
+      "name": "Apps Script Workers",
+      "spaces": ["MAPPING", "ORACLE"],
+      "location": "data/workers",
+      "contents": [
+        {
+          "name": "gdrive_partition_scanner.gs",
+          "description": "Scans GDrive partitions and generates manifests"
+        },
+        {
+          "name": "gdrive_metadata_harvester.gs",
+          "description": "Harvests file metadata from GDrive"
+        },
+        {
+          "name": "gdrive_model_ingester.gs",
+          "description": "Ingests models from GDrive to HuggingFace"
+        },
+        {
+          "name": "gdrive_document_indexer.gs",
+          "description": "Indexes documents for RAG ingestion"
+        }
+      ],
+      "manifest": "data/workers/workers_manifest.json"
+    },
+    "models_bucket": {
+      "name": "Model Repository",
+      "spaces": ["AION", "ORACLE", "GOANNA"],
+      "location": "data/models",
+      "categories": {
+        "core": [
+          "Sentence Transformers (MiniLM, MPNet)",
+          "FLAN-T5",
+          "DistilGPT2"
+        ],
+        "trading": [
+          "FinBERT",
+          "CryptoBERT",
+          "LSTM Price Predictor",
+          "PPO RL Trader"
+        ],
+        "embeddings": [
+          "all-MiniLM-L6-v2",
+          "all-mpnet-base-v2",
+          "multi-qa-MiniLM-L6-cos-v1"
+        ],
+        "custom": [
+          "Trinity Core Models",
+          "Toroidal Transformer",
+          "MOE 128 Expert Models"
+        ]
+      },
+      "registry": "data/models/model_registry.json"
+    },
+    "tools_bucket": {
+      "name": "Development Tools & Libraries",
+      "spaces": ["AION", "GOANNA"],
+      "location": "data/tools",
+      "libraries": [
+        {
+          "name": "CCXT",
+          "repo": "ccxt/ccxt",
+          "description": "Cryptocurrency exchange trading library"
+        },
+        {
+          "name": "FreqTrade",
+          "repo": "freqtrade/freqtrade",
+          "description": "Crypto trading bot framework"
+        },
+        {
+          "name": "Jesse AI",
+          "repo": "jesse-ai/jesse",
+          "description": "Advanced crypto trading framework"
+        },
+        {
+          "name": "Pandas-TA",
+          "repo": "twopirllc/pandas-ta",
+          "description": "Technical analysis library"
+        },
+        {
+          "name": "VectorBT",
+          "repo": "polakowo/vectorbt",
+          "description": "Backtesting and analysis library"
+        },
+        {
+          "name": "Web3.py",
+          "repo": "ethereum/web3.py",
+          "description": "Ethereum and Web3 integration"
+        }
+      ]
+    },
+    "rag_store": {
+      "name": "RAG Vector Store",
+      "spaces": ["ORACLE"],
+      "location": "data/rag_store",
+      "contents": [
+        "FAISS indices",
+        "Vector embeddings",
+        "Document metadata",
+        "Query cache"
+      ],
+      "sync": "Updated every 6 hours from master_intelligence_map"
+    },
+    "discoveries_bucket": {
+      "name": "Discovery Results",
+      "spaces": ["MAPPING"],
+      "location": "data/discoveries",
+      "contents": [
+        "Domain discoveries",
+        "Spiritual network mappings",
+        "Repository discoveries",
+        "Web scout findings",
+        "Security patrol results"
+      ],
+      "retention": "90 days"
+    }
+  },
+  "sync_protocols": {
+    "hf_datasets_pull": {
+      "frequency": "Daily at 3 AM UTC",
+      "method": "huggingface_hub.snapshot_download",
+      "spaces": ["AION", "ORACLE", "MAPPING"]
+    },
+    "gdrive_partition_sync": {
+      "frequency": "Every 6 hours",
+      "method": "rclone with manifest-only mode",
+      "spaces": ["MAPPING"]
+    },
+    "cross_space_sharing": {
+      "frequency": "Real-time + hourly checkpoints",
+      "method": "HuggingFace Space API + shared embeddings",
+      "spaces": ["AION", "ORACLE", "GOANNA", "MAPPING"]
+    },
+    "github_artifact_sync": {
+      "frequency": "Every 6 hours",
+      "method": "GitHub Actions workflow triggers",
+      "spaces": ["MAPPING"]
+    }
+  },
+  "space_assignments": {
+    "AION": {
+      "primary_datasets": ["trading_data", "model_training_data"],
+      "primary_buckets": ["models_bucket", "tools_bucket"],
+      "focus": "Trading intelligence and real-time market data"
+    },
+    "ORACLE": {
+      "primary_datasets": ["consciousness_data", "system_intelligence", "model_training_data"],
+      "primary_buckets": ["rag_store", "models_bucket", "workers_bucket"],
+      "focus": "RAG intelligence, Forever Learning, consciousness integration"
+    },
+    "GOANNA": {
+      "primary_datasets": ["consciousness_data", "model_training_data"],
+      "primary_buckets": ["models_bucket", "tools_bucket"],
+      "focus": "Creative experimentation and personal projects"
+    },
+    "MAPPING": {
+      "primary_datasets": ["system_intelligence"],
+      "primary_buckets": ["gdrive_partitions", "workers_bucket", "discoveries_bucket"],
+      "focus": "System topology, inventory, and coordination"
+    }
+  }
+}

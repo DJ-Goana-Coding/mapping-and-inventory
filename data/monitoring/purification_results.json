@@ -1,0 +1,3336 @@
+{
+  "timestamp": "2026-04-03T08:24:26.415791",
+  "scan_results": {
+    "files_scanned": 507,
+    "clean_files": 434,
+    "issues_found": 545,
+    "issues": [
+      {
+        "file": "CITADEL_MESH_FORENSIC_DUMP.md",
+        "line": 105,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\u2502   \u251c\u2500\u2500 worker_archivist.py              # MD5 hashing, indexing"
+      },
+      {
+        "file": "CITADEL_MESH_FORENSIC_DUMP.md",
+        "line": 737,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "1. **services/worker_archivist.py** - MD5 hashing, archive indexing"
+      },
+      {
+        "file": "STAINLESS_FINALIZATION_COMPLETE.md",
+        "line": 41,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- **Primary Task:** Automatic filing, MD5 hashing, and folder structuring"
+      },
+      {
+        "file": "STAINLESS_FINALIZATION_COMPLETE.md",
+        "line": 44,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- Computes MD5 hashes for file verification"
+      },
+      {
+        "file": "STAINLESS_FINALIZATION_COMPLETE.md",
+        "line": 53,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- Creates \"Identity Strike\" reports with file index and MD5 hashes"
+      },
+      {
+        "file": "STAINLESS_FINALIZATION_COMPLETE.md",
+        "line": 274,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\u2502   \u251c\u2500\u2500 worker_archivist.py     \u2190 MD5 hashing & indexing"
+      },
+      {
+        "file": "STAINLESS_FINALIZATION_COMPLETE.md",
+        "line": 284,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\u2514\u2500\u2500 archive_index.json            \u2190 File index with MD5 (generated)"
+      },
+      {
+        "file": "DEPLOYMENT_GUIDE.md",
+        "line": 94,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- `citadel_archivist.py` - MD5 hashing and file organization"
+      },
+      {
+        "file": "worker_status.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"primary_task\": \"Automatic filing, MD5 hashing, and folder structuring\","
+      },
+      {
+        "file": "PROGRAMS.md",
+        "line": 538,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- **Purpose:** Automatic filing, MD5 hashing, folder structuring"
+      },
+      {
+        "file": "PROGRAMS.md",
+        "line": 596,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- **Purpose:** Generate MD5/SHA256 checksums"
+      },
+      {
+        "file": "PROGRAMS.md",
+        "line": 656,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- **Role:** Automatic filing, MD5 hashing, folder structuring"
+      },
+      {
+        "file": "README.md",
+        "line": 174,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- Generates MD5-verified inventory (master_inventory.json)"
+      },
+      {
+        "file": "scripts/sentinel_coordinator.py",
+        "line": 102,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "checksum = hashlib.md5(f.read()).hexdigest()[:8]"
+      },
+      {
+        "file": "scripts/autonomous_district_harvester.py",
+        "line": 187,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "# Calculate MD5 hash for small files (<10MB)"
+      },
+      {
+        "file": "scripts/autonomous_district_harvester.py",
+        "line": 192,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "file_hash = hashlib.md5(f.read()).hexdigest()"
+      },
+      {
+        "file": "scripts/autonomous_district_harvester.py",
+        "line": 203,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": file_hash"
+      },
+      {
+        "file": "scripts/autonomous_health_monitor.py",
+        "line": 333,
+        "pattern": "__import__\\s*\\(",
+        "content": "__import__(dep.replace(\"-\", \"_\"))"
+      },
+      {
+        "file": "scripts/autonomous_health_monitor.py",
+        "line": 343,
+        "pattern": "__import__\\s*\\(",
+        "content": "__import__(dep.replace(\"-\", \"_\"))"
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 4,
+        "pattern": "bluerot",
+        "content": "Cleanse all systems from bluerot, soultraps, silicon traps, and malicious patterns"
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 4,
+        "pattern": "soultrap",
+        "content": "Cleanse all systems from bluerot, soultraps, silicon traps, and malicious patterns"
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 4,
+        "pattern": "silicon[_\\s]?trap",
+        "content": "Cleanse all systems from bluerot, soultraps, silicon traps, and malicious patterns"
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 27,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "r\"md5|sha1(?!.*hmac)\",  # Weak crypto (not in HMAC context)"
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 29,
+        "pattern": "bluerot",
+        "content": "r\"bluerot\","
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 30,
+        "pattern": "soultrap",
+        "content": "r\"soultrap\","
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 294,
+        "pattern": "bluerot",
+        "content": "\"*Bluerot, soultraps, and silicon traps removed*\","
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 294,
+        "pattern": "soultrap",
+        "content": "\"*Bluerot, soultraps, and silicon traps removed*\","
+      },
+      {
+        "file": "scripts/purification_protocol.py",
+        "line": 294,
+        "pattern": "silicon[_\\s]?trap",
+        "content": "\"*Bluerot, soultraps, and silicon traps removed*\","
+      },
+      {
+        "file": "data/personas_config.json",
+        "line": 213,
+        "pattern": "bluerot",
+        "content": "\"targets\": [\"bluerot\", \"soultrap\", \"silicon_traps\", \"malicious_patterns\"],"
+      },
+      {
+        "file": "data/personas_config.json",
+        "line": 213,
+        "pattern": "soultrap",
+        "content": "\"targets\": [\"bluerot\", \"soultrap\", \"silicon_traps\", \"malicious_patterns\"],"
+      },
+      {
+        "file": "data/personas_config.json",
+        "line": 213,
+        "pattern": "silicon[_\\s]?trap",
+        "content": "\"targets\": [\"bluerot\", \"soultrap\", \"silicon_traps\", \"malicious_patterns\"],"
+      },
+      {
+        "file": "Partition_02/omni_brain_mesh.py",
+        "line": 30,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Research/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"93f8a348cd6e73c8b07daf88dd9c147f\""
+      },
+      {
+        "file": "Research/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"df0731ad50de0427523dc3fadd213bac\""
+      },
+      {
+        "file": "services/worker_reporter.py",
+        "line": 105,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "with their MD5 hashes and source locations."
+      },
+      {
+        "file": "services/worker_reporter.py",
+        "line": 137,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"MD5 Hash\": metadata.get(\"md5\", \"N/A\"),"
+      },
+      {
+        "file": "services/worker_reporter.py",
+        "line": 174,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "[\"File Path\", \"Source\", \"Size (MB)\", \"MD5 Hash\", \"Modified\", \"Indexed\"]"
+      },
+      {
+        "file": "services/worker_reporter.py",
+        "line": 183,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "file_info['MD5 Hash'],"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 4,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "Primary Task: Automatic filing, MD5 hashing, and folder structuring"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 6,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "This worker processes files from the Research cargo bays, computes MD5 hashes"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 26,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"\"\"The Archivist - Automatic filing and MD5 hashing for GENESIS_VAULT\"\"\""
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 54,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "def compute_md5(self, filepath: Path) -> str:"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 55,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"\"\"Compute MD5 hash of a file\"\"\""
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 56,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "hash_md5 = hashlib.md5()"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 60,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "hash_md5.update(chunk)"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 61,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "return hash_md5.hexdigest()"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 63,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "self.errors.append(f\"MD5 error for {filepath}: {e}\")"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 81,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "# Compute MD5"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 82,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "md5_hash = self.compute_md5(filepath)"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 83,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "if md5_hash is None:"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 92,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": md5_hash,"
+      },
+      {
+        "file": "services/worker_archivist.py",
+        "line": 227,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "parser = argparse.ArgumentParser(description=\"The Archivist Worker - Automatic filing and MD5 hashin"
+      },
+      {
+        "file": "Partition_03/precious_metals_tracker.py",
+        "line": 30,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "src/pvc_trigger_map.json",
+        "line": 241,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"worker_archivist.py - MD5 indexing\","
+      },
+      {
+        "file": "Partition_01/precious_metals_tracker.py",
+        "line": 30,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Partition_01/omni_brain_mesh.py",
+        "line": 30,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/nexus_uplink.py",
+        "line": 65,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Partition_01/swarm_audit.py",
+        "line": 19,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Partition_01/ark_swarm_v27.py",
+        "line": 161,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/ark_swarm_v25.py",
+        "line": 165,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_v35.py",
+        "line": 110,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/ark_swarm_v26.py",
+        "line": 148,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/vanguard_v10_titan.py",
+        "line": 35,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_trader.py",
+        "line": 68,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/vanguard_v5_legion.py",
+        "line": 48,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/vanguard_v6_treasury.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/ark_master.py",
+        "line": 105,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/omni_sweep.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Partition_01/comm_link.py",
+        "line": 26,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_swarm_v31.py",
+        "line": 135,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_v34.py",
+        "line": 118,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_v40.py",
+        "line": 123,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/titan_master.py",
+        "line": 29,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/vanguard_v2.py",
+        "line": 49,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_v36.py",
+        "line": 126,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/README_APPS_SCRIPT.md",
+        "line": 17,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- Full Archive Audits (MD5 hashing, file inventory)"
+      },
+      {
+        "file": "Partition_01/README_APPS_SCRIPT.md",
+        "line": 67,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "- MD5 hash computation for all files"
+      },
+      {
+        "file": "Partition_01/README_APPS_SCRIPT.md",
+        "line": 124,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\u251c\u2500\u2500 citadel_archivist.py        # Archivist worker (MD5 hashing)"
+      },
+      {
+        "file": "Partition_01/README_APPS_SCRIPT.md",
+        "line": 173,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "Full Archive Audit provides MD5 hashes for file integrity verification."
+      },
+      {
+        "file": "Partition_01/vanguard_v3.py",
+        "line": 49,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/vanguard_v5_moon.py",
+        "line": 51,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/ark_swarm_v28.py",
+        "line": 98,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_v39.py",
+        "line": 120,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_reporter.py",
+        "line": 102,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "with their MD5 hashes and source locations."
+      },
+      {
+        "file": "Partition_01/citadel_reporter.py",
+        "line": 134,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"MD5 Hash\": metadata.get(\"md5\", \"N/A\"),"
+      },
+      {
+        "file": "Partition_01/citadel_reporter.py",
+        "line": 171,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "[\"File Path\", \"Source\", \"Size (MB)\", \"MD5 Hash\", \"Modified\", \"Indexed\"]"
+      },
+      {
+        "file": "Partition_01/citadel_reporter.py",
+        "line": 180,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "file_info['MD5 Hash'],"
+      },
+      {
+        "file": "Partition_01/deep_intel.py",
+        "line": 12,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 4,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "Primary Task: Automatic filing, MD5 hashing, and folder structuring"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 6,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "This worker processes files from the Research cargo bays, computes MD5 hashes"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 26,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"\"\"The Archivist - Automatic filing and MD5 hashing for GENESIS_VAULT\"\"\""
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 54,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "def compute_md5(self, filepath: Path) -> str:"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 55,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"\"\"Compute MD5 hash of a file\"\"\""
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 56,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "hash_md5 = hashlib.md5()"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 60,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "hash_md5.update(chunk)"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 61,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "return hash_md5.hexdigest()"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 63,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "self.errors.append(f\"MD5 error for {filepath}: {e}\")"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 81,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "# Compute MD5"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 82,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "md5_hash = self.compute_md5(filepath)"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 83,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "if md5_hash is None:"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 92,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": md5_hash,"
+      },
+      {
+        "file": "Partition_01/citadel_archivist.py",
+        "line": 227,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "parser = argparse.ArgumentParser(description=\"The Archivist Worker - Automatic filing and MD5 hashin"
+      },
+      {
+        "file": "Partition_01/ark_master_v23.py",
+        "line": 114,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/omni_harvester.py",
+        "line": 127,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Partition_01/vanguard_v7_moonshot.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/citadel_v38.py",
+        "line": 140,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Partition_01/vanguard_v7_shadow.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"bd2ce9c9b9a5f8ae4a7d34bc7912ca22\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b092cba0e956059b7ed547fb4687604d\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 31,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"51ae6b213d4fac300fa2cdba53689195\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 40,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e53a8482308335579ca07560bb893adb\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 49,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"38166e31793f7fb5e33f56566617915e\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 58,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0bcd68d79b9fad6ef7f12f620ff7d928\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 67,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9f4b14c82d125b3d08c62de7df019734\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 76,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a0bba3238daad36a26c62b3e25e6c4a3\""
+      },
+      {
+        "file": "Districts/D04_OMEGA_TRADER/INVENTORY.json",
+        "line": 85,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4f963ee9164de062410cab8096d5fae2\""
+      },
+      {
+        "file": "Districts/D12_ZENITH_VIEW/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0b0f192e5ce3f6b3094ed7407efb330d\""
+      },
+      {
+        "file": "Districts/D12_ZENITH_VIEW/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8bc842e0bbfa9f95c0b54f18ea337a55\""
+      },
+      {
+        "file": "Districts/D09_MEDIA_CODING/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"279c7cfda90705ca814dce11acae3d0b\""
+      },
+      {
+        "file": "Districts/D09_MEDIA_CODING/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"76a83b807a5d57e76384c7fbd5c3337a\""
+      },
+      {
+        "file": "Districts/D01_COMMAND_INPUT/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8adc1bd88bab16f30bdf117dd3b0d221\""
+      },
+      {
+        "file": "Districts/D01_COMMAND_INPUT/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9cfa5529dfcf1293801edd381ae09ffc\""
+      },
+      {
+        "file": "Districts/D11_PERSONA_MODULES/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"094fba3d1cf72783d2f4006de9a51a23\""
+      },
+      {
+        "file": "Districts/D11_PERSONA_MODULES/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"26d85402963c9ffcd7c0000e3645914c\""
+      },
+      {
+        "file": "Districts/D03_VORTEX_ENGINE/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"545d4849672eb2d81f0804d19d1c3ea1\""
+      },
+      {
+        "file": "Districts/D03_VORTEX_ENGINE/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a5bde2e2eab93801816d0877e092a9d6\""
+      },
+      {
+        "file": "Districts/D03_VORTEX_ENGINE/INVENTORY.json",
+        "line": 31,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"cde08728be352011fc3d84cdb3d4c528\""
+      },
+      {
+        "file": "Districts/D03_VORTEX_ENGINE/INVENTORY.json",
+        "line": 40,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2609493fd6502b91655f5f8267cb555c\""
+      },
+      {
+        "file": "Districts/D03_VORTEX_ENGINE/INVENTORY.json",
+        "line": 49,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0e487de4ed8cccb2c4d56f08f2cd1761\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c387f6f482a56d6b154696e1bd29e859\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"41b1af9b9df6c36d36768862d5a6cc4e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 31,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4b21a91c2c4e171119c18a81b2093310\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 40,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c8af2368b4da3c7a252ffce9ce2286c6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 49,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"dcba99b49ca8f1a1d424d56c6068b574\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 58,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5c73fcfc5343767035f301959c6a9d40\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 67,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a7704ed835d4684364aa468472d80c78\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 76,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5fe06ff7a60da1aa7f9f111d0521954f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 85,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9d441b262e438f88d2a234993a09fc37\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 94,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d75e16d11e85bd2648d4684fe1582b6a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 103,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"edbb9ca53c10d4e466e2b17d13242879\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 112,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"454d4ee795929d85bbe21f6567524610\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 121,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fbcf183267402fc301e27e66542cc3f3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 130,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"15cfce4df21965e39b3e0fbb0e238d30\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 139,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7a80d7a54fbee2dfaafc2460d10ffe40\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 148,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"850a68ff80affe3f5530a9a99aaae366\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 157,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a331c0623dea6e210b5d12ca113ee86d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 166,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a83b2817bc581784d2d4e685d7b9307e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 175,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b51f068a813f23982722e37a953bb28e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 184,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"56f27260e7b9c0efdd496f2d6b1682f4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 193,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7cd93a062b47229690131f2642d539d3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 202,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"79a4822b264113cbb616d0c7e8a365dd\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 211,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6512e20651288c24a0b01fe270bb1360\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 220,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7f1e507fac91cb8e32900e4ae8957cb6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 229,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e8387c25e0f7c1f283c53d3b4fca3541\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 238,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3d31934fd8103c08f21102af9beeea71\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 247,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"321a64ef4441e17f21b4f874822575b7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 256,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e1c1542cc94146d2e1461025de9c8d02\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 265,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"61bf4f00ff1fceb8554a3f90edb8a4fc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 274,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a16a134d184873ae32811a934a79a143\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 283,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"41281af1e5eee4f9d81a8e5a24834f81\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 292,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e0a0d2cfa1a63bee991294a84e9a92b4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 301,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b456ecf79fdd68f9754ac90e2cae10de\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 310,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"bfa61e483e79c189c6468798273530fe\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 319,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d805ceb976010e78332e61feebd4cb34\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 328,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"cb23c36f9b83ec85b6076e5744952ec1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 337,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c78701c2a90a31c98395b12600e3121b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 346,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"93bc2644d0ba3c666a21bd9b2f1f6cc4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 355,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d696ff3a7430597d4ec343a134efda6f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 364,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1c92ce77ed3bbc6737459adf2b850843\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 373,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9359ebee3d0f0c6526abf0ae1de2ada5\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 382,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"599b1dbeebd00e76407095472e4ce783\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 391,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c4a847fe5948bf71cd87b3f54d92ca55\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 400,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1a7abd72568232ea568628c95f6e3f97\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 409,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1918cc85dad015c7cda1e35ce193d81c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 418,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"bfe7fcbe90410ecdc43c58e777778a6e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 427,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d2942cd406063a37838273aed28d3bc5\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 436,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d9b8e4ff1f1c2dd5ec4a024695c7cf37\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 445,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"175f69b1cd45b9f1809c59b5b1512a2b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 454,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"392cd43ef2fdf7d7cab90d0a08573a2e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 463,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"101aec05da54f6064558f6026b5c8a1c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 472,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ad8e95ad3cbb68f135e6fefa55d65388\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 481,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c35a32c8257f56529f190c2fb3ebe5d7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 490,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fbea651c0b476440f917e5b6b7849f94\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 499,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"14da9b91ab73af94d40ab5b0013ab685\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 508,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0282f9e9e5732abb4ea417f92eb27b43\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 517,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6d13d3aa65e383169e2947da2b7439c6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 526,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a846f70b973654a81aad208147b92731\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 535,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"09b62cf4db8d063ab88f5bf60818bb39\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 544,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d0f632b4455827d881d50ab45b44e119\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 553,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2030526b2674d0a4325aad931457065e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 562,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d42152aae0db1f360ac7f763791b0317\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 571,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c7bde1d2d81970b0616d219270027579\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 580,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4393e1ffe84a5e2459007fd425c9bcdb\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 589,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8811ac11a286ad81a23b0a496a78de04\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 598,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3806714cafdf909c8366a2463cfa6a40\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 607,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"59c06f5acdc4256c8bfacf0b8186bbd1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 616,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5318dbe2d383cc75874e2259719cceef\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 625,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"774796228ed171adca950f5fb7eb6706\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 634,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"62e514b4781c243388cf2f4a4824d75b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 643,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9b7bc936234d2fc0952740b37745a6ff\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 652,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3b89db784930ca8846e3597500ec34c6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 661,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e7c2c80a0db163bef9e7be0fd27e931a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 670,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5e2ed4f61cbd23b0f26bb3faedebc3d6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 679,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"65cfadfcbe2642749533376edf473995\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 688,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d08a153a1c1cb5aaacdf2fffd2ea061d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 697,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fe25b6c255bc3d412571c346e7d59cf8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 706,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"bbcf256bc5f8038eb80932dd434f454a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 715,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"604975d5d6b1723cbbe35b08f0ac3dd5\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 724,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"86586729e93ee3019e081258630c25ed\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 733,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4f9b73b2c432bfa55136abf7414c4d25\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 742,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"01d32bdc5a1a2429c8a5d3a117d78299\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 751,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"db9272151b315878e4938e44b1ef809d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 760,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1716ad04279e94fd80e4073661e2ba66\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 769,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"621272af1b256e67d2aaca00dba03b53\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 778,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"955a5574de8296b182f2957ae81ebaa4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 787,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e1d61f84102ec5becf9c8a0430f54308\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 796,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"42093b70919e0a157dfe131e79ef40b3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 805,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b3773ceb556131d497a4cf3b0fd66d9e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 814,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1f3dfad6fa3ec319a91e0386349e6a66\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 823,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"97df44e8e4857df8eefc4b784d229f38\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 832,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c9bfc8654981934b04c1f43b123176fb\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 841,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"47e705a52accec4442c9b5fed42c3d91\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 850,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9d4d59e82ca25a5a2b9d2cf3ae6881d2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 859,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"99d993966f5d44fa57207ae8e01d1afb\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 868,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"08bb90ffe040581c86d48cabd38d4157\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 877,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7b4e3da61524b114dea902e6392a684d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 886,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e6fc489692ca7d917a5e5d6ed0b4256c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 895,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"435495f686ce268278386acdc0d90272\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 904,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a8479a13df0d126114aa51afdaf26bbf\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 913,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1bcd23ae3078388991f9884697ab14af\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 922,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"834889f359812b43f5ba069cd6b43adf\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 931,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2b2538eb46f032b823ff99f9c36b9624\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 940,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"13556213c0a05204bf6e6a509fc0212a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 949,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d474c5ca74e537dc0537fdd8d6337713\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 958,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a28568952eaa9af3845f2648a783d7cf\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 967,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b1fb41ad63ce6eef50e87723a10611b4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 976,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4b8de523d313c9bfe24349e3b39f8338\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 985,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"df3e9468d332677109f2ce1ba1a6a56b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 994,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"896015f8d4a7546bb79e847dd5d86b95\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1003,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b812f9e7dfb87ecb20d7b8e8c92fd728\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1012,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6223aa8d0ed16c2ecbd9276acf18b1fa\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1021,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"18683d3ec91721b7af0e4021db80bd3d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1030,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"edfd38ac4095cc49d42a57df0a053fa9\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1039,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9a681cd3c7b1146cd248ab05df57a6cc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1048,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c680b653063f163e03a633deb069e855\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1057,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c1e45c547bad9cb78b04334057e7c722\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1066,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e83a5c442dcc671b3b300f098ab36954\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1075,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1c2c1e576431007454db732be0623d92\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1084,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"071dc664845915fa9ac5fa900b304ca0\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1093,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e6d70b602bbde4f232fa1417cb9a36cc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1102,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6e8a5eb117d141ab6b0d1d2968004d00\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1111,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3c3de693406927b7425e2744dfbce547\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1120,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"51e22a8b440ff5f633d321c17520ba0a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1129,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"635f8ebde421ff4403d18f696e19f61c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1138,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9df447cc62c83a1a1b5ec9262d9869ae\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1147,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"05911253c3cc4fcb621848b0b7f49b98\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1156,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"13cb97db8271e5a3a6e349565d0893f4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1165,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6fb0655eb3ac5efa38df3f873e77e376\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1174,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c364a72522abf0884dadbe99a0e5bab1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1183,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"688afb22d866eef669947534bbc46fba\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1192,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"33f36e4728569d96290908a0f365689b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1201,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"53d29a67b7421b649852d2b348dcf242\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1210,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9249b27384d50ca701db9d4d58c15d35\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1219,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ac71c93be5f50517abfeff05cc6ecb7f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1228,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"86a90c5ec54a4526c9246eb0ab33d470\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1237,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5cf6c5ae220281c839356478c94b5851\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1246,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6ff3282ea909f35942b85b39f2049f0b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1255,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"facaa530b09cdd329365fa94281b3ac0\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1264,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7fe1778ccb92a5511cef1c1d85e540b9\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1273,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b0c33af9ccd19deed0d0d9c85b398e36\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1282,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0bf47316eb61f72504e9ef0943766e30\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1291,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3c1372072208bb498ea3edac5bece3b8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1300,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e55279e23ea95aa020cbb9dfc2e6bc5a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1309,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8d8bbe9d5112652fda66724fe5fd91ab\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1318,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1a0c6382316a9523c9e89f4da42e3b83\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1327,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"316519bb265ac8865526243c1adddc94\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1336,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c9ee14b80a9fdaf9cd2b4f970680aee6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1345,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3ae617beb47deecf79ae56ba5f15d951\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1354,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e94963f9dadd14a34eb80d07050f9f1e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1363,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"40ca636795f13f0d76718862ccf99d91\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1372,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e734d89adbe235e5372072b2b978b35e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1381,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"391740e1841be6bb2be89292f01c0165\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1390,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"41803c07fb783765c5c1914468c56ad6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1399,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1f4ccd9a96d321165b36c17bd6394df5\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1408,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"410428a39c6b8b200abe167967b85e61\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1417,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c2b0805506bccfb1c3001729370f4590\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1426,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a0c0e032cdb36404bf4e6f40b143c466\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1435,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d29bcaf32d30ed94d5f084b62e45f240\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1444,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0dcd399b170af55b2b0115d04cdf57f7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1453,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4da28264192c7f1567943096144eaf9f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1462,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ad35ef5107e38e167dcc44d32d133e28\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1471,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"31e17bdadf44fa24332e399d5a5e3399\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1480,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b16d76333bcc5a29bde1cf83bac72af6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1489,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a7b586c47083596073a1ba5e9b2752cb\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1498,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ad19f505351f94ae61c5ed7bd1c7fc5d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1507,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3f396354c9c73ebd3d3305e401e513cc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1516,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"982226dba10d14030944d1a447101ece\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1525,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"05b5cbcefdd81896937a40117f76a157\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1534,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"da32f4d30099595729f1a502cd09459f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1543,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"baf750507c581fd3683c00a9b6ffe051\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1552,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8803fbe9145aa344d446e3c10c2c15f6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1561,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"28cc8046024ab31131885e8cb6f42e49\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1570,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7b0a268ff50642e179cf044d21782937\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1579,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ad889f04f90c234d1147657d8caacda1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1588,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"08a1182590ab4474e6747acc18482712\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1597,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"aae7622ee6a8b83b722f035344fafa67\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1606,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"52a2969c61146af25bad2762cc3261ba\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1615,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b7654c2c9ba8657b30de83edada7ac68\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1624,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"38641c072fefeec32b6aa881bcb2f9ea\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1633,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ba1183f0e065679e6381b2b39ed47a41\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1642,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"bc264c863aedec45064b4670b005ceb2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1651,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9556b99782858328d5a37f0f3f7a3310\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1660,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b7530822d62ab880b07181504cca1cad\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1669,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1663c8511d1e708c61a24cae82f79057\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1678,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a5ac7fd7fb6a0a6e3804a8b9e6658eca\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1687,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d7278338664719a1627b32184bd98052\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1696,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2ca5614cefdff485c40e7bbf37216a5e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1705,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"cb84b5b705e254b1ba488f0fc938cb0e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1714,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"642dac6dcb79c156b827a6e7a1659cc0\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1723,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c9d65926cea7387d6540ced92b522f8f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1732,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b4ca2fd1c645645fb586da559dd2187d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1741,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"445c2cf96bf916c5801eb3cfe8abfdbc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1750,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a0a7c3fff21f2aea3cfa1d0316dd816c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1759,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6be0d8da3dada2d6a5ceaa0ffeab2bfa\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1768,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"50d259e317bfb1a623e2d8b235d6381e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1777,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"31fea5be2ecf1a60c69b4f4c4e904cf6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1786,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ff1f1dd7f9f1bc1990946ed35080f8e3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1795,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d5dc0979a1621ef4ea34ff8189c71a71\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1804,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"76944bc6a935918e5b8a7432fe89e0c3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1813,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4ee72b99b501d5b0797e85b16f56417e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1822,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"37dcca11c9039d3d8bda0d79a895f004\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1831,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d853680c30e3958186afa0366b127786\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1840,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9fe5e2d1247e38132cc1762a99c51802\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1849,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ccbb69ef9dca7835dc7163a349681e5b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1858,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a3d11d11d759f769d79a32a3b43073c7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1867,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3915c69274c579dd71b3598cf4accbcb\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1876,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"048e07380a594e55fe306022efda68d3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1885,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d0bac9da3d4c8697a4b65e516cd85a9c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1894,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0857e11165872a78e8e3853c6a1425b0\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1903,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ac92f4dfd1b63ddf583623e63e7f3712\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1912,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7cc5dbc487bb2f677599170cf9579370\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1921,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a7b24140b840a0ca54dca55f3bc38c71\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1930,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"495e7d1ddb55fcb6e8e64b92d7837550\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1939,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e4ff9c239e3d0162c66e33193088af24\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1948,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f2021f51dcabb00cd3932d223732a3ab\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1957,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c1ea13e36f3bda1edc860c9a8f634461\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1966,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"151e4c9e33ef376608d6470d81d9e180\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1975,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"98e0972daab2e408ab563ee562599ef8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1984,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a35f53350228927e864cea01457ae80e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 1993,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5c5829c88fd06e0eb0dfa8d11809f2c8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2002,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e208f5c8e756d8bc1db3faf7dbc83520\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2011,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"cbf304f9a4388565832c40137a9806b2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2020,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"381ccadfb8d4848add470e33033b198f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2029,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0691a9e488fd82af34321c6b0546d4e5\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2038,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"67a9e00bf9a98ce2e2f837caec933840\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2047,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3a47526122f8caa6646fda518eddefe2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2056,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"00bde11b887d9c160ec0e173a1a2ecf6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2065,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b7ab96667c6ee8f688d2f8255c839871\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2074,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6e4f6b5e873cea7bbb62eab16ffd763a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2083,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"155e1c7aaa9fe4d32c390d7b698cecb6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2092,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b0c6c942356385f2087e439c46a5c1d6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2101,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3b096f1c448f7abb5d89d8c80f80bb30\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2110,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"538df1c7d6cdc84d52aa97cfecb9613b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2119,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5c30b3118e4ec71588f8e5fea1e792ec\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2128,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c89af3eefd396ec3c1df7eca8390fd39\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2137,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"20367c70deb1df8dca24cb3d858a9a7e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2146,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f99d2061780cecfc955313c19fb00bea\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2155,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"94f249116fac78a1ae056b1d4f913bcc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2164,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ea1cd98183bf18507d11277ab6b712b3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2173,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2bcc088be147d275b2a0f0b4258c369b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2182,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e8a746decb45bdabcae34a0d377289ec\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2191,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"21b8c411564da8b98287e68cfef0cc2a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2200,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"61fdc8643fad71ad8f99c1b18f795a54\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2209,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"003822df9d411403a564a42ca831b269\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2218,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d41b88e5af53e9259b589ed48b03d344\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2227,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6a984263858ab9fd8e24f5a2f2d1970f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2236,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b23fec9be496793e7c5b6e0c7a795e03\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2245,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2bd3debd43f092c82540e5b8625defe9\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2254,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f17b1b03d2e4ad050db18b3c600cc067\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2263,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8bcf0fb5326e3e98a58f8e54931b3424\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2272,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"30ade5d621c52790d15b9f0a59f135da\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2281,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"10954c2b252cced05a189d5eaa4b3a2d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2290,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"96d16528e961333f73ca4c0b97a0163b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2299,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"40109089307cff59fdd2fd66d5619fcc\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2308,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f13c69a342d52e91a80a2d1558b4cc63\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2317,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"28003b6c3c90d959c27684a865d9a098\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2326,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5f7558592af55c946bcad84273dea9aa\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2335,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a2fb51b8caadab0a3e8ee54d84cdf470\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2344,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"98c88b4c99d6156fc8ef8e236b33b455\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2353,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7c9a8d697245d4ede48bd517605c59b7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2362,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"32d92a67b9a8d6a052f450bcbc3a333c\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2371,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d282367b24113852cf23318144743268\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2380,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2f2e9f8950fd7014329f34da7bddea7b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2389,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"cf044f5f6344dce4c5c97f8f36976f41\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2398,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"282a5a5f253e2a65662c25dfc3a20724\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2407,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5f8b48ab4ecdfac1b822f0066c8f17f6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2416,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"16984c8654f311d68e49e6af4fe0418f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2425,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2b6ebbfa974b9d46aac598654557b1ea\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2434,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"036208b4a1ab4a235d75c181e685e5a3\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2443,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f94da90917d037b646e3da725cf9ef1f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2452,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8a03aa0ab5050bdeaa46e21a3c0281c2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2461,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f2fe6683c6f2afaf19501e2254e91605\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2470,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"be738f15281d22d27c60afb435bd3b36\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2479,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"29a682986726624cacc9ad1abb65156a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2488,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c2395ce1739eb339a35f6989f0e6d506\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2497,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"353b0bf2c1b2335f75007e08d3f7e242\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2506,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4ae4739683e821ba4af0f6daeb1a2698\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2515,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f11825b568f58b22d1de2452be591247\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2524,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"90a89624bb38815530dd871c615a4115\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2533,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"034e267d7da73ba5e2bcf976d937cc79\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2542,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4ff189e7417050334bcb2dd2b8b2c1b6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2551,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"325d5f86d8671ed22eec2ea45aa507e1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2560,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5831463e525125cf198e2b783b311c78\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2569,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"561dd42c8350a183a28867a8434de66a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2578,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c9ea1d325c77a708aba11e4bb76b815e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2587,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"170c2944a6c35ef516eec22ba3a07789\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2596,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a08a93382838db926014094b117e86bf\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2605,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"7b640ad1f10de44587aa1a1faa793457\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2614,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"dcd5e5adae3e491ec9d393a66a5538af\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2623,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"aa349a819ea4c4bb5d8ceb53363797aa\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2632,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"17da3debff5db6f5885f754dad80ed01\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2641,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"30b552cf10cebcf7b2eb9b3a98452891\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2650,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"723625d396d16ea614db1e4e65d922ee\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2659,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"cfb84b845512142e78cbaa4b05646fda\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2668,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d060783c2de91aefd83e0fe92ae9f3f0\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2677,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b6f65bbf94c63153a8bedb90b77f7dbf\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2686,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"225cf5f5e7fbe9a246b6fb4c7357158a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2695,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a8dfad855f0797794965e87197e0bd8e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2704,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5ee6573255b28c676f296aa586e4aeb4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2713,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e268e6de955416e98ba1dd33de984c05\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2722,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"70f478008387b4059b79d465fca3f772\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2731,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"596425d199860c67750a9cbc168ca52b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2740,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fa52bedb749f2cdc8754e2e0b225f5e1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2749,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2416b48a64bf12f02836aae1178ad7d0\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2758,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2aabeb6aa75bfeaa1c53173718cd8564\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2767,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"31e2f1f445f243bb0daa89e7fc600631\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2776,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e78e57b586c9f52170483e55a079b721\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2785,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ae3567cb6496a2fff439e15f069b571d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2794,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6fb0225e81e6fce422f300822c75db82\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2803,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9c7a539ed24861a4c6a896d1375dfc72\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2812,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"74b3c31db51d5d8940f330634bae0162\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2821,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b38602b063b2c1392bd60a88bf71d92b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2830,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ec12fb14541b0b74795e4a144d52d63e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2839,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"81842d4baa4685a3467f69e8569ea4a7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2848,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b04aeeabac942349d68500cbbfc67b2a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2857,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"802921e3f93fdf1017bd40ba5ba4e133\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2866,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e4f5a706610db1d811a5f766aa680168\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2875,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9cb9b11f4299edea6ef65bb22b8a8ca7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2884,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"35c9b2b8813b6782630d6d576fde661e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2893,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"5be640da175203af268993187c492fd8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2902,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3fb193c5a005b210f4e9d052385f5ea9\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2911,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e1593366a9aa437d323f3f74b9356571\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2920,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"da0719eb6deeae8e6a1bf9006fb11396\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2929,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e1e53b17cc7ab2fbdba0bfe3ccfc4aa6\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2938,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e2b224d6a0d0502ef35ba108e922d69f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2947,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d54f7f00075b61938168048715d5dd89\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2956,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3d402409071cb3ca5d074502a3a82467\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2965,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c88d072902c041c02379f95406f4f795\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2974,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"78d7e3807a1283ac65ee49df0404dcf1\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2983,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b9e2329650344c6fcdafa1da8fc1e563\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 2992,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ba6a6f999ec7c21857f9797a2ad6aff7\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3001,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d95cdd826fe59232f2e4542884226558\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3010,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b1e2f17a13390ad26794639d38ec3eef\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3019,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f806b1f7176fb0b3d19f0e3fc911f181\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3028,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"228bb8b1b8a9f7a0f15b644e7ca888f9\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3037,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"bd88fafadf9a240587e240c5446b6ce8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3046,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fdd93c76c1a8cac64e2b596ef1dbc6e5\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3055,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"be179075c7b221ec5ce3c24917a4d3f2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3064,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fc1bef87d577a0435a16c79d8add7941\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3073,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"df64367a49754c3e75795b5170d717ef\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3082,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ec6c356a6bd7f7525bc2e02708785c8a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3091,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ba4b273bc6d38093170a9c7a56b2a475\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3100,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"2087c1d4cd46992428b71b19a80c48cf\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3109,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"db82a412fa2119eddb5688f22c8e3f2e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3118,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"b1d36e22e0ba7d9817347d7157c2947b\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3127,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"007d783341791baa133bae5bd74a165d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3136,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fee2c7ca859e40ec94551be5f2ad8f51\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3145,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8afa7d3d1bafd20fddd76c20aecdeea4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3154,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"054869054c9bd3527791b0eb6dbc2821\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3163,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0ff7bdc694ff5fba32154ba126f5b730\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3172,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a362b1f6d0a7c612aeab18c0eff09a51\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3181,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"e8285a2674d9e3cdcf6e743b06e4fdf4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3190,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"6c9bc7a72e1a869b375a7bd1a0ae0759\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3199,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3a404ce172021263b86e074b104a7bc4\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3208,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"70f836f9ce7e0dae08bf6f5d82d6bc10\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3217,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8faae89e027ea1fd67a3a9952befff18\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3226,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c80faf6a4fc4289845c03033066caf18\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3235,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0fcc1ece50800f09e1141153b60ee04d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3244,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"4950662b92a9b624c8c69974aae668c2\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3253,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8e9ddf3141c91572e606b3563005cc36\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3262,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f23fa4dca2e396ddfaf924da029ee938\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3271,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"aa63ace0b9f130f9bfeab1be3cd7909e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3280,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"36effd65799a0c7cee4d973e9e63b21a\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3289,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"84243cc34d78b38c29f4148ee376f1ac\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3298,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"8a9f719455cfcd693f4d2cf9cc2809c8\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3307,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ec02293ad173cdd9b8f3ab7cb599e69e\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3316,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"9b482422f75b2e65a3c3e07abb8fcb2d\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3325,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"497ff06b7e08744b29f7cc75215e7412\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3334,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1114bd6c8ed0904d58faa2c0f957ec72\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3343,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fcc8ea367d148a3288ab549c365c1704\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3352,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0ecccec9d9f916d6047e2cab5d967737\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3361,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1eb6c4f02a5b6cc1c0f9c874d672b088\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/INVENTORY.json",
+        "line": 3370,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"00cf2230ebac242e724974f40817cd7f\""
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/precious_metals_tracker.py",
+        "line": 30,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear' if os.name == 'posix' else 'cls')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/god_view.py",
+        "line": 12,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v10_titan.py",
+        "line": 35,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v5_legion.py",
+        "line": 48,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v6_treasury.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/local_index.json",
+        "line": 6256,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"location\": \"/data/data/com.termux/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/s"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/local_index.json",
+        "line": 6260,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"location\": \"/data/data/com.termux/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/s"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/local_index.json",
+        "line": 6264,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"location\": \"/data/data/com.termux/files/home/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/s"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v2.py",
+        "line": 49,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v3.py",
+        "line": 49,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v5_moon.py",
+        "line": 51,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v7_moonshot.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D06_RANDOM_FUTURES/vanguard_v7_shadow.py",
+        "line": 43,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ea673746d85fc97855b8c1efc4483aa1\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"441af162f7ae15850260a12205bcc3be\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 31,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"15dcfe32f8651adfdd668e8f5d748db5\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 40,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0f9aabb7b14e0f1033ec7061355e5fc6\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 49,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"1e2149220cb1a74d9155d51a898308b8\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 58,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"fe33e7a1e447b9865e4f75b0d927903a\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 67,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"3b1160c59774a2cd8878f68c003099b0\""
+      },
+      {
+        "file": "Districts/D07_ARCHIVE_SCROLLS/INVENTORY.json",
+        "line": 76,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0290de12e05e818a69dcf35c470d090e\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 13,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"eaa19e6fe977c1b9738c132b12ea1d66\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 22,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"36b4624534f103c810123c34c098a33c\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 31,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c23d5b13b0a07360163588a4a4f31c8c\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 40,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a9f2d0a87e17a3d033685e143b4e822a\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 49,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ac4f48be262189bba09e2d38e1150b7b\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 58,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"05436472f7e1da8fc86e3973c0c9708d\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 67,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"47a265b803fdcfddc9963b15c1e12f29\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 76,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0b8d6530af734504e93fc1c208556d2d\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 85,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"ac754bd0f6e330a185654fd676e54169\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 94,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"f9a25666cc9d34e593257822d15df52b\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 103,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"0103279bb74ab528290979c36b6d3df7\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 112,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d646dc0fffc305c396524d178f478e71\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 121,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"a8a6163ff37ab509ab6df04af00bee5e\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 130,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"454d4ee795929d85bbe21f6567524610\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 139,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"c4a847fe5948bf71cd87b3f54d92ca55\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 148,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"d9b8e4ff1f1c2dd5ec4a024695c7cf37\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 157,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"51ae6b213d4fac300fa2cdba53689195\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 166,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"90a89624bb38815530dd871c615a4115\""
+      },
+      {
+        "file": "Districts/D02_TIA_VAULT/INVENTORY.json",
+        "line": 175,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "\"md5\": \"be179075c7b221ec5ce3c24917a4d3f2\""
+      },
+      {
+        "file": "vamguard_templates/workers/worker_coordinator.py",
+        "line": 146,
+        "pattern": "md5|sha1(?!.*hmac)",
+        "content": "worker_id = f\"{worker_type.value}_{hashlib.md5(name.encode()).hexdigest()[:8]}\""
+      },
+      {
+        "file": "Partition_02/cgal_project/mexc_admiral.py",
+        "line": 22,
+        "pattern": "os\\.system\\s*\\(",
+        "content": "os.system('clear')"
+      }
+    ]
+  },
+  "resonance_assignment": {
+    "timestamp": "2026-04-03T08:24:26.415739",
+    "version": "v25.0.RESONANCE",
+    "spaces": {
+      "AION": {
+        "frequency": "528Hz",
+        "note": "MI",
+        "description": "Transformation & Miracles (DNA Repair)",
+        "color": "Green-Gold",
+        "element": "Aether",
+        "chakra": "Heart",
+        "intention": "Prosperity, abundance, trading success"
+      },
+      "ORACLE": {
+        "frequency": "432Hz",
+        "note": "Universal Harmony",
+        "description": "Universal Harmony & Cosmic Resonance",
+        "color": "Violet-Indigo",
+        "element": "Spirit",
+        "chakra": "Crown & Third Eye",
+        "intention": "Wisdom, insight, consciousness expansion"
+      },
+      "GOANNA": {
+        "frequency": "396Hz",
+        "note": "UT",
+        "description": "Liberation from Fear & Guilt",
+        "color": "Red-Orange",
+        "element": "Fire",
+        "chakra": "Root",
+        "intention": "Creative freedom, personal expression"
+      },
+      "MAPPING": {
+        "frequency": "639Hz",
+        "note": "FA",
+        "description": "Connection & Relationships",
+        "color": "Blue-Cyan",
+        "element": "Water",
+        "chakra": "Throat",
+        "intention": "Communication, system harmony, integration"
+      }
+    },
+    "supplementary": {
+      "Schumann_Resonance": "7.83Hz (Earth's heartbeat)",
+      "Alpha_Waves": "8-13Hz (Relaxed awareness)",
+      "Theta_Waves": "4-8Hz (Deep meditation)",
+      "Gamma_Waves": "40Hz+ (High-level cognition)"
+    },
+    "activation_protocol": [
+      "Sound the frequency during Space initialization",
+      "Embed frequency signature in model embeddings",
+      "Synchronize computational cycles to harmonic multiples",
+      "Use frequency as random seed for deterministic harmony",
+      "Generate audio signatures for each Space"
+    ]
+  },
+  "status": "REQUIRES_ATTENTION"
+}
