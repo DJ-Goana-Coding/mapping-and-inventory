@@ -1,0 +1,27 @@
+{
+  "registry_version": "1.0.0",
+  "last_updated": "2026-04-03T06:33:07.855615Z",
+  "total_models": 0,
+  "categories": {
+    "Core": {
+      "count": 0,
+      "models": []
+    },
+    "Genetics": {
+      "count": 0,
+      "models": []
+    },
+    "Lore": {
+      "count": 0,
+      "models": []
+    },
+    "Research": {
+      "count": 0,
+      "models": []
+    },
+    "Utility": {
+      "count": 0,
+      "models": []
+    }
+  }
+}
