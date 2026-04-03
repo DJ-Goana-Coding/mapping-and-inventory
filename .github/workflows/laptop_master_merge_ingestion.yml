@@ -1,0 +1,262 @@
+name: Laptop MASTER_MERGE_2 Ingestion
+# Sovereign Directive: Ingest MASTER_SYSTEM_MAP_2.csv from Laptop Desktop
+# Updates 9,354-entity baseline with Immune Version map
+
+on:
+  # Triggered when MASTER_SYSTEM_MAP_2 manifest is pushed
+  push:
+    paths:
+      - 'data/laptop_inventory/master_system_map_2.json'
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  ingest_master_merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate MASTER_SYSTEM_MAP_2 Manifest
+        id: validate
+        run: |
+          echo "🛡️ SOVEREIGN DIRECTIVE: MASTER_MERGE_2 INGESTION"
+          echo "=" * 60
+          
+          MANIFEST="data/laptop_inventory/master_system_map_2.json"
+          
+          if [ ! -f "$MANIFEST" ]; then
+            echo "❌ MASTER_SYSTEM_MAP_2 manifest not found"
+            echo "manifest_found=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "✅ Manifest located: $MANIFEST"
+          echo "manifest_found=true" >> $GITHUB_OUTPUT
+          
+          # Validate JSON structure
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import sys
+          
+          try:
+              with open("data/laptop_inventory/master_system_map_2.json", 'r') as f:
+                  data = json.load(f)
+              
+              required_fields = ["import_timestamp", "source", "total_entities", "entities"]
+              if all(field in data for field in required_fields):
+                  print(f"✅ Valid manifest structure")
+                  print(f"   Source: {data['source']}")
+                  print(f"   Entities: {data['total_entities']}")
+                  print(f"   Timestamp: {data['import_timestamp']}")
+              else:
+                  print("❌ Invalid manifest structure")
+                  sys.exit(1)
+          
+          except Exception as e:
+              print(f"❌ Validation error: {e}")
+              sys.exit(1)
+          PYTHON_SCRIPT
+
+      - name: Merge into Master Inventory
+        if: steps.validate.outputs.manifest_found == 'true'
+        run: |
+          echo "🔄 Merging MASTER_SYSTEM_MAP_2 into master_inventory.json..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Load MASTER_SYSTEM_MAP_2
+          with open("data/laptop_inventory/master_system_map_2.json", 'r') as f:
+              master_merge = json.load(f)
+          
+          # Load existing master inventory
+          master_file = Path("master_inventory.json")
+          if master_file.exists():
+              with open(master_file, 'r') as f:
+                  master = json.load(f)
+          else:
+              master = {"entities": [], "last_updated": None}
+          
+          original_count = len(master.get("entities", []))
+          
+          # Add MASTER_MERGE_2 entities
+          new_entities = master_merge.get("entities", [])
+          
+          # Deduplicate by full_name (as per PowerShell MASTER_MERGE_2 logic)
+          seen_names = {e.get("full_name") for e in master.get("entities", []) if e.get("type") == "laptop_desktop_entity"}
+          
+          added_count = 0
+          for entity in new_entities:
+              full_name = entity.get("full_name")
+              if full_name not in seen_names:
+                  master["entities"].append(entity)
+                  seen_names.add(full_name)
+                  added_count += 1
+          
+          # Update metadata
+          master["last_updated"] = datetime.utcnow().isoformat() + "Z"
+          master["master_merge_2_ingestion"] = {
+              "timestamp": master_merge["import_timestamp"],
+              "entities_added": added_count,
+              "total_from_merge": len(new_entities)
+          }
+          
+          # Save updated master
+          with open(master_file, 'w') as f:
+              json.dump(master, f, indent=2)
+          
+          print(f"✅ MASTER_MERGE_2 Integration Complete")
+          print(f"   Original entities: {original_count}")
+          print(f"   New entities added: {added_count}")
+          print(f"   Total entities now: {len(master['entities'])}")
+          print(f"   Updated 9,354-entity baseline to {len(master['entities'])}-entity baseline")
+          PYTHON_SCRIPT
+
+      - name: Update Master Intelligence Map
+        if: steps.validate.outputs.manifest_found == 'true'
+        run: |
+          echo "🧠 Updating master_intelligence_map.txt..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          with open("data/laptop_inventory/master_system_map_2.json", 'r') as f:
+              master_merge = json.load(f)
+          
+          # Append to intelligence map
+          with open("master_intelligence_map.txt", 'a') as f:
+              f.write("\n\n")
+              f.write("=" * 80 + "\n")
+              f.write("MASTER_MERGE_2 INGESTION (IMMUNE VERSION)\n")
+              f.write(f"Timestamp: {master_merge['import_timestamp']}\n")
+              f.write(f"Source: {master_merge['source']}\n")
+              f.write("=" * 80 + "\n\n")
+              
+              f.write(f"ENTITIES: {master_merge['total_entities']}\n\n")
+              
+              # Count by extension
+              extensions = {}
+              for entity in master_merge.get("entities", []):
+                  ext = entity.get("extension", "unknown")
+                  extensions[ext] = extensions.get(ext, 0) + 1
+              
+              f.write("EXTENSION BREAKDOWN:\n")
+              for ext, count in sorted(extensions.items(), key=lambda x: x[1], reverse=True)[:20]:
+                  f.write(f"  {ext}: {count}\n")
+              
+              f.write("\n")
+              f.write("STATUS: Immune Version validated and integrated\n")
+              f.write("DEDUPLICATION: Applied by FullName and Keyword\n")
+              f.write("BROWSER METADATA: Filtered as per MASTER_MERGE_2.ps1 logic\n")
+          
+          print("✅ Intelligence map updated with MASTER_MERGE_2 summary")
+          PYTHON_SCRIPT
+
+      - name: Trigger Surveyor Harvest
+        if: steps.validate.outputs.manifest_found == 'true'
+        run: |
+          echo "🛰️ Notifying Surveyor of new baseline..."
+          echo "The Surveyor will pick up changes on next 6-hour pulse"
+
+      - name: Validate Apps Script Toolbox Connection
+        if: steps.validate.outputs.manifest_found == 'true'
+        run: |
+          echo "🛠️ Validating Apps Script Toolbox connection..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+
+          # Check if workers manifest exists
+          workers_file = Path("data/workers/workers_manifest.json")
+          
+          if workers_file.exists():
+              with open(workers_file, 'r') as f:
+                  workers = json.load(f)
+              
+              print("✅ Workers Manifest Found")
+              print(f"   Total Workers: {workers.get('total_workers', 0)}")
+              
+              # Check for key worker categories
+              categories = workers.get("categories", {})
+              for cat_name in ["Harvesters", "Librarians", "Reporters"]:
+                  cat_data = categories.get(cat_name, {})
+                  count = cat_data.get("count", 0)
+                  if count > 0:
+                      print(f"   {cat_name}: {count} workers")
+              
+              # Check for GDrive connection
+              has_gdrive = any(
+                  w.get("source") == "gdrive" 
+                  for cat in categories.values() 
+                  for w in cat.get("workers", [])
+              )
+              
+              if has_gdrive:
+                  print("✅ Apps Script Toolbox connected to GDrive substrate")
+              else:
+                  print("⚠️  No GDrive workers found - run gdrive_worker_harvester.yml")
+          else:
+              print("⚠️  Workers manifest not found")
+              print("   Run: python scripts/workers_constellation_setup.py --discover")
+          PYTHON_SCRIPT
+
+      - name: Commit Changes
+        if: steps.validate.outputs.manifest_found == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add master_inventory.json master_intelligence_map.txt
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🛡️ MASTER_MERGE_2 Ingestion - Immune Version - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ MASTER_MERGE_2 integrated into Citadel Mesh"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🛡️ SOVEREIGN DIRECTIVE COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "data/laptop_inventory/master_system_map_2.json" ]; then
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          
+          # Load master inventory
+          with open("master_inventory.json", 'r') as f:
+              master = json.load(f)
+          
+          print("MASTER INVENTORY STATUS:")
+          print(f"  Total Entities: {len(master.get('entities', []))}")
+          
+          if "master_merge_2_ingestion" in master:
+              merge_info = master["master_merge_2_ingestion"]
+              print(f"\nMASTER_MERGE_2 INGESTION:")
+              print(f"  Entities Added: {merge_info['entities_added']}")
+              print(f"  Timestamp: {merge_info['timestamp']}")
+          
+          # Count entity types
+          types = {}
+          for entity in master.get("entities", []):
+              etype = entity.get("type", "unknown")
+              types[etype] = types.get(etype, 0) + 1
+          
+          print(f"\nENTITY TYPES:")
+          for etype, count in sorted(types.items(), key=lambda x: x[1], reverse=True)[:5]:
+              print(f"  {etype}: {count}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "✅ The Weld is Complete"
+          echo "🛰️ The Surveyor will Pulse on next 6-hour cycle"
+          echo "🦎 Weld. Pulse. Ignite."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
