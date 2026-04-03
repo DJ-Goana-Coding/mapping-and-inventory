@@ -1,0 +1,31 @@
+name: TIA-ARCHITECT-CORE Health Monitor
+on:
+  schedule:
+    - cron: "*/30 * * * *"  # Every 30 minutes
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check TIA-ARCHITECT-CORE Space Status
+        run: |
+          echo "🔍 Checking TIA-ARCHITECT-CORE HuggingFace Space..."
+          
+          # Check if Space is accessible
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE)
+          
+          if [ "$response" -eq 200 ]; then
+            echo "✅ TIA-ARCHITECT-CORE Space is ONLINE"
+            echo "status=online" >> health_status.txt
+          else
+            echo "❌ TIA-ARCHITECT-CORE Space is OFFLINE (HTTP $response)"
+            echo "status=offline" >> health_status.txt
+            exit 1
+          fi
+
+      - name: Report Status
+        if: always()
+        run: |
+          echo "Health check completed at $(date)"
+          cat health_status.txt || echo "No status file generated"

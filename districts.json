@@ -130,8 +130,22 @@
       "name": "TIA-ARCHITECT-CORE",
       "type": "oracle",
       "repository": "https://github.com/DJ-Goana-Coding/TIA-ARCHITECT-CORE",
+      "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE",
       "agent": "oracle.agent.md",
-      "status": "pending"
+      "status": "active",
+      "priority": "sovereign"
+    },
+    {
+      "id": "PIONEER_TRADER",
+      "name": "tias-pioneer-trader",
+      "type": "spoke",
+      "tier": "T4",
+      "pillar": "TRADING",
+      "district": "D04_OMEGA_TRADER",
+      "repository": "https://github.com/DJ-Goana-Coding/tias-pioneer-trader",
+      "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/tias-pioneer-trader",
+      "status": "active",
+      "priority": "operational"
     },
     {
       "id": "OPPO_NODE",
