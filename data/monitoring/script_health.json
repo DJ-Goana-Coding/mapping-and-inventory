@@ -1,0 +1,731 @@
+{
+  "timestamp": "2026-04-03T09:25:19.428456",
+  "summary": {
+    "total_scripts": 77,
+    "healthy_scripts": 76,
+    "broken_scripts": 1,
+    "repaired_scripts": 0,
+    "failed_repairs": 0,
+    "health_percentage": 98.7
+  },
+  "scripts": {
+    "scripts/citadel_awakening.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.231646"
+    },
+    "scripts/rag_ingest.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.237566"
+    },
+    "scripts/harvest_github_trending.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.238767"
+    },
+    "scripts/generate_scaffold.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.242941"
+    },
+    "scripts/download_citadel_omega_models.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.244165"
+    },
+    "scripts/sentinel_coordinator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.246412"
+    },
+    "scripts/generate_inventory.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.251116"
+    },
+    "scripts/deploy_protection_constellation.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.252179"
+    },
+    "scripts/autonomous_sync_orchestrator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.255076"
+    },
+    "scripts/autonomous_district_harvester.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.258442"
+    },
+    "scripts/harvestmoon_coordinator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.263063"
+    },
+    "scripts/web_scout.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.266282"
+    },
+    "scripts/vacuum_cleaner.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.268912"
+    },
+    "scripts/generate_tree.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.271700"
+    },
+    "scripts/worker_watchdog.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.272502"
+    },
+    "scripts/orchestrate_free_compute.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.277910"
+    },
+    "scripts/download_frontier_models_2026.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.281491"
+    },
+    "scripts/trinity_toroidal_deployment.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.285994"
+    },
+    "scripts/discover_all_repos.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.289337"
+    },
+    "scripts/master_pipeline_orchestrator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.292950"
+    },
+    "scripts/wake_up_tia.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.296809"
+    },
+    "scripts/pioneer_trader_coordinator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.297978"
+    },
+    "scripts/workers_constellation_setup.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.303996"
+    },
+    "scripts/librarian_consolidator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.308005"
+    },
+    "scripts/domain_scout.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.311412"
+    },
+    "scripts/trading_garage_collector.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.314531"
+    },
+    "scripts/laptop_desktop_scanner.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.318918"
+    },
+    "scripts/autonomous_health_monitor.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.322090"
+    },
+    "scripts/purification_protocol.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.328114"
+    },
+    "scripts/tia_coordinator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.331656"
+    },
+    "scripts/generate_vector_migration.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.335286"
+    },
+    "scripts/moe_128_orchestrator.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.338569"
+    },
+    "scripts/spiritual_network_mapper.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.341532"
+    },
+    "scripts/update_model_registry.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.345801"
+    },
+    "scripts/security_sentinel.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.349795"
+    },
+    "scripts/self_healing_worker.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.352597"
+    },
+    "scripts/laptop_filesystem_scanner.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.359228"
+    },
+    "services/aetheric_probe.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.362157"
+    },
+    "services/market_sensor.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.362982"
+    },
+    "services/district_librarian.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.363384"
+    },
+    "services/lore_gen.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.364208"
+    },
+    "services/washing_harvest.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.364866"
+    },
+    "services/worker_hive_master.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.365506"
+    },
+    "services/final_auth_weld.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.369426"
+    },
+    "services/dataset_connector.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.370290"
+    },
+    "services/worker_bridge.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.373105"
+    },
+    "services/lore_transmuter.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.377184"
+    },
+    "services/repo_mapper.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.377882"
+    },
+    "services/worker_reporter.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.380136"
+    },
+    "services/profit_sentry.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.386821"
+    },
+    "services/worker_archivist.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.387585"
+    },
+    "services/reforge_remotes.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.390693"
+    },
+    "services/discovery_map.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.391380"
+    },
+    "services/aether_link.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.392120"
+    },
+    "services/hf_bucket_connector.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.392595"
+    },
+    "services/gdrive_connector.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.395019"
+    },
+    "services/librarian_atlas.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.396367"
+    },
+    "services/signal_probe.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.396800"
+    },
+    "services/ark_engine.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.397531"
+    },
+    "services/total_recon.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.398287"
+    },
+    "services/tia_connector.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.398676"
+    },
+    "services/nuclear_push.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.399477"
+    },
+    "services/aetheric_engine.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.400093"
+    },
+    "services/district_audit.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.400599"
+    },
+    "services/omni_scanner.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.401009"
+    },
+    "services/neuron_processor.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.401764"
+    },
+    "services/manifest_gen.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.402815"
+    },
+    "services/intel_summarizer.py": {
+      "syntax_valid": true,
+      "imports_valid": true,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.403061"
+    },
+    "wake_citadel.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.403599"
+    },
+    "automate_all.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.405765"
+    },
+    "restore_tia_core.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.408284"
+    },
+    "verify_ark_core.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.413547"
+    },
+    "global_sync.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.416762"
+    },
+    "watch_workflow.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.419774"
+    },
+    "trigger_all_workflows.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.422164"
+    },
+    "patch_fleet.sh": {
+      "syntax_valid": true,
+      "imports_valid": false,
+      "executable": false,
+      "errors": [],
+      "warnings": [
+        "Script is not executable"
+      ],
+      "last_check": "2026-04-03T09:25:19.424227"
+    },
+    "citadel_audit.sh": {
+      "syntax_valid": false,
+      "imports_valid": false,
+      "executable": true,
+      "errors": [
+        "Bash syntax error: /home/runner/work/mapping-and-inventory/mapping-and-inventory/citadel_audit.sh: line 283: syntax error near unexpected token `)'\n/home/runner/work/mapping-and-inventory/mapping-and-inventory/citadel_audit.sh: line 283: `)'\n"
+      ],
+      "warnings": [],
+      "last_check": "2026-04-03T09:25:19.426549"
+    }
+  }
+}
