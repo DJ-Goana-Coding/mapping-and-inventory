@@ -1,0 +1,1 @@
+# Global Weld Sync Reports\n\nThis directory contains timestamped sync reports from the Global Weld orchestration script.\n\nEach report includes:\n- Discovered repositories\n- Clone success/failure status\n- Artifact extraction counts\n- Aggregation statistics\n
