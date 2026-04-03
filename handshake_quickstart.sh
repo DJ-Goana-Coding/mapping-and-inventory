@@ -104,6 +104,26 @@ if [[ "$MODE" == "file" ]] || [[ "$MODE" == "all" ]]; then
 fi
 
 # ═══════════════════════════════════════════════════════════════════════════
+# TRADING BOT DEPLOYMENT
+# ═══════════════════════════════════════════════════════════════════════════
+
+if [[ "$MODE" == "trade" ]] || [[ "$MODE" == "all" ]]; then
+    echo ""
+    echo "🚗 Phase 4: Trading Bot Deployment"
+    echo "───────────────────────────────────────────────────────────────────────────"
+    
+    if [[ -f "$SCRIPT_DIR/scripts/trading_bot_deployment_router.py" ]]; then
+        echo "  → Deploying trading bots to garages..."
+        python3 "$SCRIPT_DIR/scripts/trading_bot_deployment_router.py"
+    else
+        echo "⚠️  Trading bot deployment router not found (skipping)"
+    fi
+    
+    echo ""
+    echo "✅ Trading deployment complete."
+fi
+
+# ═══════════════════════════════════════════════════════════════════════════
 # COMPLETION
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -117,12 +137,14 @@ echo "  ✅ KNOCK signal sent to GDrive"
 echo "  ✅ Local filesystem vacuum complete (hundreds of GB)"
 echo "  ✅ GDrive substrate vacuum complete (~20+ GB)"
 echo "  ✅ Data filed to persona datasets"
+echo "  ✅ Trading bots deployed to garages"
 echo ""
 echo "🎯 Next Steps:"
-echo "  1. Trigger Forever Learning cycle in TIA-ARCHITECT-CORE"
-echo "  2. Update master_intelligence_map.txt"
-echo "  3. Run Oracle Sync workflow"
-echo "  4. Verify T.I.A. HUD shows updated data"
+echo "  1. Activate trading garage: python3 scripts/activate_trading_garage.py"
+echo "  2. Configure MEXC secrets in Trading_Garages/Trading_Garage_Alpha/configs/.env.local"
+echo "  3. Trigger Forever Learning cycle in TIA-ARCHITECT-CORE"
+echo "  4. Update master_intelligence_map.txt"
+echo "  5. Run Oracle Sync workflow"
 echo ""
 echo "═══════════════════════════════════════════════════════════════════════════"
 echo "🦎 Weld. Pulse. Ignite."
