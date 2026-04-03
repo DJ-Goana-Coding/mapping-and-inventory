@@ -1,0 +1,120 @@
+name: 🤗 HuggingFace Spaces Multi-Sync
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      target_spaces:
+        description: 'Spaces to sync (all/aion/oracle/goanna/mapping)'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - aion
+          - oracle
+          - goanna
+          - mapping
+
+permissions:
+  contents: read
+
+jobs:
+  sync-spaces:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        space:
+          - name: "AION"
+            repo: "DJ-Goanna-Coding/AION"
+            branch: "main"
+            enabled: true
+          - name: "ORACLE"
+            repo: "DJ-Goanna-Coding/ORACLE"
+            branch: "main"
+            enabled: true
+          - name: "goanna_coding"
+            repo: "DJ-Goanna-Coding/goanna_coding"
+            branch: "main"
+            enabled: true
+          - name: "Mapping-and-Inventory"
+            repo: "DJ-Goanna-Coding/Mapping-and-Inventory"
+            branch: "main"
+            enabled: true
+    
+    steps:
+      - name: 📥 Checkout Repository
+        if: matrix.space.enabled
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: 🔄 Sync to ${{ matrix.space.name }}
+        if: |
+          matrix.space.enabled &&
+          (github.event.inputs.target_spaces == 'all' ||
+           github.event.inputs.target_spaces == '' ||
+           contains(matrix.space.name, github.event.inputs.target_spaces))
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "⚠️ HF_TOKEN not set, skipping sync for ${{ matrix.space.name }}"
+            exit 0
+          fi
+          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚀 Syncing to HuggingFace Space: ${{ matrix.space.name }}"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Configure git
+          git config --global credential.helper store
+          echo "https://DJ-Goanna-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "Citadel Sync Bot"
+          
+          # Add HuggingFace remote
+          REMOTE_NAME="hf_${{ matrix.space.name }}"
+          REMOTE_URL="https://huggingface.co/spaces/${{ matrix.space.repo }}"
+          
+          git remote remove $REMOTE_NAME 2>/dev/null || true
+          git remote add $REMOTE_NAME $REMOTE_URL
+          
+          # Push to HuggingFace
+          echo "📤 Pushing to $REMOTE_URL..."
+          git push --force $REMOTE_NAME ${{ matrix.space.branch }}
+          
+          echo "✅ Successfully synced to ${{ matrix.space.name }}"
+
+      - name: 📊 Verify Space Status
+        if: matrix.space.enabled
+        continue-on-error: true
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📊 Space: ${{ matrix.space.name }}"
+          echo "🔗 URL: https://huggingface.co/spaces/${{ matrix.space.repo }}"
+          echo "✅ Sync completed at: $(date -u)"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  summary:
+    needs: sync-spaces
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: 📋 Deployment Summary
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🎯 CITADEL HF SPACES DEPLOYMENT SUMMARY"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Deployed Spaces:"
+          echo "  🤖 AION:    https://huggingface.co/spaces/DJ-Goanna-Coding/AION"
+          echo "  🔮 ORACLE:  https://huggingface.co/spaces/DJ-Goanna-Coding/ORACLE"
+          echo "  🦎 Goanna:  https://huggingface.co/spaces/DJ-Goanna-Coding/goanna_coding"
+          echo "  📚 Mapping: https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory"
+          echo ""
+          echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
