@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:24:15.570127",
+    "purpose": "Domain acquisition strategy"
+  },
+  "domain_candidates": {
+    "primary_brands": {
+      "vamguard_domains": [
+        "vamguard.io",
+        "vamguard.ai",
+        "vamguard.finance",
+        "vamguard.app",
+        "vamguard.money",
+        "vamguard.tech",
+        "vamguard.xyz"
+      ],
+      "tia_domains": [
+        "tia-architect.ai",
+        "tia-core.io",
+        "tiaarchitect.com",
+        "theia-ai.com",
+        "tia-intelligence.io"
+      ],
+      "citadel_domains": [
+        "citadel-omega.io",
+        "citadelmesh.ai",
+        "citadel-intelligence.com",
+        "quantumcitadel.io"
+      ]
+    },
+    "spiritual_domains": {
+      "high_frequency": [
+        "highfrequency.love",
+        "528hz.love",
+        "divine-frequency.com",
+        "starseed-nexus.com",
+        "cosmic-awakening.io",
+        "lightworker-hub.com",
+        "ascension-tech.io"
+      ],
+      "love_based": [
+        "love-frequency.io",
+        "heart-coherence.com",
+        "divine-love.tech",
+        "unity-consciousness.io"
+      ]
+    },
+    "trading_domains": {
+      "crypto_trading": [
+        "omega-trader.io",
+        "vgt-token.com",
+        "vamguard-token.io",
+        "citadel-trading.ai",
+        "quantum-trading.io"
+      ],
+      "finance": [
+        "iso20022-ready.com",
+        "swift-integration.io",
+        "crossborder-pay.io"
+      ]
+    },
+    "community_domains": {
+      "portals": [
+        "goanna-collective.io",
+        "dj-goanna.com",
+        "goanna-tech.ai",
+        "quantum-goanna.io"
+      ]
+    },
+    "web3_domains": {
+      "ens_names": [
+        "vamguard.eth",
+        "tia-architect.eth",
+        "citadel-omega.eth",
+        "djgoanna.eth"
+      ],
+      "unstoppable": [
+        "vamguard.crypto",
+        "tiaarchitect.nft",
+        "citadel.dao"
+      ]
+    }
+  },
+  "acquisition_strategy": {
+    "priority_acquisitions": {
+      "must_have": [
+        "vamguard.io ($10-20/year)",
+        "tia-architect.ai ($20-30/year)",
+        "citadel-omega.io ($10-20/year)"
+      ],
+      "nice_to_have": [
+        "528hz.love",
+        "quantum-goanna.io",
+        "omega-trader.io"
+      ]
+    },
+    "web3_names": {
+      "ens": "Register on Ethereum Name Service (~$5-50/year)",
+      "unstoppable": "One-time purchase (~$10-40)",
+      "benefits": "Crypto payments, decentralized websites, censorship resistance"
+    },
+    "free_alternatives": {
+      "subdomains": [
+        "vamguard.github.io (free)",
+        "vamguard.vercel.app (free)",
+        "vamguard.netlify.app (free)",
+        "vamguard.pages.dev (Cloudflare, free)"
+      ],
+      "temporary": "Use while saving for premium domains"
+    },
+    "total_costs": {
+      "minimal": "$30-50/year (3 .io domains)",
+      "optimal": "$100-200/year (multiple premium)",
+      "web3": "$50-150 one-time"
+    }
+  },
+  "check_availability": {
+    "tools": [
+      "Namecheap domain search",
+      "GoDaddy domain checker",
+      "Google Domains",
+      "ENS App for .eth names",
+      "Unstoppable Domains"
+    ],
+    "apis": [
+      "Namecheap API",
+      "GoDaddy API"
+    ]
+  }
+}
