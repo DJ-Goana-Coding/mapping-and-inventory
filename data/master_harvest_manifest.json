@@ -1,10 +1,10 @@
 {
-  "harvest_timestamp": "2026-04-03T06:34:56.634207Z",
+  "harvest_timestamp": "2026-04-03T07:30:21.345046Z",
   "sources": {
     "partitions": {},
     "models": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-03T06:33:07.855615Z",
+      "last_updated": "2026-04-03T06:52:11.366574Z",
       "total_models": 0,
       "categories": {
         "Core": {
@@ -29,7 +29,37 @@
         }
       }
     },
-    "workers": {},
+    "workers": {
+      "registry_version": "1.0.0",
+      "last_updated": "2026-04-03T07:09:24.279746Z",
+      "total_workers": 0,
+      "categories": {
+        "Vacuums": {
+          "count": 0,
+          "workers": []
+        },
+        "Harvesters": {
+          "count": 0,
+          "workers": []
+        },
+        "Librarians": {
+          "count": 0,
+          "workers": []
+        },
+        "Reporters": {
+          "count": 0,
+          "workers": []
+        },
+        "Archivists": {
+          "count": 0,
+          "workers": []
+        },
+        "Utility": {
+          "count": 0,
+          "workers": []
+        }
+      }
+    },
     "documents": {}
   },
   "summary": {
