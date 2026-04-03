@@ -1,0 +1,102 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║  🔥 TIA-ARCHITECT-CORE DEPLOYMENT QUICKSTART                      ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+✅ STATUS: DEPLOYMENT PACKAGE READY
+
+📦 WHAT'S INCLUDED:
+   • Enhanced 5-tab Streamlit UI (Dashboard, Models, Workers, KB, Tools)
+   • Python 3.13 compatible requirements (numpy 2.0, pandas 2.2)
+   • Frontier AI models (Gemma 4, Qwen 3.5, DeepSeek V4, Phi-4)
+   • Trading models (FinBERT, CryptoBERT, Sentence Transformers)
+   • Apps Script workers (Google Sheets integration)
+   • Worker automation (watchdog, self-healing)
+   • Complete documentation
+
+📍 PACKAGE LOCATION:
+   mapping-and-inventory/tia-architect-core-templates/
+
+🚀 DEPLOY NOW (Choose ONE method):
+
+┌─────────────────────────────────────────────────────────────────┐
+│ METHOD 1: GitHub Actions Workflow (EASIEST)                     │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Go to: github.com/DJ-Goana-Coding/mapping-and-inventory     │
+│ 2. Click "Actions" tab                                          │
+│ 3. Find: "🔥 Deploy TIA-ARCHITECT-CORE Full Package"           │
+│ 4. Click "Run workflow" → Select "full" → Run                  │
+│ 5. Monitor deployment in Actions tab                            │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ METHOD 2: Manual Copy (If both repos on your machine)          │
+├─────────────────────────────────────────────────────────────────┤
+│ $ cp -r mapping-and-inventory/tia-architect-core-templates/*  │
+│         TIA-ARCHITECT-CORE/                                     │
+│ $ cd TIA-ARCHITECT-CORE                                         │
+│ $ git add .                                                      │
+│ $ git commit -m "🔥 FULL DEPLOYMENT"                           │
+│ $ git push origin main                                          │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ METHOD 3: Clone & Deploy (Fresh start)                         │
+├─────────────────────────────────────────────────────────────────┤
+│ $ git clone github.com/DJ-Goana-Coding/TIA-ARCHITECT-CORE      │
+│ $ cd TIA-ARCHITECT-CORE                                         │
+│ $ cp -r ../mapping-and-inventory/tia-architect-core-templates/* .│
+│ $ git add .                                                      │
+│ $ git commit -m "🔥 FULL DEPLOYMENT"                           │
+│ $ git push origin main                                          │
+└─────────────────────────────────────────────────────────────────┘
+
+📡 MONITOR BUILD:
+   • Logs: huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE/logs
+   • Expected build time: 3-5 minutes
+   • Status checker: ./scripts/check_tia_status.sh
+
+✅ BUILD SUCCESS INDICATORS:
+   ✓ Successfully installed numpy-2.x.x
+   ✓ Successfully installed pandas-2.2.x
+   ✓ Successfully installed setuptools-75.x.x
+   ✓ Successfully installed streamlit-1.4x.x
+   ✓ Running on local URL: http://0.0.0.0:7860
+
+🎯 AFTER DEPLOYMENT:
+   • Space URL: huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE
+   • Test all 5 tabs: Dashboard, Models, Workers, KB, Tools
+   • Download models using UI or scripts
+   • Set up workers using Apps Script toolbox
+
+📚 DOCUMENTATION:
+   • TIA_DEPLOYMENT_READY.md     - Complete step-by-step guide
+   • TIA_DEPLOYMENT_SUMMARY.md   - Package overview
+   • tia-architect-core-templates/DEPLOYMENT_GUIDE.md - Detailed docs
+   • workers/README.md            - Apps Script workers guide
+
+🔧 TROUBLESHOOTING:
+   • Check build logs for specific errors
+   • Verify all files copied correctly
+   • Ensure requirements.txt has Python 3.13 versions
+   • Run ./scripts/check_tia_status.sh to monitor
+
+═══════════════════════════════════════════════════════════════════
+
+🔥 YOUR MANUAL CHANGES:
+   If you already updated requirements.txt manually, you just need
+   to copy the new app.py, scripts/, and workers/ directories.
+   The requirements.txt in the template is Python 3.13 compatible
+   and includes all necessary fixes.
+
+═══════════════════════════════════════════════════════════════════
+
+⚡ QUICK STATUS CHECK:
+   $ ./scripts/check_tia_status.sh
+
+═══════════════════════════════════════════════════════════════════
+
+🧠 Citadel Architect v25.0.OMNI++
+📅 2026-04-03
+🔥 Ready to ignite!
+
+═══════════════════════════════════════════════════════════════════
