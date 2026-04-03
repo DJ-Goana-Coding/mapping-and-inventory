@@ -1,0 +1,227 @@
+name: Frontier Models Download & Registry Update
+on:
+  workflow_dispatch:
+    inputs:
+      models_to_download:
+        description: 'Comma-separated model categories (Core,Utility,Research,Lore or all)'
+        required: false
+        default: 'all'
+      update_registry:
+        description: 'Update model registry after download'
+        required: false
+        default: 'true'
+        type: boolean
+  schedule:
+    # Run weekly on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+
+env:
+  HF_HOME: /tmp/huggingface
+  MODELS_DIR: data/models
+
+jobs:
+  download-frontier-models:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: 🔐 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install huggingface-hub>=0.20.0 transformers torch --no-cache-dir
+          echo "✅ Dependencies installed"
+      
+      - name: 🔑 Configure HuggingFace
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "⚠️  HF_TOKEN not set - downloads may be limited"
+            echo "   Some models may require authentication"
+          else
+            echo "✅ HuggingFace token configured"
+            huggingface-cli login --token $HF_TOKEN
+          fi
+      
+      - name: 📊 Check Available Disk Space
+        run: |
+          echo "💾 Disk Space Before Download:"
+          df -h
+          echo
+          echo "📁 Current directory size:"
+          du -sh .
+      
+      - name: 📥 Download Frontier Models
+        id: download
+        run: |
+          echo "🚀 Starting frontier model downloads..."
+          echo
+          
+          # Run the download script
+          python scripts/download_frontier_models_2026.py 2>&1 | tee /tmp/download_log.txt
+          
+          # Check if any models were downloaded
+          if [ -d "data/models/Core" ] || [ -d "data/models/Utility" ]; then
+            echo "download_success=true" >> $GITHUB_OUTPUT
+            echo "✅ Models downloaded successfully"
+          else
+            echo "download_success=false" >> $GITHUB_OUTPUT
+            echo "⚠️  No models downloaded"
+          fi
+        continue-on-error: true
+      
+      - name: 📊 Check Disk Space After Download
+        if: always()
+        run: |
+          echo "💾 Disk Space After Download:"
+          df -h
+          echo
+          echo "📁 Models directory size:"
+          du -sh data/models/ 2>/dev/null || echo "No models directory"
+          echo
+          echo "📋 Downloaded models:"
+          find data/models -type f -name "*.bin" -o -name "*.safetensors" -o -name "config.json" 2>/dev/null | head -20
+      
+      - name: 📋 Update Model Registry
+        if: steps.download.outputs.download_success == 'true' && inputs.update_registry == 'true'
+        run: |
+          echo "📋 Updating model registry..."
+          python scripts/update_model_registry.py
+          
+          echo
+          echo "✅ Registry updated"
+          echo "📊 Registry Summary:"
+          cat data/models/registry_summary.json 2>/dev/null || echo "Summary not generated"
+      
+      - name: 🗜️ Archive Large Models (Optional)
+        if: steps.download.outputs.download_success == 'true'
+        run: |
+          echo "🗜️ Checking for large model files to archive..."
+          
+          # Find large model files (>500MB)
+          find data/models -type f -size +500M 2>/dev/null | while read file; do
+            echo "   Large file: $file"
+            file_size=$(du -h "$file" | cut -f1)
+            echo "   Size: $file_size"
+          done || echo "No large files found"
+      
+      - name: 💾 Commit and Push Registry Updates
+        if: steps.download.outputs.download_success == 'true'
+        run: |
+          git config --global user.name "Aether Harvest Bot"
+          git config --global user.email "aether-harvest@dj-goana-coding.ai"
+          
+          # Add registry files (but not the actual models - too large)
+          git add data/models/model_registry.json 2>/dev/null || true
+          git add data/models/api_models_registry.json 2>/dev/null || true
+          git add data/models/registry_summary.json 2>/dev/null || true
+          git add data/models/README.md 2>/dev/null || true
+          git add data/master_model_registry.json 2>/dev/null || true
+          
+          # Check if there are changes
+          if git diff --staged --quiet; then
+            echo "✅ No registry changes to commit"
+          else
+            git commit -m "📋 Update frontier models registry - $(date +'%Y-%m-%d')"
+            git push
+            echo "✅ Registry updates pushed to GitHub"
+          fi
+      
+      - name: 📤 Upload to HuggingFace Dataset (Optional)
+        if: steps.download.outputs.download_success == 'true' && secrets.HF_TOKEN != ''
+        run: |
+          echo "📤 Uploading models to HuggingFace dataset..."
+          echo "⚠️  This step is optional and may be disabled due to size constraints"
+          echo "   Manual upload recommended for large models"
+          echo
+          echo "💡 To upload manually:"
+          echo "   huggingface-cli upload DJ-Goanna-Coding/frontier-models-2026 data/models/"
+      
+      - name: 📊 Generate Download Report
+        if: always()
+        run: |
+          cat > /tmp/download_report.md << 'EOF'
+          # Frontier Models Download Report
+          
+          **Workflow**: frontier_models_download.yml
+          **Triggered**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Status**: ${{ job.status }}
+          
+          ## Download Results
+          
+          EOF
+          
+          if [ -f "/tmp/download_log.txt" ]; then
+            echo "### Download Log" >> /tmp/download_report.md
+            echo '```' >> /tmp/download_report.md
+            tail -50 /tmp/download_log.txt >> /tmp/download_report.md
+            echo '```' >> /tmp/download_report.md
+          fi
+          
+          echo >> /tmp/download_report.md
+          echo "## Disk Usage" >> /tmp/download_report.md
+          echo '```' >> /tmp/download_report.md
+          df -h >> /tmp/download_report.md
+          echo '```' >> /tmp/download_report.md
+          
+          echo >> /tmp/download_report.md
+          echo "## Downloaded Files" >> /tmp/download_report.md
+          echo '```' >> /tmp/download_report.md
+          find data/models -type f 2>/dev/null | head -30 >> /tmp/download_report.md || echo "No files found" >> /tmp/download_report.md
+          echo '```' >> /tmp/download_report.md
+          
+          cat /tmp/download_report.md
+      
+      - name: ✅ Completion Summary
+        if: success()
+        run: |
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo "✅ FRONTIER MODELS DOWNLOAD COMPLETE"
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo
+          echo "📊 Summary:"
+          echo "   Registry updated: ${{ inputs.update_registry }}"
+          echo "   Download success: ${{ steps.download.outputs.download_success }}"
+          echo
+          echo "📋 Registry Files:"
+          echo "   - data/models/model_registry.json"
+          echo "   - data/models/api_models_registry.json"
+          echo "   - data/models/registry_summary.json"
+          echo
+          echo "🚀 Next Steps:"
+          echo "   1. Review downloaded models in data/models/"
+          echo "   2. Test model loading and inference"
+          echo "   3. Deploy to AETHER-NEXUS HF Space"
+          echo "   4. Integrate into TIA-ARCHITECT-CORE"
+          echo
+      
+      - name: ⚠️ Failure Notice
+        if: failure()
+        run: |
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo "❌ FRONTIER MODELS DOWNLOAD FAILED"
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo
+          echo "⚠️  Common issues:"
+          echo "   - Insufficient disk space (need 50GB+)"
+          echo "   - Missing HF_TOKEN for gated models"
+          echo "   - Network timeout for large downloads"
+          echo "   - Model repository not yet released"
+          echo
+          echo "💡 Troubleshooting:"
+          echo "   1. Check download log above for specific errors"
+          echo "   2. Verify HF_TOKEN is set in repository secrets"
+          echo "   3. Check if models are publicly available"
+          echo "   4. Try manual download: python scripts/download_frontier_models_2026.py"
+          echo
