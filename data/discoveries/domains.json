@@ -1,0 +1,1957 @@
+{
+  "last_updated": "2026-04-03T07:39:03.215719",
+  "premium_domains": [],
+  "web3_names": [
+    {
+      "name": "citadel.eth",
+      "platform": "ENS",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215586"
+    },
+    {
+      "name": "citadel.crypto",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215589"
+    },
+    {
+      "name": "citadel.nft",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215591"
+    },
+    {
+      "name": "citadel.blockchain",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215592"
+    },
+    {
+      "name": "citadel.dao",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215594"
+    },
+    {
+      "name": "oracle.eth",
+      "platform": "ENS",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215598"
+    },
+    {
+      "name": "oracle.crypto",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215599"
+    },
+    {
+      "name": "oracle.nft",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215601"
+    },
+    {
+      "name": "oracle.blockchain",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215602"
+    },
+    {
+      "name": "oracle.dao",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215603"
+    },
+    {
+      "name": "nexus.eth",
+      "platform": "ENS",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215604"
+    },
+    {
+      "name": "nexus.crypto",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215605"
+    },
+    {
+      "name": "nexus.nft",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215606"
+    },
+    {
+      "name": "nexus.blockchain",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215607"
+    },
+    {
+      "name": "nexus.dao",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215608"
+    },
+    {
+      "name": "vanguard.eth",
+      "platform": "ENS",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215609"
+    },
+    {
+      "name": "vanguard.crypto",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215610"
+    },
+    {
+      "name": "vanguard.nft",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215668"
+    },
+    {
+      "name": "vanguard.blockchain",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215669"
+    },
+    {
+      "name": "vanguard.dao",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215670"
+    },
+    {
+      "name": "starseed.eth",
+      "platform": "ENS",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215672"
+    },
+    {
+      "name": "starseed.crypto",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215673"
+    },
+    {
+      "name": "starseed.nft",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215674"
+    },
+    {
+      "name": "starseed.blockchain",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215675"
+    },
+    {
+      "name": "starseed.dao",
+      "platform": "Unstoppable",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215676"
+    }
+  ],
+  "spiritual_domains": [
+    {
+      "domain": "starseed.ai",
+      "keyword": "starseed",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208371"
+    },
+    {
+      "domain": "starseed.io",
+      "keyword": "starseed",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208411"
+    },
+    {
+      "domain": "starseed.eth",
+      "keyword": "starseed",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208444"
+    },
+    {
+      "domain": "starseed.web3",
+      "keyword": "starseed",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208474"
+    },
+    {
+      "domain": "starseed.com",
+      "keyword": "starseed",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208504"
+    },
+    {
+      "domain": "starseed.org",
+      "keyword": "starseed",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208534"
+    },
+    {
+      "domain": "starseed.co",
+      "keyword": "starseed",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208563"
+    },
+    {
+      "domain": "starseed.xyz",
+      "keyword": "starseed",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208593"
+    },
+    {
+      "domain": "lightworker.ai",
+      "keyword": "lightworker",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208623"
+    },
+    {
+      "domain": "lightworker.io",
+      "keyword": "lightworker",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208652"
+    },
+    {
+      "domain": "lightworker.eth",
+      "keyword": "lightworker",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208680"
+    },
+    {
+      "domain": "lightworker.web3",
+      "keyword": "lightworker",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208708"
+    },
+    {
+      "domain": "lightworker.com",
+      "keyword": "lightworker",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208736"
+    },
+    {
+      "domain": "lightworker.org",
+      "keyword": "lightworker",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208765"
+    },
+    {
+      "domain": "lightworker.co",
+      "keyword": "lightworker",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208793"
+    },
+    {
+      "domain": "lightworker.xyz",
+      "keyword": "lightworker",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208821"
+    },
+    {
+      "domain": "consciousness.ai",
+      "keyword": "consciousness",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208848"
+    },
+    {
+      "domain": "consciousness.io",
+      "keyword": "consciousness",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208906"
+    },
+    {
+      "domain": "consciousness.eth",
+      "keyword": "consciousness",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208939"
+    },
+    {
+      "domain": "consciousness.web3",
+      "keyword": "consciousness",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.208968"
+    },
+    {
+      "domain": "consciousness.com",
+      "keyword": "consciousness",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209001"
+    },
+    {
+      "domain": "consciousness.org",
+      "keyword": "consciousness",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209029"
+    },
+    {
+      "domain": "consciousness.co",
+      "keyword": "consciousness",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209059"
+    },
+    {
+      "domain": "consciousness.xyz",
+      "keyword": "consciousness",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209085"
+    },
+    {
+      "domain": "ascension.ai",
+      "keyword": "ascension",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209109"
+    },
+    {
+      "domain": "ascension.io",
+      "keyword": "ascension",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209133"
+    },
+    {
+      "domain": "ascension.eth",
+      "keyword": "ascension",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209160"
+    },
+    {
+      "domain": "ascension.web3",
+      "keyword": "ascension",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209188"
+    },
+    {
+      "domain": "ascension.com",
+      "keyword": "ascension",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209215"
+    },
+    {
+      "domain": "ascension.org",
+      "keyword": "ascension",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209241"
+    },
+    {
+      "domain": "ascension.co",
+      "keyword": "ascension",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209267"
+    },
+    {
+      "domain": "ascension.xyz",
+      "keyword": "ascension",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209295"
+    },
+    {
+      "domain": "frequency.ai",
+      "keyword": "frequency",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209321"
+    },
+    {
+      "domain": "frequency.io",
+      "keyword": "frequency",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209348"
+    },
+    {
+      "domain": "frequency.eth",
+      "keyword": "frequency",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209374"
+    },
+    {
+      "domain": "frequency.web3",
+      "keyword": "frequency",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209400"
+    },
+    {
+      "domain": "frequency.com",
+      "keyword": "frequency",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209426"
+    },
+    {
+      "domain": "frequency.org",
+      "keyword": "frequency",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209452"
+    },
+    {
+      "domain": "frequency.co",
+      "keyword": "frequency",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209478"
+    },
+    {
+      "domain": "frequency.xyz",
+      "keyword": "frequency",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209504"
+    },
+    {
+      "domain": "awakening.ai",
+      "keyword": "awakening",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209530"
+    },
+    {
+      "domain": "awakening.io",
+      "keyword": "awakening",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209557"
+    },
+    {
+      "domain": "awakening.eth",
+      "keyword": "awakening",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209583"
+    },
+    {
+      "domain": "awakening.web3",
+      "keyword": "awakening",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209609"
+    },
+    {
+      "domain": "awakening.com",
+      "keyword": "awakening",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209635"
+    },
+    {
+      "domain": "awakening.org",
+      "keyword": "awakening",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209661"
+    },
+    {
+      "domain": "awakening.co",
+      "keyword": "awakening",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209687"
+    },
+    {
+      "domain": "awakening.xyz",
+      "keyword": "awakening",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209713"
+    },
+    {
+      "domain": "divine.ai",
+      "keyword": "divine",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209740"
+    },
+    {
+      "domain": "divine.io",
+      "keyword": "divine",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209769"
+    },
+    {
+      "domain": "divine.eth",
+      "keyword": "divine",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209796"
+    },
+    {
+      "domain": "divine.web3",
+      "keyword": "divine",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209822"
+    },
+    {
+      "domain": "divine.com",
+      "keyword": "divine",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209848"
+    },
+    {
+      "domain": "divine.org",
+      "keyword": "divine",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209922"
+    },
+    {
+      "domain": "divine.co",
+      "keyword": "divine",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209955"
+    },
+    {
+      "domain": "divine.xyz",
+      "keyword": "divine",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.209984"
+    },
+    {
+      "domain": "sacred.ai",
+      "keyword": "sacred",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210013"
+    },
+    {
+      "domain": "sacred.io",
+      "keyword": "sacred",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210040"
+    },
+    {
+      "domain": "sacred.eth",
+      "keyword": "sacred",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210066"
+    },
+    {
+      "domain": "sacred.web3",
+      "keyword": "sacred",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210092"
+    },
+    {
+      "domain": "sacred.com",
+      "keyword": "sacred",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210117"
+    },
+    {
+      "domain": "sacred.org",
+      "keyword": "sacred",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210143"
+    },
+    {
+      "domain": "sacred.co",
+      "keyword": "sacred",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210169"
+    },
+    {
+      "domain": "sacred.xyz",
+      "keyword": "sacred",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210196"
+    },
+    {
+      "domain": "gaia.ai",
+      "keyword": "gaia",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210223"
+    },
+    {
+      "domain": "gaia.io",
+      "keyword": "gaia",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210251"
+    },
+    {
+      "domain": "gaia.eth",
+      "keyword": "gaia",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210278"
+    },
+    {
+      "domain": "gaia.web3",
+      "keyword": "gaia",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210304"
+    },
+    {
+      "domain": "gaia.com",
+      "keyword": "gaia",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210330"
+    },
+    {
+      "domain": "gaia.org",
+      "keyword": "gaia",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210356"
+    },
+    {
+      "domain": "gaia.co",
+      "keyword": "gaia",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210382"
+    },
+    {
+      "domain": "gaia.xyz",
+      "keyword": "gaia",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210409"
+    },
+    {
+      "domain": "quantum.ai",
+      "keyword": "quantum",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210436"
+    },
+    {
+      "domain": "quantum.io",
+      "keyword": "quantum",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210463"
+    },
+    {
+      "domain": "quantum.eth",
+      "keyword": "quantum",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210490"
+    },
+    {
+      "domain": "quantum.web3",
+      "keyword": "quantum",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210516"
+    },
+    {
+      "domain": "quantum.com",
+      "keyword": "quantum",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210543"
+    },
+    {
+      "domain": "quantum.org",
+      "keyword": "quantum",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210570"
+    },
+    {
+      "domain": "quantum.co",
+      "keyword": "quantum",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210596"
+    },
+    {
+      "domain": "quantum.xyz",
+      "keyword": "quantum",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210622"
+    },
+    {
+      "domain": "aether.ai",
+      "keyword": "aether",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210648"
+    },
+    {
+      "domain": "aether.io",
+      "keyword": "aether",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210674"
+    },
+    {
+      "domain": "aether.eth",
+      "keyword": "aether",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210699"
+    },
+    {
+      "domain": "aether.web3",
+      "keyword": "aether",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210724"
+    },
+    {
+      "domain": "aether.com",
+      "keyword": "aether",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210749"
+    },
+    {
+      "domain": "aether.org",
+      "keyword": "aether",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210775"
+    },
+    {
+      "domain": "aether.co",
+      "keyword": "aether",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210804"
+    },
+    {
+      "domain": "aether.xyz",
+      "keyword": "aether",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210830"
+    },
+    {
+      "domain": "celestial.ai",
+      "keyword": "celestial",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210876"
+    },
+    {
+      "domain": "celestial.io",
+      "keyword": "celestial",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210915"
+    },
+    {
+      "domain": "celestial.eth",
+      "keyword": "celestial",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210944"
+    },
+    {
+      "domain": "celestial.web3",
+      "keyword": "celestial",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210972"
+    },
+    {
+      "domain": "celestial.com",
+      "keyword": "celestial",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.210998"
+    },
+    {
+      "domain": "celestial.org",
+      "keyword": "celestial",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211030"
+    },
+    {
+      "domain": "celestial.co",
+      "keyword": "celestial",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211058"
+    },
+    {
+      "domain": "celestial.xyz",
+      "keyword": "celestial",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211084"
+    },
+    {
+      "domain": "cosmic.ai",
+      "keyword": "cosmic",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211109"
+    },
+    {
+      "domain": "cosmic.io",
+      "keyword": "cosmic",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211135"
+    },
+    {
+      "domain": "cosmic.eth",
+      "keyword": "cosmic",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211160"
+    },
+    {
+      "domain": "cosmic.web3",
+      "keyword": "cosmic",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211186"
+    },
+    {
+      "domain": "cosmic.com",
+      "keyword": "cosmic",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211213"
+    },
+    {
+      "domain": "cosmic.org",
+      "keyword": "cosmic",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211244"
+    },
+    {
+      "domain": "cosmic.co",
+      "keyword": "cosmic",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211273"
+    },
+    {
+      "domain": "cosmic.xyz",
+      "keyword": "cosmic",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211299"
+    },
+    {
+      "domain": "unity.ai",
+      "keyword": "unity",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211326"
+    },
+    {
+      "domain": "unity.io",
+      "keyword": "unity",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211352"
+    },
+    {
+      "domain": "unity.eth",
+      "keyword": "unity",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211379"
+    },
+    {
+      "domain": "unity.web3",
+      "keyword": "unity",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211405"
+    },
+    {
+      "domain": "unity.com",
+      "keyword": "unity",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211430"
+    },
+    {
+      "domain": "unity.org",
+      "keyword": "unity",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211456"
+    },
+    {
+      "domain": "unity.co",
+      "keyword": "unity",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211482"
+    },
+    {
+      "domain": "unity.xyz",
+      "keyword": "unity",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211508"
+    },
+    {
+      "domain": "healing.ai",
+      "keyword": "healing",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211533"
+    },
+    {
+      "domain": "healing.io",
+      "keyword": "healing",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211558"
+    },
+    {
+      "domain": "healing.eth",
+      "keyword": "healing",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211589"
+    },
+    {
+      "domain": "healing.web3",
+      "keyword": "healing",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211616"
+    },
+    {
+      "domain": "healing.com",
+      "keyword": "healing",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211644"
+    },
+    {
+      "domain": "healing.org",
+      "keyword": "healing",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211670"
+    },
+    {
+      "domain": "healing.co",
+      "keyword": "healing",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211699"
+    },
+    {
+      "domain": "healing.xyz",
+      "keyword": "healing",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211727"
+    },
+    {
+      "domain": "meditation.ai",
+      "keyword": "meditation",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211754"
+    },
+    {
+      "domain": "meditation.io",
+      "keyword": "meditation",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211780"
+    },
+    {
+      "domain": "meditation.eth",
+      "keyword": "meditation",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211809"
+    },
+    {
+      "domain": "meditation.web3",
+      "keyword": "meditation",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211835"
+    },
+    {
+      "domain": "meditation.com",
+      "keyword": "meditation",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211881"
+    },
+    {
+      "domain": "meditation.org",
+      "keyword": "meditation",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211915"
+    },
+    {
+      "domain": "meditation.co",
+      "keyword": "meditation",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211944"
+    },
+    {
+      "domain": "meditation.xyz",
+      "keyword": "meditation",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211971"
+    },
+    {
+      "domain": "mindfulness.ai",
+      "keyword": "mindfulness",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.211997"
+    },
+    {
+      "domain": "mindfulness.io",
+      "keyword": "mindfulness",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212024"
+    },
+    {
+      "domain": "mindfulness.eth",
+      "keyword": "mindfulness",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212050"
+    },
+    {
+      "domain": "mindfulness.web3",
+      "keyword": "mindfulness",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212076"
+    },
+    {
+      "domain": "mindfulness.com",
+      "keyword": "mindfulness",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212102"
+    },
+    {
+      "domain": "mindfulness.org",
+      "keyword": "mindfulness",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212132"
+    },
+    {
+      "domain": "mindfulness.co",
+      "keyword": "mindfulness",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212158"
+    },
+    {
+      "domain": "mindfulness.xyz",
+      "keyword": "mindfulness",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212183"
+    },
+    {
+      "domain": "enlightenment.ai",
+      "keyword": "enlightenment",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212208"
+    },
+    {
+      "domain": "enlightenment.io",
+      "keyword": "enlightenment",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212233"
+    },
+    {
+      "domain": "enlightenment.eth",
+      "keyword": "enlightenment",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212258"
+    },
+    {
+      "domain": "enlightenment.web3",
+      "keyword": "enlightenment",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212283"
+    },
+    {
+      "domain": "enlightenment.com",
+      "keyword": "enlightenment",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212308"
+    },
+    {
+      "domain": "enlightenment.org",
+      "keyword": "enlightenment",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212333"
+    },
+    {
+      "domain": "enlightenment.co",
+      "keyword": "enlightenment",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212358"
+    },
+    {
+      "domain": "enlightenment.xyz",
+      "keyword": "enlightenment",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212383"
+    }
+  ],
+  "tech_domains": [
+    {
+      "domain": "citadel.ai",
+      "keyword": "citadel",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212495"
+    },
+    {
+      "domain": "citadel.io",
+      "keyword": "citadel",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212523"
+    },
+    {
+      "domain": "citadel.eth",
+      "keyword": "citadel",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212550"
+    },
+    {
+      "domain": "citadel.web3",
+      "keyword": "citadel",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212576"
+    },
+    {
+      "domain": "citadel.com",
+      "keyword": "citadel",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212601"
+    },
+    {
+      "domain": "citadel.org",
+      "keyword": "citadel",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212628"
+    },
+    {
+      "domain": "citadel.co",
+      "keyword": "citadel",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212659"
+    },
+    {
+      "domain": "citadel.xyz",
+      "keyword": "citadel",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212688"
+    },
+    {
+      "domain": "nexus.ai",
+      "keyword": "nexus",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212716"
+    },
+    {
+      "domain": "nexus.io",
+      "keyword": "nexus",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212742"
+    },
+    {
+      "domain": "nexus.eth",
+      "keyword": "nexus",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212768"
+    },
+    {
+      "domain": "nexus.web3",
+      "keyword": "nexus",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212794"
+    },
+    {
+      "domain": "nexus.com",
+      "keyword": "nexus",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212819"
+    },
+    {
+      "domain": "nexus.org",
+      "keyword": "nexus",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212845"
+    },
+    {
+      "domain": "nexus.co",
+      "keyword": "nexus",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212894"
+    },
+    {
+      "domain": "nexus.xyz",
+      "keyword": "nexus",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212924"
+    },
+    {
+      "domain": "oracle.ai",
+      "keyword": "oracle",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212951"
+    },
+    {
+      "domain": "oracle.io",
+      "keyword": "oracle",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.212978"
+    },
+    {
+      "domain": "oracle.eth",
+      "keyword": "oracle",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213003"
+    },
+    {
+      "domain": "oracle.web3",
+      "keyword": "oracle",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213029"
+    },
+    {
+      "domain": "oracle.com",
+      "keyword": "oracle",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213054"
+    },
+    {
+      "domain": "oracle.org",
+      "keyword": "oracle",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213084"
+    },
+    {
+      "domain": "oracle.co",
+      "keyword": "oracle",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213110"
+    },
+    {
+      "domain": "oracle.xyz",
+      "keyword": "oracle",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213136"
+    },
+    {
+      "domain": "vanguard.ai",
+      "keyword": "vanguard",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213162"
+    },
+    {
+      "domain": "vanguard.io",
+      "keyword": "vanguard",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213188"
+    },
+    {
+      "domain": "vanguard.eth",
+      "keyword": "vanguard",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213219"
+    },
+    {
+      "domain": "vanguard.web3",
+      "keyword": "vanguard",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213246"
+    },
+    {
+      "domain": "vanguard.com",
+      "keyword": "vanguard",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213272"
+    },
+    {
+      "domain": "vanguard.org",
+      "keyword": "vanguard",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213302"
+    },
+    {
+      "domain": "vanguard.co",
+      "keyword": "vanguard",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213328"
+    },
+    {
+      "domain": "vanguard.xyz",
+      "keyword": "vanguard",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213354"
+    },
+    {
+      "domain": "sentinel.ai",
+      "keyword": "sentinel",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213379"
+    },
+    {
+      "domain": "sentinel.io",
+      "keyword": "sentinel",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213405"
+    },
+    {
+      "domain": "sentinel.eth",
+      "keyword": "sentinel",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213432"
+    },
+    {
+      "domain": "sentinel.web3",
+      "keyword": "sentinel",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213458"
+    },
+    {
+      "domain": "sentinel.com",
+      "keyword": "sentinel",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213484"
+    },
+    {
+      "domain": "sentinel.org",
+      "keyword": "sentinel",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213510"
+    },
+    {
+      "domain": "sentinel.co",
+      "keyword": "sentinel",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213539"
+    },
+    {
+      "domain": "sentinel.xyz",
+      "keyword": "sentinel",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213567"
+    },
+    {
+      "domain": "cipher.ai",
+      "keyword": "cipher",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213593"
+    },
+    {
+      "domain": "cipher.io",
+      "keyword": "cipher",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213620"
+    },
+    {
+      "domain": "cipher.eth",
+      "keyword": "cipher",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213646"
+    },
+    {
+      "domain": "cipher.web3",
+      "keyword": "cipher",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213672"
+    },
+    {
+      "domain": "cipher.com",
+      "keyword": "cipher",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213697"
+    },
+    {
+      "domain": "cipher.org",
+      "keyword": "cipher",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213722"
+    },
+    {
+      "domain": "cipher.co",
+      "keyword": "cipher",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213747"
+    },
+    {
+      "domain": "cipher.xyz",
+      "keyword": "cipher",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213772"
+    },
+    {
+      "domain": "quantum.ai",
+      "keyword": "quantum",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213797"
+    },
+    {
+      "domain": "quantum.io",
+      "keyword": "quantum",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213822"
+    },
+    {
+      "domain": "quantum.eth",
+      "keyword": "quantum",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213848"
+    },
+    {
+      "domain": "quantum.web3",
+      "keyword": "quantum",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213897"
+    },
+    {
+      "domain": "quantum.com",
+      "keyword": "quantum",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213925"
+    },
+    {
+      "domain": "quantum.org",
+      "keyword": "quantum",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213959"
+    },
+    {
+      "domain": "quantum.co",
+      "keyword": "quantum",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.213986"
+    },
+    {
+      "domain": "quantum.xyz",
+      "keyword": "quantum",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214012"
+    },
+    {
+      "domain": "mesh.ai",
+      "keyword": "mesh",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214039"
+    },
+    {
+      "domain": "mesh.io",
+      "keyword": "mesh",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214065"
+    },
+    {
+      "domain": "mesh.eth",
+      "keyword": "mesh",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214090"
+    },
+    {
+      "domain": "mesh.web3",
+      "keyword": "mesh",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214117"
+    },
+    {
+      "domain": "mesh.com",
+      "keyword": "mesh",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214144"
+    },
+    {
+      "domain": "mesh.org",
+      "keyword": "mesh",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214171"
+    },
+    {
+      "domain": "mesh.co",
+      "keyword": "mesh",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214197"
+    },
+    {
+      "domain": "mesh.xyz",
+      "keyword": "mesh",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214223"
+    },
+    {
+      "domain": "bridge.ai",
+      "keyword": "bridge",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214249"
+    },
+    {
+      "domain": "bridge.io",
+      "keyword": "bridge",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214276"
+    },
+    {
+      "domain": "bridge.eth",
+      "keyword": "bridge",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214302"
+    },
+    {
+      "domain": "bridge.web3",
+      "keyword": "bridge",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214328"
+    },
+    {
+      "domain": "bridge.com",
+      "keyword": "bridge",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214353"
+    },
+    {
+      "domain": "bridge.org",
+      "keyword": "bridge",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214379"
+    },
+    {
+      "domain": "bridge.co",
+      "keyword": "bridge",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214405"
+    },
+    {
+      "domain": "bridge.xyz",
+      "keyword": "bridge",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214433"
+    },
+    {
+      "domain": "atlas.ai",
+      "keyword": "atlas",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214460"
+    },
+    {
+      "domain": "atlas.io",
+      "keyword": "atlas",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214485"
+    },
+    {
+      "domain": "atlas.eth",
+      "keyword": "atlas",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214511"
+    },
+    {
+      "domain": "atlas.web3",
+      "keyword": "atlas",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214536"
+    },
+    {
+      "domain": "atlas.com",
+      "keyword": "atlas",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214561"
+    },
+    {
+      "domain": "atlas.org",
+      "keyword": "atlas",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214587"
+    },
+    {
+      "domain": "atlas.co",
+      "keyword": "atlas",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214613"
+    },
+    {
+      "domain": "atlas.xyz",
+      "keyword": "atlas",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214635"
+    },
+    {
+      "domain": "sovereign.ai",
+      "keyword": "sovereign",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214664"
+    },
+    {
+      "domain": "sovereign.io",
+      "keyword": "sovereign",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214690"
+    },
+    {
+      "domain": "sovereign.eth",
+      "keyword": "sovereign",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214716"
+    },
+    {
+      "domain": "sovereign.web3",
+      "keyword": "sovereign",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214743"
+    },
+    {
+      "domain": "sovereign.com",
+      "keyword": "sovereign",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214772"
+    },
+    {
+      "domain": "sovereign.org",
+      "keyword": "sovereign",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214798"
+    },
+    {
+      "domain": "sovereign.co",
+      "keyword": "sovereign",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214824"
+    },
+    {
+      "domain": "sovereign.xyz",
+      "keyword": "sovereign",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214875"
+    },
+    {
+      "domain": "decentralized.ai",
+      "keyword": "decentralized",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214914"
+    },
+    {
+      "domain": "decentralized.io",
+      "keyword": "decentralized",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214943"
+    },
+    {
+      "domain": "decentralized.eth",
+      "keyword": "decentralized",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214971"
+    },
+    {
+      "domain": "decentralized.web3",
+      "keyword": "decentralized",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.214997"
+    },
+    {
+      "domain": "decentralized.com",
+      "keyword": "decentralized",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215023"
+    },
+    {
+      "domain": "decentralized.org",
+      "keyword": "decentralized",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215048"
+    },
+    {
+      "domain": "decentralized.co",
+      "keyword": "decentralized",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215073"
+    },
+    {
+      "domain": "decentralized.xyz",
+      "keyword": "decentralized",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215099"
+    },
+    {
+      "domain": "autonomous.ai",
+      "keyword": "autonomous",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215127"
+    },
+    {
+      "domain": "autonomous.io",
+      "keyword": "autonomous",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215154"
+    },
+    {
+      "domain": "autonomous.eth",
+      "keyword": "autonomous",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215180"
+    },
+    {
+      "domain": "autonomous.web3",
+      "keyword": "autonomous",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215206"
+    },
+    {
+      "domain": "autonomous.com",
+      "keyword": "autonomous",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215233"
+    },
+    {
+      "domain": "autonomous.org",
+      "keyword": "autonomous",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215259"
+    },
+    {
+      "domain": "autonomous.co",
+      "keyword": "autonomous",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215285"
+    },
+    {
+      "domain": "autonomous.xyz",
+      "keyword": "autonomous",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215311"
+    },
+    {
+      "domain": "protocol.ai",
+      "keyword": "protocol",
+      "tld": ".ai",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215341"
+    },
+    {
+      "domain": "protocol.io",
+      "keyword": "protocol",
+      "tld": ".io",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215367"
+    },
+    {
+      "domain": "protocol.eth",
+      "keyword": "protocol",
+      "tld": ".eth",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215393"
+    },
+    {
+      "domain": "protocol.web3",
+      "keyword": "protocol",
+      "tld": ".web3",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215418"
+    },
+    {
+      "domain": "protocol.com",
+      "keyword": "protocol",
+      "tld": ".com",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215443"
+    },
+    {
+      "domain": "protocol.org",
+      "keyword": "protocol",
+      "tld": ".org",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215469"
+    },
+    {
+      "domain": "protocol.co",
+      "keyword": "protocol",
+      "tld": ".co",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215495"
+    },
+    {
+      "domain": "protocol.xyz",
+      "keyword": "protocol",
+      "tld": ".xyz",
+      "status": "to_verify",
+      "discovered_at": "2026-04-03T07:39:03.215520"
+    }
+  ],
+  "statistics": {
+    "total_scanned": 281,
+    "available_found": 281,
+    "high_value": 0
+  }
+}

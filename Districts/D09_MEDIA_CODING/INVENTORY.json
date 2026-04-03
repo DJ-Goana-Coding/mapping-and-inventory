@@ -1,0 +1,34 @@
+{
+  "district": "D09_MEDIA_CODING",
+  "generated": "2026-04-03T07:21:01.520029",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "image_analyzer.py",
+      "name": "image_analyzer.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 538,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "279c7cfda90705ca814dce11acae3d0b"
+    },
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 181,
+      "modified": "2026-04-03T07:21:01.519936",
+      "md5": "76a83b807a5d57e76384c7fbd5c3337a"
+    }
+  ],
+  "statistics": {
+    "total_files": 2,
+    "total_directories": 0,
+    "total_size_bytes": 719,
+    "file_types": {
+      ".py": 1,
+      ".md": 1
+    }
+  }
+}

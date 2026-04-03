@@ -1,0 +1,188 @@
+{
+  "district": "D02_TIA_VAULT",
+  "generated": "2026-04-03T07:21:01.475012",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "vault_mirror.py",
+      "name": "vault_mirror.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1324,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "eaa19e6fe977c1b9738c132b12ea1d66"
+    },
+    {
+      "path": "tias_sentinel_swarm.py",
+      "name": "tias_sentinel_swarm.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 663,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "36b4624534f103c810123c34c098a33c"
+    },
+    {
+      "path": "blueprint_inspector.py",
+      "name": "blueprint_inspector.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 569,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "c23d5b13b0a07360163588a4a4f31c8c"
+    },
+    {
+      "path": "tia_sos.py",
+      "name": "tia_sos.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1615,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "a9f2d0a87e17a3d033685e143b4e822a"
+    },
+    {
+      "path": "mexc_keys.json",
+      "name": "mexc_keys.json",
+      "type": "file",
+      "extension": ".json",
+      "size_bytes": 141,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "ac4f48be262189bba09e2d38e1150b7b"
+    },
+    {
+      "path": "CITADEL_BIBLE.md",
+      "name": "CITADEL_BIBLE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 988,
+      "modified": "2026-04-03T07:09:27.812406",
+      "md5": "05436472f7e1da8fc86e3973c0c9708d"
+    },
+    {
+      "path": "tias_pioneer_trader.py",
+      "name": "tias_pioneer_trader.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1113,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "47a265b803fdcfddc9963b15c1e12f29"
+    },
+    {
+      "path": "tia_atomic.py",
+      "name": "tia_atomic.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1247,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "0b8d6530af734504e93fc1c208556d2d"
+    },
+    {
+      "path": "soul_vault.py",
+      "name": "soul_vault.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1333,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "ac754bd0f6e330a185654fd676e54169"
+    },
+    {
+      "path": "blueprint_reader.py",
+      "name": "blueprint_reader.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 573,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "f9a25666cc9d34e593257822d15df52b"
+    },
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 784,
+      "modified": "2026-04-03T07:21:01.474912",
+      "md5": "0103279bb74ab528290979c36b6d3df7"
+    },
+    {
+      "path": "vault_init.py",
+      "name": "vault_init.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 978,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "d646dc0fffc305c396524d178f478e71"
+    },
+    {
+      "path": "tia_architect.py",
+      "name": "tia_architect.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 186,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "a8a6163ff37ab509ab6df04af00bee5e"
+    },
+    {
+      "path": "Master_Blueprints/omega_bots.py",
+      "name": "omega_bots.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 174,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "454d4ee795929d85bbe21f6567524610"
+    },
+    {
+      "path": "Master_Blueprints/omega_scout.py",
+      "name": "omega_scout.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 833,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "c4a847fe5948bf71cd87b3f54d92ca55"
+    },
+    {
+      "path": "Master_Blueprints/librarian_omega.py",
+      "name": "librarian_omega.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1885,
+      "modified": "2026-04-03T07:09:27.812587",
+      "md5": "d9b8e4ff1f1c2dd5ec4a024695c7cf37"
+    },
+    {
+      "path": "Master_Blueprints/omega_trader.py",
+      "name": "omega_trader.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 335,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "51ae6b213d4fac300fa2cdba53689195"
+    },
+    {
+      "path": "Master_Blueprints/omega_archive.py",
+      "name": "omega_archive.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 186,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "90a89624bb38815530dd871c615a4115"
+    },
+    {
+      "path": "Master_Blueprints/modal_hunt.py",
+      "name": "modal_hunt.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1060,
+      "modified": "2026-04-03T07:09:27.812654",
+      "md5": "be179075c7b221ec5ce3c24917a4d3f2"
+    }
+  ],
+  "statistics": {
+    "total_files": 19,
+    "total_directories": 1,
+    "total_size_bytes": 15987,
+    "file_types": {
+      ".py": 16,
+      ".json": 1,
+      ".md": 2
+    }
+  }
+}

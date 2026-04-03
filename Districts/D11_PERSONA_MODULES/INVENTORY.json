@@ -1,0 +1,34 @@
+{
+  "district": "D11_PERSONA_MODULES",
+  "generated": "2026-04-03T07:21:01.520886",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 184,
+      "modified": "2026-04-03T07:21:01.520793",
+      "md5": "094fba3d1cf72783d2f4006de9a51a23"
+    },
+    {
+      "path": "goanna_core.py",
+      "name": "goanna_core.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1145,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "26d85402963c9ffcd7c0000e3645914c"
+    }
+  ],
+  "statistics": {
+    "total_files": 2,
+    "total_directories": 0,
+    "total_size_bytes": 1329,
+    "file_types": {
+      ".md": 1,
+      ".py": 1
+    }
+  }
+}

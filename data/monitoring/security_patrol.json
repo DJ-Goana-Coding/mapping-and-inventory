@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-04-03T07:58:22.974007",
+  "github_health": {
+    "status": "degraded",
+    "service": "github"
+  },
+  "huggingface_health": {
+    "status": "error",
+    "service": "huggingface",
+    "error": "HTTPSConnectionPool(host='status.huggingface.co', port=443): Max retries exceeded with url: /api/v2/status.json (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f2c46c59e80>: Failed to resolve 'status.huggingface.co' ([Errno -5] No address associated with hostname)\"))"
+  },
+  "rate_limits": {
+    "status": "error",
+    "code": 403
+  },
+  "security_scan": {
+    "threats_found": 3,
+    "threats": [
+      ".env not in .gitignore",
+      "secrets.json not in .gitignore",
+      "private_key.pem not in .gitignore"
+    ],
+    "status": "threats_found"
+  },
+  "alerts": [
+    "GitHub API returned non-200 status"
+  ]
+}

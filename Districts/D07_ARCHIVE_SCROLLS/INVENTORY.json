@@ -1,0 +1,90 @@
+{
+  "district": "D07_ARCHIVE_SCROLLS",
+  "generated": "2026-04-03T07:21:01.518616",
+  "version": "25.0.OMNI",
+  "artifacts": [
+    {
+      "path": "V19_NORDIC_MATRIX.md",
+      "name": "V19_NORDIC_MATRIX.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 963,
+      "modified": "2026-04-03T07:09:27.826654",
+      "md5": "ea673746d85fc97855b8c1efc4483aa1"
+    },
+    {
+      "path": "librarian.py",
+      "name": "librarian.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1604,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "441af162f7ae15850260a12205bcc3be"
+    },
+    {
+      "path": "injector.py",
+      "name": "injector.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1096,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "15dcfe32f8651adfdd668e8f5d748db5"
+    },
+    {
+      "path": "logic_debugger.py",
+      "name": "logic_debugger.py",
+      "type": "file",
+      "extension": ".py",
+      "size_bytes": 1039,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "0f9aabb7b14e0f1033ec7061355e5fc6"
+    },
+    {
+      "path": "logs.txt",
+      "name": "logs.txt",
+      "type": "file",
+      "extension": ".txt",
+      "size_bytes": 504,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "1e2149220cb1a74d9155d51a898308b8"
+    },
+    {
+      "path": "TREE.md",
+      "name": "TREE.md",
+      "type": "file",
+      "extension": ".md",
+      "size_bytes": 362,
+      "modified": "2026-04-03T07:21:01.518502",
+      "md5": "fe33e7a1e447b9865e4f75b0d927903a"
+    },
+    {
+      "path": "vanguard_pulse.log",
+      "name": "vanguard_pulse.log",
+      "type": "file",
+      "extension": ".log",
+      "size_bytes": 87,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "3b1160c59774a2cd8878f68c003099b0"
+    },
+    {
+      "path": "hounds.log",
+      "name": "hounds.log",
+      "type": "file",
+      "extension": ".log",
+      "size_bytes": 22,
+      "modified": "2026-04-03T07:09:27.828110",
+      "md5": "0290de12e05e818a69dcf35c470d090e"
+    }
+  ],
+  "statistics": {
+    "total_files": 8,
+    "total_directories": 0,
+    "total_size_bytes": 5677,
+    "file_types": {
+      ".md": 2,
+      ".py": 3,
+      ".txt": 1,
+      ".log": 2
+    }
+  }
+}
