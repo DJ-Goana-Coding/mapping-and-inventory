@@ -1,0 +1,21 @@
+# --- CORE UI STACK ---
+streamlit>=1.36.0
+streamlit-extras
+streamlit-shadcn-ui
+pandas>=2.2.3
+numpy>=2.1.0
+requests>=2.31.0
+
+# --- T.I.A. BRAIN & VOICE ---
+huggingface_hub[cli,hf_transfer]
+transformers>=4.48.0
+accelerate
+bitsandbytes
+onnxruntime
+vllm>=0.7.0
+sentencepiece
+
+# --- SYSTEM UTILS ---
+setuptools
+pathlib
+shutil
