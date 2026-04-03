@@ -24,9 +24,16 @@ This repository contains complete repair guides and templates for all Citadel Om
 ### TIA-ARCHITECT-CORE
 - **Status:** 🔴 **OFFLINE** (Build Failure)
 - **Issue:** pandas 2.0.3 incompatible with Python 3.13 (pkg_resources error)
-- **Resolution:** Upgrade pandas to 2.2+, numpy to 2.0+
+- **Resolution:** Upgrade pandas to 2.2+, numpy to 2.0+, add setuptools
 - **Space URL:** https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE
 - **Repair Guide:** [TIA_ARCHITECT_CORE_REPAIR_GUIDE.md](./TIA_ARCHITECT_CORE_REPAIR_GUIDE.md)
+
+### tias-sentinel-scout-swarm-2
+- **Status:** 🔴 **OFFLINE** (Build Failure)
+- **Issue:** pandas-ta requires Python >=3.11, Space using Python 3.9
+- **Resolution:** Upgrade to Python 3.11 + compatible pandas-ta version
+- **Space URL:** https://huggingface.co/spaces/DJ-Goanna-Coding/tias-sentinel-scout-swarm-2
+- **Template:** `sentinel-scout-templates/`
 
 ---
 
@@ -35,6 +42,8 @@ This repository contains complete repair guides and templates for all Citadel Om
 ### Documentation
 - **[TIAS_CITADEL_REPAIR_GUIDE.md](./TIAS_CITADEL_REPAIR_GUIDE.md)** — Complete repair instructions for tias-citadel Space
 - **[TIA_ARCHITECT_CORE_REPAIR_GUIDE.md](./TIA_ARCHITECT_CORE_REPAIR_GUIDE.md)** — Python 3.13 compatibility fix for TIA-ARCHITECT-CORE
+- **[TIA_CORE_REPAIR_QUICKSTART.md](./TIA_CORE_REPAIR_QUICKSTART.md)** — Fast repair guide with 3 deployment methods
+- **[SELF_HEALING_SYSTEM.md](./SELF_HEALING_SYSTEM.md)** — Autonomous script monitoring and repair system
 
 ### Template Files
 
@@ -62,11 +71,26 @@ tia-architect-core-templates/
 └── README.md             # Compatibility guide
 ```
 
-**Quick Deploy:**
+#### sentinel-scout-templates/
+```
+sentinel-scout-templates/
+├── requirements.txt       # Python 3.11+ compatible (pandas-ta fix)
+├── .python-version       # Python 3.11
+└── README.md             # Compatibility guide
+```
+
+**Automated Deploy (ALL SPACES):**
 ```bash
-# Copy requirements.txt to TIA-ARCHITECT-CORE repo
-cp tia-architect-core-templates/requirements.txt /path/to/TIA-ARCHITECT-CORE/
-# Push and rebuild
+# Option 1: Repair all spaces with one script
+./scripts/repair_all_spaces.sh
+
+# Option 2: Trigger GitHub Actions for all spaces
+gh workflow run repair_all_spaces.yml -f spaces=all -f dry_run=false
+
+# Option 3: Repair individual space
+./scripts/repair_tia_architect_core.sh
+# or
+gh workflow run repair_tia_core_space.yml -f dry_run=false
 ```
 
 ---
@@ -82,6 +106,11 @@ cp tia-architect-core-templates/requirements.txt /path/to/TIA-ARCHITECT-CORE/
 **Symptom:** Build fails when installing pandas on Python 3.13  
 **Solution:** Upgrade pandas to 2.2+ and numpy to 2.0+, add setuptools>=75.0.0  
 **Affected:** TIA-ARCHITECT-CORE
+
+### Issue: No matching distribution found for pandas-ta
+**Symptom:** pandas-ta requires Python >=3.11, Space using Python 3.9  
+**Solution:** Upgrade to Python 3.11+ OR use old pandas-ta (0.2.46b0)  
+**Affected:** tias-sentinel-scout-swarm-2
 
 ### Issue: Missing Core Dependencies
 **Symptom:** Space crashes on startup with import errors  
@@ -161,19 +190,23 @@ git push
 
 ### For TIA-ARCHITECT-CORE:
 ```bash
-# 1. Clone/navigate to TIA-ARCHITECT-CORE repo
+# OPTION 1: Automated Repair Script (Recommended)
+cd /path/to/mapping-and-inventory
+./scripts/repair_tia_architect_core.sh
+
+# OPTION 2: GitHub Actions Workflow
+# Go to: https://github.com/DJ-Goana-Coding/mapping-and-inventory/actions
+# Run: "🔧 Repair TIA-ARCHITECT-CORE Space" workflow
+
+# OPTION 3: Manual Deployment
 cd /path/to/TIA-ARCHITECT-CORE
-
-# 2. Apply Python 3.13 compatible requirements
 cp /path/to/mapping-and-inventory/tia-architect-core-templates/requirements.txt .
-
-# 3. Push and rebuild
 git add requirements.txt
-git commit -m "🔧 COMPATIBILITY FIX: Upgrade pandas/numpy for Python 3.13"
-git push
+git commit -m "🔧 Fix Space: Add setuptools & Python 3.13 compatible versions"
+git push origin main
 
 # 4. Monitor build logs
-# Should see: Successfully installed pandas-2.2.x numpy-2.x.x
+# Should see: Successfully installed setuptools-75.x pandas-2.2.x numpy-2.x.x streamlit-1.4x
 ```
 
 ---
@@ -203,11 +236,12 @@ git push
 
 ## 🔮 COMPATIBILITY MATRIX
 
-| Space | Python | Streamlit | pandas | numpy | Status |
-|-------|--------|-----------|--------|-------|--------|
-| Mapping-and-Inventory | 3.11 | 1.42+ | 2.2+ | - | ✅ Active |
-| tias-citadel | 3.11+ | 1.36+ | 2.2+ | 2.1+ | 🔴 Needs Fix |
-| TIA-ARCHITECT-CORE | 3.13 | 1.56 | 2.2+ | 2.0+ | 🔴 Needs Fix |
+| Space | Python | Streamlit | pandas | numpy | pandas-ta | Status |
+|-------|--------|-----------|--------|-------|-----------|--------|
+| Mapping-and-Inventory | 3.11 | 1.42+ | 2.2+ | - | - | ✅ Active |
+| tias-citadel | 3.11+ | 1.36+ | 2.2+ | 2.1+ | - | 🔴 Needs Fix |
+| TIA-ARCHITECT-CORE | 3.13 | 1.56 | 2.2+ | 2.0+ | - | 🔴 Needs Fix |
+| tias-sentinel-scout-swarm-2 | 3.11+ | - | 2.2+ | 1.26+ | 0.3.14b0+ | 🔴 Needs Fix |
 
 ---
 
@@ -248,8 +282,9 @@ A Space is considered **OPERATIONAL** when:
 ---
 
 **Last Updated:** 2026-04-03  
-**Architect Version:** v25.0.OMNI  
-**Repair Status:** 1/3 Spaces Operational
+**Architect Version:** v26.0.SELF_HEAL+  
+**Repair Status:** 1/4 Spaces Operational  
+**Self-Healing:** Active (scripts/self_healing_worker.py)
 
 **Weld. Pulse. Ignite.**
 
