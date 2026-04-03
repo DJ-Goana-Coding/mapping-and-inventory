@@ -1,0 +1,97 @@
+name: 💻 Laptop Data Harvest
+# Harvest data from laptop node into Mapping-and-Inventory-storage
+# Runs on schedule and manual trigger
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"  # Every 12 hours
+  workflow_dispatch:
+    inputs:
+      source_path:
+        description: 'Laptop source path (or env var name with $)'
+        required: false
+        default: '$LAPTOP_SOURCE_PATH'
+
+jobs:
+  laptop_harvest:
+    runs-on: ubuntu-latest
+    name: Laptop Data Harvest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pathlib typing-extensions || true
+      
+      - name: 💻 Run Laptop Harvester
+        run: |
+          echo "💻 Starting laptop data harvest..."
+          
+          # Use template if worker not deployed yet
+          if [ -f "workers/laptop_harvester.py" ]; then
+            python workers/laptop_harvester.py
+          else
+            python vamguard_templates/workers/laptop_harvester.py
+          fi
+        env:
+          LAPTOP_SOURCE_PATH: ${{ github.event.inputs.source_path || '$LAPTOP_SOURCE_PATH' }}
+        continue-on-error: true
+      
+      - name: 📊 Generate Harvest Report
+        run: |
+          echo "📊 Generating harvest report..."
+          
+          # Count harvested files
+          LAPTOP_FILES=$(find data/Mapping-and-Inventory-storage/laptop -type f -name "*.py" -o -name "*.js" -o -name "*.json" 2>/dev/null | wc -l || echo "0")
+          TIA_FILES=$(find data/Mapping-and-Inventory-storage/laptop -type f -name "*.meta.json" 2>/dev/null | grep -l '"is_tia": true' | wc -l || echo "0")
+          
+          cat << EOF > data/Mapping-and-Inventory-storage/laptop_harvest_summary.json
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "files_harvested": $LAPTOP_FILES,
+            "tia_files": $TIA_FILES,
+            "source": "laptop",
+            "status": "complete"
+          }
+          EOF
+          
+          cat data/Mapping-and-Inventory-storage/laptop_harvest_summary.json
+      
+      - name: 📤 Commit Harvested Data
+        run: |
+          git config user.name "VAMGUARD Laptop Harvester"
+          git config user.email "laptop-harvest@citadel.mesh"
+          
+          # Add harvested data
+          git add data/Mapping-and-Inventory-storage/laptop/ || true
+          git add data/Mapping-and-Inventory-storage/laptop_harvest_summary.json || true
+          
+          # Commit if there are changes
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "💻 Laptop Harvest: Auto-harvest data from laptop node @ $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+            echo "✅ Harvested data committed and pushed"
+          else
+            echo "ℹ️  No new data to harvest"
+          fi
+        continue-on-error: true
+      
+      - name: 🔔 Notify Status
+        run: |
+          echo "=" * 60
+          echo "💻 LAPTOP HARVEST COMPLETE"
+          echo "=" * 60
+          if [ -f "data/Mapping-and-Inventory-storage/laptop_harvest_summary.json" ]; then
+            cat data/Mapping-and-Inventory-storage/laptop_harvest_summary.json
+          fi
+          echo "=" * 60

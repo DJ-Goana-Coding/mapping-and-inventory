@@ -1,0 +1,173 @@
+name: 🎯 TIA Code Discovery & Sync
+# Find all TIA code and sync to TIA-ARCHITECT-CORE
+# Runs after laptop/GDrive harvest
+
+on:
+  schedule:
+    - cron: "30 */12 * * *"  # Every 12 hours at :30
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["💻 Laptop Data Harvest", "☁️ GDrive Data Harvest"]
+    types:
+      - completed
+
+jobs:
+  tia_discovery_and_sync:
+    runs-on: ubuntu-latest
+    name: TIA Code Discovery & Sync
+    
+    steps:
+      - name: 📥 Checkout Mapping Hub
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pathlib typing-extensions || true
+      
+      - name: 🎯 Discover TIA Code
+        run: |
+          echo "🎯 Scanning all sources for TIA code..."
+          
+          # Use template if worker not deployed yet
+          if [ -f "workers/tia_code_finder.py" ]; then
+            python workers/tia_code_finder.py
+          else
+            python vamguard_templates/workers/tia_code_finder.py
+          fi
+        continue-on-error: true
+      
+      - name: 📊 Generate Discovery Report
+        run: |
+          echo "📊 Generating TIA discovery report..."
+          
+          # Check if TIA files list exists
+          if [ -f "data/Mapping-and-Inventory-storage/tia_code/tia_files_list.json" ]; then
+            TIA_FILES=$(jq '. | length' data/Mapping-and-Inventory-storage/tia_code/tia_files_list.json)
+            
+            # Count by type
+            AGENT_FILES=$(jq '[.[] | select(.type == "agent_identity")] | length' data/Mapping-and-Inventory-storage/tia_code/tia_files_list.json)
+            ARCHITECT_FILES=$(jq '[.[] | select(.type == "architect_module")] | length' data/Mapping-and-Inventory-storage/tia_code/tia_files_list.json)
+            ORACLE_FILES=$(jq '[.[] | select(.type == "oracle_module")] | length' data/Mapping-and-Inventory-storage/tia_code/tia_files_list.json)
+            WORKER_FILES=$(jq '[.[] | select(.type == "worker_module")] | length' data/Mapping-and-Inventory-storage/tia_code/tia_files_list.json)
+          else
+            TIA_FILES=0
+            AGENT_FILES=0
+            ARCHITECT_FILES=0
+            ORACLE_FILES=0
+            WORKER_FILES=0
+          fi
+          
+          cat << EOF > data/Mapping-and-Inventory-storage/tia_discovery_summary.json
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "tia_files_found": $TIA_FILES,
+            "agent_identities": $AGENT_FILES,
+            "architect_modules": $ARCHITECT_FILES,
+            "oracle_modules": $ORACLE_FILES,
+            "worker_modules": $WORKER_FILES,
+            "status": "discovery_complete"
+          }
+          EOF
+          
+          cat data/Mapping-and-Inventory-storage/tia_discovery_summary.json
+      
+      - name: 🚀 Sync TIA Code to TIA-ARCHITECT-CORE
+        run: |
+          echo "🚀 Syncing TIA code to TIA-ARCHITECT-CORE..."
+          
+          # Configure git for TIA sync
+          git config --global user.name "VAMGUARD TIA Sync"
+          git config --global user.email "tia-sync@citadel.mesh"
+          
+          # Use template if worker not deployed yet
+          if [ -f "workers/tia_sync_worker.py" ]; then
+            python workers/tia_sync_worker.py
+          else
+            python vamguard_templates/workers/tia_sync_worker.py
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        timeout-minutes: 10
+        continue-on-error: true
+      
+      - name: 📊 Generate Sync Report
+        run: |
+          echo "📊 Generating TIA sync report..."
+          
+          # Find latest sync log
+          SYNC_LOG=$(find data/Mapping-and-Inventory-storage/sync_logs -type f -name "tia_sync_*.json" 2>/dev/null | sort | tail -1)
+          
+          if [ -f "$SYNC_LOG" ]; then
+            FILES_SYNCED=$(jq -r '.files_synced // 0' "$SYNC_LOG")
+            FILES_FAILED=$(jq -r '.files_failed // 0' "$SYNC_LOG")
+            PUSHED=$(jq -r '.pushed // false' "$SYNC_LOG")
+          else
+            FILES_SYNCED=0
+            FILES_FAILED=0
+            PUSHED=false
+          fi
+          
+          cat << EOF > data/Mapping-and-Inventory-storage/tia_sync_summary.json
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "files_synced": $FILES_SYNCED,
+            "files_failed": $FILES_FAILED,
+            "pushed_to_tia_core": $PUSHED,
+            "destination": "DJ-Goanna-Coding/TIA-ARCHITECT-CORE",
+            "status": "sync_complete"
+          }
+          EOF
+          
+          cat data/Mapping-and-Inventory-storage/tia_sync_summary.json
+      
+      - name: 📤 Commit Discovery & Sync Results
+        run: |
+          git config user.name "VAMGUARD TIA Discovery"
+          git config user.email "tia-discovery@citadel.mesh"
+          
+          # Add discovery and sync data
+          git add data/Mapping-and-Inventory-storage/tia_code/ || true
+          git add data/Mapping-and-Inventory-storage/sync_logs/ || true
+          git add data/Mapping-and-Inventory-storage/tia_discovery_summary.json || true
+          git add data/Mapping-and-Inventory-storage/tia_sync_summary.json || true
+          
+          # Commit if there are changes
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "🎯 TIA Discovery & Sync: Found TIA code and synced to TIA-ARCHITECT-CORE @ $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+            echo "✅ Discovery and sync results committed"
+          else
+            echo "ℹ️  No new TIA code discovered"
+          fi
+        continue-on-error: true
+      
+      - name: 🔔 Notify Status
+        run: |
+          echo "================================================================"
+          echo "🎯 TIA CODE DISCOVERY & SYNC COMPLETE"
+          echo "================================================================"
+          
+          echo ""
+          echo "📊 DISCOVERY:"
+          if [ -f "data/Mapping-and-Inventory-storage/tia_discovery_summary.json" ]; then
+            cat data/Mapping-and-Inventory-storage/tia_discovery_summary.json
+          fi
+          
+          echo ""
+          echo "🚀 SYNC:"
+          if [ -f "data/Mapping-and-Inventory-storage/tia_sync_summary.json" ]; then
+            cat data/Mapping-and-Inventory-storage/tia_sync_summary.json
+          fi
+          
+          echo ""
+          echo "================================================================"
