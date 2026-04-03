@@ -24,6 +24,10 @@ GARAGES = {
     "Trading_Garage_Omega": {
         "description": "Exchange connectors and API interfaces",
         "filters": ["exchange", "api", "connector", "binance", "coinbase", "kraken"]
+    },
+    "Trading_Garage_SpareParts": {
+        "description": "Templates, components, notebooks, sandboxes for experimentation",
+        "filters": ["template", "example", "notebook", "colab", "sandbox", "demo", "test", "experiment"]
     }
 }
 
