@@ -1,0 +1,174 @@
+{
+  "last_updated": "2026-04-03T07:39:08.629462",
+  "communities": {
+    "reddit": [
+      {
+        "name": "r/starseeds",
+        "url": "https://reddit.com/r/starseeds",
+        "focus": "Starseed awakening and community",
+        "members": "~80K+",
+        "activity": "High",
+        "discovered_at": "2026-04-03T07:39:08.629037"
+      },
+      {
+        "name": "r/Soulnexus",
+        "url": "https://reddit.com/r/Soulnexus",
+        "focus": "Spiritual awakening, consciousness",
+        "members": "~100K+",
+        "activity": "High",
+        "discovered_at": "2026-04-03T07:39:08.629049"
+      },
+      {
+        "name": "r/awakened",
+        "url": "https://reddit.com/r/awakened",
+        "focus": "Spiritual enlightenment discussions",
+        "members": "~200K+",
+        "activity": "Very High",
+        "discovered_at": "2026-04-03T07:39:08.629052"
+      },
+      {
+        "name": "r/Psychic",
+        "url": "https://reddit.com/r/Psychic",
+        "focus": "Psychic abilities and development",
+        "members": "~300K+",
+        "activity": "Very High",
+        "discovered_at": "2026-04-03T07:39:08.629054"
+      },
+      {
+        "name": "r/energy_work",
+        "url": "https://reddit.com/r/energy_work",
+        "focus": "Energy healing practices",
+        "members": "~100K+",
+        "activity": "High",
+        "discovered_at": "2026-04-03T07:39:08.629057"
+      },
+      {
+        "name": "r/lawofattraction",
+        "url": "https://reddit.com/r/lawofattraction",
+        "focus": "Manifestation and abundance",
+        "members": "~500K+",
+        "activity": "Very High",
+        "discovered_at": "2026-04-03T07:39:08.629059"
+      }
+    ],
+    "discord": [],
+    "telegram": [],
+    "websites": []
+  },
+  "platforms": {
+    "consciousness": [
+      {
+        "name": "Gaia",
+        "url": "https://www.gaia.com",
+        "type": "Streaming Platform",
+        "focus": "Consciousness, yoga, spirituality",
+        "cost": "Subscription (~$12/month)",
+        "discovered_at": "2026-04-03T07:39:08.629164"
+      },
+      {
+        "name": "Institute of Noetic Sciences (IONS)",
+        "url": "https://noetic.org",
+        "type": "Research Institute",
+        "focus": "Consciousness science research",
+        "cost": "Free resources + membership",
+        "discovered_at": "2026-04-03T07:39:08.629169"
+      },
+      {
+        "name": "HeartMath Institute",
+        "url": "https://www.heartmath.org",
+        "type": "Research & Education",
+        "focus": "Heart-brain coherence",
+        "cost": "Free resources + products",
+        "discovered_at": "2026-04-03T07:39:08.629171"
+      },
+      {
+        "name": "Monroe Institute",
+        "url": "https://www.monroeinstitute.org",
+        "type": "Consciousness Education",
+        "focus": "Gateway Experience, OBE training",
+        "cost": "Courses + retreats",
+        "discovered_at": "2026-04-03T07:39:08.629173"
+      },
+      {
+        "name": "Insight Timer",
+        "url": "https://insighttimer.com",
+        "type": "Meditation App",
+        "focus": "Meditation, music, courses",
+        "cost": "Free + premium",
+        "discovered_at": "2026-04-03T07:39:08.629176"
+      },
+      {
+        "name": "Mindvalley",
+        "url": "https://www.mindvalley.com",
+        "type": "Personal Growth Platform",
+        "focus": "Transformational education",
+        "cost": "Subscription",
+        "discovered_at": "2026-04-03T07:39:08.629182"
+      }
+    ],
+    "healing": [],
+    "education": []
+  },
+  "resources": {
+    "sacred_geometry": [
+      {
+        "name": "Sacred Geometry Design Sourcebook",
+        "url": "https://www.amazon.com/Sacred-Geometry-Design-Sourcebook/dp/1620555867",
+        "type": "Book/Reference",
+        "focus": "Sacred geometry patterns",
+        "discovered_at": "2026-04-03T07:39:08.629287"
+      },
+      {
+        "name": "Flower of Life Research",
+        "url": "https://www.floweroflife.org",
+        "type": "Website",
+        "focus": "Flower of Life patterns and meaning",
+        "discovered_at": "2026-04-03T07:39:08.629290"
+      },
+      {
+        "name": "Online Sacred Geometry Tools",
+        "url": "Various SVG/vector libraries",
+        "type": "Design Tools",
+        "focus": "Digital sacred geometry creation",
+        "discovered_at": "2026-04-03T07:39:08.629293"
+      }
+    ],
+    "frequency_healing": [
+      {
+        "name": "Solfeggio Frequencies",
+        "url": "Various YouTube channels",
+        "type": "Sound Healing",
+        "frequencies": "396Hz, 417Hz, 528Hz, 639Hz, 741Hz, 852Hz",
+        "focus": "Emotional healing, DNA repair",
+        "discovered_at": "2026-04-03T07:39:08.629401"
+      },
+      {
+        "name": "Binaural Beats Generators",
+        "url": "https://mynoise.net, https://brain.fm",
+        "type": "Audio Technology",
+        "focus": "Brainwave entrainment",
+        "discovered_at": "2026-04-03T07:39:08.629405"
+      },
+      {
+        "name": "Schumann Resonance Trackers",
+        "url": "http://sosrff.tsu.ru/?page_id=7",
+        "type": "Earth Frequency Monitor",
+        "focus": "7.83Hz Earth frequency",
+        "discovered_at": "2026-04-03T07:39:08.629408"
+      },
+      {
+        "name": "Rife Frequency Database",
+        "url": "Various databases",
+        "type": "Frequency Medicine",
+        "focus": "Healing frequencies by condition",
+        "discovered_at": "2026-04-03T07:39:08.629410"
+      }
+    ],
+    "metaphysical_apis": []
+  },
+  "statistics": {
+    "total_communities": 6,
+    "total_platforms": 6,
+    "total_resources": 7
+  }
+}
