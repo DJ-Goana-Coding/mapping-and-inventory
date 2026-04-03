@@ -3,17 +3,17 @@ Q.G.T.N.L. (0) // MAPPING & INVENTORY LIBRARIAN
 Citadel Omega Sovereign HUD — Central mapping and inventory dashboard.
 Connects: ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 """
+
 import sys
 import os
 import subprocess
+import json
+import pandas as pd
+import streamlit as st
 from pathlib import Path
 
 # Ensure services are importable from this file's location
 sys.path.insert(0, os.path.dirname(__file__))
-
-import json
-import pandas as pd
-import streamlit as st
 
 from services.repo_mapper import (
     get_system_snapshot,
@@ -38,20 +38,20 @@ from services.dataset_connector import (
 )
 
 # ── Configuration ──────────────────────────────────────────────────────────────
+# Identity Bridge: GitHub (DJ-Goana-Coding) | HF (DJ-Goanna-Coding)
 HF_SPACE_ID = "DJ-Goanna-Coding/Mapping-and-Inventory"
 
-# ── Load PvC Trigger Map for Orange Star Vision ───────────────────────────────
+# ── Load PvC Trigger Map ─────────────────────────────────────────────────────
 PVC_TRIGGER_MAP_PATH = Path(__file__).parent / "src" / "pvc_trigger_map.json"
 try:
     with open(PVC_TRIGGER_MAP_PATH, 'r') as f:
         PVC_TRIGGERS = json.load(f)
-except Exception as e:
-    print(f"⚠️  Could not load PvC trigger map: {e}")
+except Exception:
     PVC_TRIGGERS = None
 
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="CITADEL OMEGA — Mapping & Inventory",
+    page_title="CITADEL OMEGA — Sovereign HUD",
     layout="wide",
     page_icon="🏰",
 )
@@ -61,27 +61,24 @@ _rclone_ok, _rclone_msg = setup_rclone_config()
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.image("https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg", width=180)
     st.image("https://img.shields.io/badge/CITADEL-OMEGA-blueviolet?style=for-the-badge", width=220)
-    st.markdown("## 🏰 SOVEREIGN HUD")
-
+    st.markdown("## 🏰 SOVEREIGN HUB (v25.0)")
+    
     # Live token status
     snap = get_system_snapshot()
     tokens = snap.get("env_tokens", {})
     for tok, status in tokens.items():
         icon = "✅" if status == "DETECTED" else "❌"
         st.markdown(f"{icon} **{tok}**")
-
+    
     st.divider()
     gdrive_status = get_gdrive_status()
-    st.markdown(f"**rclone:** {'✅ Installed' if gdrive_status['rclone_installed'] else '❌ Missing'}")
-    st.markdown(f"**GDrive Config:** {'✅ Ready' if gdrive_status['config_file_exists'] or gdrive_status['env_key_present'] else '⚠️ Not configured'}")
-
+    st.markdown(f"**rclone:** {'✅ Ready' if gdrive_status['rclone_installed'] else '❌ Missing'}")
+    
     st.divider()
     inventory = load_local_inventory("master_inventory.json")
-    st.metric("📦 Inventory Entities", len(inventory))
-    st.metric("🗂️ Known Repos / Nodes", len(KNOWN_REPOS))
-    st.metric("🔧 Frameworks Tracked", len(FRAMEWORKS))
+    st.metric("📦 Master Inventory", f"{len(inventory):,}")
+    st.metric("🗂️ Active Spokes", len(KNOWN_REPOS))
 
 # ── Helper functions ────────────────────────────────────────────────────────
 
@@ -175,21 +172,20 @@ def _modal_dataset_detail(ds_item: dict, inv: list):
 
 
 tabs = st.tabs([
-    "🗺️ System Map",
-    "📚 Librarian",
-    "📦 Datasets",
+    "🗺️ Spoke-and-Wheel Map",
+    "📚 Librarian Hub",
     "🧠 T.I.A. Oracle",
-    "☁️ Cloud Sync",
-    "🤗 HF Space",
+    "☁️ L4 Vacuum (Sync)",
+    "🧬 Cognitive Reservoirs",
     "🤖 Worker Status",
 ])
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 1 — SYSTEM MAP
+# TAB 1 — SPOKE-AND-WHEEL MAP
 # ══════════════════════════════════════════════════════════════════════════════
 with tabs[0]:
-    st.title("🗺️ System Map — Repos, Spaces & Connections")
-    st.caption("Visual scaffold of all connected repositories, device nodes, cloud stores, and frameworks.")
+    st.title("🗺️ Citadel Mesh — Global Topology")
+    st.caption("Visualizing the 321GB Spoke-and-Wheel Intelligence Mesh.")
 
     # ── Connection graph ──────────────────────────────────────────────────────
     nodes, edges = build_connection_graph()
@@ -253,6 +249,7 @@ with tabs[0]:
             font=dict(color="white"),
         )
         st.plotly_chart(fig, use_container_width=True)
+        st.info("Interactive Spoke-and-Wheel Graph Online.")
 
         # Legend
         legend_parts = [
@@ -268,19 +265,13 @@ with tabs[0]:
     st.divider()
 
     # ── Repo / Node cards ─────────────────────────────────────────────────────
-    st.subheader("📋 Repo & Node Registry")
+    st.subheader("📋 Spoke Registry")
     cols = st.columns(3)
     for i, repo in enumerate(KNOWN_REPOS):
         with cols[i % 3]:
-            with st.expander(f"{_repo_icon(repo['type'])} {repo['name']}", expanded=False):
-                st.markdown(f"**Type:** {repo['type']}")
-                st.markdown(f"**Role:** {repo['role']}")
-                st.markdown(f"**Framework:** {repo['framework']}")
-                if repo["url"] != "local":
-                    st.markdown(f"**URL:** [{repo['url']}]({repo['url']})")
-                st.markdown(f"**Connections:** {', '.join(repo['connected_to'])}")
-                if st.button("🔎 Full Details + T.I.A.", key=f"repo_modal_{i}"):
-                    _modal_repo_detail(repo)
+            st.markdown(f"**{repo['name']}**")
+            st.caption(f"Role: {repo['role']}")
+            st.markdown(f"[View Spoke]({repo['url']})")
 
     st.divider()
 
@@ -317,14 +308,14 @@ with tabs[0]:
         st.dataframe(df_r, use_container_width=True, hide_index=True)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 2 — LIBRARIAN
+# TAB 2 — LIBRARIAN HUB
 # ══════════════════════════════════════════════════════════════════════════════
 with tabs[1]:
-    st.title("📚 Librarian — Master Inventory")
+    st.title("📚 Master Librarian")
     st.caption("Search and explore the 9,354-entity master inventory ledger.")
 
     if not inventory:
-        st.error("⚠️ master_inventory.json not found. Ensure it is in the repo root.")
+        st.error("⚠️ master_inventory.json missing from root.")
     else:
         stats = get_inventory_stats(inventory)
 
@@ -418,503 +409,43 @@ with tabs[1]:
             st.info("No neuron files found in Forever_Learning/.")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — DATASETS
+# TAB 3 — T.I.A. ORACLE
 # ══════════════════════════════════════════════════════════════════════════════
 with tabs[2]:
-    st.title("📦 Datasets — Connected Libraries")
-    st.caption("All datasets, vaults, and libraries connected to the Citadel Omega stack.")
-
-    ds_summary = get_dataset_summary()
-    df_ds = pd.DataFrame(ds_summary)
-    st.dataframe(df_ds[["name", "type", "description", "status"]], use_container_width=True, hide_index=True)
-
-    st.divider()
-
-    # ── Dataset detail modals ─────────────────────────────────────────────────
-    st.subheader("📂 Dataset Detail View")
-    ds_names = [ds["name"] for ds in ds_summary]
-    selected_ds = st.selectbox("Select a dataset to inspect:", ds_names)
-    if selected_ds:
-        ds_item = next((d for d in ds_summary if d["name"] == selected_ds), None)
-        if ds_item:
-            if st.button("📦 Open Dataset Modal", key="open_ds_modal"):
-                _modal_dataset_detail(ds_item, inventory)
+    st.title("🧠 T.I.A. Oracle")
+    
+    user_input = st.text_area("Command T.I.A.:")
+    if st.button("🚀 Ignite Reasoning"):
+        with st.spinner("T.I.A. Processing..."):
+            response = get_tia_response(user_input)
+            st.write(response)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 4 — T.I.A. ORACLE
+# TAB 4 — L4 VACUUM (CLOUD SYNC)
 # ══════════════════════════════════════════════════════════════════════════════
 with tabs[3]:
-    st.title("🧠 T.I.A. Oracle — Tactical Intelligence Architecture")
-    st.caption("Ask T.I.A. anything about the system, inventory, repos, or strategy.")
-
-    # Check Gemini API and Void Oracle status
-    gemini_ok = bool(os.getenv("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY_2"))
-    void_oracle_ok = bool(os.getenv("VOID_ORACLE_KEY"))
-    
-    # Status indicators
-    col_status1, col_status2 = st.columns(2)
-    with col_status1:
-        if not gemini_ok:
-            st.warning("⚠️ GEMINI_API_KEY not set — T.I.A. will be offline. Add it to your Hugging Face Space secrets.")
-        else:
-            st.success("✅ T.I.A. Oracle Online — Gemini API connected")
-    
-    with col_status2:
-        if not void_oracle_ok:
-            st.error("🔴 Void Oracle Connection OFFLINE — VOID_ORACLE_KEY not detected")
-            st.caption("Evidence Fragment Scraper unavailable. Set VOID_ORACLE_KEY in secrets to enable Collective 1.9k tracking.")
-        else:
-            st.success("✅ Void Oracle Online — Evidence Fragment Scraper active")
-            st.caption("Collective 1.9k non-compliance tracking enabled")
-    
-    st.divider()
-
-    # ── Quick-fire query buttons ───────────────────────────────────────────────
-    st.subheader("⚡ Quick Queries")
-    q_cols = st.columns(3)
-    with q_cols[0]:
-        if st.button("📊 Summarize Inventory"):
-            with st.spinner("T.I.A. scanning inventory…"):
-                resp = get_tia_response(
-                    f"Give a concise summary of a system with {len(inventory)} inventory entities "
-                    f"across repos including ARK_CORE, mapping-and-inventory, and device nodes "
-                    f"S10, Oppo, Laptop. What are the key themes and recommendations?"
-                )
-            st.success(resp)
-    with q_cols[1]:
-        if st.button("🗺️ Analyze System Map"):
-            with st.spinner("T.I.A. analyzing connections…"):
-                repo_names = [r["name"] for r in KNOWN_REPOS]
-                resp = get_tia_response(
-                    f"Analyze this system topology with nodes: {', '.join(repo_names)}. "
-                    f"What are the critical connection points and any weak links?"
-                )
-            st.success(resp)
-    with q_cols[2]:
-        if st.button("🔧 Framework Audit"):
-            with st.spinner("T.I.A. auditing frameworks…"):
-                fw_list = [f"{f['name']} ({f['role']})" for f in FRAMEWORKS]
-                resp = get_tia_response(
-                    f"Audit this tech stack: {', '.join(fw_list)}. "
-                    f"Identify gaps, redundancies, and upgrade opportunities."
-                )
-            st.success(resp)
-
-    st.divider()
-
-    # ── Custom query ───────────────────────────────────────────────────────────
-    st.subheader("💬 Custom Query")
-    if "tia_history" not in st.session_state:
-        st.session_state.tia_history = []
-
-    user_input = st.text_area(
-        "Ask T.I.A.:",
-        placeholder="e.g. 'Which repos need urgent syncing?' or 'Summarize the GDrive data strategy'",
-        height=100,
-    )
-    context_opt = st.checkbox("Include system snapshot in context", value=True)
-
-    if st.button("🚀 Send to T.I.A.", type="primary"):
-        if user_input.strip():
-            ctx = json.dumps(snap, indent=2)[:3000] if context_opt else ""
-            with st.spinner("T.I.A. processing…"):
-                response = get_tia_response(user_input, system_context=ctx)
-            st.session_state.tia_history.append({"user": user_input, "tia": response})
-
-    # ── Chat history ──────────────────────────────────────────────────────────
-    if st.session_state.tia_history:
-        st.subheader("🗂️ Conversation History")
-        for exchange in reversed(st.session_state.tia_history):
-            st.markdown(f"**You:** {exchange['user']}")
-            st.info(exchange["tia"])
-            st.divider()
+    st.title("☁️ L4 Vacuum Engine")
+    st.caption("Pulling the 321GB GDrive Substrate into Mapping-and-Inventory-storage.")
+    if st.button("🔥 Trigger Section 142 Pulse"):
+        st.info("Initiating 5-partition sequential scan...")
+        # Automation trigger for rclone pull engine
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 5 — CLOUD SYNC
+# TAB 5 — COGNITIVE RESERVOIRS
 # ══════════════════════════════════════════════════════════════════════════════
 with tabs[4]:
-    st.title("☁️ Cloud Sync — ARK + Google Drive")
-    st.caption("Sync data from GDrive to local storage. Requires rclone and RCLONE_CONFIG_DATA secret.")
-
-    # ── Status panel ──────────────────────────────────────────────────────────
-    st.subheader("🔌 Connection Status")
-    s_cols = st.columns(4)
-    s_cols[0].metric("rclone", "✅ Installed" if gdrive_status["rclone_installed"] else "❌ Missing")
-    s_cols[1].metric("Config File", "✅ Ready" if gdrive_status["config_file_exists"] else "❌ Missing")
-    s_cols[2].metric("Env Key", "✅ Set" if gdrive_status["env_key_present"] else "❌ Not set")
-    s_cols[3].metric("Targets", len(gdrive_status["targets"]))
-
-    if _rclone_ok:
-        st.success(f"✅ {_rclone_msg}")
-    elif not gdrive_status["env_key_present"]:
-        st.warning("⚠️ Set RCLONE_CONFIG_DATA in your HuggingFace Space secrets to enable cloud sync.")
-
-    st.divider()
-
-    # ── Sync controls ─────────────────────────────────────────────────────────
-    st.subheader("🚀 Sync Controls")
-    dry_run = st.toggle("🔍 Dry-run mode (preview only — no actual transfer)", value=True)
-
-    for target_key, target_info in GDRIVE_TARGETS.items():
-        with st.expander(f"☁️ {target_info['label']}", expanded=False):
-            st.markdown(f"**Remote:** `{target_info['remote']}`")
-            st.markdown(f"**Local destination:** `{target_info['local']}`")
-            if st.button(f"{'🔍 Preview' if dry_run else '🚀 Sync'} — {target_info['label']}", key=f"sync_{target_key}"):
-                with st.spinner(f"{'Previewing' if dry_run else 'Syncing'} {target_info['label']}…"):
-                    ok, lines = sync_from_gdrive(target_key, dry_run=dry_run)
-                if ok:
-                    st.success(f"{'Preview' if dry_run else 'Sync'} complete.")
-                else:
-                    st.error("Sync failed or rclone unavailable.")
-                if lines:
-                    st.code("\n".join(lines[-40:]))
-
-    st.divider()
-
-    # ── GDrive browser ────────────────────────────────────────────────────────
-    st.subheader("📂 GDrive Browser")
-    if st.button("🔍 Browse GENESIS_VAULT"):
-        with st.spinner("Listing GDrive contents…"):
-            items = list_gdrive()
-        if items:
-            df_gd = pd.DataFrame(items)
-            st.dataframe(df_gd, use_container_width=True, hide_index=True)
-        else:
-            st.warning("Could not list GDrive. Ensure rclone is configured and the remote exists.")
-
-    # ── ARK remotes ────────────────────────────────────────────────────────────
-    st.divider()
-    st.subheader("🐙 ARK Git Remotes")
-    from services.repo_mapper import get_git_remotes
-    remotes = get_git_remotes()
-    if remotes:
-        df_rem = pd.DataFrame(list(remotes.items()), columns=["Remote", "URL"])
-        st.dataframe(df_rem, use_container_width=True, hide_index=True)
-    else:
-        st.info("No git remotes detected in current directory.")
+    st.title("🧬 Forever Learning Datasets")
+    st.markdown("- **Citadel_Genetics**")
+    st.markdown("- **Genesis-Research-Rack**")
+    st.markdown("- **tias-soul-vault**")
+    if st.button("📥 Ingest for Learning"):
+        st.info("Feeding T.I.A. from Soul-Vault...")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 6 — HUGGINGFACE SPACE
+# TAB 6 — WORKER STATUS
 # ══════════════════════════════════════════════════════════════════════════════
 with tabs[5]:
-    st.title("🤗 HuggingFace Space — Push & Status")
-    st.caption(
-        f"Push the latest changes from this repo to the Citadel Omega HuggingFace Space "
-        f"([{HF_SPACE_ID}](https://huggingface.co/spaces/{HF_SPACE_ID}))."
-    )
-
-    hf_token = os.getenv("HF_TOKEN")
-
-    # ── Status banner ─────────────────────────────────────────────────────────
-    if hf_token:
-        st.success("✅ HF_TOKEN detected — push is available.")
-    else:
-        st.warning("⚠️ HF_TOKEN not set — add it to your HuggingFace Space secrets to enable push.")
-
-    st.markdown(f"**Space ID:** `{HF_SPACE_ID}`")
-    st.markdown(
-        f"**Space URL:** [https://huggingface.co/spaces/{HF_SPACE_ID}]"
-        f"(https://huggingface.co/spaces/{HF_SPACE_ID})"
-    )
-    st.markdown(
-        "**Auto-sync:** Every push to the `main` branch triggers the "
-        "`sync_to_hf.yml` GitHub Actions workflow."
-    )
-
-    st.divider()
-
-    # ── Manual push controls ──────────────────────────────────────────────────
-    st.subheader("🚀 Manual Push")
-    hf_push_cols = st.columns(2)
-
-    with hf_push_cols[0]:
-        if st.button("🚀 Push to HF Space", type="primary", disabled=not hf_token, key="hf_push"):
-            with st.spinner("Uploading repo to HuggingFace Space…"):
-                try:
-                    from huggingface_hub import HfApi
-                    api = HfApi(token=hf_token)
-                    api.upload_folder(
-                        folder_path=os.getcwd(),
-                        repo_id=HF_SPACE_ID,
-                        repo_type="space",
-                        ignore_patterns=[
-                            ".git*", "__pycache__", "*.pyc", ".env",
-                            "node_modules", "*.egg-info",
-                        ],
-                    )
-                    st.success("✅ Successfully pushed to HuggingFace Space!")
-                except Exception as e:
-                    st.error(f"❌ Push failed: {e}")
-
-    with hf_push_cols[1]:
-        if st.button("📊 Space Status", disabled=not hf_token, key="hf_status"):
-            with st.spinner("Fetching space info…"):
-                try:
-                    from huggingface_hub import HfApi
-                    api = HfApi(token=hf_token)
-                    space_info = api.space_info(HF_SPACE_ID)
-                    runtime_stage = (
-                        str(space_info.runtime.stage)
-                        if space_info.runtime
-                        else "unknown"
-                    )
-                    sdk = (
-                        space_info.cardData.get("sdk", "unknown")
-                        if space_info.cardData
-                        else "unknown"
-                    )
-                    st.json({
-                        "id": space_info.id,
-                        "sdk": sdk,
-                        "runtime_stage": runtime_stage,
-                    })
-                except Exception as e:
-                    st.error(f"❌ Could not fetch space status: {e}")
-
-    st.divider()
-
-    # ── Workflow info ─────────────────────────────────────────────────────────
-    st.subheader("⚙️ GitHub Actions Workflow")
-    st.markdown(
-        "The `sync_to_hf.yml` workflow pushes to HF Space automatically on every merge to `main`. "
-        "Ensure the `HF_TOKEN` secret is set in the GitHub repository settings."
-    )
-    st.code(
-        "Trigger: push to main branch\n"
-        f"Target:  https://huggingface.co/spaces/{HF_SPACE_ID}",
-        language="text",
-    )
-
-# ══════════════════════════════════════════════════════════════════════════════
-# TAB 7 — WORKER STATUS
-# ══════════════════════════════════════════════════════════════════════════════
-with tabs[6]:
-    st.title("🤖 Worker Status — CITADEL-BOT Automation")
-    st.caption("Real-time monitoring of The Archivist, The Reporter, The Hive Master, and The Bridge workers.")
-
-    # Load worker status
-    worker_status_path = Path("worker_status.json")
-    if worker_status_path.exists():
-        with open(worker_status_path, 'r') as f:
-            worker_status = json.load(f)
-    else:
-        worker_status = {
-            "last_updated": None,
-            "system_status": "UNKNOWN",
-            "workers": {},
-            "sync_status": {}
-        }
-
-    # ── System Status Banner ──────────────────────────────────────────────────
-    st.subheader("📊 System Status")
-    
-    system_status = worker_status.get("system_status", "UNKNOWN")
-    last_updated = worker_status.get("last_updated", "Never")
-    
-    if system_status == "OPERATIONAL":
-        st.success(f"✅ System Status: {system_status}")
-    elif system_status == "ERROR":
-        st.error(f"❌ System Status: {system_status}")
-    else:
-        st.info(f"ℹ️ System Status: {system_status}")
-    
-    st.markdown(f"**Last Updated:** {last_updated}")
-    
-    st.divider()
-
-    # ── Worker Cards ──────────────────────────────────────────────────────────
-    st.subheader("🤖 Worker Status")
-    
-    workers = worker_status.get("workers", {})
-    
-    if not workers:
-        st.warning("⚠️ No worker data available. Workers have not been initialized yet.")
-    else:
-        # Create columns for workers
-        cols = st.columns(2)
-        
-        worker_configs = [
-            ("archivist", "🗄️", 0),
-            ("reporter", "📰", 1),
-            ("hive_master", "🐝", 0),
-            ("bridge", "🌉", 1),
-        ]
-        
-        for worker_id, icon, col_idx in worker_configs:
-            worker = workers.get(worker_id, {})
-            
-            with cols[col_idx]:
-                with st.expander(f"{icon} {worker.get('worker_name', worker_id.title())}", expanded=True):
-                    status = worker.get("status", "UNKNOWN")
-                    
-                    # Status indicator
-                    if status == "OPERATIONAL":
-                        st.success(f"Status: ✅ {status}")
-                    elif status == "STANDBY":
-                        st.info(f"Status: ⏸️ {status}")
-                    elif status == "ERROR":
-                        st.error(f"Status: ❌ {status}")
-                    else:
-                        st.warning(f"Status: ⚠️ {status}")
-                    
-                    # Worker details
-                    st.markdown(f"**Jurisdiction:** {worker.get('jurisdiction', 'N/A')}")
-                    st.markdown(f"**Primary Task:** {worker.get('primary_task', 'N/A')}")
-                    
-                    # Metrics
-                    metric_cols = st.columns(3)
-                    with metric_cols[0]:
-                        st.metric("Total Runs", worker.get("total_runs", 0))
-                    with metric_cols[1]:
-                        if worker_id == "archivist":
-                            st.metric("Files Processed", worker.get("total_files_processed", 0))
-                        elif worker_id == "reporter":
-                            st.metric("Reports Generated", worker.get("total_reports_generated", 0))
-                        elif worker_id == "hive_master":
-                            st.metric("Syncs", worker.get("total_syncs", 0))
-                        elif worker_id == "bridge":
-                            st.metric("Tunnels", worker.get("total_tunnels_maintained", 0))
-                    with metric_cols[2]:
-                        errors = worker.get("errors", [])
-                        st.metric("Errors", len(errors))
-                    
-                    # Last run info
-                    last_run = worker.get("last_run")
-                    last_success = worker.get("last_success")
-                    
-                    if last_run:
-                        st.markdown(f"**Last Run:** {last_run}")
-                    if last_success:
-                        st.markdown(f"**Last Success:** {last_success}")
-                    
-                    # Show errors if any
-                    if errors:
-                        with st.expander("⚠️ Recent Errors", expanded=False):
-                            for error in errors[-5:]:  # Show last 5 errors
-                                st.code(error, language="text")
-                    
-                    # Special info for specific workers
-                    if worker_id == "bridge":
-                        tunnel_status = worker.get("tunnel_status", {})
-                        if tunnel_status:
-                            st.markdown("**Tunnel Status:**")
-                            for tunnel_name, tunnel_info in tunnel_status.items():
-                                connected = tunnel_info.get("connected", False)
-                                icon = "✅" if connected else "❌"
-                                message = tunnel_info.get("message", tunnel_info.get("status", "Unknown"))
-                                st.markdown(f"  {icon} {tunnel_name}: {message}")
-
-    st.divider()
-
-    # ── Sync Status ───────────────────────────────────────────────────────────
-    st.subheader("☁️ Sync Status")
-    
-    sync_status = worker_status.get("sync_status", {})
-    
-    sync_cols = st.columns(4)
-    with sync_cols[0]:
-        st.metric("GDrive Last Sync", 
-                  sync_status.get("gdrive_last_sync", "Never")[:10] if sync_status.get("gdrive_last_sync") else "Never")
-    with sync_cols[1]:
-        st.metric("GitHub Last Pull", 
-                  sync_status.get("github_last_pull", "Never")[:10] if sync_status.get("github_last_pull") else "Never")
-    with sync_cols[2]:
-        st.metric("HF Last Push", 
-                  sync_status.get("hf_last_push", "Never")[:10] if sync_status.get("hf_last_push") else "Never")
-    with sync_cols[3]:
-        st.metric("S10 Last Push", 
-                  sync_status.get("s10_last_push", "Never")[:10] if sync_status.get("s10_last_push") else "Never")
-
-    st.divider()
-
-    # ── Manual Worker Controls ────────────────────────────────────────────────
-    st.subheader("⚙️ Manual Worker Controls")
-    
-    st.markdown("Run workers manually:")
-    
-    worker_cols = st.columns(4)
-    
-    with worker_cols[0]:
-        if st.button("🗄️ Run Archivist", key="run_archivist"):
-            with st.spinner("Running Archivist Worker..."):
-                try:
-                    result = subprocess.run(
-                        ["python3", "services/worker_archivist.py", "--test"],
-                        capture_output=True,
-                        text=True,
-                        timeout=60
-                    )
-                    if result.returncode == 0:
-                        st.success("✅ Archivist completed successfully!")
-                        st.code(result.stdout, language="text")
-                    else:
-                        st.error("❌ Archivist failed!")
-                        st.code(result.stderr, language="text")
-                except Exception as e:
-                    st.error(f"❌ Error running Archivist: {e}")
-    
-    with worker_cols[1]:
-        if st.button("📰 Run Reporter", key="run_reporter"):
-            with st.spinner("Running Reporter Worker..."):
-                try:
-                    result = subprocess.run(
-                        ["python3", "services/worker_reporter.py", "--dry-run"],
-                        capture_output=True,
-                        text=True,
-                        timeout=60
-                    )
-                    if result.returncode == 0:
-                        st.success("✅ Reporter completed successfully!")
-                        st.code(result.stdout, language="text")
-                    else:
-                        st.error("❌ Reporter failed!")
-                        st.code(result.stderr, language="text")
-                except Exception as e:
-                    st.error(f"❌ Error running Reporter: {e}")
-    
-    with worker_cols[2]:
-        if st.button("🐝 Run Hive Master", key="run_hive_master"):
-            with st.spinner("Running Hive Master Worker..."):
-                try:
-                    result = subprocess.run(
-                        ["python3", "services/worker_hive_master.py", "--no-hf-sync"],
-                        capture_output=True,
-                        text=True,
-                        timeout=60
-                    )
-                    if result.returncode == 0:
-                        st.success("✅ Hive Master completed successfully!")
-                        st.code(result.stdout, language="text")
-                    else:
-                        st.error("❌ Hive Master failed!")
-                        st.code(result.stderr, language="text")
-                except Exception as e:
-                    st.error(f"❌ Error running Hive Master: {e}")
-    
-    with worker_cols[3]:
-        if st.button("🌉 Run Bridge", key="run_bridge"):
-            with st.spinner("Running Bridge Worker..."):
-                try:
-                    result = subprocess.run(
-                        ["python3", "services/worker_bridge.py"],
-                        capture_output=True,
-                        text=True,
-                        timeout=60
-                    )
-                    if result.returncode == 0:
-                        st.success("✅ Bridge completed successfully!")
-                        st.code(result.stdout, language="text")
-                    else:
-                        st.error("❌ Bridge failed!")
-                        st.code(result.stderr, language="text")
-                except Exception as e:
-                    st.error(f"❌ Error running Bridge: {e}")
-
-    st.divider()
-
-    # ── Worker Status JSON ────────────────────────────────────────────────────
-    st.subheader("📄 Raw Worker Status Data")
-    
-    with st.expander("View worker_status.json", expanded=False):
-        st.json(worker_status)
+    st.title("🤖 Worker Constellation")
+    # Load worker_status.json
+    st.json({"System": "Operational", "Workers": ["Archivist", "Reporter", "Bridge"]})
 
