@@ -1,0 +1,289 @@
+name: 🔥 Deploy TIA-ARCHITECT-CORE Full Package
+
+# ═══════════════════════════════════════════════════════════════════
+# TIA-ARCHITECT-CORE Full Deployment Workflow
+# ═══════════════════════════════════════════════════════════════════
+# Purpose: Deploy complete package (UI + Models + Workers + Tools)
+# Target: DJ-Goana-Coding/TIA-ARCHITECT-CORE
+# Includes: Streamlit app, model downloaders, Apps Script workers
+# ═══════════════════════════════════════════════════════════════════
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment_mode:
+        description: 'Deployment mode'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - 'full'      # Complete deployment (app + models + workers + tools)
+          - 'app_only'  # Just Streamlit app + requirements
+          - 'models'    # Just model downloaders
+          - 'workers'   # Just workers
+          - 'dry_run'   # Show what would be deployed
+
+jobs:
+  deploy-tia-core:
+    name: Deploy TIA-ARCHITECT-CORE
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🧩 Checkout Mapping-and-Inventory (source)
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+          
+      - name: 📥 Checkout TIA-ARCHITECT-CORE (target)
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goana-Coding/TIA-ARCHITECT-CORE
+          token: ${{ secrets.GH_PAT }}
+          path: TIA-ARCHITECT-CORE
+      
+      - name: 🔍 Verify Source Templates
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🔍 VERIFYING SOURCE TEMPLATES"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          TEMPLATE_DIR="mapping-and-inventory/tia-architect-core-templates"
+          
+          if [ ! -d "$TEMPLATE_DIR" ]; then
+            echo "❌ ERROR: Template directory not found"
+            exit 1
+          fi
+          
+          echo ""
+          echo "📦 Template Contents:"
+          ls -la "$TEMPLATE_DIR"
+          echo ""
+          
+          # Verify required files
+          REQUIRED_FILES=(
+            "$TEMPLATE_DIR/app.py"
+            "$TEMPLATE_DIR/requirements.txt"
+            "$TEMPLATE_DIR/DEPLOYMENT_GUIDE.md"
+          )
+          
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ Found: $(basename $file)"
+            else
+              echo "❌ Missing: $(basename $file)"
+              exit 1
+            fi
+          done
+          
+          echo ""
+          echo "✅ All required files present"
+      
+      - name: 💾 Backup Existing Files
+        run: |
+          cd TIA-ARCHITECT-CORE
+          
+          BACKUP_DIR="backup_$(date +%Y%m%d_%H%M%S)"
+          mkdir -p "$BACKUP_DIR"
+          
+          # Backup existing files if they exist
+          [ -f app.py ] && cp app.py "$BACKUP_DIR/"
+          [ -f requirements.txt ] && cp requirements.txt "$BACKUP_DIR/"
+          [ -d scripts ] && cp -r scripts "$BACKUP_DIR/"
+          [ -d workers ] && cp -r workers "$BACKUP_DIR/"
+          [ -d data ] && cp -r data "$BACKUP_DIR/"
+          
+          if [ "$(ls -A $BACKUP_DIR 2>/dev/null)" ]; then
+            echo "✅ Backup created: $BACKUP_DIR"
+            ls -la "$BACKUP_DIR"
+            git add "$BACKUP_DIR"
+          else
+            echo "ℹ️  No existing files to backup"
+            rmdir "$BACKUP_DIR"
+          fi
+      
+      - name: 📋 Deploy Core Application
+        if: github.event.inputs.deployment_mode == 'full' || github.event.inputs.deployment_mode == 'app_only'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "📋 DEPLOYING CORE APPLICATION"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          cp mapping-and-inventory/tia-architect-core-templates/app.py \
+             TIA-ARCHITECT-CORE/app.py
+          
+          cp mapping-and-inventory/tia-architect-core-templates/requirements.txt \
+             TIA-ARCHITECT-CORE/requirements.txt
+          
+          cp mapping-and-inventory/tia-architect-core-templates/DEPLOYMENT_GUIDE.md \
+             TIA-ARCHITECT-CORE/DEPLOYMENT_GUIDE.md
+          
+          echo "✅ Core application deployed"
+          echo ""
+          echo "📊 Preview app.py:"
+          head -30 TIA-ARCHITECT-CORE/app.py
+      
+      - name: 🤖 Deploy Models & Downloaders
+        if: github.event.inputs.deployment_mode == 'full' || github.event.inputs.deployment_mode == 'models'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🤖 DEPLOYING MODELS & DOWNLOADERS"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          mkdir -p TIA-ARCHITECT-CORE/{scripts,data/models}
+          
+          # Copy model download scripts
+          cp mapping-and-inventory/tia-architect-core-templates/scripts/*.py \
+             TIA-ARCHITECT-CORE/scripts/
+          
+          # Copy models manifest
+          cp mapping-and-inventory/tia-architect-core-templates/data/models/models_manifest.json \
+             TIA-ARCHITECT-CORE/data/models/
+          
+          echo "✅ Models & downloaders deployed"
+          echo ""
+          echo "📊 Scripts deployed:"
+          ls -la TIA-ARCHITECT-CORE/scripts/
+      
+      - name: ⚙️ Deploy Workers & Tools
+        if: github.event.inputs.deployment_mode == 'full' || github.event.inputs.deployment_mode == 'workers'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "⚙️ DEPLOYING WORKERS & TOOLS"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          mkdir -p TIA-ARCHITECT-CORE/{workers,data/workers}
+          
+          # Copy worker files
+          cp -r mapping-and-inventory/tia-architect-core-templates/workers/* \
+                TIA-ARCHITECT-CORE/workers/
+          
+          # Copy workers manifest
+          cp mapping-and-inventory/tia-architect-core-templates/data/workers/workers_manifest.json \
+             TIA-ARCHITECT-CORE/data/workers/
+          
+          echo "✅ Workers & tools deployed"
+          echo ""
+          echo "📊 Workers deployed:"
+          ls -la TIA-ARCHITECT-CORE/workers/
+      
+      - name: 📊 Generate Deployment Summary
+        run: |
+          cd TIA-ARCHITECT-CORE
+          
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "📊 DEPLOYMENT SUMMARY"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Mode: ${{ github.event.inputs.deployment_mode }}"
+          echo "Date: $(date)"
+          echo ""
+          echo "📁 Directory Structure:"
+          tree -L 2 -I '.git' || find . -maxdepth 2 -type d
+          echo ""
+          echo "📊 File Counts:"
+          echo "  - Python files: $(find . -name '*.py' -type f | wc -l)"
+          echo "  - Scripts: $(find scripts -name '*.py' 2>/dev/null | wc -l || echo 0)"
+          echo "  - Workers: $(find workers -name '*.py' 2>/dev/null | wc -l || echo 0)"
+      
+      - name: 💾 Commit Changes
+        if: github.event.inputs.deployment_mode != 'dry_run'
+        run: |
+          cd TIA-ARCHITECT-CORE
+          
+          git config user.name "Citadel Architect"
+          git config user.email "architect@citadel.mesh"
+          
+          git add .
+          
+          # Check if there are changes
+          if git diff --cached --quiet; then
+            echo "ℹ️  No changes to commit"
+          else
+            COMMIT_MSG="🔥 FULL DEPLOYMENT: "
+            
+            case "${{ github.event.inputs.deployment_mode }}" in
+              full)
+                COMMIT_MSG+="Complete package (UI + Models + Workers + Tools)"
+                ;;
+              app_only)
+                COMMIT_MSG+="Streamlit UI + Requirements"
+                ;;
+              models)
+                COMMIT_MSG+="Model downloaders"
+                ;;
+              workers)
+                COMMIT_MSG+="Workers & Apps Script"
+                ;;
+            esac
+            
+            COMMIT_MSG+="
+
+📦 Deployment Details:
+- Streamlit app with 5-tab interface
+- Python 3.13 compatible dependencies  
+- Frontier models downloader (Gemma 4, Qwen 3.5, DeepSeek V4)
+- CITADEL Omega models (FinBERT, CryptoBERT)
+- Apps Script workers for Google Sheets integration
+- Worker watchdog & self-healing systems
+- Complete manifests & documentation
+
+🔧 Template Source: DJ-Goana-Coding/mapping-and-inventory
+📡 Deployed by: GitHub Actions
+🧠 Architect: v25.0.OMNI++"
+            
+            git commit -m "$COMMIT_MSG"
+            echo "✅ Changes committed"
+          fi
+      
+      - name: ⬆️ Push to GitHub
+        if: github.event.inputs.deployment_mode != 'dry_run'
+        run: |
+          cd TIA-ARCHITECT-CORE
+          git push origin main
+          echo "✅ Pushed to GitHub (DJ-Goana-Coding/TIA-ARCHITECT-CORE)"
+      
+      - name: 🎯 Dry Run Summary
+        if: github.event.inputs.deployment_mode == 'dry_run'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🔍 DRY RUN COMPLETE (no changes pushed)"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Changes that would be deployed:"
+          cd TIA-ARCHITECT-CORE
+          git status
+      
+      - name: ✅ Success Summary
+        if: github.event.inputs.deployment_mode != 'dry_run'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "✅ TIA-ARCHITECT-CORE DEPLOYMENT COMPLETE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "🎯 Next Steps:"
+          echo ""
+          echo "1. Monitor HuggingFace Space rebuild:"
+          echo "   https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE/logs"
+          echo ""
+          echo "2. Expected build indicators:"
+          echo "   ✅ Successfully installed setuptools-75.x.x"
+          echo "   ✅ Successfully installed pandas-2.2.x"
+          echo "   ✅ Successfully installed numpy-2.x.x"
+          echo "   ✅ Successfully installed streamlit-1.4x.x"
+          echo "   ✅ Running on local URL: http://0.0.0.0:7860"
+          echo ""
+          echo "3. Access the Space (after build completes):"
+          echo "   https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE"
+          echo ""
+          echo "4. Test all features:"
+          echo "   - Dashboard tab"
+          echo "   - Models registry & downloader"
+          echo "   - Workers constellation"
+          echo "   - Knowledge Base (RAG)"
+          echo "   - Tools & utilities"
+          echo ""
+          echo "📋 Deployment Mode: ${{ github.event.inputs.deployment_mode }}"
+          echo "📡 Repository: DJ-Goana-Coding/TIA-ARCHITECT-CORE"
+          echo "🧠 Architect: v25.0.OMNI++"
+          echo ""
+          echo "🔥 Ignition complete. Monitor the Space!"
