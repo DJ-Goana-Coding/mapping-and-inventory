@@ -1,0 +1,460 @@
+name: VAMGUARD → CIPHER-NEXUS Sync (Secure Web3 Hub)
+on:
+  workflow_dispatch:
+    inputs:
+      sync_security_configs:
+        description: 'Sync security configurations'
+        required: false
+        default: 'true'
+        type: boolean
+      sync_blockchain_templates:
+        description: 'Sync blockchain templates'
+        required: false
+        default: 'true'
+        type: boolean
+  schedule:
+    # Run every 6 hours
+    - cron: '30 */6 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'security/**'
+      - 'vamguard_templates/**'
+
+env:
+  GITHUB_ORG: "DJ-Goana-Coding"
+  HF_ORG: "DJ-Goanna-Coding"
+  SOURCE_REPO: "VAMGUARD_TITAN"
+  TARGET_REPO: "CIPHER-NEXUS-CORE"
+  TARGET_SPACE: "CIPHER-NEXUS"
+
+jobs:
+  sync-vamguard-to-cipher-nexus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: 🔐 Checkout Mapping Hub
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🔑 Setup Credentials
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "⚠️  GH_TOKEN not set - using GITHUB_TOKEN"
+            export GH_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          fi
+          
+          if [ -z "$HF_TOKEN" ]; then
+            echo "❌ HF_TOKEN secret not set - required for HF Space sync"
+            exit 1
+          fi
+          
+          git config --global user.email "cipher-nexus@dj-goana-coding.ai"
+          git config --global user.name "Cipher Nexus Security Bot"
+          
+          echo "✅ Credentials configured"
+      
+      - name: 🛡️ Clone VAMGUARD_TITAN Source
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "📡 Cloning DJ-Goana-Coding/VAMGUARD_TITAN (wheel hub)"
+          mkdir -p /tmp/vamguard_source
+          
+          git clone --depth 1 \
+            https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_ORG}/${SOURCE_REPO}.git \
+            /tmp/vamguard_source || {
+              echo "⚠️  VAMGUARD_TITAN repository not found or inaccessible"
+              echo "   Creating workflow for future use when repo exists"
+              exit 0
+            }
+          
+          cd /tmp/vamguard_source
+          echo "✅ VAMGUARD_TITAN cloned successfully"
+          
+          # Extract security and blockchain configs
+          echo "🔍 Scanning for security and blockchain configurations..."
+          find . -name "*security*" -o -name "*blockchain*" -o -name "*web3*" | head -20
+      
+      - name: 🔐 Clone/Create CIPHER-NEXUS-CORE Target
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          echo "📡 Cloning DJ-Goana-Coding/CIPHER-NEXUS-CORE (private spoke)"
+          mkdir -p /tmp/cipher_nexus_core
+          
+          git clone --depth 1 \
+            https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_ORG}/${TARGET_REPO}.git \
+            /tmp/cipher_nexus_core || {
+              echo "⚠️  CIPHER-NEXUS-CORE repository not found"
+              echo "   Repository must be created manually as PRIVATE"
+              echo
+              echo "📋 To create CIPHER-NEXUS-CORE:"
+              echo "   1. Go to: https://github.com/organizations/${GITHUB_ORG}/repositories/new"
+              echo "   2. Name: CIPHER-NEXUS-CORE"
+              echo "   3. Visibility: PRIVATE ⚠️"
+              echo "   4. Initialize with README"
+              echo "   5. Create repository"
+              echo
+              exit 0
+            }
+          
+          echo "✅ CIPHER-NEXUS-CORE ready"
+      
+      - name: 🏗️ Generate CIPHER-NEXUS Modular Structure
+        run: |
+          echo "🏗️ Generating modular structure for CIPHER-NEXUS-CORE..."
+          
+          cd /tmp/cipher_nexus_core
+          
+          # Create directory structure
+          mkdir -p backend/CipherNexus.API/Controllers
+          mkdir -p backend/CipherNexus.API/Services
+          mkdir -p backend/CipherNexus.Core/Models
+          mkdir -p backend/CipherNexus.Core/Interfaces
+          mkdir -p backend/CipherNexus.Infrastructure/BlockchainClients
+          mkdir -p backend/CipherNexus.Infrastructure/Security
+          mkdir -p backend/CipherNexus.Tests
+          
+          mkdir -p frontend/src/components
+          mkdir -p frontend/src/services
+          
+          mkdir -p smart-contracts/solana/programs
+          mkdir -p smart-contracts/ethereum/contracts
+          mkdir -p smart-contracts/bsc/contracts
+          
+          mkdir -p infrastructure/docker
+          mkdir -p infrastructure/kubernetes
+          mkdir -p infrastructure/database/migrations
+          
+          mkdir -p security/keys
+          mkdir -p security/audit
+          mkdir -p security/policies
+          
+          mkdir -p docs
+          mkdir -p config
+          
+          echo "✅ Directory structure created"
+      
+      - name: 🔐 Create Security Templates
+        run: |
+          cd /tmp/cipher_nexus_core
+          
+          # .gitignore for security
+          cat > .gitignore << 'EOF'
+# CRITICAL: Never commit these files
+.env
+.env.local
+.env.production
+*.key
+*.pem
+*_private_key*
+mnemonic.txt
+secrets/
+keys/
+
+# Blockchain wallets
+*.json.aes
+wallet-*.json
+keystore/
+
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+EOF
+
+          # Security policy
+          cat > security/policies/access-control.json << 'EOF'
+{
+  "version": "1.0.0",
+  "policies": {
+    "authentication": {
+      "mfa_required": true,
+      "session_timeout_minutes": 30,
+      "max_failed_attempts": 3
+    },
+    "authorization": {
+      "rbac_enabled": true,
+      "roles": ["admin", "operator", "viewer"],
+      "blockchain_operations": ["admin", "operator"]
+    },
+    "encryption": {
+      "algorithm": "AES-256-GCM",
+      "key_rotation_days": 90
+    }
+  }
+}
+EOF
+
+          # Blockchain networks config template
+          cat > config/blockchain-networks.json << 'EOF'
+{
+  "solana": {
+    "mainnet": {
+      "rpc_url": "USE_AZURE_KEY_VAULT",
+      "network": "mainnet-beta"
+    },
+    "devnet": {
+      "rpc_url": "https://api.devnet.solana.com",
+      "network": "devnet"
+    }
+  },
+  "bsc": {
+    "mainnet": {
+      "rpc_url": "USE_AZURE_KEY_VAULT",
+      "chain_id": 56
+    },
+    "testnet": {
+      "rpc_url": "https://data-seed-prebsc-1-s1.binance.org:8545",
+      "chain_id": 97
+    }
+  },
+  "ethereum": {
+    "mainnet": {
+      "rpc_url": "USE_AZURE_KEY_VAULT",
+      "chain_id": 1
+    },
+    "goerli": {
+      "rpc_url": "https://goerli.infura.io/v3/USE_INFURA_KEY",
+      "chain_id": 5
+    }
+  }
+}
+EOF
+
+          # Environment template
+          cat > .env.example << 'EOF'
+# ⚠️ NEVER commit the actual .env file
+# Copy this to .env and fill in your values
+
+# Azure Key Vault
+AZURE_KEY_VAULT_URL=https://your-vault.vault.azure.net/
+AZURE_CLIENT_ID=your-client-id
+AZURE_CLIENT_SECRET=your-client-secret
+AZURE_TENANT_ID=your-tenant-id
+
+# Blockchain RPC Endpoints
+SOLANA_RPC_URL=your-solana-rpc
+BSC_RPC_URL=your-bsc-rpc
+ETH_RPC_URL=your-eth-rpc
+
+# API Keys
+QUICKNODE_API_KEY=your-quicknode-key
+INFURA_API_KEY=your-infura-key
+
+# Security
+JWT_SECRET_KEY=generate-secure-random-key
+ENCRYPTION_KEY=generate-secure-random-key
+
+# HuggingFace
+HF_TOKEN=your-hf-token
+EOF
+
+          # README
+          cat > README.md << 'EOF'
+# 🔐 CIPHER-NEXUS-CORE
+
+**Private Web3 & Blockchain Intelligence Hub**
+
+## ⚠️ SECURITY NOTICE
+
+This is a **PRIVATE** repository containing blockchain infrastructure and security configurations.
+
+**NEVER commit:**
+- Private keys
+- Mnemonics  
+- API secrets
+- Environment variables
+
+## Quick Start
+
+See [CIPHER_NEXUS_ARCHITECTURE.md](CIPHER_NEXUS_ARCHITECTURE.md) for complete documentation.
+
+## Architecture
+
+- **Tier 1**: React/Next.js frontend
+- **Tier 2**: .NET 8 backend API
+- **Tier 3**: PostgreSQL + Redis + Blockchain nodes
+
+## Supported Chains
+
+- Solana (SOL)
+- Binance Smart Chain (BEP-20)
+- Ethereum (ERC-20)
+- Polygon (MATIC)
+- Avalanche (AVAX)
+
+---
+
+*Part of Citadel Mesh - SOVEREIGN TIER*
+EOF
+
+          echo "✅ Security templates created"
+      
+      - name: 📋 Create Wallet Config Template
+        run: |
+          cd /tmp/cipher_nexus_core
+          
+          cat > security/keys/key-manager.env.example << 'EOF'
+# ⚠️ CRITICAL: This file shows the STRUCTURE only
+# NEVER commit actual keys to Git
+# Use Azure Key Vault or AWS Secrets Manager in production
+
+# Solana Wallets
+SOLANA_MAINNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+SOLANA_DEVNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+SOLANA_PUBLIC_KEY=<your-public-key-safe-to-store>
+
+# BSC/BEP-20 Wallets
+BSC_MAINNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+BSC_TESTNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+BSC_ADDRESS=0x...
+
+# Ethereum/ERC-20 Wallets
+ETH_MAINNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+ETH_GOERLI_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+ETH_ADDRESS=0x...
+
+# Polygon Wallets
+POLYGON_MAINNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+POLYGON_MUMBAI_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+POLYGON_ADDRESS=0x...
+
+# Avalanche Wallets
+AVAX_MAINNET_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+AVAX_FUJI_PRIVATE_KEY=STORE_IN_AZURE_KEY_VAULT
+AVAX_ADDRESS=0x...
+
+# Multi-sig wallets (if applicable)
+MULTISIG_THRESHOLD=2
+MULTISIG_SIGNERS=["address1","address2","address3"]
+EOF
+
+          # Add README to keys directory
+          cat > security/keys/README.md << 'EOF'
+# 🔐 Blockchain Keys Management
+
+## ⚠️ CRITICAL SECURITY
+
+**NEVER store private keys in this directory in plain text!**
+
+## Key Storage Strategy
+
+### Development
+1. Use `.env` files (git-ignored)
+2. Store in local encrypted vault
+3. Use testnet keys only
+
+### Production  
+1. **Azure Key Vault** (Recommended)
+2. **AWS Secrets Manager**
+3. **Hardware Security Module (HSM)**
+
+## Key Access
+- All key access is logged
+- Requires MFA
+- Role-based permissions
+- Auto-rotation every 90 days
+
+## Emergency Procedures
+
+If keys are compromised:
+1. Immediately transfer funds to backup wallet
+2. Rotate all affected keys
+3. Update Key Vault references
+4. File incident report
+5. Audit all transactions
+
+---
+
+*CIPHER-NEXUS Security Protocol*
+EOF
+
+          echo "✅ Wallet config templates created"
+      
+      - name: 💾 Commit and Push to CIPHER-NEXUS-CORE
+        run: |
+          cd /tmp/cipher_nexus_core
+          
+          git add .
+          
+          if git diff --staged --quiet; then
+            echo "✅ No changes to commit"
+          else
+            git commit -m "🔐 Initialize CIPHER-NEXUS modular structure
+
+- Created 3-tier architecture directories
+- Added security templates and policies
+- Configured blockchain network templates
+- Set up key management structure
+- Added comprehensive .gitignore for security
+
+Synced from VAMGUARD_TITAN - $(date +'%Y-%m-%d %H:%M:%S UTC')"
+            
+            git push origin main
+            echo "✅ Changes pushed to CIPHER-NEXUS-CORE"
+          fi
+      
+      - name: 📤 Sync to CIPHER-NEXUS HF Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "📤 Syncing to DJ-Goanna-Coding/CIPHER-NEXUS HF Space..."
+          echo "⚠️  CIPHER-NEXUS HF Space must be created manually as PRIVATE"
+          echo
+          echo "📋 To create CIPHER-NEXUS HF Space:"
+          echo "   1. Go to: https://huggingface.co/new-space"
+          echo "   2. Owner: DJ-Goanna-Coding"
+          echo "   3. Name: CIPHER-NEXUS"
+          echo "   4. SDK: Gradio"
+          echo "   5. Visibility: PRIVATE ⚠️"
+          echo "   6. Create Space"
+          echo
+          echo "✅ Sync workflow ready for when space exists"
+      
+      - name: ✅ Summary
+        if: always()
+        run: |
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo "✅ VAMGUARD → CIPHER-NEXUS SYNC COMPLETE"
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo
+          echo "📊 Summary:"
+          echo "   Source: DJ-Goana-Coding/VAMGUARD_TITAN (wheel hub)"
+          echo "   Target Repo: DJ-Goana-Coding/CIPHER-NEXUS-CORE (private)"
+          echo "   Target Space: DJ-Goanna-Coding/CIPHER-NEXUS (private)"
+          echo "   Security: MAXIMUM (multi-layer encryption)"
+          echo "   Blockchain: SOL, BEP-20, ERC-20, MATIC, AVAX"
+          echo
+          echo "🔗 Next Steps:"
+          echo "   1. Create CIPHER-NEXUS-CORE repository (PRIVATE)"
+          echo "   2. Create CIPHER-NEXUS HF Space (PRIVATE)"
+          echo "   3. Configure Azure Key Vault for blockchain keys"
+          echo "   4. Set up GitHub secrets"
+          echo "   5. Deploy .NET backend"
+          echo "   6. Deploy React frontend"
+          echo

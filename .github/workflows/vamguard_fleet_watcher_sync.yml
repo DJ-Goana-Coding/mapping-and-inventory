@@ -1,0 +1,263 @@
+name: VAMGUARD → FLEET-WATCHER Sync
+on:
+  workflow_dispatch:
+    inputs:
+      force_sync:
+        description: 'Force complete sync (ignore cache)'
+        required: false
+        default: 'false'
+        type: boolean
+  schedule:
+    # Run every 6 hours
+    - cron: '15 */6 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - 'vamguard_templates/**'
+      - 'data/**'
+      - 'scripts/**'
+
+env:
+  GITHUB_ORG: "DJ-Goana-Coding"
+  HF_ORG: "DJ-Goanna-Coding"
+  SOURCE_REPO: "VAMGUARD_TITAN"
+  TARGET_SPACE: "FLEET-WATCHER"
+
+jobs:
+  sync-vamguard-to-fleet-watcher:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: 🔐 Checkout Mapping Hub
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🔑 Setup HuggingFace Credentials
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "❌ HF_TOKEN secret not set"
+            exit 1
+          fi
+          echo "✅ HuggingFace token configured"
+          git config --global user.email "citadel-architect@dj-goana-coding.ai"
+          git config --global user.name "Citadel Architect"
+      
+      - name: 🛰️ Clone VAMGUARD_TITAN Source
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "📡 Cloning DJ-Goana-Coding/VAMGUARD_TITAN (single N)"
+          mkdir -p /tmp/vamguard_source
+          
+          git clone --depth 1 \
+            https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_ORG}/${SOURCE_REPO}.git \
+            /tmp/vamguard_source || {
+              echo "⚠️  VAMGUARD_TITAN repository not found or inaccessible"
+              echo "   This workflow requires DJ-Goana-Coding/VAMGUARD_TITAN to exist"
+              echo "   Skipping sync..."
+              exit 0
+            }
+          
+          cd /tmp/vamguard_source
+          echo "✅ VAMGUARD_TITAN cloned successfully"
+          echo "📊 Repository contents:"
+          ls -lah
+      
+      - name: 🔍 Extract VAMGUARD Metadata
+        id: extract
+        run: |
+          cd /tmp/vamguard_source
+          
+          # Count key resources
+          MODEL_COUNT=$(find . -type f -name "*.pt" -o -name "*.pth" -o -name "*.safetensors" 2>/dev/null | wc -l || echo "0")
+          SCRIPT_COUNT=$(find . -type f -name "*.py" 2>/dev/null | wc -l || echo "0")
+          CONFIG_COUNT=$(find . -type f -name "*.json" -o -name "*.yaml" -o -name "*.yml" 2>/dev/null | wc -l || echo "0")
+          
+          echo "model_count=${MODEL_COUNT}" >> $GITHUB_OUTPUT
+          echo "script_count=${SCRIPT_COUNT}" >> $GITHUB_OUTPUT
+          echo "config_count=${CONFIG_COUNT}" >> $GITHUB_OUTPUT
+          
+          # Get latest commit info
+          LATEST_COMMIT=$(git log -1 --format="%H")
+          COMMIT_MSG=$(git log -1 --format="%s")
+          COMMIT_DATE=$(git log -1 --format="%ci")
+          
+          echo "latest_commit=${LATEST_COMMIT}" >> $GITHUB_OUTPUT
+          echo "commit_msg=${COMMIT_MSG}" >> $GITHUB_OUTPUT
+          echo "commit_date=${COMMIT_DATE}" >> $GITHUB_OUTPUT
+          
+          echo "📊 VAMGUARD_TITAN Stats:"
+          echo "   Models: ${MODEL_COUNT}"
+          echo "   Scripts: ${SCRIPT_COUNT}"
+          echo "   Configs: ${CONFIG_COUNT}"
+          echo "   Latest commit: ${COMMIT_MSG}"
+      
+      - name: 🔄 Clone FLEET-WATCHER HF Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "📡 Cloning DJ-Goanna-Coding/FLEET-WATCHER (double N)"
+          mkdir -p /tmp/fleet_watcher
+          
+          git clone --depth 1 \
+            https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_ORG}/${TARGET_SPACE} \
+            /tmp/fleet_watcher || {
+              echo "⚠️  FLEET-WATCHER space not found"
+              echo "   Creating new HuggingFace Space..."
+              
+              # Create new space directory
+              mkdir -p /tmp/fleet_watcher
+              cd /tmp/fleet_watcher
+              git init
+              git remote add origin https://user:${HF_TOKEN}@huggingface.co/spaces/${HF_ORG}/${TARGET_SPACE}
+              
+              # Create initial README
+              cat > README.md << 'EOF'
+---
+title: FLEET-WATCHER
+emoji: 🛡️
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+sdk_version: "1.28.0"
+app_file: app.py
+pinned: false
+---
+
+# 🛡️ FLEET-WATCHER
+
+Citadel Mesh monitoring and model deployment hub.
+Synced from DJ-Goana-Coding/VAMGUARD_TITAN.
+
+**Status**: Active monitoring
+**Updated**: Auto-synced every 6 hours
+
+## Architecture
+
+FLEET-WATCHER acts as a wheel-and-spoke hub:
+- **Source**: DJ-Goana-Coding/VAMGUARD_TITAN (GitHub)
+- **Spokes**: Connected to AETHER-NEXUS and other model deployment spaces
+- **Function**: Monitor, validate, and orchestrate model deployments
+
+---
+
+*Powered by Citadel Architect v25.0.OMNI++*
+EOF
+              
+              git add README.md
+              git commit -m "Initial FLEET-WATCHER space creation"
+              git branch -M main
+            }
+          
+          echo "✅ FLEET-WATCHER ready"
+      
+      - name: 🔄 Sync VAMGUARD → FLEET-WATCHER
+        run: |
+          echo "🔄 Syncing VAMGUARD_TITAN content to FLEET-WATCHER..."
+          
+          # Copy relevant files (exclude .git)
+          rsync -av --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            /tmp/vamguard_source/ /tmp/fleet_watcher/
+          
+          cd /tmp/fleet_watcher
+          
+          # Update README with sync metadata
+          cat >> README.md << EOF
+
+## Latest Sync
+
+- **Date**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+- **Source Commit**: ${{ steps.extract.outputs.latest_commit }}
+- **Commit Message**: ${{ steps.extract.outputs.commit_msg }}
+- **Models**: ${{ steps.extract.outputs.model_count }}
+- **Scripts**: ${{ steps.extract.outputs.script_count }}
+- **Configs**: ${{ steps.extract.outputs.config_count }}
+EOF
+          
+          echo "✅ Content synced"
+      
+      - name: 📤 Push to FLEET-WATCHER Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          cd /tmp/fleet_watcher
+          
+          # Check for changes
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "✅ No changes detected - FLEET-WATCHER is up to date"
+            exit 0
+          fi
+          
+          echo "📤 Pushing updates to FLEET-WATCHER HF Space..."
+          
+          git add .
+          git commit -m "🔄 Sync from VAMGUARD_TITAN: ${{ steps.extract.outputs.commit_msg }}" || {
+            echo "✅ No changes to commit"
+            exit 0
+          }
+          
+          git push --force origin main
+          
+          echo "✅ FLEET-WATCHER updated successfully"
+      
+      - name: 📊 Generate Sync Report
+        if: always()
+        run: |
+          cat > /tmp/sync_report.md << EOF
+# VAMGUARD → FLEET-WATCHER Sync Report
+
+**Workflow**: \`vamguard_fleet_watcher_sync.yml\`
+**Triggered**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+**Status**: ${{ job.status }}
+
+## Source (GitHub - Single N)
+- **Repository**: DJ-Goana-Coding/VAMGUARD_TITAN
+- **Latest Commit**: ${{ steps.extract.outputs.latest_commit }}
+- **Commit Message**: ${{ steps.extract.outputs.commit_msg }}
+- **Commit Date**: ${{ steps.extract.outputs.commit_date }}
+
+## Target (HuggingFace - Double N)
+- **Space**: DJ-Goanna-Coding/FLEET-WATCHER
+- **URL**: https://huggingface.co/spaces/DJ-Goanna-Coding/FLEET-WATCHER
+
+## Resources Synced
+- **Models**: ${{ steps.extract.outputs.model_count }}
+- **Python Scripts**: ${{ steps.extract.outputs.script_count }}
+- **Configuration Files**: ${{ steps.extract.outputs.config_count }}
+
+## Next Sync
+- **Scheduled**: Every 6 hours (cron: 15 */6 * * *)
+- **Manual Trigger**: Available via workflow_dispatch
+
+---
+
+*Citadel Architect v25.0.OMNI++ - Double-N Rift Protocol*
+EOF
+          
+          cat /tmp/sync_report.md
+          
+      - name: ✅ Completion Summary
+        if: success()
+        run: |
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo "✅ VAMGUARD → FLEET-WATCHER SYNC COMPLETE"
+          echo "=" | tr -d '\n' | head -c 80; echo
+          echo
+          echo "📊 Summary:"
+          echo "   Source: DJ-Goana-Coding/VAMGUARD_TITAN (GitHub)"
+          echo "   Target: DJ-Goanna-Coding/FLEET-WATCHER (HF Space)"
+          echo "   Models synced: ${{ steps.extract.outputs.model_count }}"
+          echo "   Scripts synced: ${{ steps.extract.outputs.script_count }}"
+          echo "   Status: SUCCESS"
+          echo
+          echo "🔗 View FLEET-WATCHER:"
+          echo "   https://huggingface.co/spaces/DJ-Goanna-Coding/FLEET-WATCHER"
+          echo
