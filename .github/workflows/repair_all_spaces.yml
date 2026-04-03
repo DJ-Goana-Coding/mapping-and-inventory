@@ -1,0 +1,187 @@
+name: 🔧 Repair All Crashing Spaces
+
+# ═══════════════════════════════════════════════════════════════════
+# Multi-Space Repair Workflow
+# ═══════════════════════════════════════════════════════════════════
+# Purpose: Fix all crashing HuggingFace Spaces in one workflow run
+# Targets:
+#   - TIA-ARCHITECT-CORE (pandas/numpy Python 3.13 compatibility)
+#   - tias-citadel (missing core dependencies)
+#   - tias-sentinel-scout-swarm-2 (pandas-ta Python 3.11 requirement)
+# ═══════════════════════════════════════════════════════════════════
+
+on:
+  workflow_dispatch:
+    inputs:
+      spaces:
+        description: 'Spaces to repair (comma-separated or "all")'
+        required: false
+        default: 'all'
+        type: string
+      dry_run:
+        description: 'Dry run (show changes without pushing)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  repair-tia-architect-core:
+    name: Fix TIA-ARCHITECT-CORE
+    runs-on: ubuntu-latest
+    if: contains(github.event.inputs.spaces, 'all') || contains(github.event.inputs.spaces, 'TIA-ARCHITECT-CORE')
+    
+    steps:
+      - name: 🧩 Checkout Mapping Hub
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+      
+      - name: 📥 Checkout TIA-ARCHITECT-CORE
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goana-Coding/TIA-ARCHITECT-CORE
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: TIA-ARCHITECT-CORE
+      
+      - name: 🔧 Apply Fix
+        run: |
+          echo "Fixing TIA-ARCHITECT-CORE: Python 3.13 pandas/numpy compatibility"
+          cp mapping-and-inventory/tia-architect-core-templates/requirements.txt \
+             TIA-ARCHITECT-CORE/requirements.txt
+          
+          cd TIA-ARCHITECT-CORE
+          git config user.name "Space Repair Bot"
+          git config user.email "repair@citadel.mesh"
+          git add requirements.txt
+          
+          if git diff --cached --quiet; then
+            echo "Already up to date"
+          else
+            git commit -m "🔧 Fix: Add setuptools & upgrade pandas/numpy for Python 3.13"
+            if [ "${{ github.event.inputs.dry_run }}" != "true" ]; then
+              git push origin main
+              echo "✅ Pushed fix"
+            else
+              echo "🔍 DRY RUN: Changes not pushed"
+            fi
+          fi
+  
+  repair-tias-citadel:
+    name: Fix tias-citadel
+    runs-on: ubuntu-latest
+    if: contains(github.event.inputs.spaces, 'all') || contains(github.event.inputs.spaces, 'tias-citadel')
+    
+    steps:
+      - name: 🧩 Checkout Mapping Hub
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+      
+      - name: 📥 Checkout tias-citadel
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goana-Coding/tias-citadel
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: tias-citadel
+      
+      - name: 🔧 Apply Fix
+        run: |
+          echo "Fixing tias-citadel: Missing core dependencies"
+          cp mapping-and-inventory/tia-citadel-templates/requirements.txt \
+             tias-citadel/requirements.txt
+          
+          cd tias-citadel
+          git config user.name "Space Repair Bot"
+          git config user.email "repair@citadel.mesh"
+          git add requirements.txt
+          
+          if git diff --cached --quiet; then
+            echo "Already up to date"
+          else
+            git commit -m "🔧 Fix: Add missing dependencies (setuptools, streamlit, etc.)"
+            if [ "${{ github.event.inputs.dry_run }}" != "true" ]; then
+              git push origin main
+              echo "✅ Pushed fix"
+            else
+              echo "🔍 DRY RUN: Changes not pushed"
+            fi
+          fi
+  
+  repair-sentinel-scout:
+    name: Fix tias-sentinel-scout-swarm-2
+    runs-on: ubuntu-latest
+    if: contains(github.event.inputs.spaces, 'all') || contains(github.event.inputs.spaces, 'sentinel-scout')
+    
+    steps:
+      - name: 🧩 Checkout Mapping Hub
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+      
+      - name: 📥 Checkout tias-sentinel-scout-swarm-2
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goana-Coding/tias-sentinel-scout-swarm-2
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: tias-sentinel-scout-swarm-2
+      
+      - name: 🔧 Apply Fix
+        run: |
+          echo "Fixing tias-sentinel-scout-swarm-2: pandas-ta requires Python 3.11+"
+          cp mapping-and-inventory/sentinel-scout-templates/requirements.txt \
+             tias-sentinel-scout-swarm-2/requirements.txt
+          cp mapping-and-inventory/sentinel-scout-templates/.python-version \
+             tias-sentinel-scout-swarm-2/.python-version
+          
+          cd tias-sentinel-scout-swarm-2
+          git config user.name "Space Repair Bot"
+          git config user.email "repair@citadel.mesh"
+          git add requirements.txt .python-version
+          
+          if git diff --cached --quiet; then
+            echo "Already up to date"
+          else
+            git commit -m "🔧 Fix: Upgrade to Python 3.11 for pandas-ta compatibility"
+            if [ "${{ github.event.inputs.dry_run }}" != "true" ]; then
+              git push origin main
+              echo "✅ Pushed fix"
+            else
+              echo "🔍 DRY RUN: Changes not pushed"
+            fi
+          fi
+  
+  summary:
+    name: Repair Summary
+    runs-on: ubuntu-latest
+    needs: [repair-tia-architect-core, repair-tias-citadel, repair-sentinel-scout]
+    if: always()
+    
+    steps:
+      - name: 📊 Display Summary
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🔧 MULTI-SPACE REPAIR SUMMARY"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Spaces Repaired:"
+          echo "  - TIA-ARCHITECT-CORE: ${{ needs.repair-tia-architect-core.result }}"
+          echo "  - tias-citadel: ${{ needs.repair-tias-citadel.result }}"
+          echo "  - tias-sentinel-scout-swarm-2: ${{ needs.repair-sentinel-scout.result }}"
+          echo ""
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "📋 Next Steps:"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Monitor HuggingFace Space rebuilds:"
+          echo "  • https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE/logs"
+          echo "  • https://huggingface.co/spaces/DJ-Goanna-Coding/tias-citadel/logs"
+          echo "  • https://huggingface.co/spaces/DJ-Goanna-Coding/tias-sentinel-scout-swarm-2/logs"
+          echo ""
+          echo "Expected in build logs:"
+          echo "  ✅ Successfully installed [all packages]"
+          echo "  ✅ Running on local URL: http://0.0.0.0:7860"
+          echo ""
+          echo "Weld. Pulse. Ignite. 🔥"

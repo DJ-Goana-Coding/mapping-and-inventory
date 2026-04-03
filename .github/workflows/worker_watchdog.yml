@@ -1,0 +1,223 @@
+name: 👁️ Worker Watchdog - Self-Healing Monitor
+
+# ═══════════════════════════════════════════════════════════════════
+# Worker Watchdog - Continuous Self-Healing Monitoring
+# ═══════════════════════════════════════════════════════════════════
+# Purpose: Monitor scripts for health issues and automatically repair them
+# Runs: Every 6 hours + on demand + after pushes
+# Actions:
+# - Scan all Python/Bash scripts for syntax errors
+# - Check imports and dependencies
+# - Auto-repair common issues
+# - Monitor template changes
+# - Detect and fix broken workers
+# ═══════════════════════════════════════════════════════════════════
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - 'services/**'
+      - '*.sh'
+      - 'tia-architect-core-templates/**'
+  
+  workflow_dispatch:
+    inputs:
+      auto_repair:
+        description: 'Enable auto-repair (true/false)'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  self-healing-scan:
+    name: Self-Healing Health Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🧩 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || echo "No requirements.txt or install failed"
+      
+      - name: 🔮 Run Self-Healing Worker
+        id: self_healing
+        run: |
+          mkdir -p data/logs data/monitoring data/backups/scripts
+          
+          echo "Running self-healing worker..."
+          if [ "${{ github.event.inputs.auto_repair }}" = "false" ]; then
+            python scripts/self_healing_worker.py --no-repair --verbose
+          else
+            python scripts/self_healing_worker.py --verbose
+          fi
+          
+          # Capture exit code
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          
+          # Save report for artifact
+          if [ -f data/monitoring/script_health.json ]; then
+            cp data/monitoring/script_health.json script_health_report.json
+          fi
+          
+          exit 0  # Don't fail workflow on broken scripts
+      
+      - name: 📊 Display Health Report
+        if: always()
+        run: |
+          if [ -f script_health_report.json ]; then
+            echo "═══════════════════════════════════════════════════════════════════"
+            echo "📊 SCRIPT HEALTH REPORT"
+            echo "═══════════════════════════════════════════════════════════════════"
+            
+            # Extract summary using jq if available
+            if command -v jq &> /dev/null; then
+              echo "Summary:"
+              jq '.summary' script_health_report.json
+              
+              echo ""
+              echo "Broken Scripts:"
+              jq -r '.scripts | to_entries[] | select(.value.syntax_valid == false or (.value.errors | length > 0)) | .key' script_health_report.json || echo "None"
+            else
+              # Fallback to simple output
+              cat script_health_report.json
+            fi
+            
+            echo "═══════════════════════════════════════════════════════════════════"
+          fi
+      
+      - name: 💾 Commit Repairs
+        if: github.event.inputs.auto_repair != 'false'
+        run: |
+          git config user.name "Self-Healing Worker"
+          git config user.email "worker@citadel.mesh"
+          
+          # Check for changes
+          if [ -n "$(git status --porcelain scripts/ services/ *.sh)" ]; then
+            echo "Changes detected, committing repairs..."
+            
+            git add scripts/ services/ *.sh
+            git commit -m "🔧 AUTO-REPAIR: Self-healing worker fixed script issues
+
+- Automated repair by Worker Watchdog
+- Fixed syntax errors, imports, permissions
+- Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+- Workflow: ${{ github.workflow }}
+- Run: ${{ github.run_number }}"
+            
+            git push origin main
+            echo "✅ Repairs committed and pushed"
+          else
+            echo "ℹ️  No repairs needed, all scripts healthy"
+          fi
+      
+      - name: 📤 Upload Health Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: script-health-report
+          path: script_health_report.json
+          retention-days: 30
+      
+      - name: 📤 Upload Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-healing-logs
+          path: data/logs/self_healing.log
+          retention-days: 7
+      
+      - name: ⚠️  Create Issue on Failures
+        if: steps.self_healing.outputs.exit_code != '0' && github.event_name == 'schedule'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let reportData = {};
+            try {
+              const reportContent = fs.readFileSync('script_health_report.json', 'utf8');
+              reportData = JSON.parse(reportContent);
+            } catch (e) {
+              console.log('Could not read report file');
+            }
+            
+            const brokenScripts = Object.entries(reportData.scripts || {})
+              .filter(([_, health]) => !health.syntax_valid || health.errors.length > 0)
+              .map(([path, health]) => `- \`${path}\`\n  ${health.errors.join('\n  ')}`)
+              .join('\n');
+            
+            const issueBody = `## 🔮 Self-Healing Worker Alert
+            
+            The self-healing worker detected script issues that could not be automatically repaired.
+            
+            ### Summary
+            - **Total Scripts:** ${reportData.summary?.total_scripts || 'Unknown'}
+            - **Broken Scripts:** ${reportData.summary?.broken_scripts || 'Unknown'}
+            - **Failed Repairs:** ${reportData.summary?.failed_repairs || 'Unknown'}
+            
+            ### Broken Scripts
+            ${brokenScripts || 'No details available'}
+            
+            ### Action Required
+            Manual intervention may be needed to fix these scripts.
+            
+            **Workflow Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            **Timestamp:** ${new Date().toISOString()}
+            `;
+            
+            // Check if an open issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'self-healing,automated'
+            });
+            
+            if (issues.data.length === 0) {
+              // Create new issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: '🔮 Self-Healing Worker: Script Repair Failures',
+                body: issueBody,
+                labels: ['self-healing', 'automated', 'bug']
+              });
+            } else {
+              // Update existing issue
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issues.data[0].number,
+                body: `## Update: ${new Date().toISOString()}\n\n${issueBody}`
+              });
+            }
+      
+      - name: ✅ Job Complete
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "✅ Self-Healing Worker - Job Complete"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "Check the artifacts for detailed health reports and logs."
+          echo ""

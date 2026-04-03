@@ -1,0 +1,27 @@
+# ═══════════════════════════════════════════════════════════════════
+# tias-sentinel-scout-swarm-2 Requirements (Python 3.11+ Compatible)
+# ═══════════════════════════════════════════════════════════════════
+# Fix: pandas-ta requires Python >=3.11 for version 3.0+
+# Solution: Upgrade to Python 3.11 and use compatible versions
+# ═══════════════════════════════════════════════════════════════════
+
+# Trading & Market Data
+ccxt>=4.5.0
+pandas>=2.2.0
+pandas-ta>=0.3.14b0
+numpy>=1.26.0
+
+# Technical Analysis
+ta-lib>=0.4.28
+mplfinance>=0.12.10b0
+
+# Data Processing
+requests>=2.32.0
+python-dateutil>=2.9.0
+
+# Async Support
+aiohttp>=3.9.0
+
+# Utilities
+python-dotenv>=1.0.0
+setuptools>=75.0.0
