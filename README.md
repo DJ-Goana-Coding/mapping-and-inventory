@@ -86,6 +86,28 @@ export HF_TOKEN="hf_your_token"
 
 **See [GLOBAL_WELD_GUIDE.md](GLOBAL_WELD_GUIDE.md) for complete Global Weld documentation.**
 
+**🚗 Trading Garages - Aggregated Bot Collections:**
+
+```bash
+# Collect all trading bots into organized garages
+python scripts/trading_garage_collector.py
+
+# View garage index
+cat Trading_Garages/GARAGE_INDEX.json | jq .
+
+# Explore a garage
+ls Trading_Garages/Trading_Garage_Alpha/repos/
+```
+
+**Trading Garage Features:**
+- ✅ **Auto-Classification** - Automatically categorizes trading repos
+- ✅ **Triple Garage System** - Alpha (bots), Beta (analysis), Omega (connectors)
+- ✅ **Dual Location** - Keeps originals + creates centralized copies
+- ✅ **Manifest Generation** - Detailed metadata for each garage
+- ✅ **Genesis Integration** - Works alongside Genesis garage concept
+
+**See [Trading_Garages/TRADING_GARAGE_GUIDE.md](Trading_Garages/TRADING_GARAGE_GUIDE.md) for complete garage documentation.**
+
 ---
 
 **📋 Manual Workflow Triggers:**
