@@ -1,0 +1,275 @@
+name: 🚨 Emergency Repair TIA-ARCHITECT-CORE Space
+
+# ═══════════════════════════════════════════════════════════════════
+# Emergency TIA-ARCHITECT-CORE Space Repair Workflow
+# ═══════════════════════════════════════════════════════════════════
+# Purpose: Direct push to HuggingFace Space to fix Python 3.13 build
+# Target: DJ-Goanna-Coding/TIA-ARCHITECT-CORE (HuggingFace Space)
+# Issue: Invalid streamlit version, numpy compilation timeout
+# Fix: Apply tia-architect-core-templates/requirements.txt directly
+# ═══════════════════════════════════════════════════════════════════
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (show changes without pushing)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  emergency-repair:
+    name: 🚨 Emergency Repair to HuggingFace Space
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🧩 Checkout mapping-and-inventory
+        uses: actions/checkout@v4
+        
+      - name: 🔍 Verify Template Exists
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🔍 VERIFYING PYTHON 3.13 COMPATIBLE TEMPLATE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          TEMPLATE_FILE="tia-architect-core-templates/requirements.txt"
+          
+          if [ ! -f "$TEMPLATE_FILE" ]; then
+            echo "❌ ERROR: Template not found at $TEMPLATE_FILE"
+            exit 1
+          fi
+          
+          echo "✅ Template found"
+          echo ""
+          echo "📋 Key packages in template:"
+          grep -E "(streamlit|setuptools|pandas|numpy|requests)" "$TEMPLATE_FILE" | head -6
+          echo ""
+          
+          # Verify critical packages
+          for pkg in "setuptools>=75.0.0" "streamlit>=1.42.0" "pandas>=2.2.0" "numpy>=2.0.0"; do
+            if ! grep -q "$pkg" "$TEMPLATE_FILE"; then
+              echo "❌ ERROR: Template missing required package: $pkg"
+              exit 1
+            fi
+          done
+          
+          echo "✅ All critical packages verified"
+          echo ""
+          
+      - name: 📥 Clone TIA-ARCHITECT-CORE Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "📥 CLONING HUGGINGFACE SPACE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          # Create work directory
+          WORK_DIR="/tmp/tia-core-repair"
+          rm -rf "$WORK_DIR"
+          mkdir -p "$WORK_DIR"
+          cd "$WORK_DIR"
+          
+          # Clone from HuggingFace Space
+          if [ -z "$HF_TOKEN" ]; then
+            echo "❌ ERROR: HF_TOKEN secret not set"
+            echo "   Please add HF_TOKEN to repository secrets"
+            exit 1
+          fi
+          
+          echo "Cloning from HuggingFace Space..."
+          git clone https://x-access-token:${HF_TOKEN}@huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE
+          
+          echo "✅ Space cloned successfully"
+          echo ""
+          
+      - name: 💾 Backup & Deploy Template
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "💾 BACKING UP & DEPLOYING TEMPLATE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          cd /tmp/tia-core-repair/TIA-ARCHITECT-CORE
+          
+          # Configure git
+          git config user.name "Citadel Architect"
+          git config user.email "architect@citadel.mesh"
+          
+          # Backup existing requirements.txt
+          if [ -f requirements.txt ]; then
+            BACKUP_FILE="requirements.txt.backup.$(date +%Y%m%d_%H%M%S)"
+            echo "Backing up to: $BACKUP_FILE"
+            cp requirements.txt "$BACKUP_FILE"
+            git add "$BACKUP_FILE"
+            
+            echo ""
+            echo "📊 Current requirements.txt content:"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            cat requirements.txt
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo ""
+          else
+            echo "ℹ️  No existing requirements.txt found"
+          fi
+          
+          # Copy template
+          TEMPLATE_PATH="${GITHUB_WORKSPACE}/tia-architect-core-templates/requirements.txt"
+          echo "Deploying template from: $TEMPLATE_PATH"
+          cp "$TEMPLATE_PATH" requirements.txt
+          
+          echo "✅ Template deployed"
+          echo ""
+          echo "📋 New requirements.txt content:"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          cat requirements.txt
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          
+          # Show diff if backup exists
+          if [ -f "$BACKUP_FILE" ]; then
+            echo "🔍 Changes from previous version:"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            diff "$BACKUP_FILE" requirements.txt || true
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          fi
+          echo ""
+          
+      - name: 💾 Commit Changes
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "💾 COMMITTING CHANGES"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          cd /tmp/tia-core-repair/TIA-ARCHITECT-CORE
+          
+          git add requirements.txt
+          
+          # Check if there are changes
+          if git diff --cached --quiet; then
+            echo "ℹ️  No changes detected - requirements.txt already up to date"
+            echo "already_updated=true" >> $GITHUB_ENV
+            exit 0
+          fi
+          
+          # Commit changes
+          git commit -m "🔧 EMERGENCY FIX: Python 3.13 compatible dependencies
+
+ROOT CAUSE:
+- streamlit==1.56.0 (INVALID - version doesn't exist in PyPI)
+- numpy==1.26.4 (compiling from source, timing out on Python 3.13)
+- Missing setuptools causing pkg_resources errors
+- Build paused after 15+ minutes of numpy compilation
+
+FIX APPLIED:
+✅ streamlit>=1.42.0 (valid version with range)
+✅ numpy>=2.0.0 (prebuilt wheels, Python 3.13 optimized)
+✅ pandas>=2.2.0 (Python 3.13 compatible)
+✅ requests>=2.32.0 (updated from 2.31.0)
+✅ setuptools>=75.0.0 (explicit declaration)
+
+EXPECTED OUTCOME:
+- Build time: ~2 minutes (was timing out at 15+ minutes)
+- All packages install from wheels (no compilation)
+- Space becomes operational immediately
+
+Deployed by: Emergency repair workflow (GitHub Actions)
+Template: mapping-and-inventory/tia-architect-core-templates/requirements.txt
+Authority: GitHub > HF Spaces (Core Directive #1)
+Commit SHA that failed: 942f3e9
+
+Weld. Pulse. Ignite."
+          
+          echo "✅ Changes committed"
+          echo "already_updated=false" >> $GITHUB_ENV
+          echo ""
+          
+      - name: ⬆️ Push to HuggingFace Space
+        if: github.event.inputs.dry_run != 'true' && env.already_updated != 'true'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "⬆️  PUSHING TO HUGGINGFACE SPACE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          
+          cd /tmp/tia-core-repair/TIA-ARCHITECT-CORE
+          
+          # Push to HuggingFace
+          git push origin main
+          
+          echo "✅ Pushed to HuggingFace Space"
+          echo ""
+          
+      - name: 📋 Dry Run Summary
+        if: github.event.inputs.dry_run == 'true'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🔍 DRY RUN COMPLETE (no changes pushed)"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "The following changes would be applied to HuggingFace Space:"
+          cd /tmp/tia-core-repair/TIA-ARCHITECT-CORE
+          git show HEAD
+          echo ""
+          
+      - name: ✅ Success Summary
+        if: github.event.inputs.dry_run != 'true' && env.already_updated != 'true'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "✅ EMERGENCY REPAIR COMPLETE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "🎯 TIA-ARCHITECT-CORE Space repair deployed successfully"
+          echo ""
+          echo "📋 Next Steps:"
+          echo ""
+          echo "   1. Monitor HuggingFace Space rebuild (auto-triggered):"
+          echo "      https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE/logs"
+          echo ""
+          echo "   2. Expected in build logs within ~3-5 minutes:"
+          echo "      ✅ Successfully installed setuptools-75.x.x"
+          echo "      ✅ Successfully installed streamlit-1.4x.x"
+          echo "      ✅ Successfully installed pandas-2.2.x"
+          echo "      ✅ Successfully installed numpy-2.x.x (wheel, not tar.gz)"
+          echo "      ✅ Running on local URL: http://0.0.0.0:7860"
+          echo ""
+          echo "   3. Verify Space accessibility (should be live in ~5-8 minutes):"
+          echo "      https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE"
+          echo ""
+          echo "   4. Build time comparison:"
+          echo "      Before: 31s cache + 15+ min numpy compilation (TIMEOUT)"
+          echo "      After:  31s cache + ~90s pip install = ~2 minutes total ✅"
+          echo ""
+          echo "🔧 Template: tia-architect-core-templates/requirements.txt"
+          echo "📡 Target: HuggingFace Space (DJ-Goanna-Coding/TIA-ARCHITECT-CORE)"
+          echo "🔗 Double-N Rift: GitHub org uses single 'n', HF uses double 'nn'"
+          echo ""
+          echo "Weld. Pulse. Ignite. 🔥"
+          echo ""
+          
+      - name: 🔔 Already Updated Summary
+        if: env.already_updated == 'true'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "ℹ️  SPACE ALREADY UP TO DATE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "The TIA-ARCHITECT-CORE Space already has the correct requirements.txt"
+          echo ""
+          echo "If Space is still failing, check:"
+          echo "   1. Space logs for different error: "
+          echo "      https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE/logs"
+          echo ""
+          echo "   2. Try Factory Reboot in Space settings"
+          echo ""
+          echo "   3. Check if there are other files causing issues (Dockerfile, app.py, etc.)"
+          echo ""

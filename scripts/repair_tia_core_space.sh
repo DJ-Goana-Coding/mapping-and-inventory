@@ -66,15 +66,48 @@ cd "$WORK_DIR"
 
 # Clone TIA-ARCHITECT-CORE repository
 echo -e "${BLUE}📥 Cloning $TARGET_REPO repository...${NC}"
+
+# Try GitHub first
+GITHUB_URL="https://github.com/${GITHUB_ORG}/${TARGET_REPO}.git"
+HF_URL="https://huggingface.co/spaces/DJ-Goanna-Coding/${TARGET_REPO}"
+
 if [ -n "$GITHUB_TOKEN" ]; then
-    # Use GITHUB_TOKEN if available (for GitHub Actions)
-    git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_ORG}/${TARGET_REPO}.git"
+    echo "Attempting to clone from GitHub (with GITHUB_TOKEN)..."
+    git clone "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_ORG}/${TARGET_REPO}.git" 2>/dev/null && CLONE_SUCCESS=true || CLONE_SUCCESS=false
 elif [ -n "$GH_PAT" ]; then
-    # Use GH_PAT if available
-    git clone "https://${GH_PAT}@github.com/${GITHUB_ORG}/${TARGET_REPO}.git"
+    echo "Attempting to clone from GitHub (with GH_PAT)..."
+    git clone "https://${GH_PAT}@github.com/${GITHUB_ORG}/${TARGET_REPO}.git" 2>/dev/null && CLONE_SUCCESS=true || CLONE_SUCCESS=false
 else
-    # Try without auth (will work if user is authenticated via gh)
-    git clone "https://github.com/${GITHUB_ORG}/${TARGET_REPO}.git"
+    echo "Attempting to clone from GitHub..."
+    git clone "$GITHUB_URL" 2>/dev/null && CLONE_SUCCESS=true || CLONE_SUCCESS=false
+fi
+
+# If GitHub clone failed, try HuggingFace
+if [ "$CLONE_SUCCESS" = "false" ]; then
+    echo -e "${YELLOW}⚠️  GitHub repository not found or not accessible${NC}"
+    echo -e "${BLUE}Attempting to clone from HuggingFace Space...${NC}"
+    
+    if [ -n "$HF_TOKEN" ]; then
+        git clone "https://x-access-token:${HF_TOKEN}@huggingface.co/spaces/DJ-Goanna-Coding/${TARGET_REPO}" || {
+            echo -e "${RED}❌ ERROR: Could not clone from either GitHub or HuggingFace${NC}"
+            echo ""
+            echo "Solutions:"
+            echo "1. Set HF_TOKEN environment variable for HuggingFace access"
+            echo "2. Create GitHub repository: ${GITHUB_URL}"
+            echo "3. Run the emergency_repair_tia_core.yml workflow instead"
+            exit 1
+        }
+    else
+        echo -e "${RED}❌ ERROR: HF_TOKEN not set and GitHub repo not found${NC}"
+        echo ""
+        echo "This script requires either:"
+        echo "1. GitHub repository at: $GITHUB_URL"
+        echo "2. HF_TOKEN environment variable to access HuggingFace Space"
+        echo ""
+        echo "Recommended: Run the GitHub Actions workflow instead:"
+        echo "   .github/workflows/emergency_repair_tia_core.yml"
+        exit 1
+    fi
 fi
 
 cd "$TARGET_REPO"
