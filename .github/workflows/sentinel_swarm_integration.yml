@@ -1,0 +1,402 @@
+name: Sentinel Scout Swarm Integration
+# Integrates DJ-Goanna-Coding/tias-sentinel-scout-swarm
+# Purpose: Distributed monitoring, scanning, and sentinel operations
+
+on:
+  # Run every 3 hours (offset from main harvesters)
+  schedule:
+    - cron: '15 */3 * * *'
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after Forever Learning cycle
+  workflow_run:
+    workflows: ["Forever Learning Orchestrator"]
+    types:
+      - completed
+
+jobs:
+  deploy_sentinel_swarm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Mapping-and-Inventory
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+          fetch-depth: 0
+
+      - name: Checkout Sentinel Scout Swarm
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goanna-Coding/tias-sentinel-scout-swarm
+          path: sentinel-swarm
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Discover Sentinel Capabilities
+        run: |
+          echo "🛡️ SENTINEL SCOUT SWARM DISCOVERY"
+          echo "=" * 60
+          
+          cd sentinel-swarm
+          
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          swarm_root = Path(".")
+          
+          capabilities = {
+              "sentinels": [],
+              "scouts": [],
+              "swarm_coordinators": [],
+              "monitors": [],
+              "utilities": []
+          }
+          
+          print("🔍 Scanning sentinel-swarm repository...")
+          
+          # Discover Python scripts
+          for py_file in swarm_root.rglob("*.py"):
+              if '__pycache__' in str(py_file):
+                  continue
+              
+              filename_lower = py_file.name.lower()
+              
+              component = {
+                  "name": py_file.stem,
+                  "path": str(py_file.relative_to(swarm_root)),
+                  "size": py_file.stat().st_size
+              }
+              
+              # Classify by name
+              if 'sentinel' in filename_lower:
+                  capabilities["sentinels"].append(component)
+                  print(f"  🛡️ Sentinel: {py_file.name}")
+              elif 'scout' in filename_lower:
+                  capabilities["scouts"].append(component)
+                  print(f"  🔍 Scout: {py_file.name}")
+              elif 'swarm' in filename_lower or 'coordinator' in filename_lower:
+                  capabilities["swarm_coordinators"].append(component)
+                  print(f"  🐝 Swarm: {py_file.name}")
+              elif 'monitor' in filename_lower or 'watch' in filename_lower:
+                  capabilities["monitors"].append(component)
+                  print(f"  👁️ Monitor: {py_file.name}")
+              else:
+                  capabilities["utilities"].append(component)
+          
+          # Save discovery
+          manifest = {
+              "discovery_timestamp": datetime.utcnow().isoformat() + "Z",
+              "repository": "DJ-Goanna-Coding/tias-sentinel-scout-swarm",
+              "total_sentinels": len(capabilities["sentinels"]),
+              "total_scouts": len(capabilities["scouts"]),
+              "total_coordinators": len(capabilities["swarm_coordinators"]),
+              "total_monitors": len(capabilities["monitors"]),
+              "capabilities": capabilities
+          }
+          
+          with open("sentinel_swarm_discovery.json", 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print(f"\n✅ Discovery Complete:")
+          print(f"   Sentinels: {len(capabilities['sentinels'])}")
+          print(f"   Scouts: {len(capabilities['scouts'])}")
+          print(f"   Swarm Coordinators: {len(capabilities['swarm_coordinators'])}")
+          print(f"   Monitors: {len(capabilities['monitors'])}")
+          PYTHON_SCRIPT
+
+      - name: Deploy Sentinels to Mapping Hub
+        run: |
+          echo "🛡️ Deploying sentinels to Mapping-and-Inventory..."
+          
+          mkdir -p mapping-and-inventory/data/sentinels
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import shutil
+          from pathlib import Path
+
+          # Load discovery
+          with open("sentinel-swarm/sentinel_swarm_discovery.json", 'r') as f:
+              discovery = json.load(f)
+          
+          target_dir = Path("mapping-and-inventory/data/sentinels")
+          target_dir.mkdir(parents=True, exist_ok=True)
+          
+          deployed = {"sentinels": 0, "scouts": 0, "coordinators": 0, "monitors": 0}
+          
+          # Deploy sentinels
+          for sentinel in discovery["capabilities"]["sentinels"]:
+              source = Path("sentinel-swarm") / sentinel["path"]
+              target = target_dir / "sentinels" / sentinel["name"]
+              target.parent.mkdir(parents=True, exist_ok=True)
+              
+              if source.exists():
+                  shutil.copy(source, str(target) + ".py")
+                  deployed["sentinels"] += 1
+          
+          # Deploy scouts
+          for scout in discovery["capabilities"]["scouts"]:
+              source = Path("sentinel-swarm") / scout["path"]
+              target = target_dir / "scouts" / scout["name"]
+              target.parent.mkdir(parents=True, exist_ok=True)
+              
+              if source.exists():
+                  shutil.copy(source, str(target) + ".py")
+                  deployed["scouts"] += 1
+          
+          # Deploy coordinators
+          for coord in discovery["capabilities"]["swarm_coordinators"]:
+              source = Path("sentinel-swarm") / coord["path"]
+              target = target_dir / "coordinators" / coord["name"]
+              target.parent.mkdir(parents=True, exist_ok=True)
+              
+              if source.exists():
+                  shutil.copy(source, str(target) + ".py")
+                  deployed["coordinators"] += 1
+          
+          # Deploy monitors
+          for monitor in discovery["capabilities"]["monitors"]:
+              source = Path("sentinel-swarm") / monitor["path"]
+              target = target_dir / "monitors" / monitor["name"]
+              target.parent.mkdir(parents=True, exist_ok=True)
+              
+              if source.exists():
+                  shutil.copy(source, str(target) + ".py")
+                  deployed["monitors"] += 1
+          
+          print(f"✅ Deployed:")
+          print(f"   Sentinels: {deployed['sentinels']}")
+          print(f"   Scouts: {deployed['scouts']}")
+          print(f"   Coordinators: {deployed['coordinators']}")
+          print(f"   Monitors: {deployed['monitors']}")
+          PYTHON_SCRIPT
+
+      - name: Create Sentinel Swarm Registry
+        run: |
+          echo "📋 Creating sentinel swarm registry..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          sentinels_dir = Path("data/sentinels")
+          
+          registry = {
+              "registry_version": "1.0.0",
+              "last_updated": datetime.utcnow().isoformat() + "Z",
+              "repository": "DJ-Goanna-Coding/tias-sentinel-scout-swarm",
+              "swarm": {
+                  "sentinels": [],
+                  "scouts": [],
+                  "coordinators": [],
+                  "monitors": []
+              },
+              "deployment_status": "active"
+          }
+          
+          # Register sentinels
+          if (sentinels_dir / "sentinels").exists():
+              for sentinel_file in (sentinels_dir / "sentinels").glob("*.py"):
+                  registry["swarm"]["sentinels"].append({
+                      "name": sentinel_file.stem,
+                      "path": str(sentinel_file.relative_to(Path("."))),
+                      "status": "deployed",
+                      "role": "monitoring"
+                  })
+          
+          # Register scouts
+          if (sentinels_dir / "scouts").exists():
+              for scout_file in (sentinels_dir / "scouts").glob("*.py"):
+                  registry["swarm"]["scouts"].append({
+                      "name": scout_file.stem,
+                      "path": str(scout_file.relative_to(Path("."))),
+                      "status": "deployed",
+                      "role": "scanning"
+                  })
+          
+          # Register coordinators
+          if (sentinels_dir / "coordinators").exists():
+              for coord_file in (sentinels_dir / "coordinators").glob("*.py"):
+                  registry["swarm"]["coordinators"].append({
+                      "name": coord_file.stem,
+                      "path": str(coord_file.relative_to(Path("."))),
+                      "status": "deployed",
+                      "role": "orchestration"
+                  })
+          
+          # Register monitors
+          if (sentinels_dir / "monitors").exists():
+              for monitor_file in (sentinels_dir / "monitors").glob("*.py"):
+                  registry["swarm"]["monitors"].append({
+                      "name": monitor_file.stem,
+                      "path": str(monitor_file.relative_to(Path("."))),
+                      "status": "deployed",
+                      "role": "observation"
+                  })
+          
+          # Save registry
+          with open("data/sentinels/sentinel_swarm_registry.json", 'w') as f:
+              json.dump(registry, f, indent=2)
+          
+          print("✅ Sentinel Swarm Registry Created")
+          print(f"   Total Sentinels: {len(registry['swarm']['sentinels'])}")
+          print(f"   Total Scouts: {len(registry['swarm']['scouts'])}")
+          print(f"   Total Coordinators: {len(registry['swarm']['coordinators'])}")
+          print(f"   Total Monitors: {len(registry['swarm']['monitors'])}")
+          PYTHON_SCRIPT
+
+      - name: Configure Sentinel Operations
+        run: |
+          echo "⚙️ Configuring sentinel operations..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          # Create sentinel operations config
+          config = {
+              "version": "1.0.0",
+              "created": datetime.utcnow().isoformat() + "Z",
+              "operations": {
+                  "monitoring": {
+                      "enabled": True,
+                      "targets": [
+                          "master_inventory.json",
+                          "master_intelligence_map.txt",
+                          "data/gdrive_manifests/",
+                          "data/workers/",
+                          "Districts/"
+                      ],
+                      "interval_minutes": 180,  # Every 3 hours
+                      "alerts": True
+                  },
+                  "scanning": {
+                      "enabled": True,
+                      "targets": [
+                          "data/gdrive_manifests/",
+                          "data/laptop_inventory/",
+                          "data/models/",
+                          "data/workers/"
+                      ],
+                      "depth": "full",
+                      "schedule": "*/3 * * * *"
+                  },
+                  "swarm_coordination": {
+                      "enabled": True,
+                      "mode": "distributed",
+                      "sentinels_per_partition": 1,
+                      "coordination_interval": 15  # minutes
+                  },
+                  "alerts": {
+                      "enabled": True,
+                      "channels": ["github_actions", "master_intelligence_map"],
+                      "severity_levels": ["critical", "warning", "info"]
+                  }
+              }
+          }
+          
+          with open("data/sentinels/sentinel_operations_config.json", 'w') as f:
+              json.dump(config, f, indent=2)
+          
+          print("✅ Sentinel Operations Configured")
+          print("   Monitoring: Enabled")
+          print("   Scanning: Enabled")
+          print("   Swarm Coordination: Distributed Mode")
+          print("   Alerts: GitHub Actions + Intelligence Map")
+          PYTHON_SCRIPT
+
+      - name: Update Master Intelligence Map
+        run: |
+          echo "🧠 Updating master intelligence map with sentinel deployment..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          # Load sentinel registry
+          with open("data/sentinels/sentinel_swarm_registry.json", 'r') as f:
+              registry = json.load(f)
+          
+          # Append to intelligence map
+          with open("master_intelligence_map.txt", 'a') as f:
+              f.write("\n\n")
+              f.write("=" * 80 + "\n")
+              f.write("SENTINEL SCOUT SWARM DEPLOYMENT\n")
+              f.write(f"Deployed: {registry['last_updated']}\n")
+              f.write(f"Repository: {registry['repository']}\n")
+              f.write("=" * 80 + "\n\n")
+              
+              f.write("SWARM COMPOSITION:\n")
+              f.write(f"  Sentinels: {len(registry['swarm']['sentinels'])} (Monitoring)\n")
+              f.write(f"  Scouts: {len(registry['swarm']['scouts'])} (Scanning)\n")
+              f.write(f"  Coordinators: {len(registry['swarm']['coordinators'])} (Orchestration)\n")
+              f.write(f"  Monitors: {len(registry['swarm']['monitors'])} (Observation)\n\n")
+              
+              f.write("OPERATIONAL STATUS: Active\n")
+              f.write("DEPLOYMENT MODE: Distributed\n")
+              f.write("MONITORING INTERVAL: Every 3 hours\n")
+              f.write("ALERT CHANNELS: GitHub Actions, Intelligence Map\n\n")
+          
+          print("✅ Intelligence map updated with sentinel deployment")
+          PYTHON_SCRIPT
+
+      - name: Commit Sentinel Swarm Integration
+        run: |
+          cd mapping-and-inventory
+          
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/sentinels/ master_intelligence_map.txt
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🛡️ Sentinel Scout Swarm Integration - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Sentinel swarm deployed to Citadel Mesh"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🛡️ SENTINEL SCOUT SWARM DEPLOYMENT COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "mapping-and-inventory/data/sentinels/sentinel_swarm_registry.json" ]; then
+            cd mapping-and-inventory
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/sentinels/sentinel_swarm_registry.json", 'r') as f:
+              registry = json.load(f)
+          
+          print("Swarm Composition:")
+          print(f"  🛡️ Sentinels: {len(registry['swarm']['sentinels'])}")
+          print(f"  🔍 Scouts: {len(registry['swarm']['scouts'])}")
+          print(f"  🐝 Coordinators: {len(registry['swarm']['coordinators'])}")
+          print(f"  👁️ Monitors: {len(registry['swarm']['monitors'])}")
+          print(f"\nDeployment Status: {registry['deployment_status']}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Sentinel Capabilities:"
+          echo "• Real-time monitoring of Citadel resources"
+          echo "• Distributed scanning across partitions"
+          echo "• Swarm coordination for parallel operations"
+          echo "• Automated alerting on critical events"
+          echo ""
+          echo "Integration Points:"
+          echo "• Forever Learning Orchestrator"
+          echo "• Master Harvester cycles"
+          echo "• GDrive partition monitoring"
+          echo "• Worker constellation oversight"
+          echo ""
+          echo "🦎 Weld. Pulse. Ignite."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

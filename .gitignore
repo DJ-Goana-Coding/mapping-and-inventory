@@ -73,3 +73,9 @@ data/gdrive_manifests/*
 !data/gdrive_manifests/.gitkeep
 data/laptop_inventory/*
 !data/laptop_inventory/.gitkeep
+data/sentinels/*
+!data/sentinels/.gitkeep
+!data/sentinels/sentinel_swarm_registry.json
+!data/sentinels/sentinel_operations_config.json
+data/pipelines/*
+!data/pipelines/.gitkeep
