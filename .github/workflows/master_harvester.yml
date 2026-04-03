@@ -1,0 +1,190 @@
+name: Master Harvester
+# Unified harvesting workflow - orchestrates all harvesters
+# Runs every 6 hours aligned with Surveyor pulse
+
+on:
+  # Run every 6 hours
+  schedule:
+    - cron: '0 */6 * * *'
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after any harvester completes
+  workflow_run:
+    workflows: ["GDrive Partition Harvester", "GDrive Document Indexer", "Laptop Push Workflow"]
+    types:
+      - completed
+
+jobs:
+  master_harvest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull Latest Changes
+        run: |
+          git pull origin ${{ github.ref_name }}
+
+      - name: Aggregate GDrive Manifests
+        run: |
+          echo "📦 Aggregating GDrive manifests..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          manifests_dir = Path("data/gdrive_manifests")
+          aggregated = {
+              "harvest_timestamp": datetime.utcnow().isoformat() + "Z",
+              "sources": {
+                  "partitions": {},
+                  "models": {},
+                  "workers": {},
+                  "documents": {}
+              },
+              "summary": {
+                  "total_partitions": 0,
+                  "total_files": 0,
+                  "total_models": 0,
+                  "total_workers": 0,
+                  "total_documents": 0
+              }
+          }
+          
+          # Aggregate partition manifests
+          for partition_file in manifests_dir.glob("partition_*.json"):
+              if partition_file.name == "master_gdrive_index.json":
+                  continue
+              
+              with open(partition_file, 'r') as f:
+                  data = json.load(f)
+              
+              partition_id = data.get("partition_id", "unknown")
+              aggregated["sources"]["partitions"][partition_id] = {
+                  "file_count": data.get("total_files", 0),
+                  "manifest_file": partition_file.name
+              }
+              aggregated["summary"]["total_partitions"] += 1
+              aggregated["summary"]["total_files"] += data.get("total_files", 0)
+          
+          # Aggregate model manifest
+          models_file = Path("data/models/models_manifest.json")
+          if models_file.exists():
+              with open(models_file, 'r') as f:
+                  models_data = json.load(f)
+              aggregated["sources"]["models"] = models_data
+              aggregated["summary"]["total_models"] = models_data.get("total_models", 0)
+          
+          # Aggregate worker manifest
+          workers_file = Path("data/workers/workers_manifest.json")
+          if workers_file.exists():
+              with open(workers_file, 'r') as f:
+                  workers_data = json.load(f)
+              aggregated["sources"]["workers"] = workers_data
+              aggregated["summary"]["total_workers"] = workers_data.get("total_workers", 0)
+          
+          # Aggregate document index
+          docs_file = Path("data/gdrive_docs/document_index.json")
+          if docs_file.exists():
+              with open(docs_file, 'r') as f:
+                  docs_data = json.load(f)
+              aggregated["sources"]["documents"] = docs_data
+              aggregated["summary"]["total_documents"] = docs_data.get("total_documents", 0)
+          
+          # Save aggregated manifest
+          with open("data/master_harvest_manifest.json", 'w') as f:
+              json.dump(aggregated, f, indent=2)
+          
+          print("✅ Aggregated Manifest Created")
+          print(f"   Partitions: {aggregated['summary']['total_partitions']}")
+          print(f"   Total Files: {aggregated['summary']['total_files']}")
+          print(f"   Models: {aggregated['summary']['total_models']}")
+          print(f"   Workers: {aggregated['summary']['total_workers']}")
+          print(f"   Documents: {aggregated['summary']['total_documents']}")
+          PYTHON_SCRIPT
+
+      - name: Update Master Intelligence Map
+        run: |
+          echo "🧠 Updating master_intelligence_map.txt..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          # Load aggregated manifest
+          with open("data/master_harvest_manifest.json", 'r') as f:
+              harvest = json.load(f)
+          
+          # Append harvest summary to intelligence map
+          with open("master_intelligence_map.txt", 'a') as f:
+              f.write("\n\n")
+              f.write("=" * 80 + "\n")
+              f.write("MASTER HARVEST CYCLE\n")
+              f.write(f"Timestamp: {harvest['harvest_timestamp']}\n")
+              f.write("=" * 80 + "\n\n")
+              
+              f.write("SUMMARY:\n")
+              f.write(f"  Partitions Scanned: {harvest['summary']['total_partitions']}\n")
+              f.write(f"  Total Files: {harvest['summary']['total_files']}\n")
+              f.write(f"  Models Discovered: {harvest['summary']['total_models']}\n")
+              f.write(f"  Workers Found: {harvest['summary']['total_workers']}\n")
+              f.write(f"  Documents Indexed: {harvest['summary']['total_documents']}\n\n")
+              
+              # Add partition details
+              if harvest['sources']['partitions']:
+                  f.write("PARTITION DETAILS:\n")
+                  for partition_id, info in harvest['sources']['partitions'].items():
+                      f.write(f"  {partition_id}: {info['file_count']} files\n")
+                  f.write("\n")
+          
+          print("✅ master_intelligence_map.txt updated")
+          PYTHON_SCRIPT
+
+      - name: Trigger Librarian Consolidation
+        run: |
+          echo "📚 Running Librarian Consolidation..."
+          if [ -f "scripts/librarian_consolidator.py" ]; then
+            python3 scripts/librarian_consolidator.py
+          else
+            echo "⚠️  librarian_consolidator.py not found yet"
+          fi
+
+      - name: Commit Harvest Results
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/master_harvest_manifest.json master_intelligence_map.txt
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🌾 Master Harvest - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Harvest results pushed"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🌾 MASTER HARVEST COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          if [ -f "data/master_harvest_manifest.json" ]; then
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/master_harvest_manifest.json", 'r') as f:
+              harvest = json.load(f)
+          print(f"\nHarvest Timestamp: {harvest['harvest_timestamp']}")
+          print(f"\nResources Harvested:")
+          print(f"  • Partitions: {harvest['summary']['total_partitions']}")
+          print(f"  • Files: {harvest['summary']['total_files']:,}")
+          print(f"  • Models: {harvest['summary']['total_models']}")
+          print(f"  • Workers: {harvest['summary']['total_workers']}")
+          print(f"  • Documents: {harvest['summary']['total_documents']}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Next: Oracle Sync will process into RAG embeddings"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
