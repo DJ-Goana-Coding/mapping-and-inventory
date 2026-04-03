@@ -35,6 +35,7 @@ This repository contains complete repair guides and templates for all Citadel Om
 ### Documentation
 - **[TIAS_CITADEL_REPAIR_GUIDE.md](./TIAS_CITADEL_REPAIR_GUIDE.md)** — Complete repair instructions for tias-citadel Space
 - **[TIA_ARCHITECT_CORE_REPAIR_GUIDE.md](./TIA_ARCHITECT_CORE_REPAIR_GUIDE.md)** — Python 3.13 compatibility fix for TIA-ARCHITECT-CORE
+- **[TIA_CORE_REPAIR_QUICKSTART.md](./TIA_CORE_REPAIR_QUICKSTART.md)** — Fast repair guide with 3 deployment methods
 
 ### Template Files
 
@@ -62,11 +63,17 @@ tia-architect-core-templates/
 └── README.md             # Compatibility guide
 ```
 
-**Quick Deploy:**
+**Automated Deploy:**
 ```bash
-# Copy requirements.txt to TIA-ARCHITECT-CORE repo
+# Option 1: Use repair script
+./scripts/repair_tia_architect_core.sh
+
+# Option 2: Trigger GitHub Actions workflow
+gh workflow run repair_tia_core_space.yml -f dry_run=false
+
+# Option 3: Manual copy
 cp tia-architect-core-templates/requirements.txt /path/to/TIA-ARCHITECT-CORE/
-# Push and rebuild
+cd /path/to/TIA-ARCHITECT-CORE && git add requirements.txt && git commit -m "Fix" && git push
 ```
 
 ---
@@ -161,19 +168,23 @@ git push
 
 ### For TIA-ARCHITECT-CORE:
 ```bash
-# 1. Clone/navigate to TIA-ARCHITECT-CORE repo
+# OPTION 1: Automated Repair Script (Recommended)
+cd /path/to/mapping-and-inventory
+./scripts/repair_tia_architect_core.sh
+
+# OPTION 2: GitHub Actions Workflow
+# Go to: https://github.com/DJ-Goana-Coding/mapping-and-inventory/actions
+# Run: "🔧 Repair TIA-ARCHITECT-CORE Space" workflow
+
+# OPTION 3: Manual Deployment
 cd /path/to/TIA-ARCHITECT-CORE
-
-# 2. Apply Python 3.13 compatible requirements
 cp /path/to/mapping-and-inventory/tia-architect-core-templates/requirements.txt .
-
-# 3. Push and rebuild
 git add requirements.txt
-git commit -m "🔧 COMPATIBILITY FIX: Upgrade pandas/numpy for Python 3.13"
-git push
+git commit -m "🔧 Fix Space: Add setuptools & Python 3.13 compatible versions"
+git push origin main
 
 # 4. Monitor build logs
-# Should see: Successfully installed pandas-2.2.x numpy-2.x.x
+# Should see: Successfully installed setuptools-75.x pandas-2.2.x numpy-2.x.x streamlit-1.4x
 ```
 
 ---

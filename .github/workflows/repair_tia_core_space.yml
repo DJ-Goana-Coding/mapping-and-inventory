@@ -1,0 +1,168 @@
+name: 🔧 Repair TIA-ARCHITECT-CORE Space
+
+# ═══════════════════════════════════════════════════════════════════
+# TIA-ARCHITECT-CORE Space Repair Workflow
+# ═══════════════════════════════════════════════════════════════════
+# Purpose: Deploy Python 3.13 compatible requirements.txt to fix Space
+# Target: DJ-Goanna-Coding/TIA-ARCHITECT-CORE
+# Issue: Missing setuptools, incompatible pandas/numpy versions
+# Fix: Apply tia-architect-core-templates/requirements.txt
+# ═══════════════════════════════════════════════════════════════════
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (show changes without pushing)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  repair-tia-core:
+    name: Deploy Requirements Fix
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🧩 Checkout Mapping-and-Inventory (templates)
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+          
+      - name: 📥 Checkout TIA-ARCHITECT-CORE (target)
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goana-Coding/TIA-ARCHITECT-CORE
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: TIA-ARCHITECT-CORE
+          
+      - name: 🔍 Verify Template
+        run: |
+          echo "Verifying template requirements.txt..."
+          TEMPLATE_FILE="mapping-and-inventory/tia-architect-core-templates/requirements.txt"
+          
+          if [ ! -f "$TEMPLATE_FILE" ]; then
+            echo "❌ ERROR: Template not found at $TEMPLATE_FILE"
+            exit 1
+          fi
+          
+          # Check for required packages
+          for pkg in "setuptools>=75.0.0" "streamlit>=1.42.0" "pandas>=2.2.0" "numpy>=2.0.0"; do
+            if ! grep -q "$pkg" "$TEMPLATE_FILE"; then
+              echo "❌ ERROR: Template missing $pkg"
+              exit 1
+            fi
+          done
+          
+          echo "✅ Template verified"
+          echo ""
+          echo "📋 Key packages in template:"
+          grep -E "(streamlit|setuptools|pandas|numpy)" "$TEMPLATE_FILE" | head -6
+          
+      - name: 💾 Backup Existing Requirements
+        run: |
+          cd TIA-ARCHITECT-CORE
+          if [ -f requirements.txt ]; then
+            BACKUP="requirements.txt.backup.$(date +%Y%m%d_%H%M%S)"
+            echo "Backing up to $BACKUP"
+            cp requirements.txt "$BACKUP"
+            git add "$BACKUP"
+          else
+            echo "No existing requirements.txt to backup"
+          fi
+          
+      - name: 📋 Deploy Template
+        run: |
+          echo "Copying template to TIA-ARCHITECT-CORE..."
+          cp mapping-and-inventory/tia-architect-core-templates/requirements.txt \
+             TIA-ARCHITECT-CORE/requirements.txt
+          
+          echo "✅ Template deployed"
+          echo ""
+          echo "📊 New requirements.txt preview:"
+          head -20 TIA-ARCHITECT-CORE/requirements.txt
+          
+      - name: 📊 Show Diff
+        run: |
+          cd TIA-ARCHITECT-CORE
+          echo "Changes to be committed:"
+          git diff requirements.txt || echo "No existing file to diff"
+          
+      - name: 💾 Commit Changes
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          cd TIA-ARCHITECT-CORE
+          
+          git config user.name "Citadel Architect"
+          git config user.email "architect@citadel.mesh"
+          
+          git add requirements.txt requirements.txt.backup.* 2>/dev/null || true
+          
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "ℹ️  No changes to commit (already up to date)"
+            echo "already_updated=true" >> $GITHUB_ENV
+          else
+            git commit -m "🔧 STAINLESS WELD: Fix Space crash - Add setuptools & upgrade to Python 3.13 compatible versions
+
+- Add setuptools>=75.0.0 to fix ModuleNotFoundError: 'pkg_resources'
+- Upgrade streamlit to >=1.42.0
+- Upgrade pandas to >=2.2.0 (Python 3.13 compatible)
+- Upgrade numpy to >=2.0.0 (Python 3.13 compatible)
+- All dependencies now compatible with Python 3.13
+
+Resolves: Space build failure (exit code 1)
+Template: mapping-and-inventory/tia-architect-core-templates/requirements.txt
+Deployed by: GitHub Actions workflow
+Architect: v25.0.OMNI"
+            
+            echo "✅ Changes committed"
+            echo "already_updated=false" >> $GITHUB_ENV
+          fi
+          
+      - name: ⬆️ Push to GitHub
+        if: github.event.inputs.dry_run != 'true' && env.already_updated != 'true'
+        run: |
+          cd TIA-ARCHITECT-CORE
+          git push origin main
+          echo "✅ Pushed to GitHub (DJ-Goana-Coding/TIA-ARCHITECT-CORE)"
+          
+      - name: 📋 Dry Run Summary
+        if: github.event.inputs.dry_run == 'true'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "🔍 DRY RUN COMPLETE (no changes pushed)"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "The following changes would be applied:"
+          cd TIA-ARCHITECT-CORE
+          git diff requirements.txt || echo "New file would be created"
+          
+      - name: ✅ Success Summary
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo "✅ TIA-ARCHITECT-CORE SPACE REPAIR COMPLETE"
+          echo "═══════════════════════════════════════════════════════════════════"
+          echo ""
+          echo "📋 Next Steps:"
+          echo "   1. Monitor HuggingFace Space rebuild:"
+          echo "      https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE/logs"
+          echo ""
+          echo "   2. Expected in build logs:"
+          echo "      ✅ Successfully installed setuptools-75.x.x"
+          echo "      ✅ Successfully installed pandas-2.2.x"
+          echo "      ✅ Successfully installed numpy-2.x.x"
+          echo "      ✅ Successfully installed streamlit-1.4x.x"
+          echo "      ✅ Running on local URL: http://0.0.0.0:7860"
+          echo ""
+          echo "   3. Once build succeeds, access the Space:"
+          echo "      https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE"
+          echo ""
+          echo "🔧 Template applied: tia-architect-core-templates/requirements.txt"
+          echo "📡 Repository updated: DJ-Goana-Coding/TIA-ARCHITECT-CORE"
+          echo ""
+          echo "Weld. Pulse. Ignite. 🔥"
