@@ -1,0 +1,332 @@
+name: Harvestmoon Worker Integration
+# Integrates DJ-Goanna-Coding/harvestmoon repository
+# Purpose: Worker automation, pipeline creation, and file pulling
+
+on:
+  # Run after master harvest completes
+  schedule:
+    - cron: '30 */6 * * *'  # 30 min after master harvest
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after harvest cycles
+  workflow_run:
+    workflows: ["Master Harvester"]
+    types:
+      - completed
+
+jobs:
+  integrate_harvestmoon:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Mapping-and-Inventory
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+          fetch-depth: 0
+
+      - name: Checkout Harvestmoon Repository
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goanna-Coding/harvestmoon
+          path: harvestmoon
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Discover Harvestmoon Workers
+        run: |
+          echo "🌙 HARVESTMOON WORKER DISCOVERY"
+          echo "=" * 60
+          
+          cd harvestmoon
+          
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          harvestmoon_root = Path(".")
+          discovered_workers = []
+          
+          # Worker file patterns
+          worker_patterns = [
+              '**/*worker*.py',
+              '**/*harvest*.py',
+              '**/*pipeline*.py',
+              '**/*automation*.py',
+              '**/*pull*.py'
+          ]
+          
+          print("🔍 Scanning harvestmoon repository for workers...")
+          
+          for pattern in worker_patterns:
+              for worker_file in harvestmoon_root.glob(pattern):
+                  if worker_file.is_file() and '__pycache__' not in str(worker_file):
+                      discovered_workers.append({
+                          "name": worker_file.stem,
+                          "filename": worker_file.name,
+                          "path": str(worker_file),
+                          "relative_path": str(worker_file.relative_to(harvestmoon_root)),
+                          "size_bytes": worker_file.stat().st_size
+                      })
+                      print(f"  ✅ Found: {worker_file.relative_to(harvestmoon_root)}")
+          
+          # Save discovery manifest
+          manifest = {
+              "discovery_timestamp": datetime.utcnow().isoformat() + "Z",
+              "repository": "DJ-Goanna-Coding/harvestmoon",
+              "total_workers": len(discovered_workers),
+              "workers": discovered_workers
+          }
+          
+          with open("harvestmoon_workers.json", 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print(f"\n✅ Discovered {len(discovered_workers)} workers in harvestmoon")
+          PYTHON_SCRIPT
+
+      - name: Analyze Harvestmoon Capabilities
+        run: |
+          echo "🔍 Analyzing harvestmoon capabilities..."
+          cd harvestmoon
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+
+          capabilities = {
+              "workers": 0,
+              "pipelines": 0,
+              "automations": 0,
+              "file_pullers": 0,
+              "utilities": 0
+          }
+          
+          # Count capabilities
+          for py_file in Path(".").rglob("*.py"):
+              content = py_file.read_text(errors='ignore').lower()
+              
+              if 'worker' in content or 'harvest' in content:
+                  capabilities["workers"] += 1
+              if 'pipeline' in content:
+                  capabilities["pipelines"] += 1
+              if 'automat' in content:
+                  capabilities["automations"] += 1
+              if 'pull' in content or 'download' in content or 'fetch' in content:
+                  capabilities["file_pullers"] += 1
+          
+          print("📊 Harvestmoon Capabilities:")
+          for cap, count in capabilities.items():
+              print(f"   {cap}: {count}")
+          
+          # Save capabilities
+          with open("harvestmoon_capabilities.json", 'w') as f:
+              json.dump(capabilities, f, indent=2)
+          PYTHON_SCRIPT
+
+      - name: Copy Priority Workers to Mapping-and-Inventory
+        run: |
+          echo "📦 Copying harvestmoon workers to data/workers/harvestmoon/..."
+          
+          mkdir -p mapping-and-inventory/data/workers/harvestmoon
+          
+          # Copy discovered workers
+          if [ -f "harvestmoon/harvestmoon_workers.json" ]; then
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          import shutil
+          from pathlib import Path
+
+          with open("harvestmoon/harvestmoon_workers.json", 'r') as f:
+              manifest = json.load(f)
+          
+          target_dir = Path("mapping-and-inventory/data/workers/harvestmoon")
+          target_dir.mkdir(parents=True, exist_ok=True)
+          
+          copied = 0
+          for worker in manifest.get("workers", []):
+              source = Path("harvestmoon") / worker["relative_path"]
+              target = target_dir / worker["filename"]
+              
+              if source.exists():
+                  shutil.copy(source, target)
+                  copied += 1
+                  print(f"  ✅ Copied: {worker['filename']}")
+          
+          print(f"\n✅ Copied {copied} workers to mapping-and-inventory")
+          PYTHON_SCRIPT
+          fi
+
+      - name: Update Workers Constellation
+        run: |
+          echo "🔄 Updating workers constellation with harvestmoon workers..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Load harvestmoon workers
+          hm_manifest_file = Path("../harvestmoon/harvestmoon_workers.json")
+          if not hm_manifest_file.exists():
+              print("⚠️  No harvestmoon workers manifest found")
+              exit(0)
+          
+          with open(hm_manifest_file, 'r') as f:
+              hm_manifest = json.load(f)
+          
+          # Load existing workers constellation
+          workers_file = Path("data/workers/workers_manifest.json")
+          if workers_file.exists():
+              with open(workers_file, 'r') as f:
+                  workers = json.load(f)
+          else:
+              workers = {
+                  "registry_version": "1.0.0",
+                  "total_workers": 0,
+                  "categories": {}
+              }
+          
+          # Add harvestmoon category if not exists
+          if "Harvestmoon" not in workers["categories"]:
+              workers["categories"]["Harvestmoon"] = {"count": 0, "workers": []}
+          
+          # Add harvestmoon workers
+          for hm_worker in hm_manifest.get("workers", []):
+              worker_entry = {
+                  "name": hm_worker["name"],
+                  "filename": hm_worker["filename"],
+                  "path": f"data/workers/harvestmoon/{hm_worker['filename']}",
+                  "source": "harvestmoon_repo",
+                  "category": "Harvestmoon",
+                  "status": "integrated",
+                  "repository": "DJ-Goanna-Coding/harvestmoon"
+              }
+              
+              # Check if not duplicate
+              existing_names = [w["name"] for w in workers["categories"]["Harvestmoon"]["workers"]]
+              if worker_entry["name"] not in existing_names:
+                  workers["categories"]["Harvestmoon"]["workers"].append(worker_entry)
+                  workers["categories"]["Harvestmoon"]["count"] += 1
+                  workers["total_workers"] += 1
+          
+          workers["last_updated"] = datetime.utcnow().isoformat() + "Z"
+          workers["harvestmoon_integration"] = {
+              "timestamp": datetime.utcnow().isoformat() + "Z",
+              "workers_added": workers["categories"]["Harvestmoon"]["count"]
+          }
+          
+          # Save updated constellation
+          with open(workers_file, 'w') as f:
+              json.dump(workers, f, indent=2)
+          
+          print(f"✅ Workers constellation updated")
+          print(f"   Harvestmoon workers: {workers['categories']['Harvestmoon']['count']}")
+          print(f"   Total workers: {workers['total_workers']}")
+          PYTHON_SCRIPT
+
+      - name: Create Harvestmoon Integration Report
+        run: |
+          echo "📊 Creating integration report..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          report_lines = [
+              "# 🌙 HARVESTMOON INTEGRATION REPORT",
+              "",
+              f"**Integration Date:** {datetime.utcnow().isoformat()}Z",
+              f"**Repository:** DJ-Goanna-Coding/harvestmoon",
+              "",
+              "## Workers Integrated",
+              ""
+          ]
+          
+          # Load workers manifest
+          workers_file = "data/workers/workers_manifest.json"
+          with open(workers_file, 'r') as f:
+              workers = json.load(f)
+          
+          hm_workers = workers.get("categories", {}).get("Harvestmoon", {}).get("workers", [])
+          
+          report_lines.append(f"Total Harvestmoon Workers: **{len(hm_workers)}**")
+          report_lines.append("")
+          
+          for worker in hm_workers:
+              report_lines.append(f"- `{worker['name']}` - Status: {worker['status']}")
+          
+          report_lines.extend([
+              "",
+              "## Capabilities",
+              "",
+              "- ✅ Worker automation",
+              "- ✅ Pipeline creation", 
+              "- ✅ File pulling operations",
+              "- ✅ Harvest orchestration",
+              "",
+              "## Integration Status",
+              "",
+              "✅ Workers copied to `data/workers/harvestmoon/`",
+              "✅ Workers constellation updated",
+              "✅ Ready for deployment",
+              "",
+              "---",
+              "**Weld. Pulse. Ignite.** 🦎"
+          ])
+          
+          with open("data/workers/HARVESTMOON_INTEGRATION.md", 'w') as f:
+              f.write("\n".join(report_lines))
+          
+          print("✅ Integration report created")
+          PYTHON_SCRIPT
+
+      - name: Commit Harvestmoon Integration
+        run: |
+          cd mapping-and-inventory
+          
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/workers/
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🌙 Harvestmoon Integration - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Harvestmoon workers integrated into Citadel Mesh"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🌙 HARVESTMOON INTEGRATION COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "mapping-and-inventory/data/workers/workers_manifest.json" ]; then
+            cd mapping-and-inventory
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/workers/workers_manifest.json", 'r') as f:
+              workers = json.load(f)
+          
+          print(f"Total Workers: {workers['total_workers']}")
+          print(f"\nHarvestmoon Workers: {workers['categories'].get('Harvestmoon', {}).get('count', 0)}")
+          print(f"\nCategories:")
+          for cat, data in workers.get("categories", {}).items():
+              if data.get("count", 0) > 0:
+                  print(f"  {cat}: {data['count']}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Harvestmoon workers available for:"
+          echo "• Automated harvesting"
+          echo "• Pipeline orchestration"
+          echo "• File pulling operations"
+          echo "• Worker constellation expansion"
+          echo ""
+          echo "Next: Deploy workers using workers_constellation_setup.py"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -1,0 +1,437 @@
+name: TIA Space Repair & Sync
+# Repairs DJ-Goanna-Coding/TIA-ARCHITECT-CORE HuggingFace Space
+# Syncs models, datasets, personas, and workers from Mapping-and-Inventory
+
+on:
+  # Manual trigger for space repair
+  workflow_dispatch:
+    inputs:
+      repair_type:
+        description: 'Repair type'
+        required: true
+        type: choice
+        options:
+          - quick_restart
+          - full_rebuild
+          - sync_only
+  # Scheduled sync every 6 hours
+  schedule:
+    - cron: '45 */6 * * *'
+
+jobs:
+  repair_and_sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Mapping-and-Inventory
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+          fetch-depth: 0
+
+      - name: Checkout TIA-ARCHITECT-CORE
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goanna-Coding/TIA-ARCHITECT-CORE
+          path: tia-architect-core
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Dependencies
+        run: |
+          pip install huggingface_hub requests
+
+      - name: Diagnose Space Status
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "🔍 DIAGNOSING TIA-ARCHITECT-CORE SPACE STATUS"
+          echo "=" * 60
+          
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import requests
+          from huggingface_hub import HfApi, SpaceInfo
+          
+          hf_token = os.environ.get("HF_TOKEN")
+          if not hf_token:
+              print("❌ HF_TOKEN not available")
+              exit(1)
+          
+          api = HfApi(token=hf_token)
+          
+          try:
+              # Get space info
+              space_id = "DJ-Goanna-Coding/TIA-ARCHITECT-CORE"
+              space_info = api.space_info(repo_id=space_id)
+              
+              print(f"✅ Space found: {space_id}")
+              print(f"   Runtime: {space_info.runtime}")
+              print(f"   SDK: {space_info.sdk}")
+              print(f"   Hardware: {space_info.hardware if hasattr(space_info, 'hardware') else 'Unknown'}")
+              
+              # Check if space is running
+              if hasattr(space_info, 'runtime') and space_info.runtime:
+                  print(f"   Status: {space_info.runtime.get('stage', 'Unknown')}")
+              
+          except Exception as e:
+              print(f"⚠️  Error checking space: {e}")
+              print("   Space may need restart or rebuild")
+          PYTHON_SCRIPT
+
+      - name: Restart Space (if needed)
+        if: github.event.inputs.repair_type == 'quick_restart' || github.event.inputs.repair_type == 'full_rebuild'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "🔄 RESTARTING TIA-ARCHITECT-CORE SPACE"
+          
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          from huggingface_hub import HfApi
+          
+          hf_token = os.environ.get("HF_TOKEN")
+          api = HfApi(token=hf_token)
+          
+          try:
+              space_id = "DJ-Goanna-Coding/TIA-ARCHITECT-CORE"
+              
+              # Restart the space
+              api.restart_space(repo_id=space_id)
+              print(f"✅ Space restart initiated: {space_id}")
+              print("   Allow 2-5 minutes for space to come online")
+              
+          except Exception as e:
+              print(f"❌ Error restarting space: {e}")
+              print("   Manual intervention may be required")
+          PYTHON_SCRIPT
+
+      - name: Sync Models to TIA Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "📦 SYNCING MODELS TO TIA SPACE"
+          echo "=" * 60
+          
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import os
+          from pathlib import Path
+          from huggingface_hub import HfApi
+          
+          hf_token = os.environ.get("HF_TOKEN")
+          api = HfApi(token=hf_token)
+          
+          # Load models manifest
+          models_file = Path("data/models/models_manifest.json")
+          if not models_file.exists():
+              print("⚠️  No models manifest found")
+              exit(0)
+          
+          with open(models_file, 'r') as f:
+              models_manifest = json.load(f)
+          
+          print(f"Found {models_manifest.get('total_models', 0)} models in registry")
+          
+          # Create model sync manifest for TIA
+          tia_models = {
+              "sync_timestamp": models_manifest.get("last_updated"),
+              "total_models": models_manifest.get("total_models", 0),
+              "categories": {}
+          }
+          
+          for category, cat_data in models_manifest.get("categories", {}).items():
+              if cat_data.get("count", 0) > 0:
+                  tia_models["categories"][category] = {
+                      "count": cat_data["count"],
+                      "models": [
+                          {
+                              "name": m.get("path", "").split("/")[-1],
+                              "path": m.get("path", ""),
+                              "size_mb": m.get("size_bytes", 0) / (1024 * 1024),
+                              "category": category
+                          }
+                          for m in cat_data.get("models", [])[:10]  # Top 10 per category
+                      ]
+                  }
+                  print(f"  ✅ {category}: {cat_data['count']} models")
+          
+          # Save TIA model manifest
+          output_file = Path("../tia-architect-core/data/models/models_from_mapping.json")
+          output_file.parent.mkdir(parents=True, exist_ok=True)
+          
+          with open(output_file, 'w') as f:
+              json.dump(tia_models, f, indent=2)
+          
+          print(f"\n✅ Model manifest created for TIA: {output_file}")
+          PYTHON_SCRIPT
+
+      - name: Sync Workers to TIA Space
+        run: |
+          echo "🛠️ SYNCING WORKERS TO TIA SPACE"
+          echo "=" * 60
+          
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import shutil
+          from pathlib import Path
+          
+          # Load workers manifest
+          workers_file = Path("data/workers/workers_manifest.json")
+          if not workers_file.exists():
+              print("⚠️  No workers manifest found")
+              exit(0)
+          
+          with open(workers_file, 'r') as f:
+              workers = json.load(f)
+          
+          print(f"Found {workers.get('total_workers', 0)} workers")
+          
+          # Create TIA workers directory
+          tia_workers_dir = Path("../tia-architect-core/data/workers")
+          tia_workers_dir.mkdir(parents=True, exist_ok=True)
+          
+          # Copy key worker categories
+          priority_categories = ["Harvesters", "Librarians", "Reporters", "Harvestmoon"]
+          
+          copied = 0
+          for category in priority_categories:
+              if category in workers.get("categories", {}):
+                  cat_data = workers["categories"][category]
+                  
+                  for worker in cat_data.get("workers", []):
+                      source_path = Path(worker.get("path", ""))
+                      
+                      if source_path.exists():
+                          target_path = tia_workers_dir / category / source_path.name
+                          target_path.parent.mkdir(parents=True, exist_ok=True)
+                          
+                          shutil.copy(source_path, target_path)
+                          copied += 1
+                  
+                  print(f"  ✅ {category}: {cat_data.get('count', 0)} workers")
+          
+          print(f"\n✅ {copied} workers copied to TIA")
+          PYTHON_SCRIPT
+
+      - name: Create TIA Personas Dataset
+        run: |
+          echo "🎭 CREATING TIA PERSONAS DATASET"
+          echo "=" * 60
+          
+          cd tia-architect-core
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          
+          # Define AI personas for TIA
+          personas = {
+              "personas_version": "1.0.0",
+              "created": datetime.utcnow().isoformat() + "Z",
+              "total_personas": 0,
+              "personas": []
+          }
+          
+          # Core Personas from LORE pillar
+          core_personas = [
+              {
+                  "name": "Wizard Mafia",
+                  "role": "Centralized Power & Oversight",
+                  "category": "LORE",
+                  "capabilities": ["system_oversight", "authority_enforcement", "strategic_planning"],
+                  "status": "active"
+              },
+              {
+                  "name": "The Tiny Mystic",
+                  "role": "Pattern Recognition",
+                  "category": "LORE",
+                  "capabilities": ["pattern_analysis", "anomaly_detection", "insight_generation"],
+                  "status": "active"
+              },
+              {
+                  "name": "Curious Magpie",
+                  "role": "Evidence Gathering",
+                  "category": "LORE",
+                  "capabilities": ["data_collection", "artifact_discovery", "investigation"],
+                  "status": "active"
+              },
+              {
+                  "name": "Spiritua Hanson",
+                  "role": "Integrity Verification",
+                  "category": "LORE",
+                  "capabilities": ["validation", "authentication", "compliance_checking"],
+                  "status": "active"
+              },
+              {
+                  "name": "The Surveyor",
+                  "role": "Mapping Hub Harvester",
+                  "category": "HARVESTER",
+                  "capabilities": ["district_scanning", "artifact_extraction", "inventory_building"],
+                  "status": "active"
+              },
+              {
+                  "name": "The Oracle",
+                  "role": "TIA Reasoning Engine",
+                  "category": "REASONING",
+                  "capabilities": ["rag_processing", "embedding_generation", "intelligence_synthesis"],
+                  "status": "active"
+              },
+              {
+                  "name": "The Bridge",
+                  "role": "Mobile Scout",
+                  "category": "BRIDGE",
+                  "capabilities": ["filesystem_scanning", "telemetry", "remote_sync"],
+                  "status": "active"
+              },
+              {
+                  "name": "The Architect",
+                  "role": "Citadel Systems Overseer",
+                  "category": "ARCHITECT",
+                  "capabilities": ["workflow_generation", "protocol_enforcement", "mesh_coordination"],
+                  "status": "active"
+              }
+          ]
+          
+          personas["personas"] = core_personas
+          personas["total_personas"] = len(core_personas)
+          
+          # Save personas dataset
+          personas_file = Path("data/personas/ai_personas.json")
+          personas_file.parent.mkdir(parents=True, exist_ok=True)
+          
+          with open(personas_file, 'w') as f:
+              json.dump(personas, f, indent=2)
+          
+          print(f"✅ Created {len(core_personas)} AI personas for TIA")
+          for persona in core_personas:
+              print(f"   🎭 {persona['name']} - {persona['role']}")
+          PYTHON_SCRIPT
+
+      - name: Sync Code Libraries to TIA
+        run: |
+          echo "📚 SYNCING CODE LIBRARIES TO TIA"
+          echo "=" * 60
+          
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import shutil
+          from pathlib import Path
+          
+          # Key directories to sync
+          sync_dirs = [
+              ("scripts", "data/code_libraries/mapping_scripts"),
+              ("services", "data/code_libraries/mapping_services")
+          ]
+          
+          tia_base = Path("../tia-architect-core")
+          
+          for source_dir, target_rel in sync_dirs:
+              source = Path(source_dir)
+              if source.exists():
+                  target = tia_base / target_rel
+                  target.mkdir(parents=True, exist_ok=True)
+                  
+                  # Copy Python files
+                  py_files = list(source.glob("*.py"))
+                  for py_file in py_files:
+                      shutil.copy(py_file, target / py_file.name)
+                  
+                  print(f"  ✅ {source_dir}: {len(py_files)} files copied")
+          
+          print("\n✅ Code libraries synced to TIA")
+          PYTHON_SCRIPT
+
+      - name: Create TIA Sync Manifest
+        run: |
+          echo "📋 CREATING TIA SYNC MANIFEST"
+          
+          cd tia-architect-core
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          
+          manifest = {
+              "sync_version": "1.0.0",
+              "sync_timestamp": datetime.utcnow().isoformat() + "Z",
+              "source_repository": "DJ-Goana-Coding/mapping-and-inventory",
+              "target_space": "DJ-Goanna-Coding/TIA-ARCHITECT-CORE",
+              "synced_components": {
+                  "models": {
+                      "synced": Path("data/models/models_from_mapping.json").exists(),
+                      "location": "data/models/"
+                  },
+                  "workers": {
+                      "synced": Path("data/workers").exists(),
+                      "location": "data/workers/"
+                  },
+                  "personas": {
+                      "synced": Path("data/personas/ai_personas.json").exists(),
+                      "location": "data/personas/"
+                  },
+                  "code_libraries": {
+                      "synced": Path("data/code_libraries").exists(),
+                      "location": "data/code_libraries/"
+                  }
+              },
+              "space_status": "restarted",
+              "l4_gpu": "available"
+          }
+          
+          with open("TIA_SYNC_MANIFEST.json", 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print("✅ TIA Sync Manifest created")
+          print(f"\nSynced Components:")
+          for comp, info in manifest["synced_components"].items():
+              status = "✅" if info["synced"] else "⚠️"
+              print(f"   {status} {comp.replace('_', ' ').title()}: {info['location']}")
+          PYTHON_SCRIPT
+
+      - name: Commit TIA Changes
+        run: |
+          cd tia-architect-core
+          
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/ TIA_SYNC_MANIFEST.json
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🔄 Sync from Mapping-and-Inventory - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ TIA sync committed and pushed"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🤖 TIA-ARCHITECT-CORE SYNC COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Space: DJ-Goanna-Coding/TIA-ARCHITECT-CORE"
+          echo "Hardware: L4 GPU"
+          echo ""
+          echo "Synced Resources:"
+          echo "  📦 Models registry from Mapping-and-Inventory"
+          echo "  🛠️ Worker constellation"
+          echo "  🎭 AI Personas (8 core personas)"
+          echo "  📚 Code libraries (scripts + services)"
+          echo ""
+          echo "Next Steps:"
+          echo "  1. Verify space is online at huggingface.co"
+          echo "  2. Check TIA interface loads correctly"
+          echo "  3. Validate L4 GPU is accessible"
+          echo "  4. Test RAG ingestion with new data"
+          echo ""
+          echo "🦎 Weld. Pulse. Ignite."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

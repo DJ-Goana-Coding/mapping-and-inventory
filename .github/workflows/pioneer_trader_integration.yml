@@ -1,0 +1,470 @@
+name: Pioneer Trader Integration
+# Integrates DJ-Goanna-Coding/tias-pioneer-trader
+# Purpose: Trading automation, market monitoring, pioneer exploration
+
+on:
+  # Run every 4 hours (offset from other integrations)
+  schedule:
+    - cron: '0 */4 * * *'
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after master harvest
+  workflow_run:
+    workflows: ["Master Harvester"]
+    types:
+      - completed
+
+jobs:
+  integrate_pioneer_trader:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Mapping-and-Inventory
+        uses: actions/checkout@v4
+        with:
+          path: mapping-and-inventory
+          fetch-depth: 0
+
+      - name: Checkout Pioneer Trader Repository
+        uses: actions/checkout@v4
+        with:
+          repository: DJ-Goanna-Coding/tias-pioneer-trader
+          path: pioneer-trader
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Discover Pioneer Trader Components
+        run: |
+          echo "🚀 PIONEER TRADER DISCOVERY"
+          echo "=" * 60
+          
+          cd pioneer-trader
+          
+          python3 << 'PYTHON_SCRIPT'
+          import os
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          pioneer_root = Path(".")
+          
+          components = {
+              "traders": [],
+              "pioneers": [],
+              "market_monitors": [],
+              "strategies": [],
+              "analytics": [],
+              "utilities": []
+          }
+          
+          print("🔍 Scanning pioneer-trader repository...")
+          
+          # Discover Python scripts
+          for py_file in pioneer_root.rglob("*.py"):
+              if '__pycache__' in str(py_file) or '.git' in str(py_file):
+                  continue
+              
+              filename_lower = py_file.name.lower()
+              
+              try:
+                  # Read first 100 lines for classification
+                  with open(py_file, 'r', encoding='utf-8', errors='ignore') as f:
+                      content = f.read(5000).lower()
+              except:
+                  content = ""
+              
+              component = {
+                  "name": py_file.stem,
+                  "filename": py_file.name,
+                  "path": str(py_file.relative_to(pioneer_root)),
+                  "size": py_file.stat().st_size
+              }
+              
+              # Classify by name and content
+              if 'trader' in filename_lower or 'trade' in content:
+                  components["traders"].append(component)
+                  print(f"  📈 Trader: {py_file.name}")
+              elif 'pioneer' in filename_lower or 'explore' in filename_lower:
+                  components["pioneers"].append(component)
+                  print(f"  🚀 Pioneer: {py_file.name}")
+              elif 'market' in filename_lower or 'monitor' in filename_lower:
+                  components["market_monitors"].append(component)
+                  print(f"  📊 Market Monitor: {py_file.name}")
+              elif 'strategy' in filename_lower or 'algo' in filename_lower:
+                  components["strategies"].append(component)
+                  print(f"  🎯 Strategy: {py_file.name}")
+              elif 'analytic' in filename_lower or 'analysis' in filename_lower:
+                  components["analytics"].append(component)
+                  print(f"  📉 Analytics: {py_file.name}")
+              else:
+                  components["utilities"].append(component)
+          
+          # Save discovery
+          manifest = {
+              "discovery_timestamp": datetime.utcnow().isoformat() + "Z",
+              "repository": "DJ-Goanna-Coding/tias-pioneer-trader",
+              "total_traders": len(components["traders"]),
+              "total_pioneers": len(components["pioneers"]),
+              "total_monitors": len(components["market_monitors"]),
+              "total_strategies": len(components["strategies"]),
+              "total_analytics": len(components["analytics"]),
+              "components": components
+          }
+          
+          with open("pioneer_trader_discovery.json", 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print(f"\n✅ Discovery Complete:")
+          print(f"   Traders: {len(components['traders'])}")
+          print(f"   Pioneers: {len(components['pioneers'])}")
+          print(f"   Market Monitors: {len(components['market_monitors'])}")
+          print(f"   Strategies: {len(components['strategies'])}")
+          print(f"   Analytics: {len(components['analytics'])}")
+          PYTHON_SCRIPT
+
+      - name: Deploy Pioneer Trader to Mapping Hub
+        run: |
+          echo "🚀 Deploying pioneer-trader to Mapping-and-Inventory..."
+          
+          mkdir -p mapping-and-inventory/data/pioneer_trader
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import shutil
+          from pathlib import Path
+
+          # Load discovery
+          with open("pioneer-trader/pioneer_trader_discovery.json", 'r') as f:
+              discovery = json.load(f)
+          
+          target_dir = Path("mapping-and-inventory/data/pioneer_trader")
+          target_dir.mkdir(parents=True, exist_ok=True)
+          
+          deployed = {
+              "traders": 0,
+              "pioneers": 0, 
+              "monitors": 0,
+              "strategies": 0,
+              "analytics": 0
+          }
+          
+          # Deploy each component type
+          for component_type, components in discovery["components"].items():
+              if component_type == "utilities":
+                  continue  # Skip utilities for now
+              
+              type_dir = target_dir / component_type
+              type_dir.mkdir(parents=True, exist_ok=True)
+              
+              for component in components:
+                  source = Path("pioneer-trader") / component["path"]
+                  target = type_dir / component["filename"]
+                  
+                  if source.exists():
+                      shutil.copy(source, target)
+                      deployed[component_type] += 1
+          
+          print(f"✅ Deployed:")
+          for comp_type, count in deployed.items():
+              if count > 0:
+                  print(f"   {comp_type.capitalize()}: {count}")
+          PYTHON_SCRIPT
+
+      - name: Create Pioneer Trader Registry
+        run: |
+          echo "📋 Creating pioneer trader registry..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          pioneer_dir = Path("data/pioneer_trader")
+          
+          registry = {
+              "registry_version": "1.0.0",
+              "last_updated": datetime.utcnow().isoformat() + "Z",
+              "repository": "DJ-Goanna-Coding/tias-pioneer-trader",
+              "components": {
+                  "traders": [],
+                  "pioneers": [],
+                  "market_monitors": [],
+                  "strategies": [],
+                  "analytics": []
+              },
+              "deployment_status": "active",
+              "integration_type": "trading_operations"
+          }
+          
+          # Register each component type
+          for component_type in registry["components"].keys():
+              type_dir = pioneer_dir / component_type
+              
+              if type_dir.exists():
+                  for comp_file in type_dir.glob("*.py"):
+                      registry["components"][component_type].append({
+                          "name": comp_file.stem,
+                          "filename": comp_file.name,
+                          "path": str(comp_file.relative_to(Path("."))),
+                          "status": "deployed",
+                          "role": component_type.rstrip('s')  # Remove plural
+                      })
+          
+          # Calculate totals
+          registry["total_components"] = sum(
+              len(comps) for comps in registry["components"].values()
+          )
+          
+          # Save registry
+          with open("data/pioneer_trader/pioneer_trader_registry.json", 'w') as f:
+              json.dump(registry, f, indent=2)
+          
+          print(f"✅ Pioneer Trader Registry Created")
+          print(f"   Total Components: {registry['total_components']}")
+          
+          for comp_type, components in registry["components"].items():
+              if len(components) > 0:
+                  print(f"   {comp_type.replace('_', ' ').title()}: {len(components)}")
+          PYTHON_SCRIPT
+
+      - name: Integrate with Workers Constellation
+        run: |
+          echo "🔄 Integrating pioneer-trader with workers constellation..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Load pioneer trader registry
+          pt_registry_file = Path("data/pioneer_trader/pioneer_trader_registry.json")
+          if not pt_registry_file.exists():
+              print("⚠️  Pioneer trader registry not found")
+              exit(0)
+          
+          with open(pt_registry_file, 'r') as f:
+              pt_registry = json.load(f)
+          
+          # Load workers constellation
+          workers_file = Path("data/workers/workers_manifest.json")
+          if workers_file.exists():
+              with open(workers_file, 'r') as f:
+                  workers = json.load(f)
+          else:
+              workers = {
+                  "registry_version": "1.0.0",
+                  "total_workers": 0,
+                  "categories": {}
+              }
+          
+          # Add PioneerTrader category
+          if "PioneerTrader" not in workers["categories"]:
+              workers["categories"]["PioneerTrader"] = {"count": 0, "workers": []}
+          
+          # Add pioneer-trader components as workers
+          added = 0
+          for comp_type, components in pt_registry["components"].items():
+              for component in components:
+                  worker_entry = {
+                      "name": component["name"],
+                      "filename": component["filename"],
+                      "path": component["path"],
+                      "source": "pioneer_trader_repo",
+                      "category": "PioneerTrader",
+                      "component_type": comp_type,
+                      "status": "integrated",
+                      "repository": "DJ-Goanna-Coding/tias-pioneer-trader"
+                  }
+                  
+                  # Check if not duplicate
+                  existing_names = [w["name"] for w in workers["categories"]["PioneerTrader"]["workers"]]
+                  if worker_entry["name"] not in existing_names:
+                      workers["categories"]["PioneerTrader"]["workers"].append(worker_entry)
+                      workers["categories"]["PioneerTrader"]["count"] += 1
+                      workers["total_workers"] += 1
+                      added += 1
+          
+          workers["last_updated"] = datetime.utcnow().isoformat() + "Z"
+          workers["pioneer_trader_integration"] = {
+              "timestamp": datetime.utcnow().isoformat() + "Z",
+              "components_added": added
+          }
+          
+          # Save updated constellation
+          with open(workers_file, 'w') as f:
+              json.dump(workers, f, indent=2)
+          
+          print(f"✅ Workers constellation updated")
+          print(f"   Pioneer-Trader components: {added}")
+          print(f"   Total workers: {workers['total_workers']}")
+          PYTHON_SCRIPT
+
+      - name: Create Trading Operations Config
+        run: |
+          echo "⚙️ Creating trading operations configuration..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          config = {
+              "version": "1.0.0",
+              "created": datetime.utcnow().isoformat() + "Z",
+              "operations": {
+                  "trading": {
+                      "enabled": True,
+                      "mode": "monitoring",  # monitoring, simulation, live
+                      "risk_level": "conservative",
+                      "auto_execute": False
+                  },
+                  "market_monitoring": {
+                      "enabled": True,
+                      "intervals": {
+                          "realtime": "1m",
+                          "snapshot": "15m",
+                          "analysis": "1h"
+                      },
+                      "markets": ["crypto", "forex", "commodities"]
+                  },
+                  "pioneer_exploration": {
+                      "enabled": True,
+                      "targets": [
+                          "new_markets",
+                          "arbitrage_opportunities",
+                          "trend_analysis",
+                          "sentiment_analysis"
+                      ],
+                      "discovery_interval": "4h"
+                  },
+                  "strategy_execution": {
+                      "enabled": True,
+                      "strategies": [],  # Populated dynamically
+                      "backtest_required": True,
+                      "approval_required": True
+                  },
+                  "analytics": {
+                      "enabled": True,
+                      "reports": [
+                          "performance",
+                          "risk_assessment",
+                          "market_overview",
+                          "opportunity_scan"
+                      ],
+                      "output_format": "json"
+                  }
+              },
+              "integration": {
+                  "master_inventory": True,
+                  "intelligence_map": True,
+                  "rag_store": True,
+                  "sentinel_alerts": True
+              }
+          }
+          
+          with open("data/pioneer_trader/trading_operations_config.json", 'w') as f:
+              json.dump(config, f, indent=2)
+          
+          print("✅ Trading Operations Configured")
+          print("   Mode: Monitoring (Safe)")
+          print("   Markets: Crypto, Forex, Commodities")
+          print("   Pioneer Exploration: Every 4 hours")
+          print("   Auto-Execute: Disabled (Approval Required)")
+          PYTHON_SCRIPT
+
+      - name: Update Master Intelligence Map
+        run: |
+          echo "🧠 Updating master intelligence map..."
+          cd mapping-and-inventory
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from datetime import datetime
+
+          # Load pioneer trader registry
+          with open("data/pioneer_trader/pioneer_trader_registry.json", 'r') as f:
+              registry = json.load(f)
+          
+          # Append to intelligence map
+          with open("master_intelligence_map.txt", 'a') as f:
+              f.write("\n\n")
+              f.write("=" * 80 + "\n")
+              f.write("PIONEER TRADER INTEGRATION\n")
+              f.write(f"Deployed: {registry['last_updated']}\n")
+              f.write(f"Repository: {registry['repository']}\n")
+              f.write("=" * 80 + "\n\n")
+              
+              f.write("COMPONENT COMPOSITION:\n")
+              for comp_type, components in registry["components"].items():
+                  if len(components) > 0:
+                      f.write(f"  {comp_type.replace('_', ' ').title()}: {len(components)}\n")
+              
+              f.write(f"\nTotal Components: {registry['total_components']}\n")
+              f.write(f"Integration Type: {registry['integration_type']}\n")
+              f.write("Operational Status: Active (Monitoring Mode)\n")
+              f.write("Risk Level: Conservative\n")
+              f.write("Auto-Execution: Disabled\n\n")
+          
+          print("✅ Intelligence map updated with pioneer-trader deployment")
+          PYTHON_SCRIPT
+
+      - name: Commit Pioneer Trader Integration
+        run: |
+          cd mapping-and-inventory
+          
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/pioneer_trader/ data/workers/workers_manifest.json master_intelligence_map.txt
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🚀 Pioneer Trader Integration - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Pioneer-trader integrated into Citadel Mesh"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚀 PIONEER TRADER INTEGRATION COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "mapping-and-inventory/data/pioneer_trader/pioneer_trader_registry.json" ]; then
+            cd mapping-and-inventory
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/pioneer_trader/pioneer_trader_registry.json", 'r') as f:
+              registry = json.load(f)
+          
+          print("Component Composition:")
+          for comp_type, components in registry["components"].items():
+              if len(components) > 0:
+                  print(f"  📊 {comp_type.replace('_', ' ').title()}: {len(components)}")
+          
+          print(f"\nTotal Components: {registry['total_components']}")
+          print(f"Deployment Status: {registry['deployment_status']}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Trading Operations:"
+          echo "• Market monitoring (Crypto, Forex, Commodities)"
+          echo "• Pioneer exploration (4-hour cycles)"
+          echo "• Strategy execution (Backtest & Approval required)"
+          echo "• Analytics & reporting"
+          echo ""
+          echo "Integration Points:"
+          echo "• Workers Constellation"
+          echo "• Master Intelligence Map"
+          echo "• Sentinel Alert System"
+          echo "• RAG Store"
+          echo ""
+          echo "Safety:"
+          echo "✅ Monitoring Mode (No auto-execution)"
+          echo "✅ Conservative risk level"
+          echo "✅ Approval required for all trades"
+          echo ""
+          echo "🦎 Weld. Pulse. Ignite."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -1,0 +1,200 @@
+name: GDrive Worker Harvester
+# Extracts AppScript workers from GDrive
+# Categories: Vacuums, Harvesters, Librarians, Reporters, Archivists
+
+on:
+  # Run after partition harvester completes
+  schedule:
+    - cron: '45 */6 * * *'  # 45 min after partition harvester
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after partition harvest
+  workflow_run:
+    workflows: ["GDrive Partition Harvester"]
+    types:
+      - completed
+
+jobs:
+  harvest_workers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull Latest Manifests
+        run: |
+          git pull origin ${{ github.ref_name }}
+
+      - name: Discover AppScript Workers
+        run: |
+          echo "🔍 Discovering AppScript workers (.gs files)..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          manifest_dir = Path("data/gdrive_manifests")
+          worker_extensions = ['.gs', '.js', '.py']  # AppScript, JavaScript, Python workers
+          worker_keywords = ['worker', 'vacuum', 'harvester', 'librarian', 'reporter', 'archivist', 'script']
+          
+          discovered_workers = []
+          
+          # Scan all partition manifests
+          for manifest_file in manifest_dir.glob("partition_*.json"):
+              if manifest_file.name == "master_gdrive_index.json":
+                  continue
+              
+              try:
+                  with open(manifest_file, 'r') as f:
+                      partition_data = json.load(f)
+                  
+                  partition_id = partition_data.get("partition_id", "unknown")
+                  
+                  for file_entry in partition_data.get("files", []):
+                      file_path = file_entry.get("path", "")
+                      file_lower = file_path.lower()
+                      
+                      # Check if file is a worker script
+                      is_worker_ext = any(file_lower.endswith(ext) for ext in worker_extensions)
+                      is_worker_name = any(keyword in file_lower for keyword in worker_keywords)
+                      
+                      if is_worker_ext and is_worker_name:
+                          discovered_workers.append({
+                              "path": file_path,
+                              "partition": partition_id,
+                              "size_bytes": file_entry.get("size_bytes", 0),
+                              "modified": file_entry.get("modified", ""),
+                              "discovered_at": datetime.utcnow().isoformat() + "Z"
+                          })
+              
+              except Exception as e:
+                  print(f"⚠️  Error reading {manifest_file}: {e}")
+          
+          print(f"✅ Discovered {len(discovered_workers)} worker scripts")
+          
+          # Save discovered workers
+          output = {
+              "discovery_timestamp": datetime.utcnow().isoformat() + "Z",
+              "total_workers": len(discovered_workers),
+              "workers": discovered_workers
+          }
+          
+          Path("data/workers").mkdir(parents=True, exist_ok=True)
+          with open("data/workers/discovered_workers.json", 'w') as f:
+              json.dump(output, f, indent=2)
+          
+          print(f"📝 Saved to data/workers/discovered_workers.json")
+          PYTHON_SCRIPT
+
+      - name: Classify Workers
+        run: |
+          echo "🏷️ Classifying workers into categories..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Classification keywords
+          categories = {
+              "Vacuums": ["vacuum", "clean", "purge", "delete", "remove"],
+              "Harvesters": ["harvest", "collect", "gather", "fetch", "pull"],
+              "Librarians": ["librarian", "catalog", "index", "organize", "archive"],
+              "Reporters": ["reporter", "report", "notify", "alert", "log"],
+              "Archivists": ["archivist", "store", "backup", "preserve", "vault"]
+          }
+          
+          def classify_worker(path):
+              """Classify worker based on path and filename"""
+              path_lower = path.lower()
+              
+              # Check each category
+              for category, keywords in categories.items():
+                  if any(keyword in path_lower for keyword in keywords):
+                      return category
+              
+              # Default to Utility if no match
+              return "Utility"
+          
+          # Load discovered workers
+          with open("data/workers/discovered_workers.json", 'r') as f:
+              data = json.load(f)
+          
+          # Classify each worker
+          classified = {
+              "Vacuums": [],
+              "Harvesters": [],
+              "Librarians": [],
+              "Reporters": [],
+              "Archivists": [],
+              "Utility": []
+          }
+          
+          for worker in data.get("workers", []):
+              category = classify_worker(worker["path"])
+              worker["category"] = category
+              worker["status"] = "discovered"  # discovered, deployed, active, error
+              classified[category].append(worker)
+          
+          # Create workers manifest
+          manifest = {
+              "registry_version": "1.0.0",
+              "last_updated": datetime.utcnow().isoformat() + "Z",
+              "total_workers": data["total_workers"],
+              "categories": {
+                  cat: {
+                      "count": len(workers),
+                      "workers": workers
+                  }
+                  for cat, workers in classified.items()
+              }
+          }
+          
+          with open("data/workers/workers_manifest.json", 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print("✅ Worker Classification Complete:")
+          for cat, workers in classified.items():
+              if len(workers) > 0:
+                  print(f"   {cat}: {len(workers)} workers")
+          PYTHON_SCRIPT
+
+      - name: Commit and Push Worker Registry
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/workers/
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🛠️ Worker Registry Update - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Worker registry pushed to repository"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🛠️ WORKER HARVEST COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "data/workers/workers_manifest.json" ]; then
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/workers/workers_manifest.json", 'r') as f:
+              manifest = json.load(f)
+          print(f"Total Workers: {manifest['total_workers']}")
+          for cat, data in manifest['categories'].items():
+              if data['count'] > 0:
+                  print(f"  {cat}: {data['count']}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Outputs:"
+          echo "• data/workers/discovered_workers.json - Raw discovery"
+          echo "• data/workers/workers_manifest.json - Classified registry"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

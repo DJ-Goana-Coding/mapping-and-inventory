@@ -1,0 +1,236 @@
+name: GDrive Model Ingester
+# Discovers and classifies model files from GDrive
+# Categories: Core, Genetics, Lore, Research, Utility
+
+on:
+  # Run after partition harvester completes
+  schedule:
+    - cron: '30 */6 * * *'  # 30 min after partition harvester
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after partition harvest
+  workflow_run:
+    workflows: ["GDrive Partition Harvester"]
+    types:
+      - completed
+
+jobs:
+  ingest_models:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pull Latest Manifests
+        run: |
+          git pull origin ${{ github.ref_name }}
+
+      - name: Discover Model Files
+        run: |
+          echo "🔍 Discovering model files from GDrive manifests..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          manifest_dir = Path("data/gdrive_manifests")
+          model_extensions = ['.h5', '.pkl', '.pt', '.pth', '.safetensors', '.gguf', '.bin', '.model', '.weights']
+          
+          discovered_models = []
+          
+          # Scan all partition manifests
+          for manifest_file in manifest_dir.glob("partition_*.json"):
+              if manifest_file.name == "master_gdrive_index.json":
+                  continue
+              
+              try:
+                  with open(manifest_file, 'r') as f:
+                      partition_data = json.load(f)
+                  
+                  partition_id = partition_data.get("partition_id", "unknown")
+                  
+                  for file_entry in partition_data.get("files", []):
+                      file_path = file_entry.get("path", "")
+                      file_lower = file_path.lower()
+                      
+                      # Check if file has model extension
+                      if any(file_lower.endswith(ext) for ext in model_extensions):
+                          discovered_models.append({
+                              "path": file_path,
+                              "partition": partition_id,
+                              "size_bytes": file_entry.get("size_bytes", 0),
+                              "modified": file_entry.get("modified", ""),
+                              "discovered_at": datetime.utcnow().isoformat() + "Z"
+                          })
+              
+              except Exception as e:
+                  print(f"⚠️  Error reading {manifest_file}: {e}")
+          
+          print(f"✅ Discovered {len(discovered_models)} model files")
+          
+          # Save discovered models
+          output = {
+              "discovery_timestamp": datetime.utcnow().isoformat() + "Z",
+              "total_models": len(discovered_models),
+              "models": discovered_models
+          }
+          
+          Path("data/models").mkdir(parents=True, exist_ok=True)
+          with open("data/models/discovered_models.json", 'w') as f:
+              json.dump(output, f, indent=2)
+          
+          print(f"📝 Saved to data/models/discovered_models.json")
+          PYTHON_SCRIPT
+
+      - name: Classify Models
+        run: |
+          echo "🏷️ Classifying models into categories..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Classification keywords
+          categories = {
+              "Core": ["llm", "language", "gpt", "bert", "transformer", "foundation"],
+              "Genetics": ["genetic", "dna", "genome", "bio", "protein", "evolution"],
+              "Lore": ["lore", "story", "narrative", "rpg", "character", "world"],
+              "Research": ["research", "experiment", "study", "analysis", "test"],
+              "Utility": ["util", "tool", "helper", "preprocess", "embed", "tokenizer"]
+          }
+          
+          def classify_model(path):
+              """Classify model based on path and filename"""
+              path_lower = path.lower()
+              
+              # Check each category
+              for category, keywords in categories.items():
+                  if any(keyword in path_lower for keyword in keywords):
+                      return category
+              
+              # Default to Utility if no match
+              return "Utility"
+          
+          # Load discovered models
+          with open("data/models/discovered_models.json", 'r') as f:
+              data = json.load(f)
+          
+          # Classify each model
+          classified = {
+              "Core": [],
+              "Genetics": [],
+              "Lore": [],
+              "Research": [],
+              "Utility": []
+          }
+          
+          for model in data.get("models", []):
+              category = classify_model(model["path"])
+              model["category"] = category
+              classified[category].append(model)
+          
+          # Create models manifest
+          manifest = {
+              "registry_version": "1.0.0",
+              "last_updated": datetime.utcnow().isoformat() + "Z",
+              "total_models": data["total_models"],
+              "categories": {
+                  cat: {
+                      "count": len(models),
+                      "models": models
+                  }
+                  for cat, models in classified.items()
+              }
+          }
+          
+          with open("data/models/models_manifest.json", 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print("✅ Model Classification Complete:")
+          for cat, models in classified.items():
+              print(f"   {cat}: {len(models)} models")
+          PYTHON_SCRIPT
+
+      - name: Generate Model Registry Report
+        run: |
+          echo "📊 Generating model registry report..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+
+          with open("data/models/models_manifest.json", 'r') as f:
+              manifest = json.load(f)
+          
+          report_lines = [
+              "# 🗂️ MODEL REGISTRY REPORT",
+              "",
+              f"**Last Updated:** {manifest['last_updated']}",
+              f"**Total Models:** {manifest['total_models']}",
+              "",
+              "## Categories",
+              ""
+          ]
+          
+          for category, data in manifest["categories"].items():
+              report_lines.append(f"### {category} ({data['count']} models)")
+              report_lines.append("")
+              
+              if data['count'] > 0:
+                  for model in data['models'][:10]:  # Show first 10
+                      size_mb = model['size_bytes'] / (1024 * 1024)
+                      report_lines.append(f"- `{Path(model['path']).name}` ({size_mb:.1f} MB)")
+                  
+                  if data['count'] > 10:
+                      report_lines.append(f"- ... and {data['count'] - 10} more")
+              
+              report_lines.append("")
+          
+          report = "\n".join(report_lines)
+          
+          with open("data/models/MODEL_REGISTRY.md", 'w') as f:
+              f.write(report)
+          
+          print("✅ Model registry report generated")
+          print(report)
+          PYTHON_SCRIPT
+
+      - name: Commit and Push Model Registry
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/models/
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "🗂️ Model Registry Update - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Model registry pushed to repository"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🗂️ MODEL INGESTION COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "data/models/models_manifest.json" ]; then
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/models/models_manifest.json", 'r') as f:
+              manifest = json.load(f)
+          print(f"Total Models: {manifest['total_models']}")
+          for cat, data in manifest['categories'].items():
+              print(f"  {cat}: {data['count']}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Outputs:"
+          echo "• data/models/discovered_models.json - Raw discovery"
+          echo "• data/models/models_manifest.json - Classified registry"
+          echo "• data/models/MODEL_REGISTRY.md - Human-readable report"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

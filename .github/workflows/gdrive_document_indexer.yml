@@ -1,0 +1,344 @@
+name: GDrive Document Indexer
+# NEW: Indexes docs, frameworks, and scaffolds from GDrive
+# Builds understanding of system structure and feeds RAG
+
+on:
+  # Run after partition harvester completes
+  schedule:
+    - cron: '0 1,7,13,19 * * *'  # Every 6 hours at :00
+  # Manual trigger
+  workflow_dispatch:
+  # Trigger after partition harvest
+  workflow_run:
+    workflows: ["GDrive Partition Harvester"]
+    types:
+      - completed
+
+jobs:
+  index_documents:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rclone
+          pip install sentence-transformers faiss-cpu
+
+      - name: Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" > ~/.config/rclone/rclone.conf
+
+      - name: Pull Latest Manifests
+        run: |
+          git pull origin ${{ github.ref_name }}
+
+      - name: Discover Documentation Files
+        run: |
+          echo "📚 Discovering documentation, frameworks, and scaffolds..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          manifest_dir = Path("data/gdrive_manifests")
+          
+          # Document types to index
+          doc_extensions = ['.md', '.txt', '.pdf', '.docx', '.doc', '.json', '.yaml', '.yml']
+          doc_keywords = [
+              'readme', 'doc', 'guide', 'manual', 'framework', 'scaffold', 'architecture',
+              'design', 'structure', 'overview', 'blueprint', 'spec', 'requirement',
+              'instruction', 'protocol', 'manifest', 'index', 'tree', 'inventory'
+          ]
+          
+          discovered_docs = []
+          
+          # Scan all partition manifests
+          for manifest_file in manifest_dir.glob("partition_*.json"):
+              if manifest_file.name == "master_gdrive_index.json":
+                  continue
+              
+              try:
+                  with open(manifest_file, 'r') as f:
+                      partition_data = json.load(f)
+                  
+                  partition_id = partition_data.get("partition_id", "unknown")
+                  
+                  for file_entry in partition_data.get("files", []):
+                      file_path = file_entry.get("path", "")
+                      file_lower = file_path.lower()
+                      
+                      # Check if file is documentation
+                      is_doc_ext = any(file_lower.endswith(ext) for ext in doc_extensions)
+                      is_doc_name = any(keyword in file_lower for keyword in doc_keywords)
+                      
+                      if is_doc_ext and (is_doc_name or file_lower.endswith('.md')):
+                          discovered_docs.append({
+                              "path": file_path,
+                              "partition": partition_id,
+                              "size_bytes": file_entry.get("size_bytes", 0),
+                              "modified": file_entry.get("modified", ""),
+                              "discovered_at": datetime.utcnow().isoformat() + "Z"
+                          })
+              
+              except Exception as e:
+                  print(f"⚠️  Error reading {manifest_file}: {e}")
+          
+          print(f"✅ Discovered {len(discovered_docs)} documentation files")
+          
+          # Save discovered documents
+          output = {
+              "discovery_timestamp": datetime.utcnow().isoformat() + "Z",
+              "total_documents": len(discovered_docs),
+              "documents": discovered_docs
+          }
+          
+          Path("data/gdrive_manifests").mkdir(parents=True, exist_ok=True)
+          with open("data/gdrive_manifests/discovered_docs.json", 'w') as f:
+              json.dump(output, f, indent=2)
+          
+          print(f"📝 Saved to data/gdrive_manifests/discovered_docs.json")
+          PYTHON_SCRIPT
+
+      - name: Download High-Priority Documents
+        run: |
+          echo "⬇️ Downloading high-priority documents for indexing..."
+          mkdir -p data/gdrive_docs
+          
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          import subprocess
+          from pathlib import Path
+
+          # Load discovered documents
+          with open("data/gdrive_manifests/discovered_docs.json", 'r') as f:
+              data = json.load(f)
+          
+          # Priority keywords (download these first)
+          priority_keywords = [
+              'scaffold', 'framework', 'architecture', 'blueprint', 'tree', 
+              'inventory', 'manifest', 'readme', 'guide', 'structure'
+          ]
+          
+          # Filter high-priority docs
+          priority_docs = []
+          for doc in data.get("documents", []):
+              path_lower = doc["path"].lower()
+              if any(keyword in path_lower for keyword in priority_keywords):
+                  # Limit size to 10MB to avoid storage issues
+                  if doc.get("size_bytes", 0) < 10 * 1024 * 1024:
+                      priority_docs.append(doc)
+          
+          print(f"📥 Downloading {len(priority_docs[:50])} high-priority documents (max 50)...")
+          
+          downloaded = []
+          for i, doc in enumerate(priority_docs[:50]):  # Limit to 50 files
+              gdrive_path = f"gdrive:{doc['path']}"
+              local_name = Path(doc['path']).name
+              local_path = f"data/gdrive_docs/{i:03d}_{local_name}"
+              
+              try:
+                  result = subprocess.run(
+                      ["rclone", "copyto", gdrive_path, local_path],
+                      capture_output=True,
+                      timeout=30
+                  )
+                  
+                  if result.returncode == 0:
+                      downloaded.append({
+                          "gdrive_path": doc['path'],
+                          "local_path": local_path,
+                          "size_bytes": doc.get("size_bytes", 0)
+                      })
+                      print(f"✅ {i+1}/{len(priority_docs[:50])}: {local_name}")
+                  else:
+                      print(f"⚠️  {i+1}/{len(priority_docs[:50])}: Failed - {local_name}")
+              
+              except Exception as e:
+                  print(f"❌ {i+1}/{len(priority_docs[:50])}: Error - {e}")
+          
+          # Save download manifest
+          with open("data/gdrive_docs/download_manifest.json", 'w') as f:
+              json.dump({
+                  "downloaded_at": data["discovery_timestamp"],
+                  "total_downloaded": len(downloaded),
+                  "files": downloaded
+              }, f, indent=2)
+          
+          print(f"\n✅ Downloaded {len(downloaded)} files to data/gdrive_docs/")
+          PYTHON_SCRIPT
+
+      - name: Index Documents
+        run: |
+          echo "🗂️ Indexing downloaded documents..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          import re
+
+          docs_dir = Path("data/gdrive_docs")
+          
+          # Read all downloaded documents
+          indexed_docs = []
+          
+          for doc_file in docs_dir.glob("*"):
+              if doc_file.suffix in ['.json']:
+                  continue  # Skip manifests
+              
+              if doc_file.is_file():
+                  try:
+                      # Read text content
+                      with open(doc_file, 'r', encoding='utf-8', errors='ignore') as f:
+                          content = f.read()
+                      
+                      # Extract key information
+                      lines = content.split('\n')
+                      
+                      # Extract headers (markdown)
+                      headers = [line for line in lines if line.startswith('#')]
+                      
+                      # Extract keywords
+                      keywords = set()
+                      keyword_patterns = [
+                          r'\b(District|D\d{2})\b',
+                          r'\b(Partition|P\d{2})\b',
+                          r'\b(scaffold|framework|architecture)\b',
+                          r'\b(TREE|INVENTORY|SCAFFOLD)\b',
+                          r'\b(worker|harvester|librarian|vacuum)\b'
+                      ]
+                      
+                      for pattern in keyword_patterns:
+                          matches = re.findall(pattern, content, re.IGNORECASE)
+                          keywords.update(m if isinstance(m, str) else m[0] for m in matches)
+                      
+                      indexed_docs.append({
+                          "filename": doc_file.name,
+                          "path": str(doc_file),
+                          "size_bytes": doc_file.stat().st_size,
+                          "line_count": len(lines),
+                          "headers": headers[:10],  # First 10 headers
+                          "keywords": sorted(list(keywords)),
+                          "preview": content[:500]  # First 500 chars
+                      })
+                      
+                  except Exception as e:
+                      print(f"⚠️  Error indexing {doc_file.name}: {e}")
+          
+          # Create document index
+          index = {
+              "index_timestamp": datetime.utcnow().isoformat() + "Z",
+              "total_documents": len(indexed_docs),
+              "documents": indexed_docs
+          }
+          
+          with open("data/gdrive_docs/document_index.json", 'w') as f:
+              json.dump(index, f, indent=2)
+          
+          print(f"✅ Indexed {len(indexed_docs)} documents")
+          
+          # Extract all unique keywords
+          all_keywords = set()
+          for doc in indexed_docs:
+              all_keywords.update(doc.get("keywords", []))
+          
+          print(f"📊 Extracted {len(all_keywords)} unique keywords")
+          print("Top keywords:", sorted(list(all_keywords))[:20])
+          PYTHON_SCRIPT
+
+      - name: Feed to Master Intelligence Map
+        run: |
+          echo "🧠 Feeding document index to master intelligence map..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+
+          # Load document index
+          with open("data/gdrive_docs/document_index.json", 'r') as f:
+              doc_index = json.load(f)
+          
+          # Append to master_intelligence_map.txt
+          with open("master_intelligence_map.txt", 'a') as f:
+              f.write("\n\n")
+              f.write("=" * 80 + "\n")
+              f.write("GDRIVE DOCUMENT INDEX\n")
+              f.write(f"Indexed: {doc_index['index_timestamp']}\n")
+              f.write(f"Total Documents: {doc_index['total_documents']}\n")
+              f.write("=" * 80 + "\n\n")
+              
+              for doc in doc_index['documents']:
+                  f.write(f"FILE: {doc['filename']}\n")
+                  f.write(f"  Lines: {doc['line_count']}\n")
+                  f.write(f"  Keywords: {', '.join(doc['keywords'][:10])}\n")
+                  
+                  if doc.get('headers'):
+                      f.write(f"  Headers:\n")
+                      for header in doc['headers'][:5]:
+                          f.write(f"    {header}\n")
+                  
+                  f.write("\n")
+          
+          print("✅ Document index appended to master_intelligence_map.txt")
+          PYTHON_SCRIPT
+
+      - name: Trigger RAG Update
+        run: |
+          echo "🔄 Triggering RAG ingestion..."
+          # The Oracle Sync workflow will pick this up automatically
+          echo "RAG update will be processed by Oracle Sync workflow"
+
+      - name: Commit and Push Index
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add data/gdrive_docs/ data/gdrive_manifests/discovered_docs.json master_intelligence_map.txt
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "📚 Document Index Update - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Document index pushed to repository"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📚 DOCUMENT INDEXING COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -f "data/gdrive_docs/document_index.json" ]; then
+            python3 << 'PYTHON_SCRIPT'
+          import json
+          with open("data/gdrive_docs/document_index.json", 'r') as f:
+              index = json.load(f)
+          print(f"Total Documents Indexed: {index['total_documents']}")
+          print(f"\nDocument Types:")
+          exts = {}
+          for doc in index['documents']:
+              ext = doc['filename'].split('.')[-1] if '.' in doc['filename'] else 'none'
+              exts[ext] = exts.get(ext, 0) + 1
+          for ext, count in sorted(exts.items()):
+              print(f"  .{ext}: {count}")
+          PYTHON_SCRIPT
+          fi
+          echo ""
+          echo "Outputs:"
+          echo "• data/gdrive_manifests/discovered_docs.json - All docs discovered"
+          echo "• data/gdrive_docs/download_manifest.json - Downloaded files list"
+          echo "• data/gdrive_docs/document_index.json - Indexed content"
+          echo "• master_intelligence_map.txt - Updated with doc index"
+          echo ""
+          echo "Next: Oracle Sync will process documents into RAG embeddings"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

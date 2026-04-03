@@ -1,0 +1,216 @@
+name: Laptop Push Workflow
+# Accepts laptop manifests and integrates into Citadel Mesh
+# Laptop → GitHub → HF Space pipeline
+
+on:
+  # Triggered when laptop manifest is pushed
+  push:
+    paths:
+      - 'data/laptop_inventory/**/*.json'
+  # Manual trigger
+  workflow_dispatch:
+
+jobs:
+  process_laptop_manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect New Manifests
+        id: detect
+        run: |
+          echo "🔍 Detecting new laptop manifests..."
+          
+          if [ -d "data/laptop_inventory" ]; then
+            MANIFESTS=$(find data/laptop_inventory -name "*.json" -type f | wc -l)
+            echo "manifest_count=$MANIFESTS" >> $GITHUB_OUTPUT
+            echo "✅ Found $MANIFESTS laptop manifest(s)"
+          else
+            echo "manifest_count=0" >> $GITHUB_OUTPUT
+            echo "⚠️  No laptop_inventory directory found"
+          fi
+
+      - name: Validate Manifests
+        if: steps.detect.outputs.manifest_count > 0
+        run: |
+          echo "✅ Validating laptop manifests..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+
+          manifests_dir = Path("data/laptop_inventory")
+          valid_count = 0
+          
+          for manifest_file in manifests_dir.glob("*.json"):
+              try:
+                  with open(manifest_file, 'r') as f:
+                      data = json.load(f)
+                  
+                  # Validate required fields
+                  required_fields = ["scan_timestamp", "categories", "summary"]
+                  if all(field in data for field in required_fields):
+                      valid_count += 1
+                      print(f"✅ Valid: {manifest_file.name}")
+                      print(f"   Files: {data['summary']['total_files']}")
+                      print(f"   Size: {data['summary']['total_size_bytes'] / (1024**3):.2f} GB")
+                  else:
+                      print(f"⚠️  Invalid: {manifest_file.name} - missing required fields")
+              
+              except Exception as e:
+                  print(f"❌ Error: {manifest_file.name} - {e}")
+          
+          print(f"\n📊 Validated {valid_count} manifest(s)")
+          PYTHON_SCRIPT
+
+      - name: Merge into Master Inventory
+        if: steps.detect.outputs.manifest_count > 0
+        run: |
+          echo "🔄 Merging laptop manifests into master_inventory.json..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Load master inventory
+          master_file = Path("master_inventory.json")
+          if master_file.exists():
+              with open(master_file, 'r') as f:
+                  master = json.load(f)
+          else:
+              master = {"entities": [], "last_updated": None}
+          
+          # Load laptop manifests
+          manifests_dir = Path("data/laptop_inventory")
+          laptop_entries = []
+          
+          for manifest_file in manifests_dir.glob("*.json"):
+              try:
+                  with open(manifest_file, 'r') as f:
+                      laptop_data = json.load(f)
+                  
+                  hostname = laptop_data.get("hostname", "unknown_laptop")
+                  
+                  # Add entries from each category
+                  for category, files in laptop_data.get("categories", {}).items():
+                      for file_info in files:
+                          entry = {
+                              "type": "laptop_file",
+                              "source": "laptop",
+                              "hostname": hostname,
+                              "category": category,
+                              "path": file_info["path"],
+                              "filename": file_info["filename"],
+                              "size_bytes": file_info["size_bytes"],
+                              "modified": file_info.get("modified", ""),
+                              "ingested_at": datetime.utcnow().isoformat() + "Z"
+                          }
+                          laptop_entries.append(entry)
+              
+              except Exception as e:
+                  print(f"⚠️  Error processing {manifest_file}: {e}")
+          
+          # Append to master inventory
+          master["entities"].extend(laptop_entries)
+          master["last_updated"] = datetime.utcnow().isoformat() + "Z"
+          
+          # Save updated master
+          with open(master_file, 'w') as f:
+              json.dump(master, f, indent=2)
+          
+          print(f"✅ Added {len(laptop_entries)} laptop entries to master_inventory.json")
+          print(f"   Total entities in master: {len(master['entities'])}")
+          PYTHON_SCRIPT
+
+      - name: Update Master Intelligence Map
+        if: steps.detect.outputs.manifest_count > 0
+        run: |
+          echo "🧠 Updating master_intelligence_map.txt..."
+          python3 << 'PYTHON_SCRIPT'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+
+          # Load laptop manifests
+          manifests_dir = Path("data/laptop_inventory")
+          
+          with open("master_intelligence_map.txt", 'a') as map_file:
+              map_file.write("\n\n")
+              map_file.write("=" * 80 + "\n")
+              map_file.write("LAPTOP INVENTORY SYNC\n")
+              map_file.write(f"Synced: {datetime.utcnow().isoformat()}Z\n")
+              map_file.write("=" * 80 + "\n\n")
+              
+              for manifest_file in manifests_dir.glob("*.json"):
+                  try:
+                      with open(manifest_file, 'r') as f:
+                          data = json.load(f)
+                      
+                      hostname = data.get("hostname", "unknown")
+                      map_file.write(f"LAPTOP: {hostname}\n")
+                      map_file.write(f"  Scan: {data['scan_timestamp']}\n")
+                      map_file.write(f"  Total Files: {data['summary']['total_files']}\n")
+                      map_file.write(f"  Total Size: {data['summary']['total_size_bytes'] / (1024**3):.2f} GB\n\n")
+                      
+                      map_file.write("  Categories:\n")
+                      for category, files in data.get("categories", {}).items():
+                          if len(files) > 0:
+                              map_file.write(f"    {category}: {len(files)} files\n")
+                      
+                      map_file.write("\n")
+                  
+                  except Exception as e:
+                      print(f"⚠️  Error: {e}")
+          
+          print("✅ master_intelligence_map.txt updated")
+          PYTHON_SCRIPT
+
+      - name: Trigger TIA RAG Update
+        if: steps.detect.outputs.manifest_count > 0
+        run: |
+          echo "🔄 Triggering TIA RAG update..."
+          # Oracle Sync will automatically process the updated intelligence map
+          echo "✅ Changes will be picked up by Oracle Sync workflow"
+
+      - name: Commit Changes
+        if: steps.detect.outputs.manifest_count > 0
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          
+          git add master_inventory.json master_intelligence_map.txt
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "💻 Laptop Sync - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ Laptop inventory integrated into Citadel Mesh"
+          fi
+
+      - name: Summary Report
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "💻 LAPTOP PUSH WORKFLOW COMPLETE"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          if [ -d "data/laptop_inventory" ]; then
+            echo "Processed laptop manifests from data/laptop_inventory/"
+            echo ""
+            echo "Integrated into:"
+            echo "• master_inventory.json - Main entity registry"
+            echo "• master_intelligence_map.txt - Intelligence map"
+            echo ""
+            echo "Next: Oracle Sync will embed into RAG store"
+          else
+            echo "No laptop manifests detected"
+            echo ""
+            echo "To sync laptop:"
+            echo "1. Run scripts/laptop_filesystem_scanner.py on laptop"
+            echo "2. Copy manifest to data/laptop_inventory/"
+            echo "3. Commit and push to trigger this workflow"
+          fi
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
