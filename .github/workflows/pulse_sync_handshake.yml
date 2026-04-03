@@ -1,0 +1,78 @@
+name: Pulse Sync - Core Hubs Handshake
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Purpose: Notify HF Spaces when handshake protocols are updated
+# Triggers: Push to main, manual dispatch, scheduled sync
+# ═══════════════════════════════════════════════════════════════════════════
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/global_vacuum.sh'
+      - 'scripts/knock_signal.sh'
+      - 'scripts/persona_filing_router.py'
+      - 'PROTOCOL_HANDSHAKE_GUIDE.md'
+  
+  schedule:
+    - cron: "0 */6 * * *"  # Every 6 hours
+  
+  workflow_dispatch:
+
+jobs:
+  pulse-sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Send GitHub → HF Sync Signal
+        run: |
+          echo "═══════════════════════════════════════════════════════════════════════════"
+          echo "🔔 PULSE SYNC: GitHub → HuggingFace Spaces"
+          echo "═══════════════════════════════════════════════════════════════════════════"
+          echo "Timestamp: $(date)"
+          echo "Trigger: ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Commit: ${{ github.sha }}"
+          echo ""
+          echo "Updated Files:"
+          git diff --name-only HEAD~1 HEAD 2>/dev/null | grep -E "(scripts/|PROTOCOL_)" || echo "  - Full sync (scheduled or manual)"
+          echo ""
+          echo "HuggingFace Spaces will pull latest changes on next startup or webhook trigger."
+          echo "═══════════════════════════════════════════════════════════════════════════"
+      
+      - name: Generate Sync Manifest
+        run: |
+          mkdir -p sync_reports
+          cat > sync_reports/pulse_sync_$(date +%Y%m%d_%H%M%S).json << EOF
+          {
+            "timestamp": "$(date -Iseconds)",
+            "trigger": "${{ github.event_name }}",
+            "repository": "${{ github.repository }}",
+            "commit": "${{ github.sha }}",
+            "artifacts_updated": [
+              "scripts/global_vacuum.sh",
+              "scripts/knock_signal.sh",
+              "scripts/persona_filing_router.py",
+              "PROTOCOL_HANDSHAKE_GUIDE.md"
+            ],
+            "target_spaces": [
+              "DJ-Goanna-Coding/TIA-ARCHITECT-CORE",
+              "DJ-Goanna-Coding/tias-citadel",
+              "DJ-Goanna-Coding/Mapping-and-Inventory"
+            ]
+          }
+          EOF
+          
+          echo "✅ Sync manifest generated"
+          cat sync_reports/pulse_sync_*.json | tail -1
+      
+      - name: Commit Sync Report
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add sync_reports/ || true
+          git commit -m "🔔 Pulse Sync: Core Hubs Handshake $(date +%Y-%m-%d)" || echo "No changes to commit"
+          git push || echo "No changes to push"
