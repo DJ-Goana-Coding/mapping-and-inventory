@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:20:59.829523",
+    "standard": "ISO 20022",
+    "purpose": "VAMGUARD compliance framework"
+  },
+  "message_templates": {
+    "payment_initiation": {
+      "message_type": "pain.001.001.09",
+      "description": "Customer Credit Transfer Initiation",
+      "use_case": "Initiate payment from customer",
+      "priority": "critical",
+      "template": {
+        "CstmrCdtTrfInitn": {
+          "GrpHdr": {
+            "MsgId": "{unique_message_id}",
+            "CreDtTm": "{creation_datetime}",
+            "NbOfTxs": "{number_of_transactions}",
+            "InitgPty": {
+              "Nm": "{initiating_party_name}",
+              "Id": {
+                "OrgId": {
+                  "Othr": {
+                    "Id": "{organization_id}"
+                  }
+                }
+              }
+            }
+          },
+          "PmtInf": {
+            "PmtInfId": "{payment_info_id}",
+            "PmtMtd": "TRF",
+            "ReqdExctnDt": "{execution_date}",
+            "Dbtr": {
+              "Nm": "{debtor_name}",
+              "PstlAdr": {
+                "Ctry": "{country_code}"
+              }
+            },
+            "DbtrAcct": {
+              "Id": {
+                "IBAN": "{debtor_iban}"
+              }
+            },
+            "DbtrAgt": {
+              "FinInstnId": {
+                "BIC": "{debtor_bic}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "payment_status": {
+      "message_type": "pacs.002.001.10",
+      "description": "Payment Status Report",
+      "use_case": "Report payment status",
+      "priority": "high"
+    },
+    "account_statement": {
+      "message_type": "camt.053.001.08",
+      "description": "Bank to Customer Statement",
+      "use_case": "Account statement delivery",
+      "priority": "high"
+    }
+  },
+  "compliance_checklist": {
+    "message_standards": {
+      "pain_messages": "Customer-to-Bank Payment Initiation",
+      "pacs_messages": "Bank-to-Bank Payment Clearing and Settlement",
+      "camt_messages": "Cash Management",
+      "acmt_messages": "Account Management"
+    },
+    "data_quality": {
+      "structured_addresses": "Use structured postal addresses",
+      "reference_data": "Include proper reference data",
+      "purpose_codes": "Use ISO purpose codes"
+    },
+    "implementation_steps": [
+      "1. Install XML processing libraries (lxml, xmlschema)",
+      "2. Download ISO 20022 XSD schemas",
+      "3. Implement message builders",
+      "4. Implement message validators",
+      "5. Build SWIFT integration",
+      "6. Implement compliance checks",
+      "7. Add regulatory reporting",
+      "8. Test with test banks"
+    ]
+  },
+  "required_libraries": [
+    "lxml",
+    "xmlschema",
+    "pycountry",
+    "iso4217",
+    "schwifty"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:19:41.040132",
+    "purpose": "Find all AI code implementations"
+  },
+  "search_patterns": {
+    "tia_builds": {
+      "pattern": "TIA*",
+      "description": "All TIA architecture builds",
+      "priority": "critical",
+      "file_types": [
+        ".py",
+        ".md",
+        ".txt",
+        ".json"
+      ]
+    },
+    "citadel_builds": {
+      "pattern": "CITADEL*",
+      "description": "Citadel system builds",
+      "priority": "critical",
+      "file_types": [
+        ".py",
+        ".sh",
+        ".yml",
+        ".md"
+      ]
+    },
+    "agent_implementations": {
+      "pattern": "*agent*",
+      "description": "Agent system implementations",
+      "priority": "high",
+      "file_types": [
+        ".py",
+        ".js",
+        ".ts"
+      ]
+    },
+    "rag_systems": {
+      "pattern": "*rag*",
+      "description": "RAG system implementations",
+      "priority": "high",
+      "file_types": [
+        ".py",
+        ".ipynb"
+      ]
+    },
+    "trading_bots": {
+      "pattern": [
+        "*trading*",
+        "*bot*",
+        "*omega*"
+      ],
+      "description": "Trading bot implementations",
+      "priority": "high",
+      "file_types": [
+        ".py",
+        ".js"
+      ]
+    },
+    "automation_scripts": {
+      "pattern": [
+        "*automation*",
+        "*worker*",
+        "*harvest*"
+      ],
+      "description": "Automation and worker scripts",
+      "priority": "medium",
+      "file_types": [
+        ".py",
+        ".sh",
+        ".gs"
+      ]
+    }
+  },
+  "discovery_strategy": {
+    "step_1": "Scan all GDrive partitions",
+    "step_2": "Match files against patterns",
+    "step_3": "Categorize by type",
+    "step_4": "Copy to repository",
+    "step_5": "Generate code catalog"
+  }
+}

@@ -1,0 +1,2545 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:18:35.599455",
+    "total_agents": 6,
+    "total_items": 60
+  },
+  "agents": {
+    "surveyor": {
+      "agent_name": "Surveyor",
+      "agent_role": "Mapping Hub Harvester",
+      "timestamp": "2026-04-03T13:18:35.598147",
+      "total_items": 8,
+      "items": [
+        {
+          "category": "tools",
+          "name": "GitHub Repository Scanner",
+          "description": "Advanced repo discovery and metadata extraction",
+          "priority": "critical",
+          "url": "https://api.github.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598211"
+        },
+        {
+          "category": "tools",
+          "name": "GDrive Partition Scanner",
+          "description": "Partition-aware file discovery without ingestion",
+          "priority": "critical",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598220"
+        },
+        {
+          "category": "tools",
+          "name": "Tree Generator Pro",
+          "description": "Enhanced TREE.md generation with depth control",
+          "priority": "high",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598225"
+        },
+        {
+          "category": "tools",
+          "name": "Inventory Builder",
+          "description": "Advanced INVENTORY.json generation with metadata",
+          "priority": "high",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598228"
+        },
+        {
+          "category": "libraries",
+          "name": "gitpython",
+          "description": "Git repository manipulation library",
+          "priority": "high",
+          "url": "https://gitpython.readthedocs.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598233"
+        },
+        {
+          "category": "libraries",
+          "name": "PyGithub",
+          "description": "GitHub API wrapper for Python",
+          "priority": "high",
+          "url": "https://pygithub.readthedocs.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598237"
+        },
+        {
+          "category": "libraries",
+          "name": "google-api-python-client",
+          "description": "GDrive API access",
+          "priority": "critical",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598239"
+        },
+        {
+          "category": "models",
+          "name": "all-MiniLM-L6-v2",
+          "description": "Lightweight embedding model for metadata",
+          "priority": "medium",
+          "url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598241"
+        }
+      ]
+    },
+    "oracle": {
+      "agent_name": "Oracle",
+      "agent_role": "TIA-ARCHITECT-CORE Reasoning Engine",
+      "timestamp": "2026-04-03T13:18:35.598245",
+      "total_items": 9,
+      "items": [
+        {
+          "category": "models",
+          "name": "all-mpnet-base-v2",
+          "description": "High-quality embeddings for RAG",
+          "priority": "critical",
+          "url": "https://huggingface.co/sentence-transformers/all-mpnet-base-v2",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598247"
+        },
+        {
+          "category": "models",
+          "name": "BAAI/bge-large-en-v1.5",
+          "description": "State-of-art embedding model",
+          "priority": "high",
+          "url": "https://huggingface.co/BAAI/bge-large-en-v1.5",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598249"
+        },
+        {
+          "category": "models",
+          "name": "FinBERT",
+          "description": "Financial sentiment analysis",
+          "priority": "high",
+          "url": "https://huggingface.co/ProsusAI/finbert",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598251"
+        },
+        {
+          "category": "models",
+          "name": "Mistral-7B-Instruct",
+          "description": "Reasoning and instruction following",
+          "priority": "medium",
+          "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598252"
+        },
+        {
+          "category": "libraries",
+          "name": "FAISS",
+          "description": "Vector similarity search",
+          "priority": "critical",
+          "url": "https://github.com/facebookresearch/faiss",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598254"
+        },
+        {
+          "category": "libraries",
+          "name": "ChromaDB",
+          "description": "Open-source embedding database",
+          "priority": "high",
+          "url": "https://www.trychroma.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598256"
+        },
+        {
+          "category": "libraries",
+          "name": "LangChain",
+          "description": "LLM application framework",
+          "priority": "high",
+          "url": "https://python.langchain.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598257"
+        },
+        {
+          "category": "tools",
+          "name": "Streamlit Components",
+          "description": "Advanced UI components for TIA Core",
+          "priority": "high",
+          "url": "https://streamlit.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598259"
+        },
+        {
+          "category": "tools",
+          "name": "Plotly Dash",
+          "description": "Interactive visualizations",
+          "priority": "medium",
+          "url": "https://plotly.com/dash",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598264"
+        }
+      ]
+    },
+    "bridge": {
+      "agent_name": "Bridge",
+      "agent_role": "Oppo/Termux Mobile Scout",
+      "timestamp": "2026-04-03T13:18:35.598267",
+      "total_items": 6,
+      "items": [
+        {
+          "category": "tools",
+          "name": "rsync",
+          "description": "Efficient file synchronization",
+          "priority": "critical",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598269"
+        },
+        {
+          "category": "tools",
+          "name": "Termux API",
+          "description": "Android device integration",
+          "priority": "critical",
+          "url": "https://wiki.termux.com/wiki/Termux:API",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598270"
+        },
+        {
+          "category": "libraries",
+          "name": "paramiko",
+          "description": "SSH/SFTP for secure transfers",
+          "priority": "high",
+          "url": "https://www.paramiko.org",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598272"
+        },
+        {
+          "category": "libraries",
+          "name": "watchdog",
+          "description": "Filesystem event monitoring",
+          "priority": "medium",
+          "url": "https://pythonhosted.org/watchdog",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598274"
+        },
+        {
+          "category": "tools",
+          "name": "jq",
+          "description": "JSON processing for mobile",
+          "priority": "high",
+          "url": "https://stedolan.github.io/jq",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598275"
+        },
+        {
+          "category": "tools",
+          "name": "proot",
+          "description": "Termux filesystem management",
+          "priority": "medium",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598277"
+        }
+      ]
+    },
+    "trading_bots": {
+      "agent_name": "TradingBots",
+      "agent_role": "Omega Trading Constellation",
+      "timestamp": "2026-04-03T13:18:35.598279",
+      "total_items": 17,
+      "items": [
+        {
+          "category": "libraries",
+          "name": "CCXT",
+          "description": "Cryptocurrency exchange trading library",
+          "priority": "critical",
+          "url": "https://github.com/ccxt/ccxt",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598281"
+        },
+        {
+          "category": "libraries",
+          "name": "FreqTrade",
+          "description": "Crypto trading bot framework",
+          "priority": "critical",
+          "url": "https://www.freqtrade.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598282"
+        },
+        {
+          "category": "libraries",
+          "name": "Jesse AI",
+          "description": "Advanced algo trading framework",
+          "priority": "high",
+          "url": "https://jesse.trade",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598284"
+        },
+        {
+          "category": "libraries",
+          "name": "Hummingbot",
+          "description": "Market making bot",
+          "priority": "high",
+          "url": "https://hummingbot.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598286"
+        },
+        {
+          "category": "apis",
+          "name": "MEXC API",
+          "description": "MEXC exchange integration",
+          "priority": "critical",
+          "url": "https://mexcdevelop.github.io/apidocs",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598287"
+        },
+        {
+          "category": "apis",
+          "name": "Binance API",
+          "description": "Binance exchange integration",
+          "priority": "high",
+          "url": "https://binance-docs.github.io/apidocs",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598289"
+        },
+        {
+          "category": "apis",
+          "name": "Kraken API",
+          "description": "Kraken exchange integration",
+          "priority": "medium",
+          "url": "https://docs.kraken.com/rest",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598291"
+        },
+        {
+          "category": "libraries",
+          "name": "TA-Lib",
+          "description": "Technical analysis library",
+          "priority": "critical",
+          "url": "https://ta-lib.org",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598292"
+        },
+        {
+          "category": "libraries",
+          "name": "pandas-ta",
+          "description": "Pandas technical analysis",
+          "priority": "high",
+          "url": "https://github.com/twopirllc/pandas-ta",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598294"
+        },
+        {
+          "category": "libraries",
+          "name": "VectorBT",
+          "description": "Backtesting framework",
+          "priority": "high",
+          "url": "https://vectorbt.dev",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598296"
+        },
+        {
+          "category": "libraries",
+          "name": "FinRL",
+          "description": "RL for quantitative finance",
+          "priority": "medium",
+          "url": "https://github.com/AI4Finance-Foundation/FinRL",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598297"
+        },
+        {
+          "category": "libraries",
+          "name": "TensorTrade",
+          "description": "RL trading framework",
+          "priority": "medium",
+          "url": "https://github.com/tensortrade-org/tensortrade",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598301"
+        },
+        {
+          "category": "libraries",
+          "name": "pycountry",
+          "description": "ISO country/currency codes",
+          "priority": "high",
+          "url": "https://pypi.org/project/pycountry",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598302"
+        },
+        {
+          "category": "libraries",
+          "name": "xmlschema",
+          "description": "XML Schema validation for ISO messages",
+          "priority": "high",
+          "url": "https://pypi.org/project/xmlschema",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598306"
+        },
+        {
+          "category": "libraries",
+          "name": "web3.py",
+          "description": "Ethereum blockchain interaction",
+          "priority": "critical",
+          "url": "https://web3py.readthedocs.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598307"
+        },
+        {
+          "category": "libraries",
+          "name": "solana-py",
+          "description": "Solana blockchain integration",
+          "priority": "high",
+          "url": "https://michaelhly.github.io/solana-py",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598309"
+        },
+        {
+          "category": "libraries",
+          "name": "stellar-sdk",
+          "description": "Stellar (XLM) integration",
+          "priority": "high",
+          "url": "https://stellar-sdk.readthedocs.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598311"
+        }
+      ]
+    },
+    "spiritual_scout": {
+      "agent_name": "SpiritualScout",
+      "agent_role": "Love/Truth/Vibration Discovery",
+      "timestamp": "2026-04-03T13:18:35.598313",
+      "total_items": 9,
+      "items": [
+        {
+          "category": "apis",
+          "name": "Reddit API",
+          "description": "Access spiritual communities",
+          "priority": "high",
+          "url": "https://www.reddit.com/dev/api",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598314"
+        },
+        {
+          "category": "apis",
+          "name": "Twitter API",
+          "description": "Discover spiritual content",
+          "priority": "medium",
+          "url": "https://developer.twitter.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598316"
+        },
+        {
+          "category": "libraries",
+          "name": "librosa",
+          "description": "Audio and music analysis",
+          "priority": "high",
+          "url": "https://librosa.org",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598318"
+        },
+        {
+          "category": "libraries",
+          "name": "scipy",
+          "description": "Scientific computing for frequency analysis",
+          "priority": "high",
+          "url": "https://scipy.org",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598319"
+        },
+        {
+          "category": "data",
+          "name": "Solfeggio Frequencies Dataset",
+          "description": "396-852Hz healing frequencies",
+          "priority": "medium",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598321"
+        },
+        {
+          "category": "data",
+          "name": "Schumann Resonance Data",
+          "description": "Earth's 7.83Hz frequency",
+          "priority": "medium",
+          "url": null,
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598325"
+        },
+        {
+          "category": "resources",
+          "name": "Gaia Streaming",
+          "description": "Consciousness video platform",
+          "priority": "low",
+          "url": "https://www.gaia.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598326"
+        },
+        {
+          "category": "resources",
+          "name": "IONS Research",
+          "description": "Institute of Noetic Sciences",
+          "priority": "medium",
+          "url": "https://noetic.org",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598328"
+        },
+        {
+          "category": "resources",
+          "name": "HeartMath",
+          "description": "Heart-brain coherence tools",
+          "priority": "medium",
+          "url": "https://www.heartmath.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598330"
+        }
+      ]
+    },
+    "website_builder": {
+      "agent_name": "WebsiteBuilder",
+      "agent_role": "Domain & Website Creation",
+      "timestamp": "2026-04-03T13:18:35.598332",
+      "total_items": 11,
+      "items": [
+        {
+          "category": "tools",
+          "name": "Namecheap API",
+          "description": "Domain search and registration",
+          "priority": "high",
+          "url": "https://www.namecheap.com/support/api",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598333"
+        },
+        {
+          "category": "tools",
+          "name": "GoDaddy API",
+          "description": "Alternative domain search",
+          "priority": "medium",
+          "url": "https://developer.godaddy.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598335"
+        },
+        {
+          "category": "tools",
+          "name": "Next.js",
+          "description": "React framework for production",
+          "priority": "high",
+          "url": "https://nextjs.org",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598337"
+        },
+        {
+          "category": "tools",
+          "name": "Astro",
+          "description": "Modern static site builder",
+          "priority": "high",
+          "url": "https://astro.build",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598338"
+        },
+        {
+          "category": "tools",
+          "name": "Hugo",
+          "description": "Fast static site generator",
+          "priority": "medium",
+          "url": "https://gohugo.io",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598340"
+        },
+        {
+          "category": "services",
+          "name": "Vercel",
+          "description": "Free hosting for Next.js/Astro",
+          "priority": "critical",
+          "url": "https://vercel.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598342"
+        },
+        {
+          "category": "services",
+          "name": "Netlify",
+          "description": "Free hosting and CI/CD",
+          "priority": "high",
+          "url": "https://www.netlify.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598345"
+        },
+        {
+          "category": "services",
+          "name": "Cloudflare Pages",
+          "description": "Free hosting with CDN",
+          "priority": "high",
+          "url": "https://pages.cloudflare.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598347"
+        },
+        {
+          "category": "libraries",
+          "name": "Tailwind CSS",
+          "description": "Utility-first CSS framework",
+          "priority": "high",
+          "url": "https://tailwindcss.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598349"
+        },
+        {
+          "category": "libraries",
+          "name": "shadcn/ui",
+          "description": "Beautiful component library",
+          "priority": "high",
+          "url": "https://ui.shadcn.com",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598350"
+        },
+        {
+          "category": "libraries",
+          "name": "Framer Motion",
+          "description": "Animation library",
+          "priority": "medium",
+          "url": "https://www.framer.com/motion",
+          "cost": "free",
+          "requested_at": "2026-04-03T13:18:35.598352"
+        }
+      ]
+    }
+  },
+  "by_category": {
+    "tools": [
+      {
+        "category": "tools",
+        "name": "GitHub Repository Scanner",
+        "description": "Advanced repo discovery and metadata extraction",
+        "priority": "critical",
+        "url": "https://api.github.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598211",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "tools",
+        "name": "GDrive Partition Scanner",
+        "description": "Partition-aware file discovery without ingestion",
+        "priority": "critical",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598220",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "tools",
+        "name": "Tree Generator Pro",
+        "description": "Enhanced TREE.md generation with depth control",
+        "priority": "high",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598225",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "tools",
+        "name": "Inventory Builder",
+        "description": "Advanced INVENTORY.json generation with metadata",
+        "priority": "high",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598228",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "tools",
+        "name": "Streamlit Components",
+        "description": "Advanced UI components for TIA Core",
+        "priority": "high",
+        "url": "https://streamlit.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598259",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "tools",
+        "name": "Plotly Dash",
+        "description": "Interactive visualizations",
+        "priority": "medium",
+        "url": "https://plotly.com/dash",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598264",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "tools",
+        "name": "rsync",
+        "description": "Efficient file synchronization",
+        "priority": "critical",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598269",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "Termux API",
+        "description": "Android device integration",
+        "priority": "critical",
+        "url": "https://wiki.termux.com/wiki/Termux:API",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598270",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "jq",
+        "description": "JSON processing for mobile",
+        "priority": "high",
+        "url": "https://stedolan.github.io/jq",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598275",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "proot",
+        "description": "Termux filesystem management",
+        "priority": "medium",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598277",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "Namecheap API",
+        "description": "Domain search and registration",
+        "priority": "high",
+        "url": "https://www.namecheap.com/support/api",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598333",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "GoDaddy API",
+        "description": "Alternative domain search",
+        "priority": "medium",
+        "url": "https://developer.godaddy.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598335",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "Next.js",
+        "description": "React framework for production",
+        "priority": "high",
+        "url": "https://nextjs.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598337",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "Astro",
+        "description": "Modern static site builder",
+        "priority": "high",
+        "url": "https://astro.build",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598338",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "Hugo",
+        "description": "Fast static site generator",
+        "priority": "medium",
+        "url": "https://gohugo.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598340",
+        "requested_by": "WebsiteBuilder"
+      }
+    ],
+    "libraries": [
+      {
+        "category": "libraries",
+        "name": "gitpython",
+        "description": "Git repository manipulation library",
+        "priority": "high",
+        "url": "https://gitpython.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598233",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "libraries",
+        "name": "PyGithub",
+        "description": "GitHub API wrapper for Python",
+        "priority": "high",
+        "url": "https://pygithub.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598237",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "libraries",
+        "name": "google-api-python-client",
+        "description": "GDrive API access",
+        "priority": "critical",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598239",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "libraries",
+        "name": "FAISS",
+        "description": "Vector similarity search",
+        "priority": "critical",
+        "url": "https://github.com/facebookresearch/faiss",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598254",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "ChromaDB",
+        "description": "Open-source embedding database",
+        "priority": "high",
+        "url": "https://www.trychroma.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598256",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "LangChain",
+        "description": "LLM application framework",
+        "priority": "high",
+        "url": "https://python.langchain.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598257",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "paramiko",
+        "description": "SSH/SFTP for secure transfers",
+        "priority": "high",
+        "url": "https://www.paramiko.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598272",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "libraries",
+        "name": "watchdog",
+        "description": "Filesystem event monitoring",
+        "priority": "medium",
+        "url": "https://pythonhosted.org/watchdog",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598274",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "libraries",
+        "name": "CCXT",
+        "description": "Cryptocurrency exchange trading library",
+        "priority": "critical",
+        "url": "https://github.com/ccxt/ccxt",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598281",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "FreqTrade",
+        "description": "Crypto trading bot framework",
+        "priority": "critical",
+        "url": "https://www.freqtrade.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598282",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "Jesse AI",
+        "description": "Advanced algo trading framework",
+        "priority": "high",
+        "url": "https://jesse.trade",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598284",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "Hummingbot",
+        "description": "Market making bot",
+        "priority": "high",
+        "url": "https://hummingbot.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598286",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "TA-Lib",
+        "description": "Technical analysis library",
+        "priority": "critical",
+        "url": "https://ta-lib.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598292",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "pandas-ta",
+        "description": "Pandas technical analysis",
+        "priority": "high",
+        "url": "https://github.com/twopirllc/pandas-ta",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598294",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "VectorBT",
+        "description": "Backtesting framework",
+        "priority": "high",
+        "url": "https://vectorbt.dev",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598296",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "FinRL",
+        "description": "RL for quantitative finance",
+        "priority": "medium",
+        "url": "https://github.com/AI4Finance-Foundation/FinRL",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598297",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "TensorTrade",
+        "description": "RL trading framework",
+        "priority": "medium",
+        "url": "https://github.com/tensortrade-org/tensortrade",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598301",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "pycountry",
+        "description": "ISO country/currency codes",
+        "priority": "high",
+        "url": "https://pypi.org/project/pycountry",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598302",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "xmlschema",
+        "description": "XML Schema validation for ISO messages",
+        "priority": "high",
+        "url": "https://pypi.org/project/xmlschema",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598306",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "web3.py",
+        "description": "Ethereum blockchain interaction",
+        "priority": "critical",
+        "url": "https://web3py.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598307",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "solana-py",
+        "description": "Solana blockchain integration",
+        "priority": "high",
+        "url": "https://michaelhly.github.io/solana-py",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598309",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "stellar-sdk",
+        "description": "Stellar (XLM) integration",
+        "priority": "high",
+        "url": "https://stellar-sdk.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598311",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "librosa",
+        "description": "Audio and music analysis",
+        "priority": "high",
+        "url": "https://librosa.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598318",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "libraries",
+        "name": "scipy",
+        "description": "Scientific computing for frequency analysis",
+        "priority": "high",
+        "url": "https://scipy.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598319",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "libraries",
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework",
+        "priority": "high",
+        "url": "https://tailwindcss.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598349",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "libraries",
+        "name": "shadcn/ui",
+        "description": "Beautiful component library",
+        "priority": "high",
+        "url": "https://ui.shadcn.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598350",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "libraries",
+        "name": "Framer Motion",
+        "description": "Animation library",
+        "priority": "medium",
+        "url": "https://www.framer.com/motion",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598352",
+        "requested_by": "WebsiteBuilder"
+      }
+    ],
+    "models": [
+      {
+        "category": "models",
+        "name": "all-MiniLM-L6-v2",
+        "description": "Lightweight embedding model for metadata",
+        "priority": "medium",
+        "url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598241",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "models",
+        "name": "all-mpnet-base-v2",
+        "description": "High-quality embeddings for RAG",
+        "priority": "critical",
+        "url": "https://huggingface.co/sentence-transformers/all-mpnet-base-v2",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598247",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "models",
+        "name": "BAAI/bge-large-en-v1.5",
+        "description": "State-of-art embedding model",
+        "priority": "high",
+        "url": "https://huggingface.co/BAAI/bge-large-en-v1.5",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598249",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "models",
+        "name": "FinBERT",
+        "description": "Financial sentiment analysis",
+        "priority": "high",
+        "url": "https://huggingface.co/ProsusAI/finbert",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598251",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "models",
+        "name": "Mistral-7B-Instruct",
+        "description": "Reasoning and instruction following",
+        "priority": "medium",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598252",
+        "requested_by": "Oracle"
+      }
+    ],
+    "apis": [
+      {
+        "category": "apis",
+        "name": "MEXC API",
+        "description": "MEXC exchange integration",
+        "priority": "critical",
+        "url": "https://mexcdevelop.github.io/apidocs",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598287",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "Binance API",
+        "description": "Binance exchange integration",
+        "priority": "high",
+        "url": "https://binance-docs.github.io/apidocs",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598289",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "Kraken API",
+        "description": "Kraken exchange integration",
+        "priority": "medium",
+        "url": "https://docs.kraken.com/rest",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598291",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "Reddit API",
+        "description": "Access spiritual communities",
+        "priority": "high",
+        "url": "https://www.reddit.com/dev/api",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598314",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "apis",
+        "name": "Twitter API",
+        "description": "Discover spiritual content",
+        "priority": "medium",
+        "url": "https://developer.twitter.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598316",
+        "requested_by": "SpiritualScout"
+      }
+    ],
+    "data": [
+      {
+        "category": "data",
+        "name": "Solfeggio Frequencies Dataset",
+        "description": "396-852Hz healing frequencies",
+        "priority": "medium",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598321",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "data",
+        "name": "Schumann Resonance Data",
+        "description": "Earth's 7.83Hz frequency",
+        "priority": "medium",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598325",
+        "requested_by": "SpiritualScout"
+      }
+    ],
+    "resources": [
+      {
+        "category": "resources",
+        "name": "Gaia Streaming",
+        "description": "Consciousness video platform",
+        "priority": "low",
+        "url": "https://www.gaia.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598326",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "resources",
+        "name": "IONS Research",
+        "description": "Institute of Noetic Sciences",
+        "priority": "medium",
+        "url": "https://noetic.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598328",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "resources",
+        "name": "HeartMath",
+        "description": "Heart-brain coherence tools",
+        "priority": "medium",
+        "url": "https://www.heartmath.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598330",
+        "requested_by": "SpiritualScout"
+      }
+    ],
+    "services": [
+      {
+        "category": "services",
+        "name": "Vercel",
+        "description": "Free hosting for Next.js/Astro",
+        "priority": "critical",
+        "url": "https://vercel.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598342",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "services",
+        "name": "Netlify",
+        "description": "Free hosting and CI/CD",
+        "priority": "high",
+        "url": "https://www.netlify.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598345",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "services",
+        "name": "Cloudflare Pages",
+        "description": "Free hosting with CDN",
+        "priority": "high",
+        "url": "https://pages.cloudflare.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598347",
+        "requested_by": "WebsiteBuilder"
+      }
+    ]
+  },
+  "by_priority": {
+    "critical": [
+      {
+        "category": "tools",
+        "name": "GitHub Repository Scanner",
+        "description": "Advanced repo discovery and metadata extraction",
+        "priority": "critical",
+        "url": "https://api.github.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598211",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "tools",
+        "name": "GDrive Partition Scanner",
+        "description": "Partition-aware file discovery without ingestion",
+        "priority": "critical",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598220",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "libraries",
+        "name": "google-api-python-client",
+        "description": "GDrive API access",
+        "priority": "critical",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598239",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "models",
+        "name": "all-mpnet-base-v2",
+        "description": "High-quality embeddings for RAG",
+        "priority": "critical",
+        "url": "https://huggingface.co/sentence-transformers/all-mpnet-base-v2",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598247",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "FAISS",
+        "description": "Vector similarity search",
+        "priority": "critical",
+        "url": "https://github.com/facebookresearch/faiss",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598254",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "tools",
+        "name": "rsync",
+        "description": "Efficient file synchronization",
+        "priority": "critical",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598269",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "Termux API",
+        "description": "Android device integration",
+        "priority": "critical",
+        "url": "https://wiki.termux.com/wiki/Termux:API",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598270",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "libraries",
+        "name": "CCXT",
+        "description": "Cryptocurrency exchange trading library",
+        "priority": "critical",
+        "url": "https://github.com/ccxt/ccxt",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598281",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "FreqTrade",
+        "description": "Crypto trading bot framework",
+        "priority": "critical",
+        "url": "https://www.freqtrade.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598282",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "MEXC API",
+        "description": "MEXC exchange integration",
+        "priority": "critical",
+        "url": "https://mexcdevelop.github.io/apidocs",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598287",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "TA-Lib",
+        "description": "Technical analysis library",
+        "priority": "critical",
+        "url": "https://ta-lib.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598292",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "web3.py",
+        "description": "Ethereum blockchain interaction",
+        "priority": "critical",
+        "url": "https://web3py.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598307",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "services",
+        "name": "Vercel",
+        "description": "Free hosting for Next.js/Astro",
+        "priority": "critical",
+        "url": "https://vercel.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598342",
+        "requested_by": "WebsiteBuilder"
+      }
+    ],
+    "high": [
+      {
+        "category": "tools",
+        "name": "Tree Generator Pro",
+        "description": "Enhanced TREE.md generation with depth control",
+        "priority": "high",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598225",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "tools",
+        "name": "Inventory Builder",
+        "description": "Advanced INVENTORY.json generation with metadata",
+        "priority": "high",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598228",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "libraries",
+        "name": "gitpython",
+        "description": "Git repository manipulation library",
+        "priority": "high",
+        "url": "https://gitpython.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598233",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "libraries",
+        "name": "PyGithub",
+        "description": "GitHub API wrapper for Python",
+        "priority": "high",
+        "url": "https://pygithub.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598237",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "models",
+        "name": "BAAI/bge-large-en-v1.5",
+        "description": "State-of-art embedding model",
+        "priority": "high",
+        "url": "https://huggingface.co/BAAI/bge-large-en-v1.5",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598249",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "models",
+        "name": "FinBERT",
+        "description": "Financial sentiment analysis",
+        "priority": "high",
+        "url": "https://huggingface.co/ProsusAI/finbert",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598251",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "ChromaDB",
+        "description": "Open-source embedding database",
+        "priority": "high",
+        "url": "https://www.trychroma.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598256",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "LangChain",
+        "description": "LLM application framework",
+        "priority": "high",
+        "url": "https://python.langchain.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598257",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "tools",
+        "name": "Streamlit Components",
+        "description": "Advanced UI components for TIA Core",
+        "priority": "high",
+        "url": "https://streamlit.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598259",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "paramiko",
+        "description": "SSH/SFTP for secure transfers",
+        "priority": "high",
+        "url": "https://www.paramiko.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598272",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "jq",
+        "description": "JSON processing for mobile",
+        "priority": "high",
+        "url": "https://stedolan.github.io/jq",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598275",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "libraries",
+        "name": "Jesse AI",
+        "description": "Advanced algo trading framework",
+        "priority": "high",
+        "url": "https://jesse.trade",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598284",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "Hummingbot",
+        "description": "Market making bot",
+        "priority": "high",
+        "url": "https://hummingbot.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598286",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "Binance API",
+        "description": "Binance exchange integration",
+        "priority": "high",
+        "url": "https://binance-docs.github.io/apidocs",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598289",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "pandas-ta",
+        "description": "Pandas technical analysis",
+        "priority": "high",
+        "url": "https://github.com/twopirllc/pandas-ta",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598294",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "VectorBT",
+        "description": "Backtesting framework",
+        "priority": "high",
+        "url": "https://vectorbt.dev",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598296",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "pycountry",
+        "description": "ISO country/currency codes",
+        "priority": "high",
+        "url": "https://pypi.org/project/pycountry",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598302",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "xmlschema",
+        "description": "XML Schema validation for ISO messages",
+        "priority": "high",
+        "url": "https://pypi.org/project/xmlschema",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598306",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "solana-py",
+        "description": "Solana blockchain integration",
+        "priority": "high",
+        "url": "https://michaelhly.github.io/solana-py",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598309",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "stellar-sdk",
+        "description": "Stellar (XLM) integration",
+        "priority": "high",
+        "url": "https://stellar-sdk.readthedocs.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598311",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "Reddit API",
+        "description": "Access spiritual communities",
+        "priority": "high",
+        "url": "https://www.reddit.com/dev/api",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598314",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "libraries",
+        "name": "librosa",
+        "description": "Audio and music analysis",
+        "priority": "high",
+        "url": "https://librosa.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598318",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "libraries",
+        "name": "scipy",
+        "description": "Scientific computing for frequency analysis",
+        "priority": "high",
+        "url": "https://scipy.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598319",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "tools",
+        "name": "Namecheap API",
+        "description": "Domain search and registration",
+        "priority": "high",
+        "url": "https://www.namecheap.com/support/api",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598333",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "Next.js",
+        "description": "React framework for production",
+        "priority": "high",
+        "url": "https://nextjs.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598337",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "Astro",
+        "description": "Modern static site builder",
+        "priority": "high",
+        "url": "https://astro.build",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598338",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "services",
+        "name": "Netlify",
+        "description": "Free hosting and CI/CD",
+        "priority": "high",
+        "url": "https://www.netlify.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598345",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "services",
+        "name": "Cloudflare Pages",
+        "description": "Free hosting with CDN",
+        "priority": "high",
+        "url": "https://pages.cloudflare.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598347",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "libraries",
+        "name": "Tailwind CSS",
+        "description": "Utility-first CSS framework",
+        "priority": "high",
+        "url": "https://tailwindcss.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598349",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "libraries",
+        "name": "shadcn/ui",
+        "description": "Beautiful component library",
+        "priority": "high",
+        "url": "https://ui.shadcn.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598350",
+        "requested_by": "WebsiteBuilder"
+      }
+    ],
+    "medium": [
+      {
+        "category": "models",
+        "name": "all-MiniLM-L6-v2",
+        "description": "Lightweight embedding model for metadata",
+        "priority": "medium",
+        "url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598241",
+        "requested_by": "Surveyor"
+      },
+      {
+        "category": "models",
+        "name": "Mistral-7B-Instruct",
+        "description": "Reasoning and instruction following",
+        "priority": "medium",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598252",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "tools",
+        "name": "Plotly Dash",
+        "description": "Interactive visualizations",
+        "priority": "medium",
+        "url": "https://plotly.com/dash",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598264",
+        "requested_by": "Oracle"
+      },
+      {
+        "category": "libraries",
+        "name": "watchdog",
+        "description": "Filesystem event monitoring",
+        "priority": "medium",
+        "url": "https://pythonhosted.org/watchdog",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598274",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "tools",
+        "name": "proot",
+        "description": "Termux filesystem management",
+        "priority": "medium",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598277",
+        "requested_by": "Bridge"
+      },
+      {
+        "category": "apis",
+        "name": "Kraken API",
+        "description": "Kraken exchange integration",
+        "priority": "medium",
+        "url": "https://docs.kraken.com/rest",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598291",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "FinRL",
+        "description": "RL for quantitative finance",
+        "priority": "medium",
+        "url": "https://github.com/AI4Finance-Foundation/FinRL",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598297",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "libraries",
+        "name": "TensorTrade",
+        "description": "RL trading framework",
+        "priority": "medium",
+        "url": "https://github.com/tensortrade-org/tensortrade",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598301",
+        "requested_by": "TradingBots"
+      },
+      {
+        "category": "apis",
+        "name": "Twitter API",
+        "description": "Discover spiritual content",
+        "priority": "medium",
+        "url": "https://developer.twitter.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598316",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "data",
+        "name": "Solfeggio Frequencies Dataset",
+        "description": "396-852Hz healing frequencies",
+        "priority": "medium",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598321",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "data",
+        "name": "Schumann Resonance Data",
+        "description": "Earth's 7.83Hz frequency",
+        "priority": "medium",
+        "url": null,
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598325",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "resources",
+        "name": "IONS Research",
+        "description": "Institute of Noetic Sciences",
+        "priority": "medium",
+        "url": "https://noetic.org",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598328",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "resources",
+        "name": "HeartMath",
+        "description": "Heart-brain coherence tools",
+        "priority": "medium",
+        "url": "https://www.heartmath.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598330",
+        "requested_by": "SpiritualScout"
+      },
+      {
+        "category": "tools",
+        "name": "GoDaddy API",
+        "description": "Alternative domain search",
+        "priority": "medium",
+        "url": "https://developer.godaddy.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598335",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "tools",
+        "name": "Hugo",
+        "description": "Fast static site generator",
+        "priority": "medium",
+        "url": "https://gohugo.io",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598340",
+        "requested_by": "WebsiteBuilder"
+      },
+      {
+        "category": "libraries",
+        "name": "Framer Motion",
+        "description": "Animation library",
+        "priority": "medium",
+        "url": "https://www.framer.com/motion",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598352",
+        "requested_by": "WebsiteBuilder"
+      }
+    ],
+    "low": [
+      {
+        "category": "resources",
+        "name": "Gaia Streaming",
+        "description": "Consciousness video platform",
+        "priority": "low",
+        "url": "https://www.gaia.com",
+        "cost": "free",
+        "requested_at": "2026-04-03T13:18:35.598326",
+        "requested_by": "SpiritualScout"
+      }
+    ]
+  },
+  "unique_items": {
+    "tools:GitHub Repository Scanner": {
+      "category": "tools",
+      "name": "GitHub Repository Scanner",
+      "description": "Advanced repo discovery and metadata extraction",
+      "priority": "critical",
+      "url": "https://api.github.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598211",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "tools:GDrive Partition Scanner": {
+      "category": "tools",
+      "name": "GDrive Partition Scanner",
+      "description": "Partition-aware file discovery without ingestion",
+      "priority": "critical",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598220",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "tools:Tree Generator Pro": {
+      "category": "tools",
+      "name": "Tree Generator Pro",
+      "description": "Enhanced TREE.md generation with depth control",
+      "priority": "high",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598225",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "tools:Inventory Builder": {
+      "category": "tools",
+      "name": "Inventory Builder",
+      "description": "Advanced INVENTORY.json generation with metadata",
+      "priority": "high",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598228",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "libraries:gitpython": {
+      "category": "libraries",
+      "name": "gitpython",
+      "description": "Git repository manipulation library",
+      "priority": "high",
+      "url": "https://gitpython.readthedocs.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598233",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "libraries:PyGithub": {
+      "category": "libraries",
+      "name": "PyGithub",
+      "description": "GitHub API wrapper for Python",
+      "priority": "high",
+      "url": "https://pygithub.readthedocs.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598237",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "libraries:google-api-python-client": {
+      "category": "libraries",
+      "name": "google-api-python-client",
+      "description": "GDrive API access",
+      "priority": "critical",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598239",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "models:all-MiniLM-L6-v2": {
+      "category": "models",
+      "name": "all-MiniLM-L6-v2",
+      "description": "Lightweight embedding model for metadata",
+      "priority": "medium",
+      "url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598241",
+      "requested_by": [
+        "Surveyor"
+      ]
+    },
+    "models:all-mpnet-base-v2": {
+      "category": "models",
+      "name": "all-mpnet-base-v2",
+      "description": "High-quality embeddings for RAG",
+      "priority": "critical",
+      "url": "https://huggingface.co/sentence-transformers/all-mpnet-base-v2",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598247",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "models:BAAI/bge-large-en-v1.5": {
+      "category": "models",
+      "name": "BAAI/bge-large-en-v1.5",
+      "description": "State-of-art embedding model",
+      "priority": "high",
+      "url": "https://huggingface.co/BAAI/bge-large-en-v1.5",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598249",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "models:FinBERT": {
+      "category": "models",
+      "name": "FinBERT",
+      "description": "Financial sentiment analysis",
+      "priority": "high",
+      "url": "https://huggingface.co/ProsusAI/finbert",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598251",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "models:Mistral-7B-Instruct": {
+      "category": "models",
+      "name": "Mistral-7B-Instruct",
+      "description": "Reasoning and instruction following",
+      "priority": "medium",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598252",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "libraries:FAISS": {
+      "category": "libraries",
+      "name": "FAISS",
+      "description": "Vector similarity search",
+      "priority": "critical",
+      "url": "https://github.com/facebookresearch/faiss",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598254",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "libraries:ChromaDB": {
+      "category": "libraries",
+      "name": "ChromaDB",
+      "description": "Open-source embedding database",
+      "priority": "high",
+      "url": "https://www.trychroma.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598256",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "libraries:LangChain": {
+      "category": "libraries",
+      "name": "LangChain",
+      "description": "LLM application framework",
+      "priority": "high",
+      "url": "https://python.langchain.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598257",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "tools:Streamlit Components": {
+      "category": "tools",
+      "name": "Streamlit Components",
+      "description": "Advanced UI components for TIA Core",
+      "priority": "high",
+      "url": "https://streamlit.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598259",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "tools:Plotly Dash": {
+      "category": "tools",
+      "name": "Plotly Dash",
+      "description": "Interactive visualizations",
+      "priority": "medium",
+      "url": "https://plotly.com/dash",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598264",
+      "requested_by": [
+        "Oracle"
+      ]
+    },
+    "tools:rsync": {
+      "category": "tools",
+      "name": "rsync",
+      "description": "Efficient file synchronization",
+      "priority": "critical",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598269",
+      "requested_by": [
+        "Bridge"
+      ]
+    },
+    "tools:Termux API": {
+      "category": "tools",
+      "name": "Termux API",
+      "description": "Android device integration",
+      "priority": "critical",
+      "url": "https://wiki.termux.com/wiki/Termux:API",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598270",
+      "requested_by": [
+        "Bridge"
+      ]
+    },
+    "libraries:paramiko": {
+      "category": "libraries",
+      "name": "paramiko",
+      "description": "SSH/SFTP for secure transfers",
+      "priority": "high",
+      "url": "https://www.paramiko.org",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598272",
+      "requested_by": [
+        "Bridge"
+      ]
+    },
+    "libraries:watchdog": {
+      "category": "libraries",
+      "name": "watchdog",
+      "description": "Filesystem event monitoring",
+      "priority": "medium",
+      "url": "https://pythonhosted.org/watchdog",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598274",
+      "requested_by": [
+        "Bridge"
+      ]
+    },
+    "tools:jq": {
+      "category": "tools",
+      "name": "jq",
+      "description": "JSON processing for mobile",
+      "priority": "high",
+      "url": "https://stedolan.github.io/jq",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598275",
+      "requested_by": [
+        "Bridge"
+      ]
+    },
+    "tools:proot": {
+      "category": "tools",
+      "name": "proot",
+      "description": "Termux filesystem management",
+      "priority": "medium",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598277",
+      "requested_by": [
+        "Bridge"
+      ]
+    },
+    "libraries:CCXT": {
+      "category": "libraries",
+      "name": "CCXT",
+      "description": "Cryptocurrency exchange trading library",
+      "priority": "critical",
+      "url": "https://github.com/ccxt/ccxt",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598281",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:FreqTrade": {
+      "category": "libraries",
+      "name": "FreqTrade",
+      "description": "Crypto trading bot framework",
+      "priority": "critical",
+      "url": "https://www.freqtrade.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598282",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:Jesse AI": {
+      "category": "libraries",
+      "name": "Jesse AI",
+      "description": "Advanced algo trading framework",
+      "priority": "high",
+      "url": "https://jesse.trade",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598284",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:Hummingbot": {
+      "category": "libraries",
+      "name": "Hummingbot",
+      "description": "Market making bot",
+      "priority": "high",
+      "url": "https://hummingbot.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598286",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "apis:MEXC API": {
+      "category": "apis",
+      "name": "MEXC API",
+      "description": "MEXC exchange integration",
+      "priority": "critical",
+      "url": "https://mexcdevelop.github.io/apidocs",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598287",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "apis:Binance API": {
+      "category": "apis",
+      "name": "Binance API",
+      "description": "Binance exchange integration",
+      "priority": "high",
+      "url": "https://binance-docs.github.io/apidocs",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598289",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "apis:Kraken API": {
+      "category": "apis",
+      "name": "Kraken API",
+      "description": "Kraken exchange integration",
+      "priority": "medium",
+      "url": "https://docs.kraken.com/rest",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598291",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:TA-Lib": {
+      "category": "libraries",
+      "name": "TA-Lib",
+      "description": "Technical analysis library",
+      "priority": "critical",
+      "url": "https://ta-lib.org",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598292",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:pandas-ta": {
+      "category": "libraries",
+      "name": "pandas-ta",
+      "description": "Pandas technical analysis",
+      "priority": "high",
+      "url": "https://github.com/twopirllc/pandas-ta",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598294",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:VectorBT": {
+      "category": "libraries",
+      "name": "VectorBT",
+      "description": "Backtesting framework",
+      "priority": "high",
+      "url": "https://vectorbt.dev",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598296",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:FinRL": {
+      "category": "libraries",
+      "name": "FinRL",
+      "description": "RL for quantitative finance",
+      "priority": "medium",
+      "url": "https://github.com/AI4Finance-Foundation/FinRL",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598297",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:TensorTrade": {
+      "category": "libraries",
+      "name": "TensorTrade",
+      "description": "RL trading framework",
+      "priority": "medium",
+      "url": "https://github.com/tensortrade-org/tensortrade",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598301",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:pycountry": {
+      "category": "libraries",
+      "name": "pycountry",
+      "description": "ISO country/currency codes",
+      "priority": "high",
+      "url": "https://pypi.org/project/pycountry",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598302",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:xmlschema": {
+      "category": "libraries",
+      "name": "xmlschema",
+      "description": "XML Schema validation for ISO messages",
+      "priority": "high",
+      "url": "https://pypi.org/project/xmlschema",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598306",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:web3.py": {
+      "category": "libraries",
+      "name": "web3.py",
+      "description": "Ethereum blockchain interaction",
+      "priority": "critical",
+      "url": "https://web3py.readthedocs.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598307",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:solana-py": {
+      "category": "libraries",
+      "name": "solana-py",
+      "description": "Solana blockchain integration",
+      "priority": "high",
+      "url": "https://michaelhly.github.io/solana-py",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598309",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "libraries:stellar-sdk": {
+      "category": "libraries",
+      "name": "stellar-sdk",
+      "description": "Stellar (XLM) integration",
+      "priority": "high",
+      "url": "https://stellar-sdk.readthedocs.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598311",
+      "requested_by": [
+        "TradingBots"
+      ]
+    },
+    "apis:Reddit API": {
+      "category": "apis",
+      "name": "Reddit API",
+      "description": "Access spiritual communities",
+      "priority": "high",
+      "url": "https://www.reddit.com/dev/api",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598314",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "apis:Twitter API": {
+      "category": "apis",
+      "name": "Twitter API",
+      "description": "Discover spiritual content",
+      "priority": "medium",
+      "url": "https://developer.twitter.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598316",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "libraries:librosa": {
+      "category": "libraries",
+      "name": "librosa",
+      "description": "Audio and music analysis",
+      "priority": "high",
+      "url": "https://librosa.org",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598318",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "libraries:scipy": {
+      "category": "libraries",
+      "name": "scipy",
+      "description": "Scientific computing for frequency analysis",
+      "priority": "high",
+      "url": "https://scipy.org",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598319",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "data:Solfeggio Frequencies Dataset": {
+      "category": "data",
+      "name": "Solfeggio Frequencies Dataset",
+      "description": "396-852Hz healing frequencies",
+      "priority": "medium",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598321",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "data:Schumann Resonance Data": {
+      "category": "data",
+      "name": "Schumann Resonance Data",
+      "description": "Earth's 7.83Hz frequency",
+      "priority": "medium",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598325",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "resources:Gaia Streaming": {
+      "category": "resources",
+      "name": "Gaia Streaming",
+      "description": "Consciousness video platform",
+      "priority": "low",
+      "url": "https://www.gaia.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598326",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "resources:IONS Research": {
+      "category": "resources",
+      "name": "IONS Research",
+      "description": "Institute of Noetic Sciences",
+      "priority": "medium",
+      "url": "https://noetic.org",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598328",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "resources:HeartMath": {
+      "category": "resources",
+      "name": "HeartMath",
+      "description": "Heart-brain coherence tools",
+      "priority": "medium",
+      "url": "https://www.heartmath.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598330",
+      "requested_by": [
+        "SpiritualScout"
+      ]
+    },
+    "tools:Namecheap API": {
+      "category": "tools",
+      "name": "Namecheap API",
+      "description": "Domain search and registration",
+      "priority": "high",
+      "url": "https://www.namecheap.com/support/api",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598333",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "tools:GoDaddy API": {
+      "category": "tools",
+      "name": "GoDaddy API",
+      "description": "Alternative domain search",
+      "priority": "medium",
+      "url": "https://developer.godaddy.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598335",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "tools:Next.js": {
+      "category": "tools",
+      "name": "Next.js",
+      "description": "React framework for production",
+      "priority": "high",
+      "url": "https://nextjs.org",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598337",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "tools:Astro": {
+      "category": "tools",
+      "name": "Astro",
+      "description": "Modern static site builder",
+      "priority": "high",
+      "url": "https://astro.build",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598338",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "tools:Hugo": {
+      "category": "tools",
+      "name": "Hugo",
+      "description": "Fast static site generator",
+      "priority": "medium",
+      "url": "https://gohugo.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598340",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "services:Vercel": {
+      "category": "services",
+      "name": "Vercel",
+      "description": "Free hosting for Next.js/Astro",
+      "priority": "critical",
+      "url": "https://vercel.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598342",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "services:Netlify": {
+      "category": "services",
+      "name": "Netlify",
+      "description": "Free hosting and CI/CD",
+      "priority": "high",
+      "url": "https://www.netlify.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598345",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "services:Cloudflare Pages": {
+      "category": "services",
+      "name": "Cloudflare Pages",
+      "description": "Free hosting with CDN",
+      "priority": "high",
+      "url": "https://pages.cloudflare.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598347",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "libraries:Tailwind CSS": {
+      "category": "libraries",
+      "name": "Tailwind CSS",
+      "description": "Utility-first CSS framework",
+      "priority": "high",
+      "url": "https://tailwindcss.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598349",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "libraries:shadcn/ui": {
+      "category": "libraries",
+      "name": "shadcn/ui",
+      "description": "Beautiful component library",
+      "priority": "high",
+      "url": "https://ui.shadcn.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598350",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    },
+    "libraries:Framer Motion": {
+      "category": "libraries",
+      "name": "Framer Motion",
+      "description": "Animation library",
+      "priority": "medium",
+      "url": "https://www.framer.com/motion",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598352",
+      "requested_by": [
+        "WebsiteBuilder"
+      ]
+    }
+  }
+}

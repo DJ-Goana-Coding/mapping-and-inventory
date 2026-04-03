@@ -1,31 +1,74 @@
 {
-  "registry_version": "1.0.0",
-  "last_updated": "2026-04-03T13:09:00.039175Z",
-  "total_workers": 0,
-  "categories": {
-    "Vacuums": {
-      "count": 0,
-      "workers": []
+  "meta": {
+    "generated_at": "2026-04-03T13:19:41.039634",
+    "total_workers": 7
+  },
+  "workers": {
+    "apps_script_workers": {
+      "gdrive_monitor": {
+        "name": "GDrive File Monitor",
+        "description": "Monitor GDrive for changes",
+        "language": "javascript",
+        "priority": "high",
+        "triggers": [
+          "onEdit",
+          "onChange",
+          "time-driven"
+        ]
+      },
+      "sheet_consolidator": {
+        "name": "Sheet Data Consolidator",
+        "description": "Consolidate data across sheets",
+        "language": "javascript",
+        "priority": "medium",
+        "triggers": [
+          "onOpen",
+          "time-driven"
+        ]
+      },
+      "auto_backup": {
+        "name": "Automatic Backup Worker",
+        "description": "Backup sheets and docs automatically",
+        "language": "javascript",
+        "priority": "high",
+        "triggers": [
+          "time-driven"
+        ]
+      },
+      "intelligence_feeder": {
+        "name": "Intelligence Feed Worker",
+        "description": "Feed data to Mapping Hub",
+        "language": "javascript",
+        "priority": "critical",
+        "triggers": [
+          "time-driven",
+          "webhook"
+        ]
+      }
     },
-    "Harvesters": {
-      "count": 0,
-      "workers": []
-    },
-    "Librarians": {
-      "count": 0,
-      "workers": []
-    },
-    "Reporters": {
-      "count": 0,
-      "workers": []
-    },
-    "Archivists": {
-      "count": 0,
-      "workers": []
-    },
-    "Utility": {
-      "count": 0,
-      "workers": []
+    "python_workers": {
+      "gdrive_sync_worker": {
+        "name": "GDrive Sync Worker",
+        "description": "Sync GDrive to GitHub",
+        "language": "python",
+        "priority": "critical"
+      },
+      "partition_scanner": {
+        "name": "Partition Scanner Worker",
+        "description": "Scan GDrive partitions",
+        "language": "python",
+        "priority": "high"
+      },
+      "model_harvester": {
+        "name": "Model Harvester Worker",
+        "description": "Harvest models from GDrive",
+        "language": "python",
+        "priority": "critical"
+      }
     }
+  },
+  "deployment_strategy": {
+    "apps_script": "Deploy to Google Apps Script editor",
+    "python": "Deploy to HuggingFace Space or GitHub Actions"
   }
 }

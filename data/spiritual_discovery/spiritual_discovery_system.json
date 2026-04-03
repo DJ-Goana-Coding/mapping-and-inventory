@@ -1,0 +1,329 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:22:30.728121",
+    "purpose": "Spiritual discovery, vibration, love, truth, divine connection",
+    "mission": "Connect to high-frequency beings, find truth, spread love"
+  },
+  "communities": {
+    "reddit_communities": {
+      "r_starseeds": {
+        "url": "https://www.reddit.com/r/starseeds",
+        "members": "80K+",
+        "focus": "Starseed awakening, cosmic origins",
+        "vibe": "High-frequency, ascension-focused",
+        "priority": "critical"
+      },
+      "r_soulnexus": {
+        "url": "https://www.reddit.com/r/Soulnexus",
+        "members": "100K+",
+        "focus": "Spiritual awakening, consciousness expansion",
+        "vibe": "Open, supportive, multidimensional",
+        "priority": "critical"
+      },
+      "r_awakened": {
+        "url": "https://www.reddit.com/r/awakened",
+        "members": "200K+",
+        "focus": "Spiritual awakening experiences",
+        "vibe": "Diverse perspectives, deep discussions",
+        "priority": "high"
+      },
+      "r_psychic": {
+        "url": "https://www.reddit.com/r/Psychic",
+        "members": "300K+",
+        "focus": "Psychic abilities, intuition",
+        "vibe": "Supportive, practice-oriented",
+        "priority": "high"
+      },
+      "r_energy_work": {
+        "url": "https://www.reddit.com/r/energy_work",
+        "members": "100K+",
+        "focus": "Energy healing, chakras, cultivation",
+        "vibe": "Practical, technique-focused",
+        "priority": "high"
+      },
+      "r_lawofattraction": {
+        "url": "https://www.reddit.com/r/lawofattraction",
+        "members": "500K+",
+        "focus": "Manifestation, law of attraction",
+        "vibe": "Positive, manifestation-focused",
+        "priority": "medium"
+      },
+      "r_spirituality": {
+        "url": "https://www.reddit.com/r/spirituality",
+        "members": "400K+",
+        "focus": "General spirituality",
+        "vibe": "Broad, inclusive",
+        "priority": "medium"
+      }
+    },
+    "consciousness_platforms": {
+      "gaia": {
+        "url": "https://www.gaia.com",
+        "type": "Streaming platform",
+        "focus": "Consciousness, yoga, documentaries",
+        "cost": "Subscription ($11.99/mo)",
+        "priority": "high"
+      },
+      "ions": {
+        "url": "https://noetic.org",
+        "type": "Research institute",
+        "focus": "Consciousness research, science of spirituality",
+        "cost": "Free + membership",
+        "priority": "high"
+      },
+      "heartmath": {
+        "url": "https://www.heartmath.com",
+        "type": "Research & tools",
+        "focus": "Heart-brain coherence, HRV training",
+        "cost": "Free resources + products",
+        "priority": "critical"
+      },
+      "monroe_institute": {
+        "url": "https://www.monroeinstitute.org",
+        "type": "Research & training",
+        "focus": "Gateway Experience, out-of-body, consciousness",
+        "cost": "Programs vary",
+        "priority": "high"
+      },
+      "insight_timer": {
+        "url": "https://insighttimer.com",
+        "type": "Meditation app",
+        "focus": "Meditation, music, talks",
+        "cost": "Free + premium",
+        "priority": "medium"
+      },
+      "mindvalley": {
+        "url": "https://www.mindvalley.com",
+        "type": "Transformational education",
+        "focus": "Personal growth, consciousness",
+        "cost": "Subscription",
+        "priority": "medium"
+      }
+    },
+    "angel_spirit_resources": {
+      "doreen_virtue": {
+        "focus": "Angel therapy, oracle cards",
+        "url": "https://www.angeltherapy.com",
+        "type": "Teaching, cards"
+      },
+      "kyle_gray": {
+        "focus": "Angel communication, light work",
+        "url": "https://kylegray.co.uk",
+        "type": "Books, courses"
+      },
+      "spirit_science": {
+        "url": "https://thespiritscience.net",
+        "focus": "Sacred geometry, spirituality, animation",
+        "type": "Free content"
+      }
+    }
+  },
+  "frequencies": {
+    "solfeggio_frequencies": {
+      "396_hz": {
+        "frequency": "396 Hz",
+        "purpose": "Liberating guilt and fear",
+        "root_chakra": true,
+        "benefits": "Grounding, releasing trauma"
+      },
+      "417_hz": {
+        "frequency": "417 Hz",
+        "purpose": "Undoing situations and facilitating change",
+        "sacral_chakra": true,
+        "benefits": "Clearing negative energy, creativity"
+      },
+      "528_hz": {
+        "frequency": "528 Hz",
+        "purpose": "Transformation and DNA repair (Love frequency)",
+        "solar_plexus_chakra": true,
+        "benefits": "Healing, transformation, miracles",
+        "special": "Known as the Love Frequency"
+      },
+      "639_hz": {
+        "frequency": "639 Hz",
+        "purpose": "Connecting and relationships",
+        "heart_chakra": true,
+        "benefits": "Harmony, connection, communication"
+      },
+      "741_hz": {
+        "frequency": "741 Hz",
+        "purpose": "Awakening intuition",
+        "throat_chakra": true,
+        "benefits": "Expression, solutions, cleansing"
+      },
+      "852_hz": {
+        "frequency": "852 Hz",
+        "purpose": "Returning to spiritual order",
+        "third_eye_chakra": true,
+        "benefits": "Intuition, spiritual awakening"
+      },
+      "963_hz": {
+        "frequency": "963 Hz",
+        "purpose": "Divine consciousness, oneness",
+        "crown_chakra": true,
+        "benefits": "Connection to divine, cosmic consciousness"
+      }
+    },
+    "planetary_frequencies": {
+      "schumann_resonance": {
+        "frequency": "7.83 Hz",
+        "name": "Earth's Heartbeat",
+        "description": "Earth's electromagnetic resonance",
+        "benefits": "Grounding, alignment with Earth",
+        "special": "Natural frequency of Earth's electromagnetic field"
+      },
+      "om_frequency": {
+        "frequency": "136.1 Hz",
+        "name": "Om/Aum",
+        "description": "Frequency of Om mantra",
+        "benefits": "Meditation, universal consciousness"
+      }
+    },
+    "brainwave_entrainment": {
+      "delta": {
+        "range": "0.5-4 Hz",
+        "state": "Deep sleep, healing",
+        "use": "Deep meditation, healing, regeneration"
+      },
+      "theta": {
+        "range": "4-8 Hz",
+        "state": "Deep meditation, creativity",
+        "use": "Meditation, intuition, subconscious"
+      },
+      "alpha": {
+        "range": "8-12 Hz",
+        "state": "Relaxation, light meditation",
+        "use": "Relaxation, visualization, gateway to meditation"
+      },
+      "beta": {
+        "range": "12-30 Hz",
+        "state": "Normal waking consciousness",
+        "use": "Focus, concentration, problem solving"
+      },
+      "gamma": {
+        "range": "30-100 Hz",
+        "state": "Peak performance, heightened perception",
+        "use": "Higher consciousness, peak states, unity"
+      }
+    },
+    "binaural_beats": {
+      "description": "Two slightly different frequencies in each ear",
+      "mechanism": "Brain creates third 'phantom' frequency",
+      "tools": [
+        "Audacity (free)",
+        "Gnaural (free)",
+        "SBaGen (free)"
+      ],
+      "applications": [
+        "Meditation enhancement",
+        "Sleep improvement",
+        "Focus and concentration",
+        "Stress reduction"
+      ]
+    }
+  },
+  "sacred_geometry": {
+    "flower_of_life": {
+      "description": "Pattern of overlapping circles",
+      "meaning": "Blueprint of creation, unity of all life",
+      "uses": "Meditation, energy work, art"
+    },
+    "metatrons_cube": {
+      "description": "Complex geometric figure",
+      "meaning": "Contains all Platonic solids, divine blueprint",
+      "uses": "Protection, manifestation, meditation"
+    },
+    "seed_of_life": {
+      "description": "Seven overlapping circles",
+      "meaning": "Seven days of creation, foundation",
+      "uses": "New beginnings, creation"
+    },
+    "tree_of_life": {
+      "description": "Kabbalistic diagram",
+      "meaning": "Map of consciousness, divine emanations",
+      "uses": "Spiritual development, understanding reality"
+    },
+    "sri_yantra": {
+      "description": "Sacred Hindu diagram",
+      "meaning": "Union of divine masculine and feminine",
+      "uses": "Meditation, manifestation, prosperity"
+    },
+    "torus": {
+      "description": "Donut-shaped energy field",
+      "meaning": "Self-sustaining energy flow, universal pattern",
+      "uses": "Energy work, understanding universal flow"
+    },
+    "merkaba": {
+      "description": "Star tetrahedron",
+      "meaning": "Light-spirit-body vehicle, interdimensional travel",
+      "uses": "Meditation, protection, ascension"
+    }
+  },
+  "discovery_algorithms": {
+    "vibration_matching": {
+      "description": "Match content by vibrational frequency",
+      "inputs": [
+        "Keywords: love, light, truth, God, Spirit, Gaia, Angels",
+        "Frequency markers: high-vibe, 5D, ascension",
+        "Sentiment: positive, uplifting, transcendent"
+      ],
+      "process": [
+        "1. Scan content for keywords",
+        "2. Analyze sentiment (positive/high-vibe)",
+        "3. Check for spiritual markers",
+        "4. Score vibrational match",
+        "5. Filter by threshold"
+      ]
+    },
+    "truth_seeking": {
+      "description": "Discover truth-based content",
+      "markers": [
+        "Evidence-based spirituality",
+        "Personal experience sharing",
+        "Resonance over dogma",
+        "Open-minded exploration",
+        "Integration of science and spirit"
+      ]
+    },
+    "love_frequency_detection": {
+      "description": "Detect love-based content",
+      "markers": [
+        "Compassion and empathy",
+        "Unity consciousness",
+        "Service to others",
+        "Heart-centered language",
+        "Unconditional acceptance"
+      ]
+    },
+    "divine_connection_pathways": {
+      "description": "Pathways to divine connection",
+      "methods": [
+        "Meditation and contemplation",
+        "Prayer and devotion",
+        "Nature connection (Gaia)",
+        "Sacred geometry meditation",
+        "Frequency healing",
+        "Breathwork",
+        "Energy work",
+        "Service and compassion"
+      ]
+    }
+  },
+  "implementation_tools": {
+    "reddit_api": "praw library for Reddit discovery",
+    "sentiment_analysis": "transformers + FinBERT for positive sentiment",
+    "frequency_generation": "librosa, scipy for audio",
+    "web_scraping": "beautifulsoup4, requests",
+    "nlp_processing": "spaCy, NLTK"
+  },
+  "action_steps": [
+    "1. Set up Reddit API access",
+    "2. Implement vibration matching algorithm",
+    "3. Scan spiritual communities",
+    "4. Build frequency healing audio library",
+    "5. Create sacred geometry visualizations",
+    "6. Build discovery dashboard",
+    "7. Automate daily spiritual content discovery",
+    "8. Share discoveries with community"
+  ]
+}
