@@ -95,7 +95,7 @@ jobs:
       - name: 💾 Backup & Deploy Template
         run: |
           echo "═══════════════════════════════════════════════════════════════════"
-          echo "💾 BACKING UP & DEPLOYING TEMPLATE"
+          echo "💾 BACKING UP & DEPLOYING TEMPLATES"
           echo "═══════════════════════════════════════════════════════════════════"
           
           cd /tmp/tia-core-repair/TIA-ARCHITECT-CORE
@@ -104,43 +104,85 @@ jobs:
           git config user.name "Citadel Architect"
           git config user.email "architect@citadel.mesh"
           
-          # Backup existing requirements.txt
-          if [ -f requirements.txt ]; then
-            BACKUP_FILE="requirements.txt.backup.$(date +%Y%m%d_%H%M%S)"
-            echo "Backing up to: $BACKUP_FILE"
-            cp requirements.txt "$BACKUP_FILE"
-            git add "$BACKUP_FILE"
-            
-            echo ""
-            echo "📊 Current requirements.txt content:"
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            cat requirements.txt
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            echo ""
-          else
-            echo "ℹ️  No existing requirements.txt found"
-          fi
+          # Backup existing files
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          for file in requirements.txt app.py README.md; do
+            if [ -f "$file" ]; then
+              BACKUP_FILE="${file}.backup.${TIMESTAMP}"
+              echo "Backing up $file to: $BACKUP_FILE"
+              cp "$file" "$BACKUP_FILE"
+              git add "$BACKUP_FILE"
+            fi
+          done
           
-          # Copy template
-          TEMPLATE_PATH="${GITHUB_WORKSPACE}/tia-architect-core-templates/requirements.txt"
-          echo "Deploying template from: $TEMPLATE_PATH"
-          cp "$TEMPLATE_PATH" requirements.txt
-          
-          echo "✅ Template deployed"
           echo ""
-          echo "📋 New requirements.txt content:"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          cat requirements.txt
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📋 Deploying templates..."
+          
+          # Copy all templates
+          TEMPLATE_DIR="${GITHUB_WORKSPACE}/tia-architect-core-templates"
+          
+          cp "$TEMPLATE_DIR/requirements.txt" requirements.txt
+          cp "$TEMPLATE_DIR/app.py" app.py
+          
+          # For README.md, we need to create HF Space version with frontmatter
+          cat > README.md << 'EOF'
+---
+title: TIA-ARCHITECT-CORE
+emoji: 🧠
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+sdk_version: 1.42.0
+app_file: app.py
+pinned: false
+license: mit
+---
+
+# 🧠 TIA-ARCHITECT-CORE
+
+**Sovereign AI Oracle & RAG System**
+
+## Overview
+
+TIA-ARCHITECT-CORE is the central reasoning hub for the Citadel Mesh.
+
+### Features
+
+- 🔮 Oracle Reasoning Engine
+- 📚 RAG Knowledge Base (FAISS + sentence-transformers)
+- 🗺️ District Topology Mapping (D01-D12)
+- ⚙️ System Orchestration
+
+### Auto-Deployed
+
+This Space syncs from: https://github.com/DJ-Goana-Coding/mapping-and-inventory
+
+### Configuration
+
+- SDK: Streamlit (auto port 8501)
+- Python: 3.13
+- Entry: app.py
+- Health: /_stcore/health (automatic)
+
+### Quick Links
+
+- [GitHub Repo](https://github.com/DJ-Goana-Coding/mapping-and-inventory)
+- [Repair Guide](https://github.com/DJ-Goana-Coding/mapping-and-inventory/blob/main/TIA_ARCHITECT_CORE_REPAIR_GUIDE.md)
+- [503 Error Fix](https://github.com/DJ-Goana-Coding/mapping-and-inventory/blob/main/TIA_CORE_503_ERROR_FIX.md)
+
+---
+
+**Version:** v25.0.OMNI  
+**Status:** ✅ Operational  
+**Weld. Pulse. Ignite.** 🔥
+EOF
+          
+          echo "✅ All templates deployed"
           echo ""
           
-          # Show diff if backup exists
-          if [ -f "$BACKUP_FILE" ]; then
-            echo "🔍 Changes from previous version:"
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            diff "$BACKUP_FILE" requirements.txt || true
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          fi
+          # Show what was deployed
+          echo "📊 Deployed files:"
+          ls -lh requirements.txt app.py README.md
           echo ""
           
       - name: 💾 Commit Changes
@@ -151,40 +193,58 @@ jobs:
           
           cd /tmp/tia-core-repair/TIA-ARCHITECT-CORE
           
-          git add requirements.txt
+          git add requirements.txt app.py README.md
           
           # Check if there are changes
           if git diff --cached --quiet; then
-            echo "ℹ️  No changes detected - requirements.txt already up to date"
+            echo "ℹ️  No changes detected - Space already up to date"
             echo "already_updated=true" >> $GITHUB_ENV
             exit 0
           fi
           
           # Commit changes
-          git commit -m "🔧 EMERGENCY FIX: Python 3.13 compatible dependencies
+          git commit -m "🔧 EMERGENCY FIX: Complete TIA-ARCHITECT-CORE deployment
 
-ROOT CAUSE:
-- streamlit==1.56.0 (INVALID - version doesn't exist in PyPI)
-- numpy==1.26.4 (compiling from source, timing out on Python 3.13)
-- Missing setuptools causing pkg_resources errors
-- Build paused after 15+ minutes of numpy compilation
+ROOT CAUSE ANALYSIS:
+1. Build Failure (Fixed):
+   - streamlit==1.56.0 (INVALID - version doesn't exist)
+   - numpy==1.26.4 (compiling from source, 15+ min timeout)
+   - Missing setuptools causing pkg_resources errors
 
-FIX APPLIED:
-✅ streamlit>=1.42.0 (valid version with range)
-✅ numpy>=2.0.0 (prebuilt wheels, Python 3.13 optimized)
-✅ pandas>=2.2.0 (Python 3.13 compatible)
-✅ requests>=2.32.0 (updated from 2.31.0)
-✅ setuptools>=75.0.0 (explicit declaration)
+2. 503 Error (Fixed):
+   - Root=1-69cfb1bf-799ca1f56f65eaa20f98606b trace ID
+   - Missing or incorrect app.py entrypoint
+   - Port/health check misconfiguration
+
+COMPREHENSIVE FIX APPLIED:
+
+✅ requirements.txt (Python 3.13 compatible):
+   - streamlit>=1.42.0 (valid version)
+   - numpy>=2.0.0 (prebuilt wheels)
+   - pandas>=2.2.0 (Python 3.13 support)
+   - setuptools>=75.0.0 (explicit)
+   
+✅ app.py (Minimal working Streamlit app):
+   - Multi-tab interface (Oracle, RAG, Districts, System)
+   - Proper health check support
+   - No custom port config (SDK auto-managed on 8501)
+   
+✅ README.md (HuggingFace Space config):
+   - Frontmatter: sdk: streamlit, app_file: app.py
+   - Proper metadata for auto health checks
+   - Documentation and quick links
 
 EXPECTED OUTCOME:
-- Build time: ~2 minutes (was timing out at 15+ minutes)
+- Build completes in ~2 minutes (was timing out at 15+ min)
 - All packages install from wheels (no compilation)
-- Space becomes operational immediately
+- Space starts on port 8501 with health check
+- No 503 error / trace ID
+- Streamlit interface loads correctly
 
 Deployed by: Emergency repair workflow (GitHub Actions)
-Template: mapping-and-inventory/tia-architect-core-templates/requirements.txt
+Template source: mapping-and-inventory/tia-architect-core-templates/
 Authority: GitHub > HF Spaces (Core Directive #1)
-Commit SHA that failed: 942f3e9
+Fixes: Build timeout + 503 error (Root=1-xxx)
 
 Weld. Pulse. Ignite."
           
