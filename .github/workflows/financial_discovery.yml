@@ -1,0 +1,148 @@
+name: 💰 Financial Discovery Automation
+# Discovers grants, bounties, and financial opportunities
+
+on:
+  schedule:
+    - cron: '0 10 * * 1'  # Weekly on Monday at 10 AM UTC
+  workflow_dispatch:
+    inputs:
+      focus_area:
+        description: 'Focus area for discovery'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - grants
+          - bounties
+          - competitions
+          - partnerships
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  discover-opportunities:
+    name: Discover Financial Opportunities
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 💰 Run Financial Opportunity Scout
+        run: |
+          echo "🏛️ Discovering Financial Opportunities..."
+          python scripts/financial_opportunity_scout.py || true
+      
+      - name: 💎 Run Asset Recovery Hunter
+        run: |
+          echo "💰 Scanning for Recoverable Assets..."
+          python scripts/asset_recovery_hunter.py
+      
+      - name: 📊 Generate Opportunities Report
+        if: always()
+        run: |
+          echo "# 💰 Financial Opportunities Report" > FINANCIAL_REPORT.md
+          echo "" >> FINANCIAL_REPORT.md
+          echo "**Date:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> FINANCIAL_REPORT.md
+          echo "**Focus:** ${{ inputs.focus_area || 'all' }}" >> FINANCIAL_REPORT.md
+          echo "" >> FINANCIAL_REPORT.md
+          
+          # Financial opportunities
+          if [ -f data/discoveries/financial_opportunities.json ]; then
+            echo "## 💵 Discovered Opportunities" >> FINANCIAL_REPORT.md
+            python -c "
+import json
+with open('data/discoveries/financial_opportunities.json') as f:
+    data = json.load(f)
+
+print(f\"**Total Opportunities:** {data.get('summary', {}).get('total_opportunities', 0)}\")
+print(f\"**Grants:** {data.get('summary', {}).get('grants', 0)}\")
+print(f\"**Bounties:** {data.get('summary', {}).get('bounties', 0)}\")
+print(f\"**Competitions:** {data.get('summary', {}).get('competitions', 0)}\")
+" >> FINANCIAL_REPORT.md
+          fi
+          
+          echo "" >> FINANCIAL_REPORT.md
+          
+          # Asset recovery
+          if [ -f data/discoveries/asset_recovery_leads.json ]; then
+            echo "## 💎 Asset Recovery Leads" >> FINANCIAL_REPORT.md
+            python -c "
+import json
+with open('data/discoveries/asset_recovery_leads.json') as f:
+    data = json.load(f)
+
+print(f\"**Total Leads:** {data.get('summary', {}).get('total_leads', 0)}\")
+print(f\"**High Priority:** {data.get('summary', {}).get('high_priority', 0)}\")
+print(f\"**Crypto Addresses:** {data.get('summary', {}).get('addresses_found', 0)}\")
+" >> FINANCIAL_REPORT.md
+          fi
+          
+          cat FINANCIAL_REPORT.md
+      
+      - name: 📤 Upload Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: financial-discovery-results
+          path: |
+            data/discoveries/financial_opportunities.json
+            data/discoveries/asset_recovery_leads.json
+            data/discoveries/ASSET_RECOVERY_REPORT.md
+            FINANCIAL_REPORT.md
+          retention-days: 90
+      
+      - name: 💾 Commit Discoveries
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add data/discoveries/ FINANCIAL_REPORT.md 2>/dev/null || true
+          
+          if git diff --staged --quiet; then
+            echo "No new discoveries to commit"
+          else
+            git commit -m "💰 Financial discovery scan - $(date -u '+%Y-%m-%d')"
+            git push
+          fi
+      
+      - name: 🔔 Summary
+        if: always()
+        run: |
+          echo "💰 FINANCIAL DISCOVERY COMPLETE"
+          echo "================================="
+          
+          if [ -f data/discoveries/financial_opportunities.json ]; then
+            python -c "
+import json
+with open('data/discoveries/financial_opportunities.json') as f:
+    data = json.load(f)
+total = data.get('summary', {}).get('total_opportunities', 0)
+print(f'Discovered {total} financial opportunities')
+"
+          fi
+          
+          if [ -f data/discoveries/asset_recovery_leads.json ]; then
+            python -c "
+import json
+with open('data/discoveries/asset_recovery_leads.json') as f:
+    data = json.load(f)
+total = data.get('summary', {}).get('total_leads', 0)
+high = data.get('summary', {}).get('high_priority', 0)
+print(f'Found {total} asset recovery leads ({high} high priority)')
+"
+          fi

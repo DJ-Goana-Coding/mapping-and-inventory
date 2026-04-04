@@ -1,0 +1,183 @@
+name: 🏛️ Master Perfection Orchestrator
+# Coordinates all Omni-Perfection Protocol workflows
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Execution mode'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full          # Complete perfection cycle
+          - audit_only    # Just run audits
+          - test_only     # Just run tests
+          - docs_only     # Just update documentation
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  orchestrate:
+    name: Orchestrate Perfection Cycle
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for knowledge recovery
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: 🔍 Phase 1 - Repository Census
+        if: inputs.mode == 'full' || inputs.mode == 'audit_only'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🏛️ Running Repository Census..."
+          python scripts/repo_census_builder.py
+      
+      - name: 🔬 Phase 2 - Gap Analysis
+        if: inputs.mode == 'full' || inputs.mode == 'audit_only'
+        run: |
+          echo "🔍 Analyzing Gaps..."
+          python scripts/gap_analyzer.py
+      
+      - name: 💡 Phase 3 - Solution Generation
+        if: inputs.mode == 'full' || inputs.mode == 'audit_only'
+        run: |
+          echo "💡 Generating Solutions..."
+          python scripts/solution_generator.py
+      
+      - name: 🧪 Phase 4 - Solution Validation
+        if: inputs.mode == 'full' || inputs.mode == 'test_only'
+        run: |
+          echo "🧪 Validating Solutions..."
+          python scripts/experimental_validator.py
+      
+      - name: 🎯 Phase 5 - Best Solution Selection
+        if: inputs.mode == 'full'
+        run: |
+          echo "🎯 Selecting Best Solutions..."
+          python scripts/best_solution_selector.py
+      
+      - name: 📚 Phase 6 - Solution Archival
+        if: inputs.mode == 'full'
+        run: |
+          echo "📚 Archiving Solutions..."
+          python scripts/solution_librarian.py
+      
+      - name: 💪 Phase 7 - Stress Testing
+        if: inputs.mode == 'full' || inputs.mode == 'test_only'
+        run: |
+          echo "💪 Running Stress Tests..."
+          python scripts/stress_test_orchestrator.py
+      
+      - name: 🔍 Phase 8 - Mistake Hunting
+        if: inputs.mode == 'full' || inputs.mode == 'audit_only'
+        run: |
+          echo "🔍 Hunting for Mistakes..."
+          python scripts/mistake_hunter.py
+      
+      - name: 💰 Phase 9 - Asset Recovery
+        if: inputs.mode == 'full'
+        run: |
+          echo "💰 Scanning for Assets..."
+          python scripts/asset_recovery_hunter.py
+      
+      - name: 📖 Phase 10 - Knowledge Recovery
+        if: inputs.mode == 'full'
+        run: |
+          echo "📖 Mining Git History..."
+          python scripts/knowledge_recovery_engine.py
+      
+      - name: 🔧 Phase 11 - Tool Evaluation
+        if: inputs.mode == 'full'
+        run: |
+          echo "🔧 Evaluating Tools..."
+          python scripts/automation_tool_evaluator.py
+      
+      - name: 📄 Phase 12 - Documentation Index
+        if: inputs.mode == 'full' || inputs.mode == 'docs_only'
+        run: |
+          echo "📄 Generating Documentation Index..."
+          python scripts/generate_master_doc_index.py
+      
+      - name: 💰 Phase 13 - Financial Opportunities
+        if: inputs.mode == 'full'
+        run: |
+          echo "💰 Discovering Financial Opportunities..."
+          python scripts/financial_opportunity_scout.py || true
+      
+      - name: 📊 Generate Perfection Report
+        if: always()
+        run: |
+          echo "# 🏛️ Perfection Cycle Report" > PERFECTION_REPORT.md
+          echo "" >> PERFECTION_REPORT.md
+          echo "**Date:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> PERFECTION_REPORT.md
+          echo "**Mode:** ${{ inputs.mode || 'scheduled' }}" >> PERFECTION_REPORT.md
+          echo "" >> PERFECTION_REPORT.md
+          echo "## 📊 Execution Summary" >> PERFECTION_REPORT.md
+          echo "" >> PERFECTION_REPORT.md
+          
+          # Check for generated files
+          echo "### Generated Artifacts:" >> PERFECTION_REPORT.md
+          ls -lh data/discoveries/ 2>/dev/null | tail -n +2 | head -20 >> PERFECTION_REPORT.md || echo "No discoveries" >> PERFECTION_REPORT.md
+          echo "" >> PERFECTION_REPORT.md
+          ls -lh data/monitoring/ 2>/dev/null | tail -n +2 | head -20 >> PERFECTION_REPORT.md || echo "No monitoring data" >> PERFECTION_REPORT.md
+          echo "" >> PERFECTION_REPORT.md
+          
+          cat PERFECTION_REPORT.md
+      
+      - name: 📤 Upload Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: perfection-cycle-results
+          path: |
+            data/discoveries/
+            data/monitoring/
+            data/experiments/
+            data/libraries/
+            PERFECTION_REPORT.md
+            SYSTEM_MASTER_INDEX.md
+          retention-days: 30
+      
+      - name: 💾 Commit Results
+        if: inputs.mode == 'full' || inputs.mode == 'docs_only'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add data/ SYSTEM_MASTER_INDEX.md PERFECTION_REPORT.md 2>/dev/null || true
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🏛️ Perfection cycle complete - $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+      
+      - name: 📊 Summary
+        if: always()
+        run: |
+          echo "🏛️ PERFECTION CYCLE COMPLETE"
+          echo "================================"
+          echo "Mode: ${{ inputs.mode || 'scheduled' }}"
+          echo "Artifacts uploaded to GitHub Actions"
+          echo "Check data/ directories for results"
