@@ -22,6 +22,10 @@ class EquipmentCategory(Enum):
     VEHICLE = "vehicle"
     COMMUNITY = "community"
     LICENSE = "license"
+    MARINE = "marine"
+    LAND = "land"
+    GAMING_MEDIA = "gaming_media"
+    AGRICULTURE = "agriculture"
 
 
 class EquipmentStatus(Enum):
@@ -118,6 +122,52 @@ class EquipmentTracker:
                 {"name": "Trailer insurance", "priority": "P0", "cost_estimate": 800, "status": "not_started", "yearly": 800},
                 {"name": "Equipment insurance", "priority": "P1", "cost_estimate": 1000, "status": "not_started", "yearly": 1000},
                 {"name": "Vehicle registration", "priority": "P0", "cost_estimate": 500, "status": "not_started", "yearly": 500}
+            ],
+            "marine": [
+                {"name": "Primary boat (20-30ft fishing/cruising)", "priority": "P1", "cost_estimate": 27500, "status": "not_started", "notes": "For island hopping, fishing, transport"},
+                {"name": "Kayaks (4x)", "priority": "P2", "cost_estimate": 2000, "status": "not_started"},
+                {"name": "Canoe", "priority": "P2", "cost_estimate": 800, "status": "not_started"},
+                {"name": "Paddleboards (4x)", "priority": "P2", "cost_estimate": 1600, "status": "not_started"},
+                {"name": "Inflatable dinghy", "priority": "P2", "cost_estimate": 500, "status": "not_started"},
+                {"name": "Fishing gear (rods, nets, traps)", "priority": "P1", "cost_estimate": 2000, "status": "not_started"},
+                {"name": "Safety equipment (life jackets, flares, radio)", "priority": "P0", "cost_estimate": 1000, "status": "not_started"},
+                {"name": "Navigation (GPS, charts, compass)", "priority": "P1", "cost_estimate": 800, "status": "not_started"},
+                {"name": "Marine maintenance tools & parts", "priority": "P1", "cost_estimate": 1500, "status": "not_started"}
+            ],
+            "land": [
+                {"name": "Land acquisition (100-500 acres beachfront)", "priority": "P0", "cost_estimate": 500000, "status": "not_started", "notes": "Tropical, year-round water, varied terrain"},
+                {"name": "Legal/closing costs", "priority": "P0", "cost_estimate": 25000, "status": "not_started"},
+                {"name": "Surveys & permits", "priority": "P0", "cost_estimate": 10000, "status": "not_started"},
+                {"name": "Main storage facility (40x60 barn)", "priority": "P1", "cost_estimate": 20000, "status": "not_started"},
+                {"name": "Community buildings (meeting, workshop, wellness)", "priority": "P1", "cost_estimate": 60000, "status": "not_started"},
+                {"name": "Individual cabins/tiny homes (10x)", "priority": "P1", "cost_estimate": 150000, "status": "not_started"},
+                {"name": "Yurts/glamping structures (5x)", "priority": "P2", "cost_estimate": 37500, "status": "not_started"},
+                {"name": "Community solar array (50kW)", "priority": "P0", "cost_estimate": 87500, "status": "not_started"},
+                {"name": "Community battery bank (200kWh)", "priority": "P0", "cost_estimate": 135000, "status": "not_started"},
+                {"name": "Water systems (wells, rainwater, filtration)", "priority": "P0", "cost_estimate": 30000, "status": "not_started"}
+            ],
+            "gaming_media": [
+                {"name": "Gaming/Creation Rig #1 (Ryzen 9/RTX 4090)", "priority": "P1", "cost_estimate": 7000, "status": "not_started"},
+                {"name": "Gaming/Creation Rig #2", "priority": "P2", "cost_estimate": 7000, "status": "not_started"},
+                {"name": "Gaming/Creation Rig #3", "priority": "P2", "cost_estimate": 7000, "status": "not_started"},
+                {"name": "Gaming/Creation Rig #4", "priority": "P2", "cost_estimate": 7000, "status": "not_started"},
+                {"name": "Media creation equipment (audio, video)", "priority": "P1", "cost_estimate": 7000, "status": "not_started"},
+                {"name": "Media storage NAS (100TB)", "priority": "P1", "cost_estimate": 8000, "status": "not_started"},
+                {"name": "Crypto mining/staking rigs (3x)", "priority": "P2", "cost_estimate": 15000, "status": "not_started"},
+                {"name": "Blockchain node hardware (Raspberry Pi cluster)", "priority": "P2", "cost_estimate": 2000, "status": "not_started"},
+                {"name": "Network equipment (switches, load balancers)", "priority": "P1", "cost_estimate": 2000, "status": "not_started"},
+                {"name": "UPS systems (24/7 uptime)", "priority": "P1", "cost_estimate": 3000, "status": "not_started"}
+            ],
+            "agriculture": [
+                {"name": "Seed library (comprehensive collection)", "priority": "P0", "cost_estimate": 4000, "status": "not_started", "notes": "See seed_library_manager.py"},
+                {"name": "Chickens (50+ birds)", "priority": "P1", "cost_estimate": 750, "status": "not_started"},
+                {"name": "Goats (10-20 animals)", "priority": "P1", "cost_estimate": 4500, "status": "not_started"},
+                {"name": "Beehives (10 hives)", "priority": "P1", "cost_estimate": 4000, "status": "not_started"},
+                {"name": "Aquaponics/fish farming system", "priority": "P2", "cost_estimate": 15000, "status": "not_started"},
+                {"name": "Greenhouses (3x 20x40)", "priority": "P1", "cost_estimate": 22500, "status": "not_started"},
+                {"name": "Agricultural tools & equipment", "priority": "P1", "cost_estimate": 30000, "status": "not_started"},
+                {"name": "Composting systems", "priority": "P1", "cost_estimate": 3500, "status": "not_started"},
+                {"name": "Irrigation systems", "priority": "P1", "cost_estimate": 10000, "status": "not_started"}
             ]
         }
     
