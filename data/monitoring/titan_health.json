@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-04-04T14:58:25.275052Z",
+  "version": "392.1.0",
+  "titan_id": "TITAN-392-OMNI",
+  "overall_status": "ERROR",
+  "checks": {
+    "github_api": {
+      "service": "GitHub API",
+      "status": "ERROR",
+      "rate_limit": null,
+      "rate_remaining": null
+    },
+    "huggingface_api": {
+      "service": "HuggingFace API",
+      "status": "UNCONFIGURED"
+    },
+    "districts": {
+      "service": "Districts",
+      "status": "HEALTHY",
+      "total_districts": 9,
+      "healthy_districts": 9,
+      "missing_artifacts": []
+    },
+    "workflows": {
+      "service": "GitHub Workflows",
+      "status": "HEALTHY",
+      "total_workflows": 55,
+      "critical_workflows": [
+        "pulse_sync_master.yml",
+        "mesh_heartbeat.yml",
+        "forever_learning_orchestrator.yml"
+      ]
+    },
+    "data_structure": {
+      "service": "Data Structure",
+      "status": "HEALTHY",
+      "required_directories": [
+        "monitoring",
+        "discoveries",
+        "models",
+        "workers",
+        "datasets",
+        "forever_learning"
+      ],
+      "missing_directories": []
+    },
+    "integration_points": {
+      "service": "Integration Points",
+      "status": "HEALTHY",
+      "total_points": 384,
+      "node_counts": {
+        "cloud_hubs": 2,
+        "github_repos": 40,
+        "workflows": 60,
+        "scripts": 150,
+        "workers": 30,
+        "models": 50,
+        "districts": 9,
+        "partitions": 5,
+        "datasets": 20,
+        "apis": 10,
+        "storage_nodes": 8
+      }
+    }
+  },
+  "alerts": [
+    {
+      "severity": "ERROR",
+      "message": "GitHub API returned HTTP 403",
+      "timestamp": "2026-04-04T14:58:25.275052Z"
+    },
+    {
+      "severity": "WARNING",
+      "message": "HuggingFace token not configured",
+      "timestamp": "2026-04-04T14:58:25.275052Z"
+    }
+  ],
+  "next_check": "2026-04-04T20:58:25.275052Z"
+}

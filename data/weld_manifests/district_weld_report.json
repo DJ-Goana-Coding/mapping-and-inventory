@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-04T14:58:20.816898Z",
+  "weld_operation": "district_consolidation",
+  "status": "COMPLETE",
+  "districts": {
+    "total": 9,
+    "inventories_consolidated": 9,
+    "trees_consolidated": 9
+  },
+  "outputs": {
+    "consolidated_inventory": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/data/weld_manifests/consolidated_district_inventory.json",
+    "consolidated_trees": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/data/weld_manifests/consolidated_district_trees.md",
+    "weld_report": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/data/weld_manifests/district_weld_report.json"
+  }
+}
