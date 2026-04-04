@@ -1,0 +1,155 @@
+name: Personal Archive Omnivac Harvester
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: 'Phase to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - harvest
+          - rag
+          - tech
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/email_archive_harvester.py'
+      - 'scripts/browser_history_vacuum.py'
+      - 'scripts/ai_chat_extractor.py'
+      - 'scripts/device_account_scanner.py'
+      - 'scripts/personal_archive_rag_ingest.py'
+      - 'scripts/tech_stack_shopper.py'
+      - 'scripts/personal_archive_orchestrator.py'
+      - '.github/workflows/personal_archive_harvester.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  harvest:
+    name: Run Personal Archive Harvester
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: 📦 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📚 Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests beautifulsoup4
+          # Optional: install sentence-transformers faiss-cpu for RAG
+          # pip install sentence-transformers faiss-cpu
+      
+      - name: 🗂️ Create Output Directories
+        run: |
+          mkdir -p data/personal_archive/emails
+          mkdir -p data/personal_archive/browser_history
+          mkdir -p data/personal_archive/ai_chats
+          mkdir -p data/personal_archive/devices
+          mkdir -p data/personal_archive/rag_store
+          mkdir -p data/personal_archive/tech_stack
+      
+      - name: 🚀 Run Orchestrator
+        env:
+          # Email API credentials (set in repository secrets)
+          GMAIL_CREDENTIALS_FILE: ${{ secrets.GMAIL_CREDENTIALS_FILE }}
+          YAHOO_CLIENT_ID: ${{ secrets.YAHOO_CLIENT_ID }}
+          YAHOO_CLIENT_SECRET: ${{ secrets.YAHOO_CLIENT_SECRET }}
+          # AI platform credentials
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # IMAP passwords (optional)
+          # OCEANIC105_CARPKINGDOM_COM_PASSWORD: ${{ secrets.OCEANIC105_PASSWORD }}
+          # GRUFFDAY_ALTMAIL_KR_PASSWORD: ${{ secrets.GRUFFDAY_PASSWORD }}
+          # HIPPY_CARPKINGDOM_COM_PASSWORD: ${{ secrets.HIPPY_PASSWORD }}
+        run: |
+          python scripts/personal_archive_orchestrator.py --phase ${{ github.event.inputs.phase || 'all' }}
+      
+      - name: 📊 Generate Summary Report
+        if: always()
+        run: |
+          echo "# Personal Archive Harvester Report" > harvest_report.md
+          echo "" >> harvest_report.md
+          echo "**Date**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> harvest_report.md
+          echo "**Phase**: ${{ github.event.inputs.phase || 'all' }}" >> harvest_report.md
+          echo "" >> harvest_report.md
+          
+          # Check for orchestration results
+          if [ -f "data/personal_archive/orchestration_results.json" ]; then
+            echo "## Results" >> harvest_report.md
+            echo "\`\`\`json" >> harvest_report.md
+            cat data/personal_archive/orchestration_results.json >> harvest_report.md
+            echo "\`\`\`" >> harvest_report.md
+          fi
+          
+          echo "" >> harvest_report.md
+          echo "## Data Collected" >> harvest_report.md
+          echo "- Emails: $(find data/personal_archive/emails -type f -name "*.json" 2>/dev/null | wc -l) files" >> harvest_report.md
+          echo "- Browser History: $(find data/personal_archive/browser_history -type f -name "*.json" 2>/dev/null | wc -l) files" >> harvest_report.md
+          echo "- AI Chats: $(find data/personal_archive/ai_chats -type f -name "*.json" 2>/dev/null | wc -l) files" >> harvest_report.md
+          echo "- Device Scans: $(find data/personal_archive/devices -type f -name "*.json" 2>/dev/null | wc -l) files" >> harvest_report.md
+          
+          cat harvest_report.md
+      
+      - name: 💾 Commit Harvested Data
+        if: success()
+        run: |
+          git config --global user.name "Personal Archive Bot"
+          git config --global user.email "archive-bot@github.com"
+          git add data/personal_archive/
+          git add harvest_report.md
+          git diff --staged --quiet || git commit -m "🗄️ Personal Archive Harvest $(date -u +"%Y-%m-%d %H:%M")"
+          git push
+      
+      - name: 📈 Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: personal-archive-harvest-${{ github.run_number }}
+          path: |
+            data/personal_archive/
+            harvest_report.md
+          retention-days: 30
+      
+      - name: 🔔 Notify Completion
+        if: always()
+        run: |
+          echo "✅ Personal Archive Harvester completed"
+          echo "Phase: ${{ github.event.inputs.phase || 'all' }}"
+          echo "Status: ${{ job.status }}"
+
+  # Optional: Deploy RAG Search API
+  deploy_search_api:
+    name: Deploy RAG Search API
+    needs: harvest
+    runs-on: ubuntu-latest
+    if: github.event.inputs.phase == 'all' || github.event.inputs.phase == 'rag'
+    
+    steps:
+      - name: 📦 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🚀 Deploy to HuggingFace Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "🚀 Would deploy RAG search API to HuggingFace Space"
+          echo "Space: DJ-Goanna-Coding/personal-archive-search"
+          # Actual deployment would clone Space repo and push
