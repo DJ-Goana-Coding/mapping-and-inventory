@@ -1,0 +1,705 @@
+{
+  "metadata": {
+    "timestamp": "2026-04-04T11:41:51.193909",
+    "version": "1.0.0",
+    "scanner": "ClashDetector"
+  },
+  "authority_hierarchy": [
+    "HuggingFace (L4 - Highest)",
+    "GitHub (L3)",
+    "GDrive (L2)",
+    "Local (L1 - Lowest)"
+  ],
+  "clashes_detected": [
+    {
+      "type": "duplicate_file",
+      "hash": "2eb13120d94c20c59cdcae0967f1b26d",
+      "files": [
+        "citadel_nexus.py",
+        "pages/01_\ud83c\udfdb\ufe0f_CITADEL_NEXUS.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "057ac2a7dbd82421ef8ec3baf90639d5",
+      "files": [
+        "scripts/download_citadel_omega_models.py",
+        "tia-architect-core-templates/scripts/download_citadel_omega_models.py",
+        "TIA_MASTER_BUILD/models/scripts/download_citadel_omega_models.py"
+      ],
+      "count": 3,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "aa818512b3f331adcbca352ebacb74a9",
+      "files": [
+        "scripts/worker_watchdog.py",
+        "tia-architect-core-templates/workers/worker_watchdog.py",
+        "TIA_MASTER_BUILD/workers/worker_watchdog.py"
+      ],
+      "count": 3,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "93972986f2b66847dff764d21e6d63cb",
+      "files": [
+        "scripts/download_frontier_models_2026.py",
+        "tia-architect-core-templates/scripts/download_frontier_models_2026.py",
+        "TIA_MASTER_BUILD/models/scripts/download_frontier_models_2026.py"
+      ],
+      "count": 3,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "ef025dda86c991ef4dadae3108d49821",
+      "files": [
+        "scripts/wake_up_tia.py",
+        "TIA_MASTER_BUILD/backend/wake_up_tia.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "e1144409e6508c7c9831dfff8556cc22",
+      "files": [
+        "scripts/tia_coordinator.py",
+        "TIA_MASTER_BUILD/backend/tia_coordinator.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "390f4d1095e73c8335c38fc2d993b0ac",
+      "files": [
+        "scripts/self_healing_worker.py",
+        "tia-architect-core-templates/workers/self_healing_worker.py",
+        "TIA_MASTER_BUILD/workers/self_healing_worker.py"
+      ],
+      "count": 3,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "5614d4446969b9019593896429734e1c",
+      "files": [
+        "Partition_02/omni_brain_mesh.py",
+        "Partition_01/omni_brain_mesh.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "a9f2d0a87e17a3d033685e143b4e822a",
+      "files": [
+        "Partition_02/tia_sos.py",
+        "Partition_01/tia_sos.py",
+        "Districts/D02_TIA_VAULT/tia_sos.py",
+        "TIA_MASTER_BUILD/backend/tia_sos.py"
+      ],
+      "count": 4,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "0b8d6530af734504e93fc1c208556d2d",
+      "files": [
+        "Partition_02/tia_atomic.py",
+        "Partition_01/tia_atomic.py",
+        "Districts/D02_TIA_VAULT/tia_atomic.py",
+        "TIA_MASTER_BUILD/backend/tia_atomic.py"
+      ],
+      "count": 4,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "78b7cfb76c9cff4f48430473d2a4a63a",
+      "files": [
+        "services/worker_archivist.py",
+        "Partition_01/citadel_archivist.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "48feedd0c611033960db2a9b0296957f",
+      "files": [
+        "services/tia_connector.py",
+        "TIA_MASTER_BUILD/backend/tia_connector.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "c4ef42e8ed6aaa322feecf299904037b",
+      "files": [
+        "Partition_04/genesis_swarm.py",
+        "Partition_01/genesis_swarm.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "663bb95fda718c3f3a7a2cfa8e24e176",
+      "files": [
+        "Partition_04/citadel_agentic_swarm.py",
+        "Partition_01/citadel_agentic_swarm.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "15cfce4df21965e39b3e0fbb0e238d30",
+      "files": [
+        "Partition_03/precious_metals_tracker.py",
+        "Partition_01/precious_metals_tracker.py",
+        "Districts/D06_RANDOM_FUTURES/precious_metals_tracker.py"
+      ],
+      "count": 3,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "d992f5d4e4b5237ea2b3f687d109a643",
+      "files": [
+        "Partition_03/mexc_balance.py",
+        "Partition_01/mexc_balance.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "e1d61f84102ec5becf9c8a0430f54308",
+      "files": [
+        "Partition_01/vanguard_v10_titan.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v10_titan.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "13556213c0a05204bf6e6a509fc0212a",
+      "files": [
+        "Partition_01/vanguard_v5_legion.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v5_legion.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "c680b653063f163e03a633deb069e855",
+      "files": [
+        "Partition_01/vanguard_v6_treasury.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v6_treasury.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "6fb0655eb3ac5efa38df3f873e77e376",
+      "files": [
+        "Partition_01/mexc_live.py",
+        "Districts/D06_RANDOM_FUTURES/mexc_live.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "6aec5d209bd239a2db13cf263e91e198",
+      "files": [
+        "Partition_01/apps_script_toolbox.py",
+        "tia-architect-core-templates/workers/apps_script_toolbox.py",
+        "TIA_MASTER_BUILD/workers/apps_script_toolbox.py"
+      ],
+      "count": 3,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "38641c072fefeec32b6aa881bcb2f9ea",
+      "files": [
+        "Partition_01/vanguard_v2.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v2.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "9fe5e2d1247e38132cc1762a99c51802",
+      "files": [
+        "Partition_01/vanguard_v3.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v3.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "d0bac9da3d4c8697a4b65e516cd85a9c",
+      "files": [
+        "Partition_01/vanguard_v5_moon.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v5_moon.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "25937609256dc234f071699f40eb28a6",
+      "files": [
+        "Partition_01/reconstruct_manifest.py",
+        "Partition_46/reconstruct_manifest.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "d2289684bddb4157d0eda141a0cb52d5",
+      "files": [
+        "Partition_01/master_key_hunt.py",
+        "Partition_46/master_key_hunt.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "df64367a49754c3e75795b5170d717ef",
+      "files": [
+        "Partition_01/vanguard_v7_moonshot.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v7_moonshot.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "00cf2230ebac242e724974f40817cd7f",
+      "files": [
+        "Partition_01/vanguard_v7_shadow.py",
+        "Districts/D06_RANDOM_FUTURES/vanguard_v7_shadow.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "51ae6b213d4fac300fa2cdba53689195",
+      "files": [
+        "Districts/D04_OMEGA_TRADER/omega_trader.py",
+        "Districts/D02_TIA_VAULT/Master_Blueprints/omega_trader.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "454d4ee795929d85bbe21f6567524610",
+      "files": [
+        "Districts/D06_RANDOM_FUTURES/omega_bots.py",
+        "Districts/D02_TIA_VAULT/Master_Blueprints/omega_bots.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "c4a847fe5948bf71cd87b3f54d92ca55",
+      "files": [
+        "Districts/D06_RANDOM_FUTURES/omega_scout.py",
+        "Districts/D02_TIA_VAULT/Master_Blueprints/omega_scout.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "d9b8e4ff1f1c2dd5ec4a024695c7cf37",
+      "files": [
+        "Districts/D06_RANDOM_FUTURES/librarian_omega.py",
+        "Districts/D02_TIA_VAULT/Master_Blueprints/librarian_omega.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "90a89624bb38815530dd871c615a4115",
+      "files": [
+        "Districts/D06_RANDOM_FUTURES/omega_archive.py",
+        "Districts/D02_TIA_VAULT/Master_Blueprints/omega_archive.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "be179075c7b221ec5ce3c24917a4d3f2",
+      "files": [
+        "Districts/D06_RANDOM_FUTURES/modal_hunt.py",
+        "Districts/D02_TIA_VAULT/Master_Blueprints/modal_hunt.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "36b4624534f103c810123c34c098a33c",
+      "files": [
+        "Districts/D02_TIA_VAULT/tias_sentinel_swarm.py",
+        "TIA_MASTER_BUILD/backend/tias_sentinel_swarm.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "47a265b803fdcfddc9963b15c1e12f29",
+      "files": [
+        "Districts/D02_TIA_VAULT/tias_pioneer_trader.py",
+        "TIA_MASTER_BUILD/backend/tias_pioneer_trader.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "a8a6163ff37ab509ab6df04af00bee5e",
+      "files": [
+        "Districts/D02_TIA_VAULT/tia_architect.py",
+        "TIA_MASTER_BUILD/backend/tia_architect.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "be00eb05ee57d7ec3626d0f7f468883d",
+      "files": [
+        "vamguard_templates/workers/tia_sync_worker.py",
+        "TIA_MASTER_BUILD/workers/tia_sync_worker.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "duplicate_file",
+      "hash": "043b068b9ee48335f8d9d251f8f75a75",
+      "files": [
+        "vamguard_templates/workers/tia_code_finder.py",
+        "TIA_MASTER_BUILD/workers/tia_code_finder.py"
+      ],
+      "count": 2,
+      "severity": "low",
+      "resolution": "Consolidate into shared library"
+    },
+    {
+      "type": "naming_clash",
+      "category": "Double-N Rift",
+      "description": "GitHub (DJ-Goana-Coding) vs HuggingFace (DJ-Goanna-Coding)",
+      "severity": "documented",
+      "resolution": "Maintain both namespaces with sync workflows",
+      "status": "resolved"
+    }
+  ],
+  "resolutions_applied": [
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240340"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240347"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240350"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240352"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240354"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240356"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240358"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240359"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240361"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240363"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240364"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240366"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240368"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240369"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240371"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240373"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240374"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240376"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240378"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240379"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240381"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240383"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240384"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240386"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240387"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240389"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240391"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240393"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240394"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240396"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240397"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240399"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240401"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240402"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240404"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240406"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240407"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240409"
+    },
+    {
+      "clash_type": "duplicate_file",
+      "resolution_strategy": "Authority Hierarchy: HuggingFace > GitHub > GDrive > Local",
+      "action": "Consolidate into shared library",
+      "timestamp": "2026-04-04T11:41:51.240410"
+    }
+  ],
+  "summary": {
+    "total_clashes": 40,
+    "version_conflicts": 0,
+    "duplicate_files": 39,
+    "naming_clashes": 1,
+    "config_conflicts": 0
+  }
+}
