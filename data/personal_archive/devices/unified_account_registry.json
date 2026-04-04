@@ -1,0 +1,40 @@
+{
+  "creation_date": "2026-04-04T04:21:14.703604",
+  "devices_scanned": 1,
+  "total_accounts": 17,
+  "breakdown": {
+    "email_accounts": 4,
+    "cloud_services": 4,
+    "developer_accounts": 5,
+    "social_accounts": 4
+  },
+  "unique_emails": [
+    "chanceroofing@gmail.com",
+    "mynewemail110411@gmail.com",
+    "chancemather@gmail.com",
+    "chancemather@yahoo.com",
+    "mathertia@yahoo.com",
+    "oceanic105@carpkingdom.com",
+    "gruffday@altmail.kr",
+    "hippy@carpkingdom.com"
+  ],
+  "services": {
+    "cloud": [
+      "Google Drive",
+      "Dropbox",
+      "OneDrive"
+    ],
+    "developer": [
+      "GitHub",
+      "HuggingFace",
+      "PyPI",
+      "Docker Hub"
+    ],
+    "social": [
+      "Twitter",
+      "Reddit",
+      "LinkedIn",
+      "Discord"
+    ]
+  }
+}

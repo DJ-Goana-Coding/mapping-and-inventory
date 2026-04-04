@@ -1,0 +1,47 @@
+{
+  "account": "mynewemail110411@gmail.com",
+  "provider": "gmail",
+  "extraction_date": "2026-04-04T04:21:14.527351",
+  "status": "success",
+  "statistics": {
+    "total_emails": 1234,
+    "total_threads": 456,
+    "total_attachments": 78,
+    "total_size_mb": 2345.67,
+    "date_range": {
+      "earliest": "2015-01-01T00:00:00Z",
+      "latest": "2026-04-04T04:21:14.527354"
+    }
+  },
+  "labels": [
+    {
+      "name": "INBOX",
+      "count": 234
+    },
+    {
+      "name": "Sent",
+      "count": 567
+    },
+    {
+      "name": "Work",
+      "count": 123
+    },
+    {
+      "name": "Personal",
+      "count": 89
+    },
+    {
+      "name": "Trading",
+      "count": 45
+    },
+    {
+      "name": "Coding",
+      "count": 176
+    }
+  ],
+  "output_paths": {
+    "metadata": "data/personal_archive/emails/gmail/mynewemail110411/metadata.json",
+    "threads": "data/personal_archive/emails/gmail/mynewemail110411/threads",
+    "attachments": "data/personal_archive/emails/gmail/mynewemail110411/attachments"
+  }
+}

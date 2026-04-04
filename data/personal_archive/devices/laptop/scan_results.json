@@ -1,0 +1,123 @@
+{
+  "device": "laptop",
+  "platform": "Linux",
+  "scan_date": "2026-04-04T04:21:14.700329",
+  "email_clients": [
+    {
+      "client": "Gmail (Web)",
+      "accounts": [
+        "chanceroofing@gmail.com",
+        "mynewemail110411@gmail.com"
+      ],
+      "source": "Browser saved passwords"
+    },
+    {
+      "client": "Yahoo Mail (Web)",
+      "accounts": [
+        "chancemather@yahoo.com",
+        "mathertia@yahoo.com"
+      ],
+      "source": "Browser saved passwords"
+    }
+  ],
+  "browser_profiles": [
+    {
+      "browser": "Chrome",
+      "profile": "Default",
+      "accounts_hint": "Multiple accounts detected"
+    },
+    {
+      "browser": "Firefox",
+      "profile": "default-release",
+      "accounts_hint": "3 accounts detected"
+    }
+  ],
+  "cloud_services": [
+    {
+      "service": "Google Drive",
+      "account": "chanceroofing@gmail.com",
+      "status": "active"
+    },
+    {
+      "service": "Dropbox",
+      "account": "chancemather@gmail.com",
+      "status": "active"
+    },
+    {
+      "service": "GitHub",
+      "account": "DJ-Goana-Coding",
+      "status": "active"
+    },
+    {
+      "service": "HuggingFace",
+      "account": "DJ-Goanna-Coding",
+      "status": "active"
+    }
+  ],
+  "developer_accounts": [
+    {
+      "service": "GitHub",
+      "username": "DJ-Goana-Coding",
+      "type": "developer"
+    },
+    {
+      "service": "HuggingFace",
+      "username": "DJ-Goanna-Coding",
+      "type": "developer"
+    },
+    {
+      "service": "PyPI",
+      "username": "discovered",
+      "type": "developer"
+    },
+    {
+      "service": "Docker Hub",
+      "username": "discovered",
+      "type": "developer"
+    },
+    {
+      "service": "VS Code",
+      "email": "chancemather@gmail.com",
+      "type": "IDE"
+    }
+  ],
+  "social_media": [
+    {
+      "platform": "Twitter/X",
+      "hint": "Account detected in browser",
+      "type": "social"
+    },
+    {
+      "platform": "Reddit",
+      "hint": "Multiple accounts detected",
+      "type": "social"
+    },
+    {
+      "platform": "LinkedIn",
+      "hint": "Professional account",
+      "type": "social"
+    },
+    {
+      "platform": "Discord",
+      "hint": "Developer community access",
+      "type": "social"
+    }
+  ],
+  "crypto_wallets": [
+    {
+      "wallet": "MetaMask",
+      "networks": [
+        "Ethereum",
+        "Polygon",
+        "Binance Smart Chain"
+      ],
+      "note": "Extension detected - no keys accessed"
+    }
+  ],
+  "statistics": {
+    "total_email_accounts": 4,
+    "total_cloud_services": 4,
+    "total_developer_accounts": 5,
+    "total_social_accounts": 4
+  }
+}

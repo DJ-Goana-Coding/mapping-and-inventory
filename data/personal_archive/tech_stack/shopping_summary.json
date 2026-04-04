@@ -1,0 +1,473 @@
+{
+  "shopping_date": "2026-04-04T04:21:14.785535",
+  "categories_researched": 6,
+  "total_options_reviewed": 21,
+  "bill_of_materials": {
+    "generation_date": "2026-04-04T04:21:14.785244",
+    "total_monthly_cost": 222,
+    "total_one_time_cost": 0,
+    "shopping_cart": [
+      {
+        "category": "frontend_framework",
+        "selection": "Next.js 14",
+        "cost": 0
+      },
+      {
+        "category": "ui_library",
+        "selection": "shadcn/ui",
+        "cost": 0
+      },
+      {
+        "category": "css_framework",
+        "selection": "Tailwind CSS 4.0",
+        "cost": 0
+      },
+      {
+        "category": "animation",
+        "selection": "Framer Motion 11",
+        "cost": 0
+      },
+      {
+        "category": "backend_framework",
+        "selection": "FastAPI + tRPC",
+        "cost": 0
+      },
+      {
+        "category": "database",
+        "selection": "Supabase",
+        "cost": 25
+      },
+      {
+        "category": "cache",
+        "selection": "Redis Cloud",
+        "cost": 7
+      },
+      {
+        "category": "frontend_hosting",
+        "selection": "Vercel Pro",
+        "cost": 20
+      },
+      {
+        "category": "backend_hosting",
+        "selection": "Railway",
+        "cost": 10
+      },
+      {
+        "category": "cdn",
+        "selection": "Cloudflare",
+        "cost": 10
+      },
+      {
+        "category": "gpu_compute",
+        "selection": "HuggingFace Spaces + Replicate",
+        "cost": 150
+      }
+    ],
+    "breakdown": {
+      "frontend": {
+        "framework": "Next.js 14 + React 18.3",
+        "ui": "shadcn/ui + Tailwind CSS 4.0",
+        "animation": "Framer Motion 11",
+        "cost": "$0"
+      },
+      "backend": {
+        "framework": "FastAPI + tRPC",
+        "cost": "$0"
+      },
+      "database": {
+        "primary": "Supabase PostgreSQL",
+        "cache": "Redis Cloud",
+        "cost": "$32/month"
+      },
+      "hosting": {
+        "frontend": "Vercel Pro",
+        "backend": "Railway",
+        "cdn": "Cloudflare",
+        "cost": "$40/month"
+      },
+      "gpu_compute": {
+        "primary": "HuggingFace Spaces (L4)",
+        "burst": "Replicate",
+        "cost": "$150/month (avg)"
+      },
+      "monitoring": {
+        "errors": "Sentry",
+        "analytics": "Vercel Analytics",
+        "cost": "$26/month"
+      }
+    },
+    "total_summary": {
+      "monthly_recurring": "$248/month",
+      "yearly_estimate": "$2,976/year",
+      "one_time_setup": "$0"
+    },
+    "funding_allocation": {
+      "from": "Retrieved Funds",
+      "budget": "$700-1,200/month",
+      "utilization": "$248/month (35% of budget)",
+      "remaining": "$452-952/month for scaling"
+    }
+  },
+  "results": {
+    "frontend_frameworks": {
+      "category": "frontend_frameworks",
+      "options": [
+        {
+          "name": "Next.js 14",
+          "version": "14.1.0",
+          "description": "React framework with App Router, Server Components, Server Actions",
+          "features": [
+            "App Router",
+            "React Server Components",
+            "Server Actions",
+            "Turbopack (faster than Webpack)",
+            "Built-in optimizations"
+          ],
+          "rating": 10,
+          "popularity": "Very High",
+          "learning_curve": "Medium",
+          "cost": "$0 (open source)",
+          "best_for": "Full-stack React apps, SEO, performance"
+        },
+        {
+          "name": "React 18.3",
+          "version": "18.3.0",
+          "description": "Latest React with Concurrent Features",
+          "features": [
+            "Concurrent rendering",
+            "Automatic batching",
+            "Transitions",
+            "Suspense improvements"
+          ],
+          "rating": 10,
+          "cost": "$0 (open source)"
+        },
+        {
+          "name": "Svelte 5",
+          "version": "5.0.0",
+          "description": "Compile-time framework, no virtual DOM",
+          "features": [
+            "Runes (new reactivity model)",
+            "Smaller bundle sizes",
+            "Better TypeScript support"
+          ],
+          "rating": 9,
+          "cost": "$0 (open source)"
+        },
+        {
+          "name": "Solid.js 2",
+          "version": "2.0.0",
+          "description": "Fine-grained reactivity, fastest framework",
+          "features": [
+            "Fine-grained reactivity",
+            "No VDOM",
+            "Smallest bundle size",
+            "Best performance"
+          ],
+          "rating": 9,
+          "cost": "$0 (open source)"
+        }
+      ],
+      "recommendation": {
+        "primary": "Next.js 14 + React 18.3",
+        "reason": "Best ecosystem, mature, great DX, excellent performance",
+        "alternatives": [
+          "Svelte 5 (for performance)",
+          "Solid.js (for max speed)"
+        ]
+      }
+    },
+    "ui_libraries": {
+      "category": "ui_libraries",
+      "options": [
+        {
+          "name": "shadcn/ui",
+          "description": "Beautifully designed components built with Radix UI and Tailwind CSS",
+          "features": [
+            "Copy-paste components (not npm package)",
+            "Full customization",
+            "Accessible (Radix UI)",
+            "Beautiful defaults",
+            "Tailwind CSS"
+          ],
+          "rating": 10,
+          "cost": "$0 (open source)",
+          "best_for": "Modern, customizable UI"
+        },
+        {
+          "name": "Tailwind CSS 4.0",
+          "description": "Utility-first CSS framework",
+          "features": [
+            "New Oxide engine (faster)",
+            "Native cascade layers",
+            "Container queries",
+            "Better DX"
+          ],
+          "rating": 10,
+          "cost": "$0 (open source)"
+        },
+        {
+          "name": "Framer Motion 11",
+          "description": "Production-ready animations",
+          "features": [
+            "Declarative animations",
+            "Gestures",
+            "Layout animations",
+            "SVG animations"
+          ],
+          "rating": 10,
+          "cost": "$0 (open source)"
+        },
+        {
+          "name": "Radix UI",
+          "description": "Unstyled, accessible components",
+          "features": [
+            "Fully accessible",
+            "Unstyled (bring your own styles)",
+            "Composable",
+            "TypeScript"
+          ],
+          "rating": 10,
+          "cost": "$0 (open source)"
+        }
+      ],
+      "recommendation": {
+        "primary": "shadcn/ui + Tailwind CSS 4.0 + Framer Motion 11",
+        "reason": "Best combination for beautiful, accessible, animated UI",
+        "cost": "$0 (all open source)"
+      }
+    },
+    "backend_frameworks": {
+      "category": "backend_frameworks",
+      "options": [
+        {
+          "name": "FastAPI",
+          "language": "Python",
+          "description": "Modern, fast, web framework for building APIs",
+          "features": [
+            "Auto OpenAPI docs",
+            "Type hints",
+            "Async support",
+            "Pydantic validation",
+            "Fast (Starlette + Uvicorn)"
+          ],
+          "rating": 10,
+          "cost": "$0 (open source)",
+          "best_for": "Python APIs, AI/ML integration"
+        },
+        {
+          "name": "tRPC",
+          "language": "TypeScript",
+          "description": "End-to-end typesafe APIs",
+          "features": [
+            "Full type safety",
+            "No code generation",
+            "Works with Next.js",
+            "React Query integration"
+          ],
+          "rating": 9,
+          "cost": "$0 (open source)",
+          "best_for": "TypeScript full-stack apps"
+        },
+        {
+          "name": "Hono",
+          "language": "TypeScript",
+          "description": "Ultrafast web framework for edge",
+          "features": [
+            "Works on Cloudflare Workers",
+            "Vercel Edge Functions",
+            "Extremely fast",
+            "Small bundle size"
+          ],
+          "rating": 9,
+          "cost": "$0 (open source)",
+          "best_for": "Edge functions"
+        }
+      ],
+      "recommendation": {
+        "primary": "FastAPI (Python) for main API + tRPC for Next.js integration",
+        "reason": "FastAPI excellent for AI/ML, tRPC for type-safe frontend-backend"
+      }
+    },
+    "databases": {
+      "category": "databases",
+      "options": [
+        {
+          "name": "Supabase",
+          "type": "PostgreSQL",
+          "description": "Open source Firebase alternative",
+          "features": [
+            "PostgreSQL database",
+            "Authentication",
+            "Storage",
+            "Real-time subscriptions",
+            "Edge Functions"
+          ],
+          "free_tier": "500MB database, 1GB file storage, 50MB assets",
+          "paid_tier": "$25/month (8GB database, 100GB storage)",
+          "rating": 10,
+          "best_for": "Full-stack apps"
+        },
+        {
+          "name": "PlanetScale",
+          "type": "MySQL",
+          "description": "Serverless MySQL platform",
+          "features": [
+            "Branching (like Git)",
+            "Auto-scaling",
+            "No downtime schema changes",
+            "Query insights"
+          ],
+          "free_tier": "5GB storage, 1 billion row reads",
+          "paid_tier": "$29/month",
+          "rating": 9
+        },
+        {
+          "name": "Neon",
+          "type": "PostgreSQL",
+          "description": "Serverless Postgres",
+          "features": [
+            "Instant branching",
+            "Auto-suspend",
+            "Extremely fast",
+            "Vercel integration"
+          ],
+          "free_tier": "512MB storage",
+          "paid_tier": "$19/month",
+          "rating": 9
+        },
+        {
+          "name": "Redis Cloud",
+          "type": "Cache",
+          "description": "Managed Redis",
+          "features": [
+            "JSON support",
+            "Search",
+            "Pub/Sub",
+            "Time series"
+          ],
+          "free_tier": "30MB",
+          "paid_tier": "$7/month (100MB)",
+          "rating": 9
+        }
+      ],
+      "recommendation": {
+        "primary": "Supabase (PostgreSQL) + Redis Cloud",
+        "monthly_cost": "$25 + $7 = $32",
+        "reason": "Supabase best all-in-one, Redis for caching"
+      }
+    },
+    "hosting": {
+      "category": "hosting",
+      "options": [
+        {
+          "name": "Vercel",
+          "type": "Frontend + Edge Functions",
+          "description": "Platform for Next.js and frontend frameworks",
+          "features": [
+            "Global CDN",
+            "Auto-scaling",
+            "Zero-config",
+            "Preview deployments",
+            "Edge Functions"
+          ],
+          "free_tier": "100GB bandwidth, unlimited sites",
+          "paid_tier": "$20/month (Pro: 1TB bandwidth)",
+          "rating": 10,
+          "best_for": "Next.js apps"
+        },
+        {
+          "name": "Railway",
+          "type": "Backend",
+          "description": "Modern app hosting",
+          "features": [
+            "Deploy any Docker image",
+            "PostgreSQL, Redis, etc.",
+            "Automatic HTTPS",
+            "GitHub integration"
+          ],
+          "free_tier": "$5 credit/month",
+          "paid_tier": "$5+ per month (usage-based)",
+          "rating": 9,
+          "best_for": "Backend APIs, databases"
+        },
+        {
+          "name": "Cloudflare",
+          "type": "CDN + Edge",
+          "description": "Global CDN and edge computing",
+          "features": [
+            "Free CDN",
+            "DDoS protection",
+            "Workers (edge functions)",
+            "R2 storage",
+            "D1 database"
+          ],
+          "free_tier": "Generous free tier",
+          "paid_tier": "$5-20/month",
+          "rating": 10,
+          "best_for": "CDN, edge functions, DDoS protection"
+        }
+      ],
+      "recommendation": {
+        "primary": "Vercel (frontend) + Railway (backend) + Cloudflare (CDN)",
+        "monthly_cost": "$20 + $10 + $10 = $40",
+        "reason": "Best combination for modern full-stack apps"
+      }
+    },
+    "gpu_compute": {
+      "category": "gpu_compute",
+      "options": [
+        {
+          "name": "HuggingFace Spaces",
+          "gpu_type": "NVIDIA L4",
+          "description": "Host ML apps with GPU",
+          "features": [
+            "24GB VRAM",
+            "Streamlit/Gradio support",
+            "Automatic HTTPS",
+            "GitHub sync"
+          ],
+          "cost": "$0.60/hour (~$432/month 24/7)",
+          "cost_hourly": 0.6,
+          "rating": 10,
+          "best_for": "RAG, embeddings, ML inference"
+        },
+        {
+          "name": "Replicate",
+          "gpu_type": "Various",
+          "description": "Pay-per-use ML inference",
+          "features": [
+            "Pay per prediction",
+            "Auto-scaling",
+            "Many models available",
+            "Easy API"
+          ],
+          "cost": "$0.001-0.10 per prediction",
+          "cost_hourly": "variable",
+          "rating": 9,
+          "best_for": "Occasional GPU tasks"
+        },
+        {
+          "name": "RunPod",
+          "gpu_type": "Various (A40, A100, H100)",
+          "description": "GPU cloud compute",
+          "features": [
+            "Spot instances",
+            "On-demand",
+            "Jupyter notebooks",
+            "SSH access"
+          ],
+          "cost": "$0.39-3.99/hour (spot)",
+          "cost_hourly": 0.39,
+          "rating": 9,
+          "best_for": "Intensive training, flexible compute"
+        }
+      ],
+      "recommendation": {
+        "primary": "HuggingFace Spaces (L4) for persistent RAG + Replicate for burst",
+        "monthly_cost": "Budget: $100-200 (uses ~6 hours/day on HF)",
+        "reason": "HF Spaces for always-on RAG, Replicate for occasional heavy tasks"
+      }
+    }
+  }
+}

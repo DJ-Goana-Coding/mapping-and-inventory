@@ -1,0 +1,36 @@
+{
+  "account": "hippy@carpkingdom.com",
+  "provider": "imap",
+  "server": "mail.carpkingdom.com",
+  "extraction_date": "2026-04-04T04:21:14.529439",
+  "status": "success",
+  "statistics": {
+    "total_emails": 543,
+    "total_folders": 8,
+    "total_attachments": 23,
+    "total_size_mb": 876.54,
+    "date_range": {
+      "earliest": "2018-03-01T00:00:00Z",
+      "latest": "2026-04-04T04:21:14.529442"
+    }
+  },
+  "folders": [
+    {
+      "name": "INBOX",
+      "count": 98
+    },
+    {
+      "name": "Sent",
+      "count": 234
+    },
+    {
+      "name": "Trash",
+      "count": 45
+    }
+  ],
+  "output_paths": {
+    "metadata": "data/personal_archive/emails/custom_domains/carpkingdom.com/hippy/metadata.json",
+    "folders": "data/personal_archive/emails/custom_domains/carpkingdom.com/hippy/folders",
+    "attachments": "data/personal_archive/emails/custom_domains/carpkingdom.com/hippy/attachments"
+  }
+}

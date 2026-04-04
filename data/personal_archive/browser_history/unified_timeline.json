@@ -1,0 +1,26 @@
+{
+  "creation_date": "2026-04-04T04:21:14.614101",
+  "total_events": 9134,
+  "sources": {
+    "visits": 9134,
+    "bookmarks": 0,
+    "downloads": 0
+  },
+  "timeline_sample": [
+    {
+      "date": "2026-04-04",
+      "event": "Visited GitHub",
+      "source": "chrome"
+    },
+    {
+      "date": "2026-04-03",
+      "event": "Bookmarked Python docs",
+      "source": "firefox"
+    },
+    {
+      "date": "2026-04-02",
+      "event": "Downloaded model.safetensors",
+      "source": "chrome"
+    }
+  ]
+}

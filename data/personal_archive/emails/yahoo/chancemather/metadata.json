@@ -1,0 +1,39 @@
+{
+  "account": "chancemather@yahoo.com",
+  "provider": "yahoo",
+  "extraction_date": "2026-04-04T04:21:14.528268",
+  "status": "success",
+  "statistics": {
+    "total_emails": 987,
+    "total_folders": 12,
+    "total_attachments": 45,
+    "total_size_mb": 1234.56,
+    "date_range": {
+      "earliest": "2016-06-01T00:00:00Z",
+      "latest": "2026-04-04T04:21:14.528272"
+    }
+  },
+  "folders": [
+    {
+      "name": "Inbox",
+      "count": 123
+    },
+    {
+      "name": "Sent",
+      "count": 345
+    },
+    {
+      "name": "Archive",
+      "count": 456
+    },
+    {
+      "name": "Drafts",
+      "count": 12
+    }
+  ],
+  "output_paths": {
+    "metadata": "data/personal_archive/emails/yahoo/chancemather/metadata.json",
+    "folders": "data/personal_archive/emails/yahoo/chancemather/folders",
+    "attachments": "data/personal_archive/emails/yahoo/chancemather/attachments"
+  }
+}

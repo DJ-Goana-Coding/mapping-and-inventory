@@ -1,0 +1,10 @@
+{
+  "platform": "claude",
+  "extraction_date": "2026-04-04T04:21:14.660630",
+  "status": "success",
+  "statistics": {
+    "total_conversations": 89,
+    "total_messages": 534,
+    "total_code_blocks": 178
+  }
+}

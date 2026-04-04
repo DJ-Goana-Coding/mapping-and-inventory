@@ -1,0 +1,10 @@
+{
+  "platform": "chatgpt",
+  "extraction_date": "2026-04-04T04:21:14.660365",
+  "status": "success",
+  "statistics": {
+    "total_conversations": 234,
+    "total_messages": 1567,
+    "total_code_blocks": 456
+  }
+}

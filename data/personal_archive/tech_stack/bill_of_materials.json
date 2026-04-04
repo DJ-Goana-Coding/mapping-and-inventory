@@ -1,0 +1,106 @@
+{
+  "generation_date": "2026-04-04T04:21:14.785244",
+  "total_monthly_cost": 222,
+  "total_one_time_cost": 0,
+  "shopping_cart": [
+    {
+      "category": "frontend_framework",
+      "selection": "Next.js 14",
+      "cost": 0
+    },
+    {
+      "category": "ui_library",
+      "selection": "shadcn/ui",
+      "cost": 0
+    },
+    {
+      "category": "css_framework",
+      "selection": "Tailwind CSS 4.0",
+      "cost": 0
+    },
+    {
+      "category": "animation",
+      "selection": "Framer Motion 11",
+      "cost": 0
+    },
+    {
+      "category": "backend_framework",
+      "selection": "FastAPI + tRPC",
+      "cost": 0
+    },
+    {
+      "category": "database",
+      "selection": "Supabase",
+      "cost": 25
+    },
+    {
+      "category": "cache",
+      "selection": "Redis Cloud",
+      "cost": 7
+    },
+    {
+      "category": "frontend_hosting",
+      "selection": "Vercel Pro",
+      "cost": 20
+    },
+    {
+      "category": "backend_hosting",
+      "selection": "Railway",
+      "cost": 10
+    },
+    {
+      "category": "cdn",
+      "selection": "Cloudflare",
+      "cost": 10
+    },
+    {
+      "category": "gpu_compute",
+      "selection": "HuggingFace Spaces + Replicate",
+      "cost": 150
+    }
+  ],
+  "breakdown": {
+    "frontend": {
+      "framework": "Next.js 14 + React 18.3",
+      "ui": "shadcn/ui + Tailwind CSS 4.0",
+      "animation": "Framer Motion 11",
+      "cost": "$0"
+    },
+    "backend": {
+      "framework": "FastAPI + tRPC",
+      "cost": "$0"
+    },
+    "database": {
+      "primary": "Supabase PostgreSQL",
+      "cache": "Redis Cloud",
+      "cost": "$32/month"
+    },
+    "hosting": {
+      "frontend": "Vercel Pro",
+      "backend": "Railway",
+      "cdn": "Cloudflare",
+      "cost": "$40/month"
+    },
+    "gpu_compute": {
+      "primary": "HuggingFace Spaces (L4)",
+      "burst": "Replicate",
+      "cost": "$150/month (avg)"
+    },
+    "monitoring": {
+      "errors": "Sentry",
+      "analytics": "Vercel Analytics",
+      "cost": "$26/month"
+    }
+  },
+  "total_summary": {
+    "monthly_recurring": "$248/month",
+    "yearly_estimate": "$2,976/year",
+    "one_time_setup": "$0"
+  },
+  "funding_allocation": {
+    "from": "Retrieved Funds",
+    "budget": "$700-1,200/month",
+    "utilization": "$248/month (35% of budget)",
+    "remaining": "$452-952/month for scaling"
+  }
+}

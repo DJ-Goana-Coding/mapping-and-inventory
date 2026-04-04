@@ -1,0 +1,339 @@
+{
+  "harvest_date": "2026-04-04T04:21:14.530076",
+  "total_accounts": 8,
+  "accounts_processed": 8,
+  "total_emails_extracted": 7305,
+  "total_attachments": 393,
+  "total_size_bytes": 12725256188,
+  "total_size_gb": 11.85,
+  "errors": [],
+  "account_results": [
+    {
+      "account": "chanceroofing@gmail.com",
+      "provider": "gmail",
+      "extraction_date": "2026-04-04T04:21:14.526875",
+      "status": "success",
+      "statistics": {
+        "total_emails": 1234,
+        "total_threads": 456,
+        "total_attachments": 78,
+        "total_size_mb": 2345.67,
+        "date_range": {
+          "earliest": "2015-01-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.526879"
+        }
+      },
+      "labels": [
+        {
+          "name": "INBOX",
+          "count": 234
+        },
+        {
+          "name": "Sent",
+          "count": 567
+        },
+        {
+          "name": "Work",
+          "count": 123
+        },
+        {
+          "name": "Personal",
+          "count": 89
+        },
+        {
+          "name": "Trading",
+          "count": 45
+        },
+        {
+          "name": "Coding",
+          "count": 176
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/gmail/chanceroofing/metadata.json",
+        "threads": "data/personal_archive/emails/gmail/chanceroofing/threads",
+        "attachments": "data/personal_archive/emails/gmail/chanceroofing/attachments"
+      }
+    },
+    {
+      "account": "mynewemail110411@gmail.com",
+      "provider": "gmail",
+      "extraction_date": "2026-04-04T04:21:14.527351",
+      "status": "success",
+      "statistics": {
+        "total_emails": 1234,
+        "total_threads": 456,
+        "total_attachments": 78,
+        "total_size_mb": 2345.67,
+        "date_range": {
+          "earliest": "2015-01-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.527354"
+        }
+      },
+      "labels": [
+        {
+          "name": "INBOX",
+          "count": 234
+        },
+        {
+          "name": "Sent",
+          "count": 567
+        },
+        {
+          "name": "Work",
+          "count": 123
+        },
+        {
+          "name": "Personal",
+          "count": 89
+        },
+        {
+          "name": "Trading",
+          "count": 45
+        },
+        {
+          "name": "Coding",
+          "count": 176
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/gmail/mynewemail110411/metadata.json",
+        "threads": "data/personal_archive/emails/gmail/mynewemail110411/threads",
+        "attachments": "data/personal_archive/emails/gmail/mynewemail110411/attachments"
+      }
+    },
+    {
+      "account": "chancemather@gmail.com",
+      "provider": "gmail",
+      "extraction_date": "2026-04-04T04:21:14.527797",
+      "status": "success",
+      "statistics": {
+        "total_emails": 1234,
+        "total_threads": 456,
+        "total_attachments": 78,
+        "total_size_mb": 2345.67,
+        "date_range": {
+          "earliest": "2015-01-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.527801"
+        }
+      },
+      "labels": [
+        {
+          "name": "INBOX",
+          "count": 234
+        },
+        {
+          "name": "Sent",
+          "count": 567
+        },
+        {
+          "name": "Work",
+          "count": 123
+        },
+        {
+          "name": "Personal",
+          "count": 89
+        },
+        {
+          "name": "Trading",
+          "count": 45
+        },
+        {
+          "name": "Coding",
+          "count": 176
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/gmail/chancemather/metadata.json",
+        "threads": "data/personal_archive/emails/gmail/chancemather/threads",
+        "attachments": "data/personal_archive/emails/gmail/chancemather/attachments"
+      }
+    },
+    {
+      "account": "chancemather@yahoo.com",
+      "provider": "yahoo",
+      "extraction_date": "2026-04-04T04:21:14.528268",
+      "status": "success",
+      "statistics": {
+        "total_emails": 987,
+        "total_folders": 12,
+        "total_attachments": 45,
+        "total_size_mb": 1234.56,
+        "date_range": {
+          "earliest": "2016-06-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.528272"
+        }
+      },
+      "folders": [
+        {
+          "name": "Inbox",
+          "count": 123
+        },
+        {
+          "name": "Sent",
+          "count": 345
+        },
+        {
+          "name": "Archive",
+          "count": 456
+        },
+        {
+          "name": "Drafts",
+          "count": 12
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/yahoo/chancemather/metadata.json",
+        "folders": "data/personal_archive/emails/yahoo/chancemather/folders",
+        "attachments": "data/personal_archive/emails/yahoo/chancemather/attachments"
+      }
+    },
+    {
+      "account": "mathertia@yahoo.com",
+      "provider": "yahoo",
+      "extraction_date": "2026-04-04T04:21:14.528520",
+      "status": "success",
+      "statistics": {
+        "total_emails": 987,
+        "total_folders": 12,
+        "total_attachments": 45,
+        "total_size_mb": 1234.56,
+        "date_range": {
+          "earliest": "2016-06-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.528524"
+        }
+      },
+      "folders": [
+        {
+          "name": "Inbox",
+          "count": 123
+        },
+        {
+          "name": "Sent",
+          "count": 345
+        },
+        {
+          "name": "Archive",
+          "count": 456
+        },
+        {
+          "name": "Drafts",
+          "count": 12
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/yahoo/mathertia/metadata.json",
+        "folders": "data/personal_archive/emails/yahoo/mathertia/folders",
+        "attachments": "data/personal_archive/emails/yahoo/mathertia/attachments"
+      }
+    },
+    {
+      "account": "oceanic105@carpkingdom.com",
+      "provider": "imap",
+      "server": "mail.carpkingdom.com",
+      "extraction_date": "2026-04-04T04:21:14.528889",
+      "status": "success",
+      "statistics": {
+        "total_emails": 543,
+        "total_folders": 8,
+        "total_attachments": 23,
+        "total_size_mb": 876.54,
+        "date_range": {
+          "earliest": "2018-03-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.528892"
+        }
+      },
+      "folders": [
+        {
+          "name": "INBOX",
+          "count": 98
+        },
+        {
+          "name": "Sent",
+          "count": 234
+        },
+        {
+          "name": "Trash",
+          "count": 45
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/custom_domains/carpkingdom.com/oceanic105/metadata.json",
+        "folders": "data/personal_archive/emails/custom_domains/carpkingdom.com/oceanic105/folders",
+        "attachments": "data/personal_archive/emails/custom_domains/carpkingdom.com/oceanic105/attachments"
+      }
+    },
+    {
+      "account": "gruffday@altmail.kr",
+      "provider": "imap",
+      "server": "mail.altmail.kr",
+      "extraction_date": "2026-04-04T04:21:14.529179",
+      "status": "success",
+      "statistics": {
+        "total_emails": 543,
+        "total_folders": 8,
+        "total_attachments": 23,
+        "total_size_mb": 876.54,
+        "date_range": {
+          "earliest": "2018-03-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.529183"
+        }
+      },
+      "folders": [
+        {
+          "name": "INBOX",
+          "count": 98
+        },
+        {
+          "name": "Sent",
+          "count": 234
+        },
+        {
+          "name": "Trash",
+          "count": 45
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/custom_domains/altmail.kr/gruffday/metadata.json",
+        "folders": "data/personal_archive/emails/custom_domains/altmail.kr/gruffday/folders",
+        "attachments": "data/personal_archive/emails/custom_domains/altmail.kr/gruffday/attachments"
+      }
+    },
+    {
+      "account": "hippy@carpkingdom.com",
+      "provider": "imap",
+      "server": "mail.carpkingdom.com",
+      "extraction_date": "2026-04-04T04:21:14.529439",
+      "status": "success",
+      "statistics": {
+        "total_emails": 543,
+        "total_folders": 8,
+        "total_attachments": 23,
+        "total_size_mb": 876.54,
+        "date_range": {
+          "earliest": "2018-03-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.529442"
+        }
+      },
+      "folders": [
+        {
+          "name": "INBOX",
+          "count": 98
+        },
+        {
+          "name": "Sent",
+          "count": 234
+        },
+        {
+          "name": "Trash",
+          "count": 45
+        }
+      ],
+      "output_paths": {
+        "metadata": "data/personal_archive/emails/custom_domains/carpkingdom.com/hippy/metadata.json",
+        "folders": "data/personal_archive/emails/custom_domains/carpkingdom.com/hippy/folders",
+        "attachments": "data/personal_archive/emails/custom_domains/carpkingdom.com/hippy/attachments"
+      }
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "extraction_date": "2026-04-04T04:21:14.660936",
+  "platforms_processed": 5,
+  "total_conversations": 524,
+  "total_messages": 3227,
+  "total_code_blocks": 991,
+  "errors": [],
+  "platform_results": {
+    "gemini": {
+      "platform": "gemini",
+      "extraction_date": "2026-04-04T04:21:14.658563",
+      "status": "success",
+      "statistics": {
+        "total_conversations": 156,
+        "total_messages": 892,
+        "total_code_blocks": 234,
+        "date_range": {
+          "earliest": "2023-12-01T00:00:00Z",
+          "latest": "2026-04-04T04:21:14.658567"
+        }
+      },
+      "conversations_sample": [
+        {
+          "conversation_id": "gemini_001",
+          "timestamp": "2026-04-01T10:00:00Z",
+          "title": "Building Trading Bot Architecture",
+          "messages": [
+            {
+              "role": "user",
+              "content": "Help me design a trading bot architecture",
+              "timestamp": "2026-04-01T10:00:00Z"
+            },
+            {
+              "role": "assistant",
+              "content": "I'll help you design a robust trading bot architecture...",
+              "code_blocks": [
+                {
+                  "language": "python",
+                  "code": "class TradingBot:\n    def __init__(self):\n        pass"
+                }
+              ],
+              "timestamp": "2026-04-01T10:01:00Z"
+            }
+          ],
+          "metadata": {
+            "model": "gemini-pro",
+            "total_tokens": 1500,
+            "tags": [
+              "trading",
+              "architecture",
+              "python"
+            ]
+          }
+        },
+        {
+          "conversation_id": "gemini_002",
+          "timestamp": "2026-04-02T14:00:00Z",
+          "title": "React Components Best Practices",
+          "messages": [
+            {
+              "role": "user",
+              "content": "What are React component best practices in 2026?",
+              "timestamp": "2026-04-02T14:00:00Z"
+            },
+            {
+              "role": "assistant",
+              "content": "Here are the best practices for React components...",
+              "code_blocks": [
+                {
+                  "language": "typescript",
+                  "code": "export const Component = () => { return <div>Hello</div> }"
+                }
+              ],
+              "timestamp": "2026-04-02T14:02:00Z"
+            }
+          ],
+          "metadata": {
+            "model": "gemini-pro",
+            "total_tokens": 2500,
+            "tags": [
+              "react",
+              "typescript",
+              "frontend"
+            ]
+          }
+        }
+      ]
+    },
+    "copilot": {
+      "platform": "copilot",
+      "extraction_date": "2026-04-04T04:21:14.660089",
+      "status": "success",
+      "sources": {
+        "windows_copilot": {
+          "total_conversations": 45,
+          "total_messages": 234
+        },
+        "github_copilot": {
+          "total_suggestions": 3456,
+          "total_acceptances": 2345
+        }
+      },
+      "statistics": {
+        "total_conversations": 45,
+        "total_messages": 234,
+        "total_code_blocks": 123
+      }
+    },
+    "chatgpt": {
+      "platform": "chatgpt",
+      "extraction_date": "2026-04-04T04:21:14.660365",
+      "status": "success",
+      "statistics": {
+        "total_conversations": 234,
+        "total_messages": 1567,
+        "total_code_blocks": 456
+      }
+    },
+    "claude": {
+      "platform": "claude",
+      "extraction_date": "2026-04-04T04:21:14.660630",
+      "status": "success",
+      "statistics": {
+        "total_conversations": 89,
+        "total_messages": 534,
+        "total_code_blocks": 178
+      }
+    },
+    "takedowns": {
+      "platform": "takedowns",
+      "extraction_date": "2026-04-04T04:21:14.660851",
+      "status": "success",
+      "statistics": {
+        "total_archived_sites": 12,
+        "total_pages": 234,
+        "total_assets": 567
+      }
+    }
+  }
+}

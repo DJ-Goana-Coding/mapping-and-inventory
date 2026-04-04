@@ -1,0 +1,28 @@
+{
+  "browser": "firefox",
+  "device": "laptop",
+  "extraction_date": "2026-04-04T04:21:14.613589",
+  "status": "mock",
+  "statistics": {
+    "total_visits": 3456,
+    "unique_domains": 178,
+    "date_range": {
+      "earliest": "2019-06-01T00:00:00Z",
+      "latest": "2026-04-04T04:21:14.613592"
+    }
+  },
+  "top_domains": [
+    {
+      "domain": "developer.mozilla.org",
+      "visit_count": 234
+    },
+    {
+      "domain": "gitlab.com",
+      "visit_count": 123
+    },
+    {
+      "domain": "npmjs.com",
+      "visit_count": 89
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "platform": "copilot",
+  "extraction_date": "2026-04-04T04:21:14.660089",
+  "status": "success",
+  "sources": {
+    "windows_copilot": {
+      "total_conversations": 45,
+      "total_messages": 234
+    },
+    "github_copilot": {
+      "total_suggestions": 3456,
+      "total_acceptances": 2345
+    }
+  },
+  "statistics": {
+    "total_conversations": 45,
+    "total_messages": 234,
+    "total_code_blocks": 123
+  }
+}

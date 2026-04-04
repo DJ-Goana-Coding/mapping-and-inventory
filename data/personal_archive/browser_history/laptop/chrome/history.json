@@ -1,0 +1,68 @@
+{
+  "browser": "chrome",
+  "device": "laptop",
+  "extraction_date": "2026-04-04T04:21:14.613211",
+  "status": "mock",
+  "statistics": {
+    "total_visits": 5678,
+    "unique_domains": 234,
+    "date_range": {
+      "earliest": "2020-01-01T00:00:00Z",
+      "latest": "2026-04-04T04:21:14.613215"
+    }
+  },
+  "top_domains": [
+    {
+      "domain": "github.com",
+      "visit_count": 456
+    },
+    {
+      "domain": "stackoverflow.com",
+      "visit_count": 234
+    },
+    {
+      "domain": "docs.python.org",
+      "visit_count": 123
+    },
+    {
+      "domain": "reddit.com",
+      "visit_count": 89
+    },
+    {
+      "domain": "youtube.com",
+      "visit_count": 67
+    }
+  ],
+  "sample_visits": [
+    {
+      "url": "https://github.com/DJ-Goana-Coding",
+      "title": "DJ-Goana-Coding GitHub",
+      "visit_count": 234,
+      "timestamp": "2026-04-01T10:00:00Z"
+    },
+    {
+      "url": "https://huggingface.co/DJ-Goanna-Coding",
+      "title": "HuggingFace Profile",
+      "visit_count": 123,
+      "timestamp": "2026-04-02T11:00:00Z"
+    },
+    {
+      "url": "https://stackoverflow.com/questions/tagged/python",
+      "title": "Python Questions",
+      "visit_count": 89,
+      "timestamp": "2026-04-03T12:00:00Z"
+    },
+    {
+      "url": "https://docs.python.org/3/",
+      "title": "Python Documentation",
+      "visit_count": 67,
+      "timestamp": "2026-04-03T13:00:00Z"
+    },
+    {
+      "url": "https://www.reddit.com/r/programming",
+      "title": "r/programming",
+      "visit_count": 45,
+      "timestamp": "2026-04-03T14:00:00Z"
+    }
+  ]
+}

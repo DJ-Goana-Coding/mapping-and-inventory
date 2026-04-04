@@ -1,0 +1,21 @@
+{
+  "thread_id": "abc123",
+  "subject": "Sample Email Thread",
+  "participants": [
+    "sender@example.com",
+    "mynewemail110411@gmail.com"
+  ],
+  "messages": [
+    {
+      "message_id": "msg1",
+      "from": "sender@example.com",
+      "to": [
+        "mynewemail110411@gmail.com"
+      ],
+      "subject": "Sample Email Thread",
+      "date": "2026-04-01T10:00:00Z",
+      "body": "This is a sample email message.",
+      "attachments": []
+    }
+  ]
+}
