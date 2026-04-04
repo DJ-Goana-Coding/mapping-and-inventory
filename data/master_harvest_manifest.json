@@ -1,5 +1,5 @@
 {
-  "harvest_timestamp": "2026-04-04T01:36:02.310380Z",
+  "harvest_timestamp": "2026-04-04T06:23:30.956693Z",
   "sources": {
     "partitions": {},
     "models": {
@@ -38,26 +38,30 @@
           "count": 0,
           "workers": []
         },
-        "Harvesters": {
-          "count": 0,
-          "workers": []
-        },
-        "Librarians": {
-          "count": 0,
-          "workers": []
-        },
-        "Reporters": {
-          "count": 0,
-          "workers": []
-        },
-        "Archivists": {
-          "count": 0,
-          "workers": []
-        },
-        "Utility": {
-          "count": 0,
-          "workers": []
+        "python_workers": {
+          "gdrive_sync_worker": {
+            "name": "GDrive Sync Worker",
+            "description": "Sync GDrive to GitHub",
+            "language": "python",
+            "priority": "critical"
+          },
+          "partition_scanner": {
+            "name": "Partition Scanner Worker",
+            "description": "Scan GDrive partitions",
+            "language": "python",
+            "priority": "high"
+          },
+          "model_harvester": {
+            "name": "Model Harvester Worker",
+            "description": "Harvest models from GDrive",
+            "language": "python",
+            "priority": "critical"
+          }
         }
+      },
+      "deployment_strategy": {
+        "apps_script": "Deploy to Google Apps Script editor",
+        "python": "Deploy to HuggingFace Space or GitHub Actions"
       }
     },
     "documents": {}
