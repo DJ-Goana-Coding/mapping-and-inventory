@@ -1,0 +1,222 @@
+name: 📖 Bible Read & System Audit
+
+on:
+  schedule:
+    - cron: '0 12 * * *'  # Daily at noon UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Audit mode'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - quick
+          - districts-only
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  bible-read-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest streamlit pandas
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: 📖 Verify All BIBLEs Exist
+        id: check_bibles
+        run: |
+          echo "📖 Checking for BIBLE.md in all Districts..."
+          
+          missing_bibles=""
+          districts=(
+            "D01_COMMAND_INPUT"
+            "D02_TIA_VAULT"
+            "D03_VORTEX_ENGINE"
+            "D04_OMEGA_TRADER"
+            "D06_RANDOM_FUTURES"
+            "D07_ARCHIVE_SCROLLS"
+            "D09_MEDIA_CODING"
+            "D11_PERSONA_MODULES"
+            "D12_ZENITH_VIEW"
+          )
+          
+          for district in "${districts[@]}"; do
+            bible_path="Districts/$district/BIBLE.md"
+            if [ ! -f "$bible_path" ]; then
+              echo "❌ Missing: $bible_path"
+              missing_bibles="$missing_bibles $district"
+            else
+              echo "✅ Found: $bible_path"
+            fi
+          done
+          
+          if [ -n "$missing_bibles" ]; then
+            echo "missing=$missing_bibles" >> $GITHUB_OUTPUT
+            echo "has_missing=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_missing=false" >> $GITHUB_OUTPUT
+            echo "✨ All District BIBLEs present!"
+          fi
+      
+      - name: 🏗️ Generate Missing BIBLEs
+        if: steps.check_bibles.outputs.has_missing == 'true'
+        run: |
+          echo "🏗️ Generating missing BIBLEs..."
+          python scripts/bible_generator.py
+      
+      - name: 🧪 Run Comprehensive Tests
+        run: |
+          echo "🧪 Running comprehensive test suite..."
+          python scripts/comprehensive_test_runner.py || true
+      
+      - name: 🧹 Run Security Sweep
+        run: |
+          echo "🧹 Running omnidimensional sweep..."
+          python scripts/omnidimensional_sweep.py
+      
+      - name: 📊 Generate Status Report
+        id: status_report
+        run: |
+          cat > SYSTEM_STATUS_REPORT.md << 'EOF'
+          # 🏛️ CITADEL MESH STATUS REPORT
+          
+          **Generated:** $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          **Authority:** Citadel Architect v25.0.OMNI++
+          
+          ---
+          
+          ## 📖 Bible Status
+          
+          EOF
+          
+          # Check each district
+          for district in Districts/D*/BIBLE.md; do
+            if [ -f "$district" ]; then
+              echo "- ✅ $(dirname $district | xargs basename)" >> SYSTEM_STATUS_REPORT.md
+            fi
+          done
+          
+          cat >> SYSTEM_STATUS_REPORT.md << 'EOF'
+          
+          ## 🧪 Test Results
+          
+          EOF
+          
+          if [ -f data/monitoring/test_results.json ]; then
+            python -c "
+          import json
+          with open('data/monitoring/test_results.json', 'r') as f:
+              results = json.load(f)
+          summary = results['summary']
+          print(f\"- Total Tests: {summary['total_tests']}\")
+          print(f\"- ✅ Passed: {summary['passed']}\")
+          print(f\"- ❌ Failed: {summary['failed']}\")
+          print(f\"- ⏭️ Skipped: {summary['skipped']}\")
+          print(f\"- 📊 Success Rate: {summary['success_rate']}%\")
+          " >> SYSTEM_STATUS_REPORT.md
+          else
+            echo "No test results available." >> SYSTEM_STATUS_REPORT.md
+          fi
+          
+          cat >> SYSTEM_STATUS_REPORT.md << 'EOF'
+          
+          ## 🧹 Security Sweep
+          
+          EOF
+          
+          if [ -f data/monitoring/omnidimensional_sweep.json ]; then
+            python -c "
+          import json
+          with open('data/monitoring/omnidimensional_sweep.json', 'r') as f:
+              results = json.load(f)
+          summary = results['summary']
+          print(f\"- 🦠 Infected Files: {summary['infected_files']}\")
+          print(f\"- ⚠️ Suspicious Files: {summary['suspicious_files']}\")
+          print(f\"- 📋 Duplicates: {summary['total_duplicates']}\")
+          print(f\"- ❌ Missing Artifacts: {summary['missing_artifacts']}\")
+          print()
+          print('### Recommendations')
+          for rec in results['recommendations']:
+              print(f\"- {rec}\")
+          " >> SYSTEM_STATUS_REPORT.md
+          else
+            echo "No sweep results available." >> SYSTEM_STATUS_REPORT.md
+          fi
+          
+          cat >> SYSTEM_STATUS_REPORT.md << 'EOF'
+          
+          ---
+          
+          ## 🎯 Overall Status
+          
+          EOF
+          
+          # Determine overall status
+          if [ -f data/monitoring/omnidimensional_sweep.json ]; then
+            infected=$(python -c "import json; print(json.load(open('data/monitoring/omnidimensional_sweep.json'))['summary']['infected_files'])")
+            if [ "$infected" -gt "0" ]; then
+              echo "🚨 **CRITICAL**: Infected files detected!" >> SYSTEM_STATUS_REPORT.md
+              echo "overall_status=critical" >> $GITHUB_OUTPUT
+            else
+              echo "✅ **ALL SYSTEMS OPERATIONAL**" >> SYSTEM_STATUS_REPORT.md
+              echo "overall_status=operational" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "⚠️ **WARNING**: Unable to determine status" >> SYSTEM_STATUS_REPORT.md
+            echo "overall_status=unknown" >> $GITHUB_OUTPUT
+          fi
+          
+          cat SYSTEM_STATUS_REPORT.md
+      
+      - name: 💾 Commit Changes
+        if: steps.check_bibles.outputs.has_missing == 'true'
+        run: |
+          git config --local user.email "copilot-swe-agent[bot]@users.noreply.github.com"
+          git config --local user.name "copilot-swe-agent[bot]"
+          
+          git add Districts/*/BIBLE.md
+          git add SYSTEM_STATUS_REPORT.md
+          git add data/monitoring/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "📖 Auto-generated missing BIBLEs and status report"
+            git push
+          fi
+      
+      - name: 📊 Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: system-status-report
+          path: |
+            SYSTEM_STATUS_REPORT.md
+            data/monitoring/*.json
+          retention-days: 30
+      
+      - name: 🎯 Summary
+        run: |
+          echo "## 📖 Bible Read & System Audit Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat SYSTEM_STATUS_REPORT.md >> $GITHUB_STEP_SUMMARY
