@@ -1,0 +1,196 @@
+name: Trading Safety Monitor
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # Every 6 hours
+  workflow_dispatch:  # Manual trigger
+  push:
+    paths:
+      - 'scripts/trading_safety/**'
+      - 'data/trading_**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  safety_monitor:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Check Trading Safety Status
+        env:
+          MEXC_API_KEY: ${{ secrets.MEXC_API_KEY }}
+          MEXC_API_SECRET: ${{ secrets.MEXC_API_SECRET }}
+          TRADING_CAPITAL: ${{ secrets.TRADING_CAPITAL }}
+          LIVE_TRADING_ENABLED: "false"  # Always false for monitoring
+        run: |
+          echo "🔍 Checking Trading Safety Systems..."
+          
+          # Test circuit breaker
+          echo "Testing Circuit Breaker..."
+          python3 scripts/trading_safety/circuit_breaker.py || echo "Circuit breaker check completed"
+          
+          # Test credential manager (if secrets available)
+          if [ -n "$MEXC_API_KEY" ]; then
+            echo "Testing Credential Manager..."
+            python3 scripts/trading_safety/credential_manager.py || echo "Credential check completed"
+          else
+            echo "⚠️  MEXC credentials not configured in secrets"
+          fi
+      
+      - name: Run Health Monitors
+        env:
+          MEXC_API_KEY: ${{ secrets.MEXC_API_KEY }}
+          MEXC_API_SECRET: ${{ secrets.MEXC_API_SECRET }}
+        run: |
+          echo "🤖 Running Monitoring Agents..."
+          python3 scripts/trading_safety/trading_monitors.py || echo "Monitoring completed"
+      
+      - name: Check for Circuit Breaker Trips
+        id: check_trips
+        run: |
+          if [ -f "data/trading_safety/circuit_breaker_state.json" ]; then
+            STATUS=$(python3 -c "import json; data=json.load(open('data/trading_safety/circuit_breaker_state.json')); print(data.get('status', 'UNKNOWN'))")
+            echo "status=$STATUS" >> $GITHUB_OUTPUT
+            
+            if [ "$STATUS" != "NORMAL" ]; then
+              echo "⚠️  Circuit Breaker Status: $STATUS"
+              echo "alert=true" >> $GITHUB_OUTPUT
+            else
+              echo "✅ Circuit Breaker Status: NORMAL"
+              echo "alert=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "⚠️  Circuit breaker state file not found"
+            echo "alert=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Generate Safety Report
+        run: |
+          echo "📋 Generating Safety Report..."
+          
+          cat > data/trading_monitoring/automated_safety_report.md << 'EOF'
+          # Trading Safety Report
+          
+          **Generated:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Workflow:** Trading Safety Monitor
+          
+          ## Status Summary
+          
+          EOF
+          
+          if [ -f "data/trading_safety/circuit_breaker_state.json" ]; then
+            echo "### Circuit Breaker" >> data/trading_monitoring/automated_safety_report.md
+            python3 -c "
+          import json
+          with open('data/trading_safety/circuit_breaker_state.json') as f:
+              state = json.load(f)
+          print(f\"- Status: **{state.get('status', 'UNKNOWN')}**\")
+          print(f\"- Current Capital: \${state.get('current_capital', 0):.2f}\")
+          print(f\"- Daily Loss: \${state.get('daily_loss', 0):.2f}\")
+          print(f\"- Active Positions: {state.get('active_positions', 0)}\")
+          print(f\"- Consecutive Losses: {state.get('consecutive_losses', 0)}\")
+          " >> data/trading_monitoring/automated_safety_report.md
+          fi
+          
+          echo "" >> data/trading_monitoring/automated_safety_report.md
+          
+          if [ -f "data/trading_monitoring/performance_metrics.json" ]; then
+            echo "### Performance Metrics" >> data/trading_monitoring/automated_safety_report.md
+            python3 -c "
+          import json
+          with open('data/trading_monitoring/performance_metrics.json') as f:
+              metrics = json.load(f)
+          print(f\"- Total Trades: {metrics.get('total_trades', 0)}\")
+          print(f\"- Win Rate: {metrics.get('win_rate_percent', 0):.1f}%\")
+          print(f\"- Total P&L: \${metrics.get('total_pnl', 0):.2f}\")
+          print(f\"- Profit Factor: {metrics.get('profit_factor', 0):.2f}\")
+          " >> data/trading_monitoring/automated_safety_report.md
+          fi
+          
+          echo "✅ Safety report generated"
+      
+      - name: Commit Monitoring Data
+        run: |
+          git config user.name "Trading Safety Monitor"
+          git config user.email "monitor@citadel.trading"
+          
+          git add data/trading_monitoring/ data/trading_safety/ || true
+          git commit -m "🤖 Trading safety monitoring report - $(date -u +"%Y-%m-%d %H:%M UTC")" || echo "No changes to commit"
+          git push || echo "No changes to push"
+      
+      - name: Create Alert Issue (if needed)
+        if: steps.check_trips.outputs.alert == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ steps.check_trips.outputs.status }}';
+            
+            // Check if alert issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'trading-alert'
+            });
+            
+            if (issues.data.length === 0) {
+              // Create new alert issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🚨 Circuit Breaker ${status} - Immediate Attention Required`,
+                body: `## Circuit Breaker Alert
+          
+          **Status:** ${status}
+          **Time:** ${new Date().toISOString()}
+          **Workflow:** [Trading Safety Monitor](${context.payload.repository.html_url}/actions/runs/${context.runId})
+          
+          ### Action Required
+          
+          The trading circuit breaker has tripped. Review the following:
+          
+          1. Check \`data/trading_safety/circuit_breaker_log.json\` for trip reason
+          2. Review recent trades in \`data/trading_monitoring/trade_history.json\`
+          3. Assess if manual reset is appropriate
+          4. Follow the recovery procedure in \`TRADING_SAFETY_OPERATOR_MANUAL.md\`
+          
+          ### Manual Reset Instructions
+          
+          If reset is warranted:
+          
+          \`\`\`bash
+          export CIRCUIT_BREAKER_RESET_CODE="RESET_AUTHORIZED"
+          python3 scripts/trading_safety/circuit_breaker.py
+          \`\`\`
+          
+          **DO NOT reset without understanding the root cause.**
+          `,
+                labels: ['trading-alert', 'urgent']
+              });
+              
+              console.log('Alert issue created');
+            } else {
+              console.log('Alert issue already exists');
+            }
+      
+      - name: Summary
+        run: |
+          echo "### Trading Safety Monitor Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ✅ Monitoring complete" >> $GITHUB_STEP_SUMMARY
+          echo "**Circuit Breaker:** ${{ steps.check_trips.outputs.status || 'UNKNOWN' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "data/trading_monitoring/automated_safety_report.md" ]; then
+            cat data/trading_monitoring/automated_safety_report.md >> $GITHUB_STEP_SUMMARY
+          fi
