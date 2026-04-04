@@ -1,0 +1,151 @@
+name: 🔄 Spoke → HuggingFace Sync
+
+# This workflow template can be copied to any spoke repository
+# It enables automatic syncing from GitHub to HuggingFace
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Pull from GitHub every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      force_sync:
+        description: 'Force full sync'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  sync-to-huggingface:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: 🔍 Detect Repository Configuration
+        id: detect
+        run: |
+          # Auto-detect repository name and owner
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          REPO_OWNER="${GITHUB_REPOSITORY%/*}"
+          
+          echo "repo_name=$REPO_NAME" >> $GITHUB_OUTPUT
+          echo "repo_owner=$REPO_OWNER" >> $GITHUB_OUTPUT
+          
+          # Determine HF destination based on repo name
+          # This follows the Citadel Architect's identity bridge:
+          # GitHub: DJ-Goana-Coding → HuggingFace: DJ-Goanna-Coding
+          
+          HF_OWNER="DJ-Goanna-Coding"
+          
+          # Determine if this is a Space, Model, or Dataset repo
+          if [ -f "app.py" ] || [ -f "streamlit_app.py" ]; then
+            HF_TYPE="spaces"
+            echo "hf_type=spaces" >> $GITHUB_OUTPUT
+          elif [ -d "models" ] || [ -f "config.json" ]; then
+            HF_TYPE="models"
+            echo "hf_type=models" >> $GITHUB_OUTPUT
+          elif [ -d "data" ] || [ -f "dataset_info.json" ]; then
+            HF_TYPE="datasets"
+            echo "hf_type=datasets" >> $GITHUB_OUTPUT
+          else
+            # Default to spaces
+            HF_TYPE="spaces"
+            echo "hf_type=spaces" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "hf_owner=$HF_OWNER" >> $GITHUB_OUTPUT
+          echo "hf_url=https://huggingface.co/$HF_TYPE/$HF_OWNER/$REPO_NAME" >> $GITHUB_OUTPUT
+
+      - name: 🔄 Sync to HuggingFace
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "⚠️ HF_TOKEN not set, skipping HuggingFace sync"
+            echo "   Please add HF_TOKEN to repository secrets"
+            exit 0
+          fi
+          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚀 Syncing to HuggingFace"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📦 Repository: ${{ steps.detect.outputs.repo_name }}"
+          echo "🏷️  Type: ${{ steps.detect.outputs.hf_type }}"
+          echo "🔗 Destination: ${{ steps.detect.outputs.hf_url }}"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Configure git
+          git config --global credential.helper store
+          echo "https://${{ steps.detect.outputs.hf_owner }}:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
+          git config --global user.email "citadel-sync[bot]@huggingface.co"
+          git config --global user.name "Citadel Sync Pulse"
+          
+          # Add HuggingFace remote
+          REMOTE_URL="https://huggingface.co/${{ steps.detect.outputs.hf_type }}/${{ steps.detect.outputs.hf_owner }}/${{ steps.detect.outputs.repo_name }}"
+          
+          git remote remove hf 2>/dev/null || true
+          git remote add hf $REMOTE_URL
+          
+          # Push to HuggingFace
+          echo "📤 Pushing to $REMOTE_URL..."
+          
+          if [ "${{ github.event.inputs.force_sync }}" == "true" ]; then
+            echo "⚡ Force sync enabled"
+            git push --force hf main
+          else
+            git push hf main || git push --force hf main
+          fi
+          
+          echo "✅ Successfully synced to HuggingFace"
+
+      - name: 📊 Sync Summary
+        if: always()
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📊 CITADEL SPOKE SYNC SUMMARY"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Repository: ${{ steps.detect.outputs.repo_name }}"
+          echo "Type: ${{ steps.detect.outputs.hf_type }}"
+          echo "HF URL: ${{ steps.detect.outputs.hf_url }}"
+          echo "Synced at: $(date -u)"
+          echo ""
+          echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      - name: 📡 Report to Hub
+        if: success()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Report sync status back to mapping-and-inventory hub
+          # This creates a sync manifest that the hub can harvest
+          
+          SYNC_MANIFEST=$(cat <<EOF
+          {
+            "spoke": "${{ steps.detect.outputs.repo_name }}",
+            "synced_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commit": "${{ github.sha }}",
+            "hf_url": "${{ steps.detect.outputs.hf_url }}",
+            "status": "success"
+          }
+          EOF
+          )
+          
+          echo "$SYNC_MANIFEST"
+          
+          # If this spoke has access to the hub, it could POST this manifest
+          # For now, we just output it to the logs
+          echo "✅ Sync manifest generated"
