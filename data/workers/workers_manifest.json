@@ -1,50 +1,11 @@
 {
-  "meta": {
-    "generated_at": "2026-04-03T13:19:41.039634",
-    "total_workers": 7
-  },
-  "workers": {
-    "apps_script_workers": {
-      "gdrive_monitor": {
-        "name": "GDrive File Monitor",
-        "description": "Monitor GDrive for changes",
-        "language": "javascript",
-        "priority": "high",
-        "triggers": [
-          "onEdit",
-          "onChange",
-          "time-driven"
-        ]
-      },
-      "sheet_consolidator": {
-        "name": "Sheet Data Consolidator",
-        "description": "Consolidate data across sheets",
-        "language": "javascript",
-        "priority": "medium",
-        "triggers": [
-          "onOpen",
-          "time-driven"
-        ]
-      },
-      "auto_backup": {
-        "name": "Automatic Backup Worker",
-        "description": "Backup sheets and docs automatically",
-        "language": "javascript",
-        "priority": "high",
-        "triggers": [
-          "time-driven"
-        ]
-      },
-      "intelligence_feeder": {
-        "name": "Intelligence Feed Worker",
-        "description": "Feed data to Mapping Hub",
-        "language": "javascript",
-        "priority": "critical",
-        "triggers": [
-          "time-driven",
-          "webhook"
-        ]
-      }
+  "registry_version": "1.0.0",
+  "last_updated": "2026-04-04T01:11:31.261632Z",
+  "total_workers": 0,
+  "categories": {
+    "Vacuums": {
+      "count": 0,
+      "workers": []
     },
     "python_workers": {
       "gdrive_sync_worker": {
