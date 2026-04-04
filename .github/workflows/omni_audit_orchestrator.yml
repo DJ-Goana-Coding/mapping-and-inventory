@@ -1,0 +1,282 @@
+name: 🏛️ Omni-Audit Orchestrator
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: 'Phase to execute'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - phase1_discovery
+          - phase2_solutions
+          - phase5_financial
+      solutions_per_problem:
+        description: 'Number of solutions per problem'
+        required: false
+        default: '10'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  phase1_discovery:
+    name: "Phase 1: Discovery & Mapping"
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.phase == 'all' || 
+      github.event.inputs.phase == 'phase1_discovery' ||
+      github.event_name == 'schedule'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Repository Census Builder
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "🔍 Building Repository Census..."
+          python3 scripts/repo_census_builder.py
+          
+          if [ -f data/discoveries/repo_census.json ]; then
+            echo "✅ Census generated successfully"
+            cat data/discoveries/repo_census.json | python3 -m json.tool | head -50
+          fi
+      
+      - name: Run Gap Analyzer
+        run: |
+          echo "🔍 Analyzing Gaps and Problems..."
+          python3 scripts/gap_analyzer.py
+          
+          if [ -f data/discoveries/gap_matrix.json ]; then
+            echo "✅ Gap matrix generated successfully"
+            cat data/discoveries/gap_matrix.json | python3 -m json.tool | head -50
+          fi
+      
+      - name: Commit Discovery Results
+        run: |
+          git config --local user.email "citadel-architect@dj-goana-coding.dev"
+          git config --local user.name "Citadel Architect"
+          git add data/discoveries/
+          git diff --staged --quiet || git commit -m "🔍 Phase 1: Discovery & Mapping completed
+
+          - Repository census: $(cat data/discoveries/repo_census.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["summary"]["total_repositories"])' || echo 'N/A') repos
+          - Gap analysis: $(cat data/discoveries/gap_matrix.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["summary"]["total_problems"])' || echo 'N/A') problems identified
+          - Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          Automated by Omni-Audit Orchestrator"
+          git push origin HEAD:main || true
+      
+      - name: Upload Discovery Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-results
+          path: |
+            data/discoveries/repo_census.json
+            data/discoveries/gap_matrix.json
+          retention-days: 90
+
+  phase2_solutions:
+    name: "Phase 2: Multi-Solution Exploration"
+    runs-on: ubuntu-latest
+    needs: [phase1_discovery]
+    if: |
+      github.event.inputs.phase == 'all' || 
+      github.event.inputs.phase == 'phase2_solutions' ||
+      (github.event_name == 'schedule' && success())
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          fetch-depth: 0
+      
+      - name: Pull latest changes
+        run: git pull origin main || true
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Run Solution Generator
+        env:
+          SOLUTIONS_PER_PROBLEM: ${{ github.event.inputs.solutions_per_problem || '10' }}
+        run: |
+          echo "🔧 Generating Solutions..."
+          python3 scripts/solution_generator.py --solutions-per-problem $SOLUTIONS_PER_PROBLEM
+          
+          echo "✅ Solution catalogs generated"
+          ls -la data/experiments/solution_catalog/ | head -20
+      
+      - name: Commit Solution Catalogs
+        run: |
+          git config --local user.email "citadel-architect@dj-goana-coding.dev"
+          git config --local user.name "Citadel Architect"
+          git add data/experiments/
+          git diff --staged --quiet || git commit -m "🔧 Phase 2: Multi-Solution Exploration completed
+
+          - Generated $(ls data/experiments/solution_catalog/*.json 2>/dev/null | wc -l) solution catalogs
+          - Solutions per problem: ${{ github.event.inputs.solutions_per_problem || '10' }}
+          - Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          Automated by Omni-Audit Orchestrator"
+          git push origin HEAD:main || true
+      
+      - name: Upload Solution Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: solution-catalogs
+          path: data/experiments/solution_catalog/
+          retention-days: 90
+
+  phase5_financial:
+    name: "Phase 5: Financial Opportunity Discovery"
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.phase == 'all' || 
+      github.event.inputs.phase == 'phase5_financial' ||
+      github.event_name == 'schedule'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+          fetch-depth: 0
+      
+      - name: Pull latest changes
+        run: git pull origin main || true
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Run Financial Opportunity Scout
+        run: |
+          echo "💰 Discovering Financial Opportunities..."
+          python3 scripts/financial_opportunity_scout.py
+          
+          if [ -f data/discoveries/financial_opportunities.json ]; then
+            echo "✅ Financial opportunities discovered"
+            cat data/discoveries/financial_opportunities.json | python3 -m json.tool | grep -A 5 "summary"
+          fi
+      
+      - name: Commit Financial Opportunities
+        run: |
+          git config --local user.email "citadel-architect@dj-goana-coding.dev"
+          git config --local user.name "Citadel Architect"
+          git add data/discoveries/financial_opportunities.json
+          git diff --staged --quiet || git commit -m "💰 Phase 5: Financial Opportunity Discovery completed
+
+          - Discovered opportunities: $(cat data/discoveries/financial_opportunities.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["summary"]["total_opportunities"])' || echo 'N/A')
+          - High priority: $(cat data/discoveries/financial_opportunities.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d["summary"]["high_priority_count"])' || echo 'N/A')
+          - Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          Automated by Omni-Audit Orchestrator"
+          git push origin HEAD:main || true
+      
+      - name: Upload Financial Opportunities
+        uses: actions/upload-artifact@v4
+        with:
+          name: financial-opportunities
+          path: data/discoveries/financial_opportunities.json
+          retention-days: 90
+
+  summary:
+    name: "📊 Generate Execution Summary"
+    runs-on: ubuntu-latest
+    needs: [phase1_discovery, phase2_solutions, phase5_financial]
+    if: always()
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Pull latest changes
+        run: git pull origin main || true
+      
+      - name: Generate Summary Report
+        run: |
+          echo "# 🏛️ Omni-Audit Execution Summary" > OMNI_AUDIT_LAST_RUN.md
+          echo "" >> OMNI_AUDIT_LAST_RUN.md
+          echo "**Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> OMNI_AUDIT_LAST_RUN.md
+          echo "**Workflow**: ${{ github.workflow }}" >> OMNI_AUDIT_LAST_RUN.md
+          echo "**Run**: #${{ github.run_number }}" >> OMNI_AUDIT_LAST_RUN.md
+          echo "" >> OMNI_AUDIT_LAST_RUN.md
+          echo "## Phase Status" >> OMNI_AUDIT_LAST_RUN.md
+          echo "" >> OMNI_AUDIT_LAST_RUN.md
+          echo "- Phase 1 (Discovery): ${{ needs.phase1_discovery.result }}" >> OMNI_AUDIT_LAST_RUN.md
+          echo "- Phase 2 (Solutions): ${{ needs.phase2_solutions.result }}" >> OMNI_AUDIT_LAST_RUN.md
+          echo "- Phase 5 (Financial): ${{ needs.phase5_financial.result }}" >> OMNI_AUDIT_LAST_RUN.md
+          echo "" >> OMNI_AUDIT_LAST_RUN.md
+          echo "## Results" >> OMNI_AUDIT_LAST_RUN.md
+          echo "" >> OMNI_AUDIT_LAST_RUN.md
+          
+          if [ -f data/discoveries/repo_census.json ]; then
+            echo "### Repository Census" >> OMNI_AUDIT_LAST_RUN.md
+            cat data/discoveries/repo_census.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(f"- Total Repositories: {d[\"summary\"][\"total_repositories\"]}\n- GitHub Repos: {d[\"summary\"][\"total_github_repos\"]}\n- HF Spaces: {d[\"summary\"][\"total_hf_spaces\"]}")' >> OMNI_AUDIT_LAST_RUN.md || true
+            echo "" >> OMNI_AUDIT_LAST_RUN.md
+          fi
+          
+          if [ -f data/discoveries/gap_matrix.json ]; then
+            echo "### Gap Analysis" >> OMNI_AUDIT_LAST_RUN.md
+            cat data/discoveries/gap_matrix.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(f"- Total Problems: {d[\"summary\"][\"total_problems\"]}\n- Critical: {d[\"summary\"][\"critical_count\"]}\n- High: {d[\"summary\"][\"high_count\"]}")' >> OMNI_AUDIT_LAST_RUN.md || true
+            echo "" >> OMNI_AUDIT_LAST_RUN.md
+          fi
+          
+          if [ -f data/discoveries/financial_opportunities.json ]; then
+            echo "### Financial Opportunities" >> OMNI_AUDIT_LAST_RUN.md
+            cat data/discoveries/financial_opportunities.json | python3 -c 'import json,sys; d=json.load(sys.stdin); print(f"- Total Opportunities: {d[\"summary\"][\"total_opportunities\"]}\n- High Priority: {d[\"summary\"][\"high_priority_count\"]}")' >> OMNI_AUDIT_LAST_RUN.md || true
+            echo "" >> OMNI_AUDIT_LAST_RUN.md
+          fi
+          
+          echo "---" >> OMNI_AUDIT_LAST_RUN.md
+          echo "*Generated by Citadel Architect Omni-Audit Orchestrator*" >> OMNI_AUDIT_LAST_RUN.md
+          
+          cat OMNI_AUDIT_LAST_RUN.md
+      
+      - name: Commit Summary
+        run: |
+          git config --local user.email "citadel-architect@dj-goana-coding.dev"
+          git config --local user.name "Citadel Architect"
+          git add OMNI_AUDIT_LAST_RUN.md
+          git diff --staged --quiet || git commit -m "📊 Omni-Audit execution summary - $(date -u +"%Y-%m-%d")"
+          git push origin HEAD:main || true
