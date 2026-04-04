@@ -1,0 +1,3970 @@
+{
+  "timestamp": "2026-04-04T14:58:20.816898Z",
+  "weld_type": "district_inventory",
+  "total_districts": 9,
+  "consolidated_districts": 9,
+  "districts": {
+    "D01_COMMAND_INPUT": {
+      "district": "D01_COMMAND_INPUT",
+      "generated": "2026-04-03T07:21:01.473778",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "ark_engine.py",
+          "name": "ark_engine.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1136,
+          "modified": "2026-04-03T07:09:27.812406",
+          "md5": "8adc1bd88bab16f30bdf117dd3b0d221"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 179,
+          "modified": "2026-04-03T07:21:01.473673",
+          "md5": "9cfa5529dfcf1293801edd381ae09ffc"
+        }
+      ],
+      "statistics": {
+        "total_files": 2,
+        "total_directories": 0,
+        "total_size_bytes": 1315,
+        "file_types": {
+          ".py": 1,
+          ".md": 1
+        }
+      }
+    },
+    "D02_TIA_VAULT": {
+      "district": "D02_TIA_VAULT",
+      "generated": "2026-04-03T07:21:01.475012",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "vault_mirror.py",
+          "name": "vault_mirror.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1324,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "eaa19e6fe977c1b9738c132b12ea1d66"
+        },
+        {
+          "path": "tias_sentinel_swarm.py",
+          "name": "tias_sentinel_swarm.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 663,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "36b4624534f103c810123c34c098a33c"
+        },
+        {
+          "path": "blueprint_inspector.py",
+          "name": "blueprint_inspector.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 569,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "c23d5b13b0a07360163588a4a4f31c8c"
+        },
+        {
+          "path": "tia_sos.py",
+          "name": "tia_sos.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1615,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "a9f2d0a87e17a3d033685e143b4e822a"
+        },
+        {
+          "path": "mexc_keys.json",
+          "name": "mexc_keys.json",
+          "type": "file",
+          "extension": ".json",
+          "size_bytes": 141,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "ac4f48be262189bba09e2d38e1150b7b"
+        },
+        {
+          "path": "CITADEL_BIBLE.md",
+          "name": "CITADEL_BIBLE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 988,
+          "modified": "2026-04-03T07:09:27.812406",
+          "md5": "05436472f7e1da8fc86e3973c0c9708d"
+        },
+        {
+          "path": "tias_pioneer_trader.py",
+          "name": "tias_pioneer_trader.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1113,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "47a265b803fdcfddc9963b15c1e12f29"
+        },
+        {
+          "path": "tia_atomic.py",
+          "name": "tia_atomic.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1247,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "0b8d6530af734504e93fc1c208556d2d"
+        },
+        {
+          "path": "soul_vault.py",
+          "name": "soul_vault.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1333,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "ac754bd0f6e330a185654fd676e54169"
+        },
+        {
+          "path": "blueprint_reader.py",
+          "name": "blueprint_reader.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 573,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "f9a25666cc9d34e593257822d15df52b"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 784,
+          "modified": "2026-04-03T07:21:01.474912",
+          "md5": "0103279bb74ab528290979c36b6d3df7"
+        },
+        {
+          "path": "vault_init.py",
+          "name": "vault_init.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 978,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "d646dc0fffc305c396524d178f478e71"
+        },
+        {
+          "path": "tia_architect.py",
+          "name": "tia_architect.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 186,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "a8a6163ff37ab509ab6df04af00bee5e"
+        },
+        {
+          "path": "Master_Blueprints/omega_bots.py",
+          "name": "omega_bots.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 174,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "454d4ee795929d85bbe21f6567524610"
+        },
+        {
+          "path": "Master_Blueprints/omega_scout.py",
+          "name": "omega_scout.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 833,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "c4a847fe5948bf71cd87b3f54d92ca55"
+        },
+        {
+          "path": "Master_Blueprints/librarian_omega.py",
+          "name": "librarian_omega.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1885,
+          "modified": "2026-04-03T07:09:27.812587",
+          "md5": "d9b8e4ff1f1c2dd5ec4a024695c7cf37"
+        },
+        {
+          "path": "Master_Blueprints/omega_trader.py",
+          "name": "omega_trader.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 335,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "51ae6b213d4fac300fa2cdba53689195"
+        },
+        {
+          "path": "Master_Blueprints/omega_archive.py",
+          "name": "omega_archive.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 186,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "90a89624bb38815530dd871c615a4115"
+        },
+        {
+          "path": "Master_Blueprints/modal_hunt.py",
+          "name": "modal_hunt.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1060,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "be179075c7b221ec5ce3c24917a4d3f2"
+        }
+      ],
+      "statistics": {
+        "total_files": 19,
+        "total_directories": 1,
+        "total_size_bytes": 15987,
+        "file_types": {
+          ".py": 16,
+          ".json": 1,
+          ".md": 2
+        }
+      }
+    },
+    "D03_VORTEX_ENGINE": {
+      "district": "D03_VORTEX_ENGINE",
+      "generated": "2026-04-03T07:21:01.477564",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "91144d4e41c08e8e5761953ab94ff6a3249fb8",
+          "name": "91144d4e41c08e8e5761953ab94ff6a3249fb8",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 343,
+          "modified": "2026-04-03T07:09:27.812654",
+          "md5": "545d4849672eb2d81f0804d19d1c3ea1"
+        },
+        {
+          "path": "vortex_calc.py",
+          "name": "vortex_calc.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 646,
+          "modified": "2026-04-03T07:09:27.813243",
+          "md5": "a5bde2e2eab93801816d0877e092a9d6"
+        },
+        {
+          "path": "fe1cd160765d15e4047b0f1441a17b65220b26",
+          "name": "fe1cd160765d15e4047b0f1441a17b65220b26",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 628,
+          "modified": "2026-04-03T07:09:27.813243",
+          "md5": "cde08728be352011fc3d84cdb3d4c528"
+        },
+        {
+          "path": "active_grid.json",
+          "name": "active_grid.json",
+          "type": "file",
+          "extension": ".json",
+          "size_bytes": 717,
+          "modified": "2026-04-03T07:09:27.813243",
+          "md5": "2609493fd6502b91655f5f8267cb555c"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 320,
+          "modified": "2026-04-03T07:21:01.477451",
+          "md5": "0e487de4ed8cccb2c4d56f08f2cd1761"
+        }
+      ],
+      "statistics": {
+        "total_files": 5,
+        "total_directories": 0,
+        "total_size_bytes": 2654,
+        "file_types": {
+          "no_extension": 2,
+          ".py": 1,
+          ".json": 1,
+          ".md": 1
+        }
+      }
+    },
+    "D04_OMEGA_TRADER": {
+      "district": "D04_OMEGA_TRADER",
+      "generated": "2026-04-03T07:21:01.478841",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "vanguard_trade_weld.py",
+          "name": "vanguard_trade_weld.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1199,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "bd2ce9c9b9a5f8ae4a7d34bc7912ca22"
+        },
+        {
+          "path": "market_sensor.py",
+          "name": "market_sensor.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 2421,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "b092cba0e956059b7ed547fb4687604d"
+        },
+        {
+          "path": "omega_trader.py",
+          "name": "omega_trader.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 335,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "51ae6b213d4fac300fa2cdba53689195"
+        },
+        {
+          "path": "ABN_Trade_Ledger.csv",
+          "name": "ABN_Trade_Ledger.csv",
+          "type": "file",
+          "extension": ".csv",
+          "size_bytes": 55,
+          "modified": "2026-04-03T07:09:27.813243",
+          "md5": "e53a8482308335579ca07560bb893adb"
+        },
+        {
+          "path": "live_sensor.py",
+          "name": "live_sensor.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1416,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "38166e31793f7fb5e33f56566617915e"
+        },
+        {
+          "path": "vanguard_live_trader.py",
+          "name": "vanguard_live_trader.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1160,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "0bcd68d79b9fad6ef7f12f620ff7d928"
+        },
+        {
+          "path": "solana_radar.py",
+          "name": "solana_radar.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1880,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "9f4b14c82d125b3d08c62de7df019734"
+        },
+        {
+          "path": "mexc_balance.py",
+          "name": "mexc_balance.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 2034,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "a0bba3238daad36a26c62b3e25e6c4a3"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 416,
+          "modified": "2026-04-03T07:21:01.478745",
+          "md5": "4f963ee9164de062410cab8096d5fae2"
+        }
+      ],
+      "statistics": {
+        "total_files": 9,
+        "total_directories": 0,
+        "total_size_bytes": 10916,
+        "file_types": {
+          ".py": 7,
+          ".csv": 1,
+          ".md": 1
+        }
+      }
+    },
+    "D06_RANDOM_FUTURES": {
+      "district": "D06_RANDOM_FUTURES",
+      "generated": "2026-04-03T07:21:01.484718",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "d770c1a9c4a11a33a1c38b07863ea3c3186a2d",
+          "name": "d770c1a9c4a11a33a1c38b07863ea3c3186a2d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 840,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "c387f6f482a56d6b154696e1bd29e859"
+        },
+        {
+          "path": "6ddc9ec9b373508f2c174e5e2ed8827255a22a",
+          "name": "6ddc9ec9b373508f2c174e5e2ed8827255a22a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 561,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "41b1af9b9df6c36d36768862d5a6cc4e"
+        },
+        {
+          "path": "d1284e1d027486bd552869b0d864dcf56e5ef0",
+          "name": "d1284e1d027486bd552869b0d864dcf56e5ef0",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 101,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "4b21a91c2c4e171119c18a81b2093310"
+        },
+        {
+          "path": "84964a62e4af3f0f02e7af53fb7d95b0710cb8",
+          "name": "84964a62e4af3f0f02e7af53fb7d95b0710cb8",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 957,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "c8af2368b4da3c7a252ffce9ce2286c6"
+        },
+        {
+          "path": "b549ca6e8f77b214a04d94b59079e8a0989374",
+          "name": "b549ca6e8f77b214a04d94b59079e8a0989374",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "dcba99b49ca8f1a1d424d56c6068b574"
+        },
+        {
+          "path": "COMMIT_EDITMSG",
+          "name": "COMMIT_EDITMSG",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 28,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "5c73fcfc5343767035f301959c6a9d40"
+        },
+        {
+          "path": "3d9498ed11d6e78d6847e66f952ba96b2a72ec",
+          "name": "3d9498ed11d6e78d6847e66f952ba96b2a72ec",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 157,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "a7704ed835d4684364aa468472d80c78"
+        },
+        {
+          "path": "b54c84a1676a47aa4529eef7a5b98d626b1053",
+          "name": "b54c84a1676a47aa4529eef7a5b98d626b1053",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 552,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "5fe06ff7a60da1aa7f9f111d0521954f"
+        },
+        {
+          "path": "a4b7f9753e5683491c464af3daf5b0aa49acc0",
+          "name": "a4b7f9753e5683491c464af3daf5b0aa49acc0",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 500,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "9d441b262e438f88d2a234993a09fc37"
+        },
+        {
+          "path": "07f063cf30df4033e8178a7f1fdc07e8a69923",
+          "name": "07f063cf30df4033e8178a7f1fdc07e8a69923",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "d75e16d11e85bd2648d4684fe1582b6a"
+        },
+        {
+          "path": "baded69260d2aba0e4a04b1fc3caf979ed7706",
+          "name": "baded69260d2aba0e4a04b1fc3caf979ed7706",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 529,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "edbb9ca53c10d4e466e2b17d13242879"
+        },
+        {
+          "path": "omega_bots.py",
+          "name": "omega_bots.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 174,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "454d4ee795929d85bbe21f6567524610"
+        },
+        {
+          "path": "4f377993fdaec20ee7d63b1825ca3df44574c5",
+          "name": "4f377993fdaec20ee7d63b1825ca3df44574c5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 691,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "fbcf183267402fc301e27e66542cc3f3"
+        },
+        {
+          "path": "precious_metals_tracker.py",
+          "name": "precious_metals_tracker.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 4453,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "15cfce4df21965e39b3e0fbb0e238d30"
+        },
+        {
+          "path": "pre-applypatch.sample",
+          "name": "pre-applypatch.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 455,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "7a80d7a54fbee2dfaafc2460d10ffe40"
+        },
+        {
+          "path": "72ca96a2dad4070ae46d239d0e21643e896aec",
+          "name": "72ca96a2dad4070ae46d239d0e21643e896aec",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 767,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "850a68ff80affe3f5530a9a99aaae366"
+        },
+        {
+          "path": "daa3f21a09bed76ccab62b260f99df866e81d2",
+          "name": "daa3f21a09bed76ccab62b260f99df866e81d2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 138,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "a331c0623dea6e210b5d12ca113ee86d"
+        },
+        {
+          "path": "8173897cb8c668b4f4eeb10b058cec695a1961",
+          "name": "8173897cb8c668b4f4eeb10b058cec695a1961",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "a83b2817bc581784d2d4e685d7b9307e"
+        },
+        {
+          "path": "7c11a5b223509d652818757c59fcafa7ee6ee6",
+          "name": "7c11a5b223509d652818757c59fcafa7ee6ee6",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "b51f068a813f23982722e37a953bb28e"
+        },
+        {
+          "path": "harvestmoon.py",
+          "name": "harvestmoon.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 178,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "56f27260e7b9c0efdd496f2d6b1682f4"
+        },
+        {
+          "path": "fd0cb210555142f45eee16fa93c7320aa90278",
+          "name": "fd0cb210555142f45eee16fa93c7320aa90278",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 824,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "7cd93a062b47229690131f2642d539d3"
+        },
+        {
+          "path": "988e65792bbf8a2dff138627e88a941d898a53",
+          "name": "988e65792bbf8a2dff138627e88a941d898a53",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "79a4822b264113cbb616d0c7e8a365dd"
+        },
+        {
+          "path": "9e0701d2f63fa5f0bc550fd6423e1639703e6e",
+          "name": "9e0701d2f63fa5f0bc550fd6423e1639703e6e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "6512e20651288c24a0b01fe270bb1360"
+        },
+        {
+          "path": "215261408325d204c1434f7b336ac0dcc59eae",
+          "name": "215261408325d204c1434f7b336ac0dcc59eae",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 636,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "7f1e507fac91cb8e32900e4ae8957cb6"
+        },
+        {
+          "path": "116ab90971a9bd052fa0613c994c1326e8b460",
+          "name": "116ab90971a9bd052fa0613c994c1326e8b460",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "e8387c25e0f7c1f283c53d3b4fca3541"
+        },
+        {
+          "path": "242101750e1d2d09dbe20b211868d031017c8d",
+          "name": "242101750e1d2d09dbe20b211868d031017c8d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 618,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "3d31934fd8103c08f21102af9beeea71"
+        },
+        {
+          "path": "94f317c0a97cdf7cea863b1badff092d37bdaa",
+          "name": "94f317c0a97cdf7cea863b1badff092d37bdaa",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 751,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "321a64ef4441e17f21b4f874822575b7"
+        },
+        {
+          "path": "f77277b18c1ebf07a76cd1605b242a69095d0f",
+          "name": "f77277b18c1ebf07a76cd1605b242a69095d0f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 55,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "e1c1542cc94146d2e1461025de9c8d02"
+        },
+        {
+          "path": "7ca57c183913df82d20293e121865649209d14",
+          "name": "7ca57c183913df82d20293e121865649209d14",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "61bf4f00ff1fceb8554a3f90edb8a4fc"
+        },
+        {
+          "path": "god_view.py",
+          "name": "god_view.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1386,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "a16a134d184873ae32811a934a79a143"
+        },
+        {
+          "path": "genesis.py",
+          "name": "genesis.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 162,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "41281af1e5eee4f9d81a8e5a24834f81"
+        },
+        {
+          "path": "ec8167640410056791b040e79834d8946c3763",
+          "name": "ec8167640410056791b040e79834d8946c3763",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 66,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "e0a0d2cfa1a63bee991294a84e9a92b4"
+        },
+        {
+          "path": "4f2c9ed3ddffeceb79c84e97c896e3efe64347",
+          "name": "4f2c9ed3ddffeceb79c84e97c896e3efe64347",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 766,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "b456ecf79fdd68f9754ac90e2cae10de"
+        },
+        {
+          "path": "fleet_forge.py",
+          "name": "fleet_forge.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1592,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "bfa61e483e79c189c6468798273530fe"
+        },
+        {
+          "path": "9a5e2d7113fc90b73e4257984f6408e59202ca",
+          "name": "9a5e2d7113fc90b73e4257984f6408e59202ca",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "d805ceb976010e78332e61feebd4cb34"
+        },
+        {
+          "path": "3c6330b4841114ae8a861812d15690a7f1621c",
+          "name": "3c6330b4841114ae8a861812d15690a7f1621c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 252,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "cb23c36f9b83ec85b6076e5744952ec1"
+        },
+        {
+          "path": "e80d8da26c51180cd4a96412a5802bc7af39a9",
+          "name": "e80d8da26c51180cd4a96412a5802bc7af39a9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 334,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "c78701c2a90a31c98395b12600e3121b"
+        },
+        {
+          "path": "54611e7824d445dafd3a16db8305978818b561",
+          "name": "54611e7824d445dafd3a16db8305978818b561",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1623,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "93bc2644d0ba3c666a21bd9b2f1f6cc4"
+        },
+        {
+          "path": "c2d8f4052fcff566529ff22bde5390f0ba4aef",
+          "name": "c2d8f4052fcff566529ff22bde5390f0ba4aef",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "d696ff3a7430597d4ec343a134efda6f"
+        },
+        {
+          "path": "0af403000fa304c3488e80b65faae22de98c86",
+          "name": "0af403000fa304c3488e80b65faae22de98c86",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "1c92ce77ed3bbc6737459adf2b850843"
+        },
+        {
+          "path": "cfda254cae036ddcef9de60028646cd6af9e88",
+          "name": "cfda254cae036ddcef9de60028646cd6af9e88",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 195,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "9359ebee3d0f0c6526abf0ae1de2ada5"
+        },
+        {
+          "path": "9e55d5b0a4115e847b7d83a3954651df773f39",
+          "name": "9e55d5b0a4115e847b7d83a3954651df773f39",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 231,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "599b1dbeebd00e76407095472e4ce783"
+        },
+        {
+          "path": "omega_scout.py",
+          "name": "omega_scout.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 833,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "c4a847fe5948bf71cd87b3f54d92ca55"
+        },
+        {
+          "path": "0efa95d28f11e5d7070ae4cb7617c08f169b99",
+          "name": "0efa95d28f11e5d7070ae4cb7617c08f169b99",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 772,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "1a7abd72568232ea568628c95f6e3f97"
+        },
+        {
+          "path": "auto_reclaim.py",
+          "name": "auto_reclaim.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1615,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "1918cc85dad015c7cda1e35ce193d81c"
+        },
+        {
+          "path": "3c6a0697556fdd5641c45c25206b4ce267b624",
+          "name": "3c6a0697556fdd5641c45c25206b4ce267b624",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 67,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "bfe7fcbe90410ecdc43c58e777778a6e"
+        },
+        {
+          "path": "799310464432a5a23c81c3f3dc70278aac954a",
+          "name": "799310464432a5a23c81c3f3dc70278aac954a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "d2942cd406063a37838273aed28d3bc5"
+        },
+        {
+          "path": "librarian_omega.py",
+          "name": "librarian_omega.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1885,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "d9b8e4ff1f1c2dd5ec4a024695c7cf37"
+        },
+        {
+          "path": "907cc8acbbd453087bc951e8f2cc85744770ee",
+          "name": "907cc8acbbd453087bc951e8f2cc85744770ee",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 539,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "175f69b1cd45b9f1809c59b5b1512a2b"
+        },
+        {
+          "path": "f66b9634b9c9765bf7162ac9457cdea83b5f17",
+          "name": "f66b9634b9c9765bf7162ac9457cdea83b5f17",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 295,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "392cd43ef2fdf7d7cab90d0a08573a2e"
+        },
+        {
+          "path": "3127b63a7d2f3ba0a82f3b72619ad503d95afa",
+          "name": "3127b63a7d2f3ba0a82f3b72619ad503d95afa",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 506,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "101aec05da54f6064558f6026b5c8a1c"
+        },
+        {
+          "path": "87ef861cdb979a411d82f9a6da19c523cdbe51",
+          "name": "87ef861cdb979a411d82f9a6da19c523cdbe51",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 805,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "ad8e95ad3cbb68f135e6fefa55d65388"
+        },
+        {
+          "path": "722afed8d49fde500db182b6c933cca2c31a74",
+          "name": "722afed8d49fde500db182b6c933cca2c31a74",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 621,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "c35a32c8257f56529f190c2fb3ebe5d7"
+        },
+        {
+          "path": "53edfe5f6aa548666dfca2a67a70055e8dc84a",
+          "name": "53edfe5f6aa548666dfca2a67a70055e8dc84a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 805,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "fbea651c0b476440f917e5b6b7849f94"
+        },
+        {
+          "path": "prepare-commit-msg.sample",
+          "name": "prepare-commit-msg.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 1604,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "14da9b91ab73af94d40ab5b0013ab685"
+        },
+        {
+          "path": "inventory_visualizer.py",
+          "name": "inventory_visualizer.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 878,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "0282f9e9e5732abb4ea417f92eb27b43"
+        },
+        {
+          "path": "9152a02ec20088e7d5e398a1daae307aa63ecb",
+          "name": "9152a02ec20088e7d5e398a1daae307aa63ecb",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 271,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "6d13d3aa65e383169e2947da2b7439c6"
+        },
+        {
+          "path": "6e24e752a4d0d21675299fadc1d48ee499ef07",
+          "name": "6e24e752a4d0d21675299fadc1d48ee499ef07",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 240,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "a846f70b973654a81aad208147b92731"
+        },
+        {
+          "path": "583e2de818b4377e35cfb05139ffc46d30f669",
+          "name": "583e2de818b4377e35cfb05139ffc46d30f669",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 734,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "09b62cf4db8d063ab88f5bf60818bb39"
+        },
+        {
+          "path": "9234aeff5cb734a80931014e793615940881d3",
+          "name": "9234aeff5cb734a80931014e793615940881d3",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "d0f632b4455827d881d50ab45b44e119"
+        },
+        {
+          "path": "6ad94a34792eda917714851257392450fb1808",
+          "name": "6ad94a34792eda917714851257392450fb1808",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 623,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "2030526b2674d0a4325aad931457065e"
+        },
+        {
+          "path": "8b87810af57017fe13c60d4a9469a43e093acd",
+          "name": "8b87810af57017fe13c60d4a9469a43e093acd",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 781,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "d42152aae0db1f360ac7f763791b0317"
+        },
+        {
+          "path": "aa46a39b56d8f49b72a8023c3c736c522a5a03",
+          "name": "aa46a39b56d8f49b72a8023c3c736c522a5a03",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 297,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "c7bde1d2d81970b0616d219270027579"
+        },
+        {
+          "path": "00a1906f193c8b30e8c2934c06db89ab5f8675",
+          "name": "00a1906f193c8b30e8c2934c06db89ab5f8675",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "4393e1ffe84a5e2459007fd425c9bcdb"
+        },
+        {
+          "path": "oracle.py",
+          "name": "oracle.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 158,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "8811ac11a286ad81a23b0a496a78de04"
+        },
+        {
+          "path": "655ddba3f7c2222c2fd7d31587307307633e64",
+          "name": "655ddba3f7c2222c2fd7d31587307307633e64",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 588,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "3806714cafdf909c8366a2463cfa6a40"
+        },
+        {
+          "path": "83a565a6f909a1cb36303cf92b4ab037e3f18e",
+          "name": "83a565a6f909a1cb36303cf92b4ab037e3f18e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "59c06f5acdc4256c8bfacf0b8186bbd1"
+        },
+        {
+          "path": "279c23fe1c8faf956ea4cdef009cb4d43b4557",
+          "name": "279c23fe1c8faf956ea4cdef009cb4d43b4557",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 144,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "5318dbe2d383cc75874e2259719cceef"
+        },
+        {
+          "path": "a77548a365b5c92cebdc670b98e42e6b53694f",
+          "name": "a77548a365b5c92cebdc670b98e42e6b53694f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 697,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "774796228ed171adca950f5fb7eb6706"
+        },
+        {
+          "path": "f803eb0ef9ce451cbc05f141263d877aa06ce3",
+          "name": "f803eb0ef9ce451cbc05f141263d877aa06ce3",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "62e514b4781c243388cf2f4a4824d75b"
+        },
+        {
+          "path": "d7c518074c8b15d4cd23253bfa22417bf86b5e",
+          "name": "d7c518074c8b15d4cd23253bfa22417bf86b5e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "9b7bc936234d2fc0952740b37745a6ff"
+        },
+        {
+          "path": "cgal_core.py",
+          "name": "cgal_core.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 170,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "3b89db784930ca8846e3597500ec34c6"
+        },
+        {
+          "path": "20fb2995a71426400e4d551fb4e7c10b2848d4",
+          "name": "20fb2995a71426400e4d551fb4e7c10b2848d4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 149,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "e7c2c80a0db163bef9e7be0fd27e931a"
+        },
+        {
+          "path": "57232418cff26bf24312f99a4fcb07b648d84e",
+          "name": "57232418cff26bf24312f99a4fcb07b648d84e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 177,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "5e2ed4f61cbd23b0f26bb3faedebc3d6"
+        },
+        {
+          "path": "6e0c92c5b8287c2ca3f5791d01bc55af38cd50",
+          "name": "6e0c92c5b8287c2ca3f5791d01bc55af38cd50",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "65cfadfcbe2642749533376edf473995"
+        },
+        {
+          "path": "ac92c0cb61944a9352b29dc55d7a7f99dfbff7",
+          "name": "ac92c0cb61944a9352b29dc55d7a7f99dfbff7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 571,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "d08a153a1c1cb5aaacdf2fffd2ea061d"
+        },
+        {
+          "path": "43da889612dad8256d35c61faa8c1544559fca",
+          "name": "43da889612dad8256d35c61faa8c1544559fca",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1463,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "fe25b6c255bc3d412571c346e7d59cf8"
+        },
+        {
+          "path": "sentiment_sensor.py",
+          "name": "sentiment_sensor.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 872,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "bbcf256bc5f8038eb80932dd434f454a"
+        },
+        {
+          "path": "b79041e606b7c2c85779df13eed10efa98f70a",
+          "name": "b79041e606b7c2c85779df13eed10efa98f70a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 804,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "604975d5d6b1723cbbe35b08f0ac3dd5"
+        },
+        {
+          "path": "268273a46d90a4c4c498c0f2a48c41e5871efa",
+          "name": "268273a46d90a4c4c498c0f2a48c41e5871efa",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 619,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "86586729e93ee3019e081258630c25ed"
+        },
+        {
+          "path": "dd815ad29eb0e45935e6973eb65581007ffc3b",
+          "name": "dd815ad29eb0e45935e6973eb65581007ffc3b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 547,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "4f9b73b2c432bfa55136abf7414c4d25"
+        },
+        {
+          "path": "dataset_uplink.py",
+          "name": "dataset_uplink.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 762,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "01d32bdc5a1a2429c8a5d3a117d78299"
+        },
+        {
+          "path": "5e1f8dff55b514e43a92bfc81901c15426d9b3",
+          "name": "5e1f8dff55b514e43a92bfc81901c15426d9b3",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 594,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "db9272151b315878e4938e44b1ef809d"
+        },
+        {
+          "path": "1b3d0ecc28c3e00ce650c9d5bde9450502fa57",
+          "name": "1b3d0ecc28c3e00ce650c9d5bde9450502fa57",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "1716ad04279e94fd80e4073661e2ba66"
+        },
+        {
+          "path": "1939057438d7894e964e0af12a6f21db0f8f49",
+          "name": "1939057438d7894e964e0af12a6f21db0f8f49",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 101,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "621272af1b256e67d2aaca00dba03b53"
+        },
+        {
+          "path": "f33721e8a50aeedfcee7100bcf56ab12e8b218",
+          "name": "f33721e8a50aeedfcee7100bcf56ab12e8b218",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 297,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "955a5574de8296b182f2957ae81ebaa4"
+        },
+        {
+          "path": "vanguard_v10_titan.py",
+          "name": "vanguard_v10_titan.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 2604,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "e1d61f84102ec5becf9c8a0430f54308"
+        },
+        {
+          "path": "c636f672337281fb43e99f9512f8dd41d9f0c6",
+          "name": "c636f672337281fb43e99f9512f8dd41d9f0c6",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 680,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "42093b70919e0a157dfe131e79ef40b3"
+        },
+        {
+          "path": "local_librarian.py",
+          "name": "local_librarian.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1064,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "b3773ceb556131d497a4cf3b0fd66d9e"
+        },
+        {
+          "path": "9255341e6faa20e4bb0acb635f22ed8c3d0b11",
+          "name": "9255341e6faa20e4bb0acb635f22ed8c3d0b11",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 737,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "1f3dfad6fa3ec319a91e0386349e6a66"
+        },
+        {
+          "path": "8d52a6620e82808fbc823d4ce5529910c0a7d4",
+          "name": "8d52a6620e82808fbc823d4ce5529910c0a7d4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 656,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "97df44e8e4857df8eefc4b784d229f38"
+        },
+        {
+          "path": "b7a873a1a9e38d0f57711e0ce0a927431fcda9",
+          "name": "b7a873a1a9e38d0f57711e0ce0a927431fcda9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 582,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "c9bfc8654981934b04c1f43b123176fb"
+        },
+        {
+          "path": "cbbd3208fc707246e014ecee8a669befd6e0fd",
+          "name": "cbbd3208fc707246e014ecee8a669befd6e0fd",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 767,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "47e705a52accec4442c9b5fed42c3d91"
+        },
+        {
+          "path": "6c6b82e3b1a2a6960e86f9e41292aef7ebf04f",
+          "name": "6c6b82e3b1a2a6960e86f9e41292aef7ebf04f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 435,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "9d4d59e82ca25a5a2b9d2cf3ae6881d2"
+        },
+        {
+          "path": "aion.py",
+          "name": "aion.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 150,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "99d993966f5d44fa57207ae8e01d1afb"
+        },
+        {
+          "path": "7fcae43986de4f7e600b8cbe44893ea638a166",
+          "name": "7fcae43986de4f7e600b8cbe44893ea638a166",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 804,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "08bb90ffe040581c86d48cabd38d4157"
+        },
+        {
+          "path": "ca690eee20f31f5140116860bb1cc112bad79a",
+          "name": "ca690eee20f31f5140116860bb1cc112bad79a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 503,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "7b4e3da61524b114dea902e6392a684d"
+        },
+        {
+          "path": "5f4c9e5e6acb1f8d77a1f852ccefe7f05ff7fb",
+          "name": "5f4c9e5e6acb1f8d77a1f852ccefe7f05ff7fb",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 572,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "e6fc489692ca7d917a5e5d6ed0b4256c"
+        },
+        {
+          "path": "2094ecde1a754128c27d8fcb344239281fb9f4",
+          "name": "2094ecde1a754128c27d8fcb344239281fb9f4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 663,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "435495f686ce268278386acdc0d90272"
+        },
+        {
+          "path": "b7b2f43613cfd0df108d46cc7fc119e916bb04",
+          "name": "b7b2f43613cfd0df108d46cc7fc119e916bb04",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1290,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "a8479a13df0d126114aa51afdaf26bbf"
+        },
+        {
+          "path": "d8be126f335b9f4f0aeb3985fdf65de2fc6ec9",
+          "name": "d8be126f335b9f4f0aeb3985fdf65de2fc6ec9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 37735,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "1bcd23ae3078388991f9884697ab14af"
+        },
+        {
+          "path": "cac7a1d04c97cd63bac8cca4c0bb9e447e462e",
+          "name": "cac7a1d04c97cd63bac8cca4c0bb9e447e462e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 200,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "834889f359812b43f5ba069cd6b43adf"
+        },
+        {
+          "path": "code_puller.py",
+          "name": "code_puller.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1117,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "2b2538eb46f032b823ff99f9c36b9624"
+        },
+        {
+          "path": "vanguard_v5_legion.py",
+          "name": "vanguard_v5_legion.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 3204,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "13556213c0a05204bf6e6a509fc0212a"
+        },
+        {
+          "path": "846255be8abf7ea07c4702dd52c38479e838aa",
+          "name": "846255be8abf7ea07c4702dd52c38479e838aa",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 66,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "d474c5ca74e537dc0537fdd8d6337713"
+        },
+        {
+          "path": "tech_indicators.py",
+          "name": "tech_indicators.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1179,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "a28568952eaa9af3845f2648a783d7cf"
+        },
+        {
+          "path": "4ee7dfaf984e08680a9250fc622890bb016082",
+          "name": "4ee7dfaf984e08680a9250fc622890bb016082",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 735,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "b1fb41ad63ce6eef50e87723a10611b4"
+        },
+        {
+          "path": "ff6bedc3e38f153c6789baf074184cf6fdabca",
+          "name": "ff6bedc3e38f153c6789baf074184cf6fdabca",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 552,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "4b8de523d313c9bfe24349e3b39f8338"
+        },
+        {
+          "path": "c90553765d405da1a9584897100de828b4dcf5",
+          "name": "c90553765d405da1a9584897100de828b4dcf5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 726,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "df3e9468d332677109f2ce1ba1a6a56b"
+        },
+        {
+          "path": "master_agent_core.py",
+          "name": "master_agent_core.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1053,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "896015f8d4a7546bb79e847dd5d86b95"
+        },
+        {
+          "path": "bbce403f94f32ad465828f27ef79b16cbe89b6",
+          "name": "bbce403f94f32ad465828f27ef79b16cbe89b6",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 199,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "b812f9e7dfb87ecb20d7b8e8c92fd728"
+        },
+        {
+          "path": "0c09501ed5ecc48061b1d8f1b3b3fe625a702c",
+          "name": "0c09501ed5ecc48061b1d8f1b3b3fe625a702c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 192,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "6223aa8d0ed16c2ecbd9276acf18b1fa"
+        },
+        {
+          "path": "4f464041095d4b656ab2f17c974c2e291cc6e8",
+          "name": "4f464041095d4b656ab2f17c974c2e291cc6e8",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 185,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "18683d3ec91721b7af0e4021db80bd3d"
+        },
+        {
+          "path": "5fed716531e96ca50b0bf62469967aba06e994",
+          "name": "5fed716531e96ca50b0bf62469967aba06e994",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 766,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "edfd38ac4095cc49d42a57df0a053fa9"
+        },
+        {
+          "path": "974f3af6d472fe30070680d5bd8fa3ea5919e5",
+          "name": "974f3af6d472fe30070680d5bd8fa3ea5919e5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1554,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "9a681cd3c7b1146cd248ab05df57a6cc"
+        },
+        {
+          "path": "vanguard_v6_treasury.py",
+          "name": "vanguard_v6_treasury.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 3560,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "c680b653063f163e03a633deb069e855"
+        },
+        {
+          "path": "b723e8f874f7148660cffa8244bdb272531786",
+          "name": "b723e8f874f7148660cffa8244bdb272531786",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 606,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "c1e45c547bad9cb78b04334057e7c722"
+        },
+        {
+          "path": "sovereign_recovery.py",
+          "name": "sovereign_recovery.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 888,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "e83a5c442dcc671b3b300f098ab36954"
+        },
+        {
+          "path": "735b5e6562335034d2f27d703062bc8ea06d62",
+          "name": "735b5e6562335034d2f27d703062bc8ea06d62",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 490,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "1c2c1e576431007454db732be0623d92"
+        },
+        {
+          "path": "citadel_ready.sh",
+          "name": "citadel_ready.sh",
+          "type": "file",
+          "extension": ".sh",
+          "size_bytes": 590,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "071dc664845915fa9ac5fa900b304ca0"
+        },
+        {
+          "path": "ebe119268f4d47166d401883e0523bcc1649cd",
+          "name": "ebe119268f4d47166d401883e0523bcc1649cd",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 711,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "e6d70b602bbde4f232fa1417cb9a36cc"
+        },
+        {
+          "path": "5b0616ce001cb9204cbc832303bfd26fc4fec1",
+          "name": "5b0616ce001cb9204cbc832303bfd26fc4fec1",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 692,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "6e8a5eb117d141ab6b0d1d2968004d00"
+        },
+        {
+          "path": "27331d7c255aef85d69380cd0a196faee18571",
+          "name": "27331d7c255aef85d69380cd0a196faee18571",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 296,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "3c3de693406927b7425e2744dfbce547"
+        },
+        {
+          "path": "d2425b7948fe78c6dac08896d3f6cb416f4902",
+          "name": "d2425b7948fe78c6dac08896d3f6cb416f4902",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 766,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "51e22a8b440ff5f633d321c17520ba0a"
+        },
+        {
+          "path": "e55b22f9308cbb066f6a3a6bdee7a9399cb593",
+          "name": "e55b22f9308cbb066f6a3a6bdee7a9399cb593",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 181,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "635f8ebde421ff4403d18f696e19f61c"
+        },
+        {
+          "path": "4aa5a0f135f8b132dd131b094f6977d7ce6611",
+          "name": "4aa5a0f135f8b132dd131b094f6977d7ce6611",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 195,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "9df447cc62c83a1a1b5ec9262d9869ae"
+        },
+        {
+          "path": "post-update.sample",
+          "name": "post-update.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 220,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "05911253c3cc4fcb621848b0b7f49b98"
+        },
+        {
+          "path": "102986d4453f1e81c4ebac84ab6038a4bca78d",
+          "name": "102986d4453f1e81c4ebac84ab6038a4bca78d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 158,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "13cb97db8271e5a3a6e349565d0893f4"
+        },
+        {
+          "path": "mexc_live.py",
+          "name": "mexc_live.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1016,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "6fb0655eb3ac5efa38df3f873e77e376"
+        },
+        {
+          "path": "f36aa51858c9f63b286b37548f97985b7c5cae",
+          "name": "f36aa51858c9f63b286b37548f97985b7c5cae",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 176,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "c364a72522abf0884dadbe99a0e5bab1"
+        },
+        {
+          "path": "b2e4535ce58d6b837eff5be56af82b1aba5f32",
+          "name": "b2e4535ce58d6b837eff5be56af82b1aba5f32",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 851,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "688afb22d866eef669947534bbc46fba"
+        },
+        {
+          "path": "12e3b09737f8061f25be40bfe8be06e1d04c15",
+          "name": "12e3b09737f8061f25be40bfe8be06e1d04c15",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 143,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "33f36e4728569d96290908a0f365689b"
+        },
+        {
+          "path": "8772e7eeb1cd7b42fec61ed9997e8de3f50f98",
+          "name": "8772e7eeb1cd7b42fec61ed9997e8de3f50f98",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 510,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "53d29a67b7421b649852d2b348dcf242"
+        },
+        {
+          "path": "596b3ab6193d38d8546f3c9ef7934e0c7e826d",
+          "name": "596b3ab6193d38d8546f3c9ef7934e0c7e826d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 574,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "9249b27384d50ca701db9d4d58c15d35"
+        },
+        {
+          "path": "init_citadel.sh",
+          "name": "init_citadel.sh",
+          "type": "file",
+          "extension": ".sh",
+          "size_bytes": 1055,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "ac71c93be5f50517abfeff05cc6ecb7f"
+        },
+        {
+          "path": "a8d322edc84db6857b468f3ad0578b2a1f6645",
+          "name": "a8d322edc84db6857b468f3ad0578b2a1f6645",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 840,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "86a90c5ec54a4526c9246eb0ab33d470"
+        },
+        {
+          "path": "2e69d9526cfa1cbf2706c34a1a73d64695a7b4",
+          "name": "2e69d9526cfa1cbf2706c34a1a73d64695a7b4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "5cf6c5ae220281c839356478c94b5851"
+        },
+        {
+          "path": "e78638cab1a7d889a3e3ecc4c15c9886c96c2a",
+          "name": "e78638cab1a7d889a3e3ecc4c15c9886c96c2a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "6ff3282ea909f35942b85b39f2049f0b"
+        },
+        {
+          "path": "97b6d1f8d8ba91c59281662fd8a1912e21bca5",
+          "name": "97b6d1f8d8ba91c59281662fd8a1912e21bca5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 475,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "facaa530b09cdd329365fa94281b3ac0"
+        },
+        {
+          "path": "applypatch-msg.sample",
+          "name": "applypatch-msg.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 509,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "7fe1778ccb92a5511cef1c1d85e540b9"
+        },
+        {
+          "path": "03baf87cf249d1e0a8cc2461b9ebe2c9adc078",
+          "name": "03baf87cf249d1e0a8cc2461b9ebe2c9adc078",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 591,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "b0c33af9ccd19deed0d0d9c85b398e36"
+        },
+        {
+          "path": "fee98d178c71353037ad554746eba20d122e0d",
+          "name": "fee98d178c71353037ad554746eba20d122e0d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1674,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "0bf47316eb61f72504e9ef0943766e30"
+        },
+        {
+          "path": "33689a4e9f846fb3bd590386f4c763c56405ac",
+          "name": "33689a4e9f846fb3bd590386f4c763c56405ac",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 550,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "3c1372072208bb498ea3edac5bece3b8"
+        },
+        {
+          "path": "9520b411dffb8ec7b7beeb17f713ff601a2b10",
+          "name": "9520b411dffb8ec7b7beeb17f713ff601a2b10",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 747,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "e55279e23ea95aa020cbb9dfc2e6bc5a"
+        },
+        {
+          "path": "8657c73e5ab5a061f9d3ad181e3f96a21e9bc5",
+          "name": "8657c73e5ab5a061f9d3ad181e3f96a21e9bc5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "8d8bbe9d5112652fda66724fe5fd91ab"
+        },
+        {
+          "path": "b478363211f419a28213380e4d4b659651e195",
+          "name": "b478363211f419a28213380e4d4b659651e195",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1405,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "1a0c6382316a9523c9e89f4da42e3b83"
+        },
+        {
+          "path": "30c0823fd4e11c5375bd3fb63d330fab3dc051",
+          "name": "30c0823fd4e11c5375bd3fb63d330fab3dc051",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "316519bb265ac8865526243c1adddc94"
+        },
+        {
+          "path": "master_inventory.json",
+          "name": "master_inventory.json",
+          "type": "file",
+          "extension": ".json",
+          "size_bytes": 2687,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "c9ee14b80a9fdaf9cd2b4f970680aee6"
+        },
+        {
+          "path": "ae11f1b9cff08bf63e5667f287ae5fdd34191b",
+          "name": "ae11f1b9cff08bf63e5667f287ae5fdd34191b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 904,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "3ae617beb47deecf79ae56ba5f15d951"
+        },
+        {
+          "path": "4c27239c7331f22b2b5c1c4066bef66df93cce",
+          "name": "4c27239c7331f22b2b5c1c4066bef66df93cce",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 518,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "e94963f9dadd14a34eb80d07050f9f1e"
+        },
+        {
+          "path": "19d052a0fc45000c3165e235856920b250d4be",
+          "name": "19d052a0fc45000c3165e235856920b250d4be",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 443,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "40ca636795f13f0d76718862ccf99d91"
+        },
+        {
+          "path": "ed2b37d61c9b337c0ea546d79479e38f4eb497",
+          "name": "ed2b37d61c9b337c0ea546d79479e38f4eb497",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 589,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "e734d89adbe235e5372072b2b978b35e"
+        },
+        {
+          "path": "e6f9d633d3f50ecc9228ffa901fd7ffe10372e",
+          "name": "e6f9d633d3f50ecc9228ffa901fd7ffe10372e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "391740e1841be6bb2be89292f01c0165"
+        },
+        {
+          "path": "bc35adaed62d316619e2bc2f00d397e60b15f9",
+          "name": "bc35adaed62d316619e2bc2f00d397e60b15f9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 438,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "41803c07fb783765c5c1914468c56ad6"
+        },
+        {
+          "path": "db58ff52818ed598badea58795e9ed43fb5320",
+          "name": "db58ff52818ed598badea58795e9ed43fb5320",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 650,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "1f4ccd9a96d321165b36c17bd6394df5"
+        },
+        {
+          "path": "7653c8ab30eb53acde10d83f53ba44d622e89a",
+          "name": "7653c8ab30eb53acde10d83f53ba44d622e89a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "410428a39c6b8b200abe167967b85e61"
+        },
+        {
+          "path": "d3b7c07cf2b23b3956dcc90d1b54b1e981aaf3",
+          "name": "d3b7c07cf2b23b3956dcc90d1b54b1e981aaf3",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1220,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "c2b0805506bccfb1c3001729370f4590"
+        },
+        {
+          "path": "fleet_watcher.py",
+          "name": "fleet_watcher.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 186,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "a0c0e032cdb36404bf4e6f40b143c466"
+        },
+        {
+          "path": "8b52a088f4d744758b5b4893d65d7005141c95",
+          "name": "8b52a088f4d744758b5b4893d65d7005141c95",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 840,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "d29bcaf32d30ed94d5f084b62e45f240"
+        },
+        {
+          "path": "1a01503cae51e7539c64c44a31f3060887e0f6",
+          "name": "1a01503cae51e7539c64c44a31f3060887e0f6",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 630,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "0dcd399b170af55b2b0115d04cdf57f7"
+        },
+        {
+          "path": "wallet_sensor.py",
+          "name": "wallet_sensor.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1262,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "4da28264192c7f1567943096144eaf9f"
+        },
+        {
+          "path": "commit-msg.sample",
+          "name": "commit-msg.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 927,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "ad35ef5107e38e167dcc44d32d133e28"
+        },
+        {
+          "path": "03dc09b426b70a69b5a4a2b96fa1935f512c4b",
+          "name": "03dc09b426b70a69b5a4a2b96fa1935f512c4b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 536,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "31e17bdadf44fa24332e399d5a5e3399"
+        },
+        {
+          "path": "cfcf8f45b4a25495ed7a50f9f004a4d10d8341",
+          "name": "cfcf8f45b4a25495ed7a50f9f004a4d10d8341",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 101,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "b16d76333bcc5a29bde1cf83bac72af6"
+        },
+        {
+          "path": "d91418969bf4073a0f40ac87d141489ee61498",
+          "name": "d91418969bf4073a0f40ac87d141489ee61498",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 298,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "a7b586c47083596073a1ba5e9b2752cb"
+        },
+        {
+          "path": "82b0dd3474a9a0706ff01b55df14ae32615e95",
+          "name": "82b0dd3474a9a0706ff01b55df14ae32615e95",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 71,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "ad19f505351f94ae61c5ed7bd1c7fc5d"
+        },
+        {
+          "path": "18c6372fad2fb98a8cac041530b9c0884c784f",
+          "name": "18c6372fad2fb98a8cac041530b9c0884c784f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 211,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "3f396354c9c73ebd3d3305e401e513cc"
+        },
+        {
+          "path": "7036b720f2d70ce24ae634c89f7d81d3d335be",
+          "name": "7036b720f2d70ce24ae634c89f7d81d3d335be",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 196,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "982226dba10d14030944d1a447101ece"
+        },
+        {
+          "path": "5ecacb885570d87dc1b2d80062b0b85327d55a",
+          "name": "5ecacb885570d87dc1b2d80062b0b85327d55a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "05b5cbcefdd81896937a40117f76a157"
+        },
+        {
+          "path": "local_index.json",
+          "name": "local_index.json",
+          "type": "file",
+          "extension": ".json",
+          "size_bytes": 554630,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "da32f4d30099595729f1a502cd09459f"
+        },
+        {
+          "path": "pre-push.sample",
+          "name": "pre-push.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 1405,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "baf750507c581fd3683c00a9b6ffe051"
+        },
+        {
+          "path": "1d3ab1e0ee35d81088954584eff14c3cd28b30",
+          "name": "1d3ab1e0ee35d81088954584eff14c3cd28b30",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 269,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "8803fbe9145aa344d446e3c10c2c15f6"
+        },
+        {
+          "path": "6af1343d1bca2ae02e13908fcb1a599422b61c",
+          "name": "6af1343d1bca2ae02e13908fcb1a599422b61c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 271,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "28cc8046024ab31131885e8cb6f42e49"
+        },
+        {
+          "path": "f0f7905200e311456cd291a01c46d7a9dda613",
+          "name": "f0f7905200e311456cd291a01c46d7a9dda613",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 440,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "7b0a268ff50642e179cf044d21782937"
+        },
+        {
+          "path": "5a89b4a5c3da0420837314883b964bb48110e2",
+          "name": "5a89b4a5c3da0420837314883b964bb48110e2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 659,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "ad889f04f90c234d1147657d8caacda1"
+        },
+        {
+          "path": "586248658af3c319f83af7fe92b5f9d6fa2df6",
+          "name": "586248658af3c319f83af7fe92b5f9d6fa2df6",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 696,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "08a1182590ab4474e6747acc18482712"
+        },
+        {
+          "path": "whale_watcher.py",
+          "name": "whale_watcher.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1076,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "aae7622ee6a8b83b722f035344fafa67"
+        },
+        {
+          "path": "reclamation_report.py",
+          "name": "reclamation_report.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 971,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "52a2969c61146af25bad2762cc3261ba"
+        },
+        {
+          "path": "6e6d5430b6d4efeb9adb718742900eb2081928",
+          "name": "6e6d5430b6d4efeb9adb718742900eb2081928",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 298,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "b7654c2c9ba8657b30de83edada7ac68"
+        },
+        {
+          "path": "vanguard_v2.py",
+          "name": "vanguard_v2.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 2435,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "38641c072fefeec32b6aa881bcb2f9ea"
+        },
+        {
+          "path": "update.sample",
+          "name": "update.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 3681,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "ba1183f0e065679e6381b2b39ed47a41"
+        },
+        {
+          "path": "vanguard_titan.py",
+          "name": "vanguard_titan.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 190,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "bc264c863aedec45064b4670b005ceb2"
+        },
+        {
+          "path": "0009e33393be730d8a7bc49c3d54f904825987",
+          "name": "0009e33393be730d8a7bc49c3d54f904825987",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 536,
+          "modified": "2026-04-03T07:09:27.813393",
+          "md5": "9556b99782858328d5a37f0f3f7a3310"
+        },
+        {
+          "path": "a817bb4bac210cefcde81cffcba7bd882bb5ad",
+          "name": "a817bb4bac210cefcde81cffcba7bd882bb5ad",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 616,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "b7530822d62ab880b07181504cca1cad"
+        },
+        {
+          "path": "63ff3c7a0c861db6c3c4e362cca3bbac30736a",
+          "name": "63ff3c7a0c861db6c3c4e362cca3bbac30736a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 603,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "1663c8511d1e708c61a24cae82f79057"
+        },
+        {
+          "path": "82013c7a80408f8cbac995ae16457e25d896e4",
+          "name": "82013c7a80408f8cbac995ae16457e25d896e4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "a5ac7fd7fb6a0a6e3804a8b9e6658eca"
+        },
+        {
+          "path": "49d4e7f2aac60b662d6eb096209dabf507cdb9",
+          "name": "49d4e7f2aac60b662d6eb096209dabf507cdb9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 49,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "d7278338664719a1627b32184bd98052"
+        },
+        {
+          "path": "e22e558d437af0f815e5386eeda8ac01fa0495",
+          "name": "e22e558d437af0f815e5386eeda8ac01fa0495",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 160,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "2ca5614cefdff485c40e7bbf37216a5e"
+        },
+        {
+          "path": "4a8729ab7df8af324da0a2c5b3bf55684dfa76",
+          "name": "4a8729ab7df8af324da0a2c5b3bf55684dfa76",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 431,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "cb84b5b705e254b1ba488f0fc938cb0e"
+        },
+        {
+          "path": "e46bd9469558295634eb045628176ff53b5c4c",
+          "name": "e46bd9469558295634eb045628176ff53b5c4c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 197,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "642dac6dcb79c156b827a6e7a1659cc0"
+        },
+        {
+          "path": "b3aa90a3129895a8b59ad50234a3e2d1ad38f5",
+          "name": "b3aa90a3129895a8b59ad50234a3e2d1ad38f5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 603,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "c9d65926cea7387d6540ced92b522f8f"
+        },
+        {
+          "path": "8d26bbffca921c959495e4c1e5131c1642735b",
+          "name": "8d26bbffca921c959495e4c1e5131c1642735b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "b4ca2fd1c645645fb586da559dd2187d"
+        },
+        {
+          "path": "d3a90265fcfa25acc8bb46a8e9c0b831d02756",
+          "name": "d3a90265fcfa25acc8bb46a8e9c0b831d02756",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 151,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "445c2cf96bf916c5801eb3cfe8abfdbc"
+        },
+        {
+          "path": "description",
+          "name": "description",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 73,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "a0a7c3fff21f2aea3cfa1d0316dd816c"
+        },
+        {
+          "path": "f58834ea8916e97a3e46ef0bb2ab89c30b72a6",
+          "name": "f58834ea8916e97a3e46ef0bb2ab89c30b72a6",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 607,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "6be0d8da3dada2d6a5ceaa0ffeab2bfa"
+        },
+        {
+          "path": "bc3f7ac7db9544125ef1c35dfd51dc4c14a410",
+          "name": "bc3f7ac7db9544125ef1c35dfd51dc4c14a410",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "50d259e317bfb1a623e2d8b235d6381e"
+        },
+        {
+          "path": "ac61a06da1ddc6a9a43076731a6ce4d99c3102",
+          "name": "ac61a06da1ddc6a9a43076731a6ce4d99c3102",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 594,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "31fea5be2ecf1a60c69b4f4c4e904cf6"
+        },
+        {
+          "path": "bbbce459aaaa274c5656f9883c19c5783ba869",
+          "name": "bbbce459aaaa274c5656f9883c19c5783ba869",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 740,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "ff1f1dd7f9f1bc1990946ed35080f8e3"
+        },
+        {
+          "path": "4b34201fa1743f2bc504e0b953bbd5424e8b7f",
+          "name": "4b34201fa1743f2bc504e0b953bbd5424e8b7f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 66,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "d5dc0979a1621ef4ea34ff8189c71a71"
+        },
+        {
+          "path": "17bbe25d77087b0fef5d26212319881299b10c",
+          "name": "17bbe25d77087b0fef5d26212319881299b10c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 298,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "76944bc6a935918e5b8a7432fe89e0c3"
+        },
+        {
+          "path": "19ac274c99b12fddf8600b65ba1ffea12310d5",
+          "name": "19ac274c99b12fddf8600b65ba1ffea12310d5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "4ee72b99b501d5b0797e85b16f56417e"
+        },
+        {
+          "path": "ba4b142e828c17e65dd6899cf5f79cf3f1f9a7",
+          "name": "ba4b142e828c17e65dd6899cf5f79cf3f1f9a7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 845,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "37dcca11c9039d3d8bda0d79a895f004"
+        },
+        {
+          "path": "47cfd42fbb374f821fd87d24fc4fe57fab2a3d",
+          "name": "47cfd42fbb374f821fd87d24fc4fe57fab2a3d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 552,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "d853680c30e3958186afa0366b127786"
+        },
+        {
+          "path": "vanguard_v3.py",
+          "name": "vanguard_v3.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 2779,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "9fe5e2d1247e38132cc1762a99c51802"
+        },
+        {
+          "path": "3a700e0f72454f0f8897e95eb197c1cc0066d1",
+          "name": "3a700e0f72454f0f8897e95eb197c1cc0066d1",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 677,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "ccbb69ef9dca7835dc7163a349681e5b"
+        },
+        {
+          "path": "e2aca469257b44b7793f0894f0b2042ad01708",
+          "name": "e2aca469257b44b7793f0894f0b2042ad01708",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "a3d11d11d759f769d79a32a3b43073c7"
+        },
+        {
+          "path": "5c4224bed7d04ae52ee87093553008cbbeed4b",
+          "name": "5c4224bed7d04ae52ee87093553008cbbeed4b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 579,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "3915c69274c579dd71b3598cf4accbcb"
+        },
+        {
+          "path": "hf_space_lift.py",
+          "name": "hf_space_lift.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1946,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "048e07380a594e55fe306022efda68d3"
+        },
+        {
+          "path": "vanguard_v5_moon.py",
+          "name": "vanguard_v5_moon.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 3526,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "d0bac9da3d4c8697a4b65e516cd85a9c"
+        },
+        {
+          "path": "circuit_breaker.py",
+          "name": "circuit_breaker.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1039,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "0857e11165872a78e8e3853c6a1425b0"
+        },
+        {
+          "path": "pre-rebase.sample",
+          "name": "pre-rebase.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 4956,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "ac92f4dfd1b63ddf583623e63e7f3712"
+        },
+        {
+          "path": "e83b927fb4a558cb5d083b57f5e0ab1d8c3c8c",
+          "name": "e83b927fb4a558cb5d083b57f5e0ab1d8c3c8c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 160,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "7cc5dbc487bb2f677599170cf9579370"
+        },
+        {
+          "path": "aceddaba2623925a4c9f20f2bb00c4282b4db7",
+          "name": "aceddaba2623925a4c9f20f2bb00c4282b4db7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 22,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "a7b24140b840a0ca54dca55f3bc38c71"
+        },
+        {
+          "path": "3bd4933cd2ace3059d1f3ce650c8dac92e495a",
+          "name": "3bd4933cd2ace3059d1f3ce650c8dac92e495a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 581,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "495e7d1ddb55fcb6e8e64b92d7837550"
+        },
+        {
+          "path": "2f88f439b85a99a8e59bf21133eb1b427da431",
+          "name": "2f88f439b85a99a8e59bf21133eb1b427da431",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 594,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "e4ff9c239e3d0162c66e33193088af24"
+        },
+        {
+          "path": "fd4444a51d09904019cc58215d7ab57d596bde",
+          "name": "fd4444a51d09904019cc58215d7ab57d596bde",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 271,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "f2021f51dcabb00cd3932d223732a3ab"
+        },
+        {
+          "path": "443262b608e54fc49b7a9dc942771b5589cfb7",
+          "name": "443262b608e54fc49b7a9dc942771b5589cfb7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 255,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "c1ea13e36f3bda1edc860c9a8f634461"
+        },
+        {
+          "path": "ff97216a330803e523d1e99009074a12ff2db2",
+          "name": "ff97216a330803e523d1e99009074a12ff2db2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 500,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "151e4c9e33ef376608d6470d81d9e180"
+        },
+        {
+          "path": "909f0d4b68eb8eab4a0190a572097c3be3d609",
+          "name": "909f0d4b68eb8eab4a0190a572097c3be3d609",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 573,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "98e0972daab2e408ab563ee562599ef8"
+        },
+        {
+          "path": "91cb694925bbb86f24dba9a14ccb5572e61a58",
+          "name": "91cb694925bbb86f24dba9a14ccb5572e61a58",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 808,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "a35f53350228927e864cea01457ae80e"
+        },
+        {
+          "path": "push-to-checkout.sample",
+          "name": "push-to-checkout.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 2814,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "5c5829c88fd06e0eb0dfa8d11809f2c8"
+        },
+        {
+          "path": "a0621c5eec01502debc5425d5c750c12af405a",
+          "name": "a0621c5eec01502debc5425d5c750c12af405a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 656,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "e208f5c8e756d8bc1db3faf7dbc83520"
+        },
+        {
+          "path": "4e8e13f84c3aea904737ee2e756a48f07c3292",
+          "name": "4e8e13f84c3aea904737ee2e756a48f07c3292",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 271,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "cbf304f9a4388565832c40137a9806b2"
+        },
+        {
+          "path": "requirements.txt",
+          "name": "requirements.txt",
+          "type": "file",
+          "extension": ".txt",
+          "size_bytes": 7,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "381ccadfb8d4848add470e33033b198f"
+        },
+        {
+          "path": "df83814ab5989732e6e2fc072fe2cb8c98e9aa",
+          "name": "df83814ab5989732e6e2fc072fe2cb8c98e9aa",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 393,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "0691a9e488fd82af34321c6b0546d4e5"
+        },
+        {
+          "path": "4099882006211f9b15c3c15234244d7fd51d6a",
+          "name": "4099882006211f9b15c3c15234244d7fd51d6a",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 122,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "67a9e00bf9a98ce2e2f837caec933840"
+        },
+        {
+          "path": "12bdcc38caeae20c070e16992eeee38a27a866",
+          "name": "12bdcc38caeae20c070e16992eeee38a27a866",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 767,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "3a47526122f8caa6646fda518eddefe2"
+        },
+        {
+          "path": "7b8d2d974d75ee3f3d74c2a445a9e940fbacf3",
+          "name": "7b8d2d974d75ee3f3d74c2a445a9e940fbacf3",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "00bde11b887d9c160ec0e173a1a2ecf6"
+        },
+        {
+          "path": "8e78fb27cb7b8876fe090fe51e2592bcd9e7f7",
+          "name": "8e78fb27cb7b8876fe090fe51e2592bcd9e7f7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 559,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "b7ab96667c6ee8f688d2f8255c839871"
+        },
+        {
+          "path": "citadel_sequencer.py",
+          "name": "citadel_sequencer.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1111,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "6e4f6b5e873cea7bbb62eab16ffd763a"
+        },
+        {
+          "path": "ed8ba3de112ca1148a305f4abf114e924bda99",
+          "name": "ed8ba3de112ca1148a305f4abf114e924bda99",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1493,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "155e1c7aaa9fe4d32c390d7b698cecb6"
+        },
+        {
+          "path": "pre-receive.sample",
+          "name": "pre-receive.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 575,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "b0c6c942356385f2087e439c46a5c1d6"
+        },
+        {
+          "path": "c704e32e586b727f815bc57c67958515395a9d",
+          "name": "c704e32e586b727f815bc57c67958515395a9d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 670,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "3b096f1c448f7abb5d89d8c80f80bb30"
+        },
+        {
+          "path": "c5fe973c8ef7b3c3e4c8af96412e35558d3bad",
+          "name": "c5fe973c8ef7b3c3e4c8af96412e35558d3bad",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1673,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "538df1c7d6cdc84d52aa97cfecb9613b"
+        },
+        {
+          "path": "90948c47edb5a645e9287093b35980f65e3473",
+          "name": "90948c47edb5a645e9287093b35980f65e3473",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 160,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "5c30b3118e4ec71588f8e5fea1e792ec"
+        },
+        {
+          "path": "d52ad134d2d9b735675e2bdd17213acecf4b30",
+          "name": "d52ad134d2d9b735675e2bdd17213acecf4b30",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "c89af3eefd396ec3c1df7eca8390fd39"
+        },
+        {
+          "path": "36d691cad2fdebd639d3ef0a243b0da4739ea7",
+          "name": "36d691cad2fdebd639d3ef0a243b0da4739ea7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 297,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "20367c70deb1df8dca24cb3d858a9a7e"
+        },
+        {
+          "path": "65deeb4e04e0c87f5157627e501c1fce0161f0",
+          "name": "65deeb4e04e0c87f5157627e501c1fce0161f0",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 240,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "f99d2061780cecfc955313c19fb00bea"
+        },
+        {
+          "path": "077c0c2a93796af93237fa1b4d5227c49e7dcc",
+          "name": "077c0c2a93796af93237fa1b4d5227c49e7dcc",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 120,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "94f249116fac78a1ae056b1d4f913bcc"
+        },
+        {
+          "path": "86720dba3944088c1604ab86ddc0bbbc5e07d9",
+          "name": "86720dba3944088c1604ab86ddc0bbbc5e07d9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 599,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "ea1cd98183bf18507d11277ab6b712b3"
+        },
+        {
+          "path": "5e74557002d48a9b00466625d4e34070041a38",
+          "name": "5e74557002d48a9b00466625d4e34070041a38",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 150,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "2bcc088be147d275b2a0f0b4258c369b"
+        },
+        {
+          "path": "75e2224b3663113009daaf1497ca5f85c1e1f9",
+          "name": "75e2224b3663113009daaf1497ca5f85c1e1f9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 262,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "e8a746decb45bdabcae34a0d377289ec"
+        },
+        {
+          "path": "917fb22f64810e433c89c7b456bc9cef9be648",
+          "name": "917fb22f64810e433c89c7b456bc9cef9be648",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 182,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "21b8c411564da8b98287e68cfef0cc2a"
+        },
+        {
+          "path": "98b080e5b014017666fc9a73966d3ab8d82abd",
+          "name": "98b080e5b014017666fc9a73966d3ab8d82abd",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "61fdc8643fad71ad8f99c1b18f795a54"
+        },
+        {
+          "path": "52efab377cd86bc9d8869b7074b68ab72c4c6f",
+          "name": "52efab377cd86bc9d8869b7074b68ab72c4c6f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 94,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "003822df9d411403a564a42ca831b269"
+        },
+        {
+          "path": "eb5969769d2b4bac4f2c4be77a12dbf32c44fc",
+          "name": "eb5969769d2b4bac4f2c4be77a12dbf32c44fc",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 155,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "d41b88e5af53e9259b589ed48b03d344"
+        },
+        {
+          "path": "45613a42567cebeb5a0f8397314ce8739e2029",
+          "name": "45613a42567cebeb5a0f8397314ce8739e2029",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 185,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "6a984263858ab9fd8e24f5a2f2d1970f"
+        },
+        {
+          "path": "dbe9efa5c050a386940c17b8bcf246c8e85443",
+          "name": "dbe9efa5c050a386940c17b8bcf246c8e85443",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 631,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "b23fec9be496793e7c5b6e0c7a795e03"
+        },
+        {
+          "path": "dcd5c823a6e6de1f766bb5ef93d39fff0d14a1",
+          "name": "dcd5c823a6e6de1f766bb5ef93d39fff0d14a1",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 766,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "2bd3debd43f092c82540e5b8625defe9"
+        },
+        {
+          "path": "21d2d1f6289f694c6b1753cfd7c4085593d7fe",
+          "name": "21d2d1f6289f694c6b1753cfd7c4085593d7fe",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 195,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "f17b1b03d2e4ad050db18b3c600cc067"
+        },
+        {
+          "path": "83bcdc61e439f5a3401dd1de66178f26964518",
+          "name": "83bcdc61e439f5a3401dd1de66178f26964518",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "8bcf0fb5326e3e98a58f8e54931b3424"
+        },
+        {
+          "path": "sendemail-validate.sample",
+          "name": "sendemail-validate.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 2339,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "30ade5d621c52790d15b9f0a59f135da"
+        },
+        {
+          "path": "vanguard_pulse.py",
+          "name": "vanguard_pulse.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1363,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "10954c2b252cced05a189d5eaa4b3a2d"
+        },
+        {
+          "path": "7a9e4e9a361d08f57aac2386736d9f194c3414",
+          "name": "7a9e4e9a361d08f57aac2386736d9f194c3414",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 727,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "96d16528e961333f73ca4c0b97a0163b"
+        },
+        {
+          "path": "aa90e1e22bf04547b6df8c024afd18264ec127",
+          "name": "aa90e1e22bf04547b6df8c024afd18264ec127",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 615,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "40109089307cff59fdd2fd66d5619fcc"
+        },
+        {
+          "path": "e9fbafb73de91d47cebd62a8371b93eb66198f",
+          "name": "e9fbafb73de91d47cebd62a8371b93eb66198f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 197,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "f13c69a342d52e91a80a2d1558b4cc63"
+        },
+        {
+          "path": "c4f90a04a4ba929305eb1e6f60cd8c7bd0ed02",
+          "name": "c4f90a04a4ba929305eb1e6f60cd8c7bd0ed02",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 649,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "28003b6c3c90d959c27684a865d9a098"
+        },
+        {
+          "path": "48d7f17d4815c10b02fbe6764285a8b16965f2",
+          "name": "48d7f17d4815c10b02fbe6764285a8b16965f2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "5f7558592af55c946bcad84273dea9aa"
+        },
+        {
+          "path": "e1f0a39285e47dae92d01d2f7e923409878b88",
+          "name": "e1f0a39285e47dae92d01d2f7e923409878b88",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 552,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "a2fb51b8caadab0a3e8ee54d84cdf470"
+        },
+        {
+          "path": "3d85a12bf2e5405b9ae6a46621a04ec0268298",
+          "name": "3d85a12bf2e5405b9ae6a46621a04ec0268298",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "98c88b4c99d6156fc8ef8e236b33b455"
+        },
+        {
+          "path": "0121c18739e3c575491e479b4fb040cc6f6fa1",
+          "name": "0121c18739e3c575491e479b4fb040cc6f6fa1",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "7c9a8d697245d4ede48bd517605c59b7"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 18738,
+          "modified": "2026-04-03T07:21:01.483695",
+          "md5": "32d92a67b9a8d6a052f450bcbc3a333c"
+        },
+        {
+          "path": "genesis_verification.py",
+          "name": "genesis_verification.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 978,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "d282367b24113852cf23318144743268"
+        },
+        {
+          "path": "19d81d103c1438beab8f771f448a382380e057",
+          "name": "19d81d103c1438beab8f771f448a382380e057",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 1459,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "2f2e9f8950fd7014329f34da7bddea7b"
+        },
+        {
+          "path": "pre-merge-commit.sample",
+          "name": "pre-merge-commit.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 447,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "cf044f5f6344dce4c5c97f8f36976f41"
+        },
+        {
+          "path": "github_librarian.py",
+          "name": "github_librarian.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1997,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "282a5a5f253e2a65662c25dfc3a20724"
+        },
+        {
+          "path": "686e436e30919e3c0294c0cbee2189d0278902",
+          "name": "686e436e30919e3c0294c0cbee2189d0278902",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 969,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "5f8b48ab4ecdfac1b822f0066c8f17f6"
+        },
+        {
+          "path": "ed2c7ad0237a3c24ecb9f510ac2ae7aedd3620",
+          "name": "ed2c7ad0237a3c24ecb9f510ac2ae7aedd3620",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 660,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "16984c8654f311d68e49e6af4fe0418f"
+        },
+        {
+          "path": "a5ee4d028b317a53f1f57d2177bca87bc977f5",
+          "name": "a5ee4d028b317a53f1f57d2177bca87bc977f5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 840,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "2b6ebbfa974b9d46aac598654557b1ea"
+        },
+        {
+          "path": "exclude",
+          "name": "exclude",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 240,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "036208b4a1ab4a235d75c181e685e5a3"
+        },
+        {
+          "path": "28d0944191a09f2696d010f4845b5980c487ea",
+          "name": "28d0944191a09f2696d010f4845b5980c487ea",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "f94da90917d037b646e3da725cf9ef1f"
+        },
+        {
+          "path": "68000c9bf53ff9c822fff04e79366cf8779ae4",
+          "name": "68000c9bf53ff9c822fff04e79366cf8779ae4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 512,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "8a03aa0ab5050bdeaa46e21a3c0281c2"
+        },
+        {
+          "path": "19a304605a51bea05bfdbc8097e13c85982816",
+          "name": "19a304605a51bea05bfdbc8097e13c85982816",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 707,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "f2fe6683c6f2afaf19501e2254e91605"
+        },
+        {
+          "path": "manifest_generator.py",
+          "name": "manifest_generator.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 746,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "be738f15281d22d27c60afb435bd3b36"
+        },
+        {
+          "path": "61bad1038b6b2be9da5462178a5d1e50a0215c",
+          "name": "61bad1038b6b2be9da5462178a5d1e50a0215c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 620,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "29a682986726624cacc9ad1abb65156a"
+        },
+        {
+          "path": "0fd54aacd0847d1932965e7a287779fe5082b7",
+          "name": "0fd54aacd0847d1932965e7a287779fe5082b7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 185,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "c2395ce1739eb339a35f6989f0e6d506"
+        },
+        {
+          "path": "reconstruct_citadel.py",
+          "name": "reconstruct_citadel.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 978,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "353b0bf2c1b2335f75007e08d3f7e242"
+        },
+        {
+          "path": "804a924d77058b05e28b47c3399e5ccc456546",
+          "name": "804a924d77058b05e28b47c3399e5ccc456546",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 709,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "4ae4739683e821ba4af0f6daeb1a2698"
+        },
+        {
+          "path": "7b0b679e11b61ee5de87fa8c983898b7676ce4",
+          "name": "7b0b679e11b61ee5de87fa8c983898b7676ce4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 188,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "f11825b568f58b22d1de2452be591247"
+        },
+        {
+          "path": "omega_archive.py",
+          "name": "omega_archive.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 186,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "90a89624bb38815530dd871c615a4115"
+        },
+        {
+          "path": "40f631014bb31c5398b039ab96b2697691463d",
+          "name": "40f631014bb31c5398b039ab96b2697691463d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "034e267d7da73ba5e2bcf976d937cc79"
+        },
+        {
+          "path": "ce851a3ebaaf287a5aa72c5f62464e2f6aef0d",
+          "name": "ce851a3ebaaf287a5aa72c5f62464e2f6aef0d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 517,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "4ff189e7417050334bcb2dd2b8b2c1b6"
+        },
+        {
+          "path": "0c0d98c22cee0fdfd3b7eb60551cd181627659",
+          "name": "0c0d98c22cee0fdfd3b7eb60551cd181627659",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 253,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "325d5f86d8671ed22eec2ea45aa507e1"
+        },
+        {
+          "path": "4b38e5584bba02a1c557aa6521048d62708d2c",
+          "name": "4b38e5584bba02a1c557aa6521048d62708d2c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 537,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "5831463e525125cf198e2b783b311c78"
+        },
+        {
+          "path": "main",
+          "name": "main",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 5425,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "561dd42c8350a183a28867a8434de66a"
+        },
+        {
+          "path": "a7a693496fa567fc31b21e08402efd142335a7",
+          "name": "a7a693496fa567fc31b21e08402efd142335a7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 297,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "c9ea1d325c77a708aba11e4bb76b815e"
+        },
+        {
+          "path": "f0e312a98dc56af5b79141faed7f077b83de62",
+          "name": "f0e312a98dc56af5b79141faed7f077b83de62",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 766,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "170c2944a6c35ef516eec22ba3a07789"
+        },
+        {
+          "path": "d98c0d04b623634b033a117f56f87277510428",
+          "name": "d98c0d04b623634b033a117f56f87277510428",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 271,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "a08a93382838db926014094b117e86bf"
+        },
+        {
+          "path": "ede30ea8b80fa3014ae3ffe8aaeec99d3fe703",
+          "name": "ede30ea8b80fa3014ae3ffe8aaeec99d3fe703",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 694,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "7b640ad1f10de44587aa1a1faa793457"
+        },
+        {
+          "path": "phalanx.py",
+          "name": "phalanx.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 162,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "dcd5e5adae3e491ec9d393a66a5538af"
+        },
+        {
+          "path": "1f1f25d5019a77a35f5b2ca3ad7bee5005cf5b",
+          "name": "1f1f25d5019a77a35f5b2ca3ad7bee5005cf5b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "aa349a819ea4c4bb5d8ceb53363797aa"
+        },
+        {
+          "path": "4a615930d33460c9080b4071f1527772d6d22c",
+          "name": "4a615930d33460c9080b4071f1527772d6d22c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 147,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "17da3debff5db6f5885f754dad80ed01"
+        },
+        {
+          "path": "aa0e9c9882da553b8519abbf3e4d8448b35f1f",
+          "name": "aa0e9c9882da553b8519abbf3e4d8448b35f1f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 180,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "30b552cf10cebcf7b2eb9b3a98452891"
+        },
+        {
+          "path": "e25a31a9075179fdc27d3efa17f2bfdbaa65b4",
+          "name": "e25a31a9075179fdc27d3efa17f2bfdbaa65b4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 427,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "723625d396d16ea614db1e4e65d922ee"
+        },
+        {
+          "path": "2199cef11887402fd88e01b631e35c33f181b4",
+          "name": "2199cef11887402fd88e01b631e35c33f181b4",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 746,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "cfb84b845512142e78cbaa4b05646fda"
+        },
+        {
+          "path": "220807918ebcf39a50cb1c264cda8d4e49dee2",
+          "name": "220807918ebcf39a50cb1c264cda8d4e49dee2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 197,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "d060783c2de91aefd83e0fe92ae9f3f0"
+        },
+        {
+          "path": "88597ed9c451f33bb2f4418d0863daae01b9bf",
+          "name": "88597ed9c451f33bb2f4418d0863daae01b9bf",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 298,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "b6f65bbf94c63153a8bedb90b77f7dbf"
+        },
+        {
+          "path": "c94c4f5a037c86ed825ff0c9ff3b126913f503",
+          "name": "c94c4f5a037c86ed825ff0c9ff3b126913f503",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "225cf5f5e7fbe9a246b6fb4c7357158a"
+        },
+        {
+          "path": "HEAD",
+          "name": "HEAD",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 7666,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "a8dfad855f0797794965e87197e0bd8e"
+        },
+        {
+          "path": "1b74fb9385fb8a4a6c815e0c5a3189f9aae45d",
+          "name": "1b74fb9385fb8a4a6c815e0c5a3189f9aae45d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 564,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "5ee6573255b28c676f296aa586e4aeb4"
+        },
+        {
+          "path": "05fb5ba5c9ad29ec38efb213dc07092eead608",
+          "name": "05fb5ba5c9ad29ec38efb213dc07092eead608",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 366,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "e268e6de955416e98ba1dd33de984c05"
+        },
+        {
+          "path": "3b3bf1a58aa82431cc2f6b74d638c4a095a33b",
+          "name": "3b3bf1a58aa82431cc2f6b74d638c4a095a33b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 608,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "70f478008387b4059b79d465fca3f772"
+        },
+        {
+          "path": "97cf928b94916fba46de040a75d628a85aca9e",
+          "name": "97cf928b94916fba46de040a75d628a85aca9e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 321,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "596425d199860c67750a9cbc168ca52b"
+        },
+        {
+          "path": "da7ae2f13cd4635036ef4400e42f06c47fa482",
+          "name": "da7ae2f13cd4635036ef4400e42f06c47fa482",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 300,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "fa52bedb749f2cdc8754e2e0b225f5e1"
+        },
+        {
+          "path": "index",
+          "name": "index",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 6543,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "2416b48a64bf12f02836aae1178ad7d0"
+        },
+        {
+          "path": "116a3ad6c08923e84df5bbed00e18172b96413",
+          "name": "116a3ad6c08923e84df5bbed00e18172b96413",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 101,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "2aabeb6aa75bfeaa1c53173718cd8564"
+        },
+        {
+          "path": "673ad1fd5ddc002d21338aa6fa84f7e3898abb",
+          "name": "673ad1fd5ddc002d21338aa6fa84f7e3898abb",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 776,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "31e2f1f445f243bb0daa89e7fc600631"
+        },
+        {
+          "path": "e554b93cc383e308faff3f6971d982dd5b9efa",
+          "name": "e554b93cc383e308faff3f6971d982dd5b9efa",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "e78e57b586c9f52170483e55a079b721"
+        },
+        {
+          "path": "f1568745f7ff338dde55971f40955d7fa269e7",
+          "name": "f1568745f7ff338dde55971f40955d7fa269e7",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 564,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "ae3567cb6496a2fff439e15f069b571d"
+        },
+        {
+          "path": "35a9934e7046314599eb0a1fdd9234700dc38b",
+          "name": "35a9934e7046314599eb0a1fdd9234700dc38b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 166,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "6fb0225e81e6fce422f300822c75db82"
+        },
+        {
+          "path": "6934b69465e3dbfebff45821257d7d7328c973",
+          "name": "6934b69465e3dbfebff45821257d7d7328c973",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 723,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "9c7a539ed24861a4c6a896d1375dfc72"
+        },
+        {
+          "path": "6b5259ec9fcbe582121e1544e65c917189a313",
+          "name": "6b5259ec9fcbe582121e1544e65c917189a313",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 272,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "74b3c31db51d5d8940f330634bae0162"
+        },
+        {
+          "path": "c554a154ec34e3816c6cc8e8c0c0c55666024c",
+          "name": "c554a154ec34e3816c6cc8e8c0c0c55666024c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "b38602b063b2c1392bd60a88bf71d92b"
+        },
+        {
+          "path": "ad7982a50f1ffc38f8be4b6323dc50d21274ba",
+          "name": "ad7982a50f1ffc38f8be4b6323dc50d21274ba",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "ec12fb14541b0b74795e4a144d52d63e"
+        },
+        {
+          "path": "226d5b6e3925b0348b017397634f3768e46770",
+          "name": "226d5b6e3925b0348b017397634f3768e46770",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 662,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "81842d4baa4685a3467f69e8569ea4a7"
+        },
+        {
+          "path": "a9bfdb5f799f54bc67feca81aae2f29a0e2831",
+          "name": "a9bfdb5f799f54bc67feca81aae2f29a0e2831",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 66,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "b04aeeabac942349d68500cbbfc67b2a"
+        },
+        {
+          "path": "27c49c07f8cd2adcfe6b37be291a2a48dfcd24",
+          "name": "27c49c07f8cd2adcfe6b37be291a2a48dfcd24",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 695,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "802921e3f93fdf1017bd40ba5ba4e133"
+        },
+        {
+          "path": "8ec703b8f1aa9faa8dd29078012b57126517ff",
+          "name": "8ec703b8f1aa9faa8dd29078012b57126517ff",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 182,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "e4f5a706610db1d811a5f766aa680168"
+        },
+        {
+          "path": "ca07c661d6e6247f8e2bca6cc1739505ef9d3b",
+          "name": "ca07c661d6e6247f8e2bca6cc1739505ef9d3b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 120,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "9cb9b11f4299edea6ef65bb22b8a8ca7"
+        },
+        {
+          "path": "f82e6d2e807eb6e6681addd7a5b57fd37a7ac2",
+          "name": "f82e6d2e807eb6e6681addd7a5b57fd37a7ac2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 65,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "35c9b2b8813b6782630d6d576fde661e"
+        },
+        {
+          "path": "1a68c79d8141ee063347ab3340d69a2188b226",
+          "name": "1a68c79d8141ee063347ab3340d69a2188b226",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 752,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "5be640da175203af268993187c492fd8"
+        },
+        {
+          "path": "2c95ce2c7bef6cfc98eca7852e424b32eb1864",
+          "name": "2c95ce2c7bef6cfc98eca7852e424b32eb1864",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 166,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "3fb193c5a005b210f4e9d052385f5ea9"
+        },
+        {
+          "path": "57087583810cc4168b348c50ade5e10e44d6f3",
+          "name": "57087583810cc4168b348c50ade5e10e44d6f3",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 157,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "e1593366a9aa437d323f3f74b9356571"
+        },
+        {
+          "path": "3d47d83066bbdc5262a7d788c468c1881ae892",
+          "name": "3d47d83066bbdc5262a7d788c468c1881ae892",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 143,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "da0719eb6deeae8e6a1bf9006fb11396"
+        },
+        {
+          "path": "30034c46bf5c8f015f33039ef24228bb1597f9",
+          "name": "30034c46bf5c8f015f33039ef24228bb1597f9",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 804,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "e1e53b17cc7ab2fbdba0bfe3ccfc4aa6"
+        },
+        {
+          "path": "389844626d846137ff8f049c540eaf5c27534e",
+          "name": "389844626d846137ff8f049c540eaf5c27534e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 751,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "e2b224d6a0d0502ef35ba108e922d69f"
+        },
+        {
+          "path": "fsmonitor-watchman.sample",
+          "name": "fsmonitor-watchman.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 4753,
+          "modified": "2026-04-03T07:09:27.823654",
+          "md5": "d54f7f00075b61938168048715d5dd89"
+        },
+        {
+          "path": "e65e7ae9bf095077f4a910517487e902c49204",
+          "name": "e65e7ae9bf095077f4a910517487e902c49204",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "3d402409071cb3ca5d074502a3a82467"
+        },
+        {
+          "path": "3041eac8064c4485dbe6c99bf0402789400557",
+          "name": "3041eac8064c4485dbe6c99bf0402789400557",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 182,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "c88d072902c041c02379f95406f4f795"
+        },
+        {
+          "path": "b129bfca4368fcdcccba614b710425be640d8e",
+          "name": "b129bfca4368fcdcccba614b710425be640d8e",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 101,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "78d7e3807a1283ac65ee49df0404dcf1"
+        },
+        {
+          "path": "c87e445486b30c86c858f791ac5d097eb22ea5",
+          "name": "c87e445486b30c86c858f791ac5d097eb22ea5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 480,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "b9e2329650344c6fcdafa1da8fc1e563"
+        },
+        {
+          "path": "772d94750ea2935aa00161aaac2bbf73084c9c",
+          "name": "772d94750ea2935aa00161aaac2bbf73084c9c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 298,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "ba6a6f999ec7c21857f9797a2ad6aff7"
+        },
+        {
+          "path": "8b729b22aca9d68804fe493338de4fdd1d41ea",
+          "name": "8b729b22aca9d68804fe493338de4fdd1d41ea",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "d95cdd826fe59232f2e4542884226558"
+        },
+        {
+          "path": "mexc_uplink.py",
+          "name": "mexc_uplink.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1210,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "b1e2f17a13390ad26794639d38ec3eef"
+        },
+        {
+          "path": "18578a3121d764cf768b8ac820514bedb2afe2",
+          "name": "18578a3121d764cf768b8ac820514bedb2afe2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 491,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "f806b1f7176fb0b3d19f0e3fc911f181"
+        },
+        {
+          "path": "f023ea0a301282259091ad1ee0976bf927e7eb",
+          "name": "f023ea0a301282259091ad1ee0976bf927e7eb",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 546,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "228bb8b1b8a9f7a0f15b644e7ca888f9"
+        },
+        {
+          "path": "b3612b2633126743bde53a6dafc23845105777",
+          "name": "b3612b2633126743bde53a6dafc23845105777",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 298,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "bd88fafadf9a240587e240c5446b6ce8"
+        },
+        {
+          "path": "c49810772dd60c4d24791fc714e0eaa8029613",
+          "name": "c49810772dd60c4d24791fc714e0eaa8029613",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 270,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "fdd93c76c1a8cac64e2b596ef1dbc6e5"
+        },
+        {
+          "path": "modal_hunt.py",
+          "name": "modal_hunt.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1060,
+          "modified": "2026-04-03T07:09:27.824654",
+          "md5": "be179075c7b221ec5ce3c24917a4d3f2"
+        },
+        {
+          "path": "fedf4f63d2e1a6c7969aea025bf4c092546c95",
+          "name": "fedf4f63d2e1a6c7969aea025bf4c092546c95",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 624,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "fc1bef87d577a0435a16c79d8add7941"
+        },
+        {
+          "path": "vanguard_v7_moonshot.py",
+          "name": "vanguard_v7_moonshot.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 3049,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "df64367a49754c3e75795b5170d717ef"
+        },
+        {
+          "path": "16a4dd4736a2948cc55916cc6373b26d1f7039",
+          "name": "16a4dd4736a2948cc55916cc6373b26d1f7039",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 505,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "ec6c356a6bd7f7525bc2e02708785c8a"
+        },
+        {
+          "path": "abff1576c5845914851b447af97efc030a0413",
+          "name": "abff1576c5845914851b447af97efc030a0413",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 683,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "ba4b273bc6d38093170a9c7a56b2a475"
+        },
+        {
+          "path": "e729a4b7165de32ce8632cb1730479569cb51c",
+          "name": "e729a4b7165de32ce8632cb1730479569cb51c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 666,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "2087c1d4cd46992428b71b19a80c48cf"
+        },
+        {
+          "path": "5e7b55475f640fe2bf5f4e2bf426069ea4986f",
+          "name": "5e7b55475f640fe2bf5f4e2bf426069ea4986f",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 66,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "db82a412fa2119eddb5688f22c8e3f2e"
+        },
+        {
+          "path": "e2e631098b186f825799512f30e2f780d57684",
+          "name": "e2e631098b186f825799512f30e2f780d57684",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "b1d36e22e0ba7d9817347d7157c2947b"
+        },
+        {
+          "path": "bab37aa77a5edf9d48d154181debd8e4640022",
+          "name": "bab37aa77a5edf9d48d154181debd8e4640022",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 973,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "007d783341791baa133bae5bd74a165d"
+        },
+        {
+          "path": "7ae60fcd331173a40258a7f84618e1e2dde9eb",
+          "name": "7ae60fcd331173a40258a7f84618e1e2dde9eb",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 693,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "fee2c7ca859e40ec94551be5f2ad8f51"
+        },
+        {
+          "path": "e17ff4bc092abf9b238fabf38ab1094c44d9b5",
+          "name": "e17ff4bc092abf9b238fabf38ab1094c44d9b5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 159,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "8afa7d3d1bafd20fddd76c20aecdeea4"
+        },
+        {
+          "path": "pre-commit.sample",
+          "name": "pre-commit.sample",
+          "type": "file",
+          "extension": ".sample",
+          "size_bytes": 1680,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "054869054c9bd3527791b0eb6dbc2821"
+        },
+        {
+          "path": "9705c63ed51c683f1d944765d3c887e2d54cf1",
+          "name": "9705c63ed51c683f1d944765d3c887e2d54cf1",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "0ff7bdc694ff5fba32154ba126f5b730"
+        },
+        {
+          "path": "af272a747cb9e4fd04cb568ce592e1cbe0c040",
+          "name": "af272a747cb9e4fd04cb568ce592e1cbe0c040",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 767,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "a362b1f6d0a7c612aeab18c0eff09a51"
+        },
+        {
+          "path": "profit_visualizer.py",
+          "name": "profit_visualizer.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1252,
+          "modified": "2026-04-03T07:09:27.825654",
+          "md5": "e8285a2674d9e3cdcf6e743b06e4fdf4"
+        },
+        {
+          "path": "auto_harvest.py",
+          "name": "auto_harvest.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 946,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "6c9bc7a72e1a869b375a7bd1a0ae0759"
+        },
+        {
+          "path": "8c0a1cf81fbafbe8385e0de1256bbc66f91e62",
+          "name": "8c0a1cf81fbafbe8385e0de1256bbc66f91e62",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 457,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "3a404ce172021263b86e074b104a7bc4"
+        },
+        {
+          "path": "ef9d59a87d348b1e73a6b7adf52d07b325b952",
+          "name": "ef9d59a87d348b1e73a6b7adf52d07b325b952",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 38,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "70f836f9ce7e0dae08bf6f5d82d6bc10"
+        },
+        {
+          "path": "88b6b9e1489a183a914602e4baa5f24a4a6706",
+          "name": "88b6b9e1489a183a914602e4baa5f24a4a6706",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 658,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "8faae89e027ea1fd67a3a9952befff18"
+        },
+        {
+          "path": "8d05ca7743872ece48465d558f9f1af1249514",
+          "name": "8d05ca7743872ece48465d558f9f1af1249514",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 143,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "c80faf6a4fc4289845c03033066caf18"
+        },
+        {
+          "path": "c7fc16c303cd773f8abc7bdf1effa113098285",
+          "name": "c7fc16c303cd773f8abc7bdf1effa113098285",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 460,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "0fcc1ece50800f09e1141153b60ee04d"
+        },
+        {
+          "path": "bdea6763f1a8b5d9e889ae684e133d71c74775",
+          "name": "bdea6763f1a8b5d9e889ae684e133d71c74775",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 490,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "4950662b92a9b624c8c69974aae668c2"
+        },
+        {
+          "path": "5d176514e89352b659f6129d068cf15b8a8290",
+          "name": "5d176514e89352b659f6129d068cf15b8a8290",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 171,
+          "modified": "2026-04-03T07:09:27.815654",
+          "md5": "8e9ddf3141c91572e606b3563005cc36"
+        },
+        {
+          "path": "ed0e13fc7eac2a2eefffb56a369aec114c866d",
+          "name": "ed0e13fc7eac2a2eefffb56a369aec114c866d",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 503,
+          "modified": "2026-04-03T07:09:27.822654",
+          "md5": "f23fa4dca2e396ddfaf924da029ee938"
+        },
+        {
+          "path": "113ca54c7ba8954d13956d60c183fd76934258",
+          "name": "113ca54c7ba8954d13956d60c183fd76934258",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 172,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "aa63ace0b9f130f9bfeab1be3cd7909e"
+        },
+        {
+          "path": "4547f2879686572f5659a0cf99c500aec13ef5",
+          "name": "4547f2879686572f5659a0cf99c500aec13ef5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 639,
+          "modified": "2026-04-03T07:09:27.814654",
+          "md5": "36effd65799a0c7cee4d973e9e63b21a"
+        },
+        {
+          "path": "7d588e96b847c2387531ef53bdea40a54f9ba5",
+          "name": "7d588e96b847c2387531ef53bdea40a54f9ba5",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 608,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "84243cc34d78b38c29f4148ee376f1ac"
+        },
+        {
+          "path": "05db17ad205a678daeea4aec2d07fb3ab7451c",
+          "name": "05db17ad205a678daeea4aec2d07fb3ab7451c",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 722,
+          "modified": "2026-04-03T07:09:27.813731",
+          "md5": "8a9f719455cfcd693f4d2cf9cc2809c8"
+        },
+        {
+          "path": "8fa52a60e0736af8eeb2533b783bd9ade61aab",
+          "name": "8fa52a60e0736af8eeb2533b783bd9ade61aab",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 554,
+          "modified": "2026-04-03T07:09:27.817654",
+          "md5": "ec02293ad173cdd9b8f3ab7cb599e69e"
+        },
+        {
+          "path": "871f78dd31e7691d7ef216ea8d40409a329ca2",
+          "name": "871f78dd31e7691d7ef216ea8d40409a329ca2",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 107,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "9b482422f75b2e65a3c3e07abb8fcb2d"
+        },
+        {
+          "path": "d35d08155bfb55cf84760fb7084d94bb885c82",
+          "name": "d35d08155bfb55cf84760fb7084d94bb885c82",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 699,
+          "modified": "2026-04-03T07:09:27.820654",
+          "md5": "497ff06b7e08744b29f7cc75215e7412"
+        },
+        {
+          "path": "dec27021aa548e4f5de2572cb28917904bd323",
+          "name": "dec27021aa548e4f5de2572cb28917904bd323",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 185,
+          "modified": "2026-04-03T07:09:27.821654",
+          "md5": "1114bd6c8ed0904d58faa2c0f957ec72"
+        },
+        {
+          "path": "b676246d08bd3b3a5d9d9e6a88262d60d5404b",
+          "name": "b676246d08bd3b3a5d9d9e6a88262d60d5404b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 402,
+          "modified": "2026-04-03T07:09:27.819654",
+          "md5": "fcc8ea367d148a3288ab549c365c1704"
+        },
+        {
+          "path": "71d6d69dbe8c117528d585320ba17dd2937c79",
+          "name": "71d6d69dbe8c117528d585320ba17dd2937c79",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 578,
+          "modified": "2026-04-03T07:09:27.816654",
+          "md5": "0ecccec9d9f916d6047e2cab5d967737"
+        },
+        {
+          "path": "9d023c890c3b9ba4363f0b2494277e1bb1556b",
+          "name": "9d023c890c3b9ba4363f0b2494277e1bb1556b",
+          "type": "file",
+          "extension": "",
+          "size_bytes": 183,
+          "modified": "2026-04-03T07:09:27.818654",
+          "md5": "1eb6c4f02a5b6cc1c0f9c874d672b088"
+        },
+        {
+          "path": "vanguard_v7_shadow.py",
+          "name": "vanguard_v7_shadow.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 3345,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "00cf2230ebac242e724974f40817cd7f"
+        }
+      ],
+      "statistics": {
+        "total_files": 374,
+        "total_directories": 0,
+        "total_size_bytes": 864538,
+        "file_types": {
+          "no_extension": 306,
+          ".py": 48,
+          ".sample": 14,
+          ".sh": 2,
+          ".json": 2,
+          ".txt": 1,
+          ".md": 1
+        }
+      }
+    },
+    "D07_ARCHIVE_SCROLLS": {
+      "district": "D07_ARCHIVE_SCROLLS",
+      "generated": "2026-04-03T07:21:01.518616",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "V19_NORDIC_MATRIX.md",
+          "name": "V19_NORDIC_MATRIX.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 963,
+          "modified": "2026-04-03T07:09:27.826654",
+          "md5": "ea673746d85fc97855b8c1efc4483aa1"
+        },
+        {
+          "path": "librarian.py",
+          "name": "librarian.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1604,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "441af162f7ae15850260a12205bcc3be"
+        },
+        {
+          "path": "injector.py",
+          "name": "injector.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1096,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "15dcfe32f8651adfdd668e8f5d748db5"
+        },
+        {
+          "path": "logic_debugger.py",
+          "name": "logic_debugger.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1039,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "0f9aabb7b14e0f1033ec7061355e5fc6"
+        },
+        {
+          "path": "logs.txt",
+          "name": "logs.txt",
+          "type": "file",
+          "extension": ".txt",
+          "size_bytes": 504,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "1e2149220cb1a74d9155d51a898308b8"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 362,
+          "modified": "2026-04-03T07:21:01.518502",
+          "md5": "fe33e7a1e447b9865e4f75b0d927903a"
+        },
+        {
+          "path": "vanguard_pulse.log",
+          "name": "vanguard_pulse.log",
+          "type": "file",
+          "extension": ".log",
+          "size_bytes": 87,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "3b1160c59774a2cd8878f68c003099b0"
+        },
+        {
+          "path": "hounds.log",
+          "name": "hounds.log",
+          "type": "file",
+          "extension": ".log",
+          "size_bytes": 22,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "0290de12e05e818a69dcf35c470d090e"
+        }
+      ],
+      "statistics": {
+        "total_files": 8,
+        "total_directories": 0,
+        "total_size_bytes": 5677,
+        "file_types": {
+          ".md": 2,
+          ".py": 3,
+          ".txt": 1,
+          ".log": 2
+        }
+      }
+    },
+    "D09_MEDIA_CODING": {
+      "district": "D09_MEDIA_CODING",
+      "generated": "2026-04-03T07:21:01.520029",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "image_analyzer.py",
+          "name": "image_analyzer.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 538,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "279c7cfda90705ca814dce11acae3d0b"
+        },
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 181,
+          "modified": "2026-04-03T07:21:01.519936",
+          "md5": "76a83b807a5d57e76384c7fbd5c3337a"
+        }
+      ],
+      "statistics": {
+        "total_files": 2,
+        "total_directories": 0,
+        "total_size_bytes": 719,
+        "file_types": {
+          ".py": 1,
+          ".md": 1
+        }
+      }
+    },
+    "D11_PERSONA_MODULES": {
+      "district": "D11_PERSONA_MODULES",
+      "generated": "2026-04-03T07:21:01.520886",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 184,
+          "modified": "2026-04-03T07:21:01.520793",
+          "md5": "094fba3d1cf72783d2f4006de9a51a23"
+        },
+        {
+          "path": "goanna_core.py",
+          "name": "goanna_core.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 1145,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "26d85402963c9ffcd7c0000e3645914c"
+        }
+      ],
+      "statistics": {
+        "total_files": 2,
+        "total_directories": 0,
+        "total_size_bytes": 1329,
+        "file_types": {
+          ".md": 1,
+          ".py": 1
+        }
+      }
+    },
+    "D12_ZENITH_VIEW": {
+      "district": "D12_ZENITH_VIEW",
+      "generated": "2026-04-03T07:21:01.521744",
+      "version": "25.0.OMNI",
+      "artifacts": [
+        {
+          "path": "TREE.md",
+          "name": "TREE.md",
+          "type": "file",
+          "extension": ".md",
+          "size_bytes": 180,
+          "modified": "2026-04-03T07:21:01.521650",
+          "md5": "0b0f192e5ce3f6b3094ed7407efb330d"
+        },
+        {
+          "path": "master_overseer.py",
+          "name": "master_overseer.py",
+          "type": "file",
+          "extension": ".py",
+          "size_bytes": 16635,
+          "modified": "2026-04-03T07:09:27.828110",
+          "md5": "8bc842e0bbfa9f95c0b54f18ea337a55"
+        }
+      ],
+      "statistics": {
+        "total_files": 2,
+        "total_directories": 0,
+        "total_size_bytes": 16815,
+        "file_types": {
+          ".md": 1,
+          ".py": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,181 @@
+name: Omnidimensional Research Daily Run
+
+on:
+  schedule:
+    - cron: "0 6 * * *"  # Daily at 6 AM UTC
+  workflow_dispatch:
+    inputs:
+      workers:
+        description: 'Which workers to run (all, iob, spectrum, satellites, consciousness, professions)'
+        required: false
+        default: 'all'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  omnidimensional-research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # Install any additional dependencies needed by research workers
+          pip install requests beautifulsoup4 lxml
+      
+      - name: Create Output Directories
+        run: |
+          mkdir -p data/discoveries
+          mkdir -p data/logs
+          mkdir -p data/research_runs
+      
+      - name: Run IoB & V2K Researcher
+        if: github.event.inputs.workers == 'all' || github.event.inputs.workers == 'iob' || github.event.inputs.workers == ''
+        run: |
+          echo "🧠 Running IoB & V2K Researcher..."
+          python scripts/iob_v2k_researcher.py > data/logs/iob_v2k_$(date +%Y%m%d).log 2>&1
+          echo "✅ IoB & V2K research complete"
+      
+      - name: Run Spectrum & Frequency Mapper
+        if: github.event.inputs.workers == 'all' || github.event.inputs.workers == 'spectrum' || github.event.inputs.workers == ''
+        run: |
+          echo "📡 Running Spectrum & Frequency Mapper..."
+          python scripts/spectrum_frequency_mapper.py > data/logs/spectrum_$(date +%Y%m%d).log 2>&1
+          echo "✅ Spectrum mapping complete"
+      
+      - name: Run Satellite Constellation Tracker
+        if: github.event.inputs.workers == 'all' || github.event.inputs.workers == 'satellites' || github.event.inputs.workers == ''
+        run: |
+          echo "🛰️ Running Satellite Constellation Tracker..."
+          python scripts/satellite_constellation_tracker.py > data/logs/satellites_$(date +%Y%m%d).log 2>&1
+          echo "✅ Satellite tracking complete"
+      
+      - name: Run Consciousness Dimension Cartographer
+        if: github.event.inputs.workers == 'all' || github.event.inputs.workers == 'consciousness' || github.event.inputs.workers == ''
+        run: |
+          echo "🌌 Running Consciousness Dimension Cartographer..."
+          python scripts/consciousness_dimension_cartographer.py > data/logs/consciousness_$(date +%Y%m%d).log 2>&1
+          echo "✅ Consciousness mapping complete"
+      
+      - name: Run Professional Skills Harvester
+        if: github.event.inputs.workers == 'all' || github.event.inputs.workers == 'professions' || github.event.inputs.workers == ''
+        run: |
+          echo "💼 Running Professional Skills Harvester..."
+          python scripts/professional_skills_harvester.py > data/logs/professions_$(date +%Y%m%d).log 2>&1
+          echo "✅ Professional skills harvesting complete"
+      
+      - name: Generate Research Summary
+        run: |
+          echo "📊 Generating research summary..."
+          cat > data/research_runs/summary_$(date +%Y%m%d).md << 'EOF'
+          # Omnidimensional Research Summary
+          **Date:** $(date +%Y-%m-%d)
+          **Time:** $(date +%H:%M:%S) UTC
+          
+          ## Research Workers Executed
+          $(ls -lh data/discoveries/*.json 2>/dev/null | wc -l) research files generated
+          
+          ## File Sizes
+          $(ls -lh data/discoveries/*.json 2>/dev/null || echo "No research files found")
+          
+          ## Research Domains Covered
+          - IoB & V2K Technologies
+          - Electromagnetic Spectrum (ELF to Gamma rays)
+          - Satellite Constellations (Communication, Navigation, Observation, Military)
+          - Consciousness Dimensions (3D to 12D+)
+          - Professional Skills (Light, Dark, Hybrid)
+          
+          ## Next Research Domains (Planned)
+          - Earth Models (Flat, Round, Hollow)
+          - ET & UAP Intelligence
+          - Atmospheric Phenomena
+          - Compute Architecture Optimization
+          - Graphics Engine Comparison
+          
+          ## Status
+          ✅ Research cycle complete
+          EOF
+          
+          cat data/research_runs/summary_$(date +%Y%m%d).md
+      
+      - name: Update Master Intelligence Map
+        run: |
+          echo "🗺️ Updating master intelligence map..."
+          
+          # Append research summary to master intelligence map if it exists
+          if [ -f master_intelligence_map.txt ]; then
+            echo "" >> master_intelligence_map.txt
+            echo "## Omnidimensional Research Update - $(date +%Y-%m-%d)" >> master_intelligence_map.txt
+            echo "Research workers executed: IoB/V2K, Spectrum, Satellites, Consciousness, Professions" >> master_intelligence_map.txt
+            echo "Total research files: $(ls -1 data/discoveries/*.json 2>/dev/null | wc -l)" >> master_intelligence_map.txt
+            echo "Last updated: $(date)" >> master_intelligence_map.txt
+          fi
+      
+      - name: Commit Research Results
+        run: |
+          git config user.name "Omnidimensional Research Bot"
+          git config user.email "research-bot@citadel.local"
+          
+          # Add all research outputs
+          git add data/discoveries/*.json 2>/dev/null || true
+          git add data/logs/ 2>/dev/null || true
+          git add data/research_runs/ 2>/dev/null || true
+          git add master_intelligence_map.txt 2>/dev/null || true
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Omnidimensional research update - $(date +%Y-%m-%d)"
+            git push
+            echo "✅ Research results committed and pushed"
+          fi
+      
+      - name: Upload Research Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-results-${{ github.run_number }}
+          path: |
+            data/discoveries/
+            data/logs/
+            data/research_runs/
+          retention-days: 30
+      
+      - name: Generate Workflow Summary
+        run: |
+          echo "## 🌌 Omnidimensional Research Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** $(date +%Y-%m-%d)" >> $GITHUB_STEP_SUMMARY
+          echo "**Time:** $(date +%H:%M:%S) UTC" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Research Workers Executed" >> $GITHUB_STEP_SUMMARY
+          echo "- 🧠 IoB & V2K Researcher" >> $GITHUB_STEP_SUMMARY
+          echo "- 📡 Spectrum & Frequency Mapper" >> $GITHUB_STEP_SUMMARY
+          echo "- 🛰️ Satellite Constellation Tracker" >> $GITHUB_STEP_SUMMARY
+          echo "- 🌌 Consciousness Dimension Cartographer" >> $GITHUB_STEP_SUMMARY
+          echo "- 💼 Professional Skills Harvester" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Research Files Generated" >> $GITHUB_STEP_SUMMARY
+          echo "Total: $(ls -1 data/discoveries/*.json 2>/dev/null | wc -l) JSON files" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Next Actions" >> $GITHUB_STEP_SUMMARY
+          echo "- Complete remaining 5 research workers" >> $GITHUB_STEP_SUMMARY
+          echo "- Integrate with TIA-ARCHITECT-CORE RAG" >> $GITHUB_STEP_SUMMARY
+          echo "- Deploy research dashboard" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ **Research cycle complete**" >> $GITHUB_STEP_SUMMARY
