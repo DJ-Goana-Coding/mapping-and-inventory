@@ -1,0 +1,315 @@
+name: 🔒 Automated Security Scanning
+on:
+  push:
+    branches: [ main, develop, 'copilot/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  security-scan:
+    name: Multi-Layer Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for secret scanning
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Security Tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install safety bandit pip-audit semgrep
+          pip install -r requirements.txt || true
+      
+      # Layer 1: Dependency Vulnerability Scanning
+      - name: 🔍 Safety - Python Dependency Scanner
+        run: |
+          echo "::group::Safety Vulnerability Scan"
+          safety check --json --output safety-report.json || true
+          safety check || echo "⚠️ Vulnerabilities found, check report"
+          echo "::endgroup::"
+        continue-on-error: true
+      
+      - name: 🔍 pip-audit - Official PyPA Auditing
+        run: |
+          echo "::group::pip-audit Vulnerability Scan"
+          pip-audit --format json --output pip-audit-report.json || true
+          pip-audit || echo "⚠️ Vulnerabilities found, check report"
+          echo "::endgroup::"
+        continue-on-error: true
+      
+      # Layer 2: Code Security Linting
+      - name: 🔍 Bandit - Python Security Linter
+        run: |
+          echo "::group::Bandit Security Linting"
+          bandit -r . -f json -o bandit-report.json || true
+          bandit -r . -ll || echo "⚠️ Security issues found, check report"
+          echo "::endgroup::"
+        continue-on-error: true
+      
+      - name: 🔍 Semgrep - Static Analysis
+        run: |
+          echo "::group::Semgrep Static Analysis"
+          semgrep --config=auto --json --output semgrep-report.json . || true
+          semgrep --config=auto . || echo "⚠️ Issues found, check report"
+          echo "::endgroup::"
+        continue-on-error: true
+      
+      # Layer 3: Secret Scanning
+      - name: 🔍 Secret Detection in Git History
+        run: |
+          echo "::group::Secret Scanning"
+          python << 'EOF'
+          import re
+          import subprocess
+          import json
+          from pathlib import Path
+          
+          # Common secret patterns
+          patterns = {
+              'AWS Access Key': r'AKIA[0-9A-Z]{16}',
+              'Generic API Key': r'[aA][pP][iI][-_]?[kK][eE][yY][\s:=]+[\'"]?([0-9a-zA-Z_\-]{20,})[\'"]?',
+              'Generic Secret': r'[sS][eE][cC][rR][eE][tT][\s:=]+[\'"]?([0-9a-zA-Z_\-]{20,})[\'"]?',
+              'Private Key': r'-----BEGIN (RSA|OPENSSH|EC) PRIVATE KEY-----',
+              'Password in Code': r'[pP][aA][sS][sS][wW][oO][rR][dD][\s:=]+[\'"]([^\'"]+)[\'"]',
+              'Token': r'[tT][oO][kK][eE][nN][\s:=]+[\'"]?([0-9a-zA-Z_\-]{20,})[\'"]?',
+          }
+          
+          findings = []
+          
+          # Scan current files
+          for file_path in Path('.').rglob('*'):
+              if file_path.is_file() and file_path.suffix in ['.py', '.js', '.yaml', '.yml', '.json', '.env', '.sh']:
+                  try:
+                      content = file_path.read_text()
+                      for pattern_name, pattern in patterns.items():
+                          matches = re.finditer(pattern, content)
+                          for match in matches:
+                              # Exclude false positives (example values, templates)
+                              matched_text = match.group(0).lower()
+                              if any(fp in matched_text for fp in ['example', 'template', 'placeholder', 'xxx', 'your-']):
+                                  continue
+                              
+                              findings.append({
+                                  'file': str(file_path),
+                                  'pattern': pattern_name,
+                                  'line': content[:match.start()].count('\n') + 1,
+                                  'match': match.group(0)[:50] + '...' if len(match.group(0)) > 50 else match.group(0)
+                              })
+                  except Exception as e:
+                      pass
+          
+          if findings:
+              print(f"⚠️ Found {len(findings)} potential secrets:")
+              for finding in findings[:10]:  # Show first 10
+                  print(f"  - {finding['file']}:{finding['line']} - {finding['pattern']}")
+              Path('secret-scan-report.json').write_text(json.dumps(findings, indent=2))
+          else:
+              print("✅ No secrets detected")
+          EOF
+          echo "::endgroup::"
+        continue-on-error: true
+      
+      # Layer 4: Trading Safety Validation
+      - name: 🔍 Trading Safety Circuit Breaker Check
+        run: |
+          echo "::group::Trading Safety Validation"
+          python << 'EOF'
+          import json
+          from pathlib import Path
+          
+          issues = []
+          
+          # Check trading safety infrastructure
+          required_files = [
+              'scripts/trading_safety/circuit_breaker.py',
+              'scripts/trading_safety/credential_manager.py',
+              'scripts/trading_safety/safe_trader.py',
+              'scripts/trading_safety/trading_monitors.py',
+          ]
+          
+          for file_path in required_files:
+              if not Path(file_path).exists():
+                  issues.append(f"Missing required trading safety file: {file_path}")
+          
+          # Check for bypass patterns
+          bypass_patterns = [
+              'bypass',
+              'skip_safety',
+              'disable_circuit_breaker',
+              'LIVE_TRADING_ENABLED=true',  # Should be in env, not code
+          ]
+          
+          for file_path in Path('.').rglob('*.py'):
+              if 'trading' in str(file_path).lower():
+                  try:
+                      content = file_path.read_text()
+                      for pattern in bypass_patterns:
+                          if pattern in content:
+                              issues.append(f"Potential safety bypass in {file_path}: {pattern}")
+                  except:
+                      pass
+          
+          if issues:
+              print("⚠️ Trading Safety Issues:")
+              for issue in issues:
+                  print(f"  - {issue}")
+          else:
+              print("✅ Trading safety checks passed")
+          EOF
+          echo "::endgroup::"
+      
+      # Layer 5: Input Validation Check
+      - name: 🔍 Input Validation Coverage
+        run: |
+          echo "::group::Input Validation Check"
+          python << 'EOF'
+          from pathlib import Path
+          import re
+          
+          # Check if input validator is being used
+          validator_imports = []
+          direct_inputs = []
+          
+          for file_path in Path('.').rglob('*.py'):
+              try:
+                  content = file_path.read_text()
+                  
+                  # Check for input validator usage
+                  if 'from security.core.input_validator import' in content or 'import input_validator' in content:
+                      validator_imports.append(str(file_path))
+                  
+                  # Check for potentially unsafe direct inputs
+                  unsafe_patterns = [
+                      r'input\(',
+                      r'request\.form\[',
+                      r'request\.args\[',
+                      r'request\.json\[',
+                  ]
+                  
+                  for pattern in unsafe_patterns:
+                      if re.search(pattern, content):
+                          # Check if validation is nearby
+                          if 'validate' not in content.lower():
+                              direct_inputs.append((str(file_path), pattern))
+              except:
+                  pass
+          
+          print(f"✅ Files using input validator: {len(validator_imports)}")
+          if direct_inputs:
+              print(f"⚠️ Files with potentially unsafe inputs: {len(direct_inputs)}")
+              for file_path, pattern in direct_inputs[:5]:
+                  print(f"  - {file_path}: {pattern}")
+          EOF
+          echo "::endgroup::"
+      
+      # Layer 6: Rate Limiter Check
+      - name: 🔍 Rate Limiting Coverage
+        run: |
+          echo "::group::Rate Limiting Check"
+          python << 'EOF'
+          from pathlib import Path
+          import re
+          
+          # Check for API endpoints without rate limiting
+          api_files = []
+          rate_limited = []
+          
+          for file_path in Path('.').rglob('*.py'):
+              try:
+                  content = file_path.read_text()
+                  
+                  # Check for FastAPI/Flask route decorators
+                  if re.search(r'@app\.(get|post|put|delete)', content) or re.search(r'@router\.(get|post|put|delete)', content):
+                      api_files.append(str(file_path))
+                      
+                      # Check if rate limiting is applied
+                      if 'rate_limit' in content.lower() or 'RateLimiter' in content:
+                          rate_limited.append(str(file_path))
+              except:
+                  pass
+          
+          print(f"📊 API endpoints found: {len(api_files)}")
+          print(f"✅ Rate limited endpoints: {len(rate_limited)}")
+          if len(api_files) > len(rate_limited):
+              print(f"⚠️ {len(api_files) - len(rate_limited)} endpoints may need rate limiting")
+          EOF
+          echo "::endgroup::"
+      
+      # Summary Report
+      - name: 📊 Generate Security Summary
+        run: |
+          echo "::group::Security Scan Summary"
+          python << 'EOF'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          
+          summary = {
+              'timestamp': datetime.utcnow().isoformat() + 'Z',
+              'scan_type': 'comprehensive_security',
+              'reports': {}
+          }
+          
+          # Aggregate reports
+          report_files = {
+              'safety': 'safety-report.json',
+              'pip-audit': 'pip-audit-report.json',
+              'bandit': 'bandit-report.json',
+              'semgrep': 'semgrep-report.json',
+              'secrets': 'secret-scan-report.json'
+          }
+          
+          for report_name, report_file in report_files.items():
+              if Path(report_file).exists():
+                  try:
+                      summary['reports'][report_name] = json.loads(Path(report_file).read_text())
+                  except:
+                      summary['reports'][report_name] = 'Report exists but could not be parsed'
+          
+          # Save summary
+          Path('security-scan-summary.json').write_text(json.dumps(summary, indent=2))
+          
+          print("=" * 60)
+          print("🔒 SECURITY SCAN COMPLETE")
+          print("=" * 60)
+          print(f"Reports generated:")
+          for report_name in summary['reports']:
+              print(f"  ✅ {report_name}")
+          print("=" * 60)
+          EOF
+          echo "::endgroup::"
+      
+      # Upload artifacts
+      - name: 📤 Upload Security Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-scan-reports
+          path: |
+            *-report.json
+            security-scan-summary.json
+          retention-days: 30
+      
+      # Create issue if critical vulnerabilities found
+      - name: 🚨 Create Issue for Critical Findings
+        if: failure()
+        run: |
+          echo "⚠️ Security scan found issues. Review the artifacts for details."
+          echo "Consider creating a GitHub issue to track remediation."
