@@ -1,0 +1,119 @@
+name: Agent Legion Deployment
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"  # Every 6 hours
+  workflow_dispatch:
+    inputs:
+      team:
+        description: 'Team to deploy (security_team, teaching_team, all)'
+        required: false
+        default: 'security_team'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy-agent-legion:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install sentence-transformers faiss-cpu numpy
+
+      - name: Create data directories
+        run: |
+          mkdir -p data/agent_legion
+          mkdir -p data/security/reports
+          mkdir -p data/security/quarantine
+          mkdir -p data/security/baselines
+          mkdir -p data/teaching/reports
+          mkdir -p data/reconnaissance/reports
+          mkdir -p data/workers/reports
+          mkdir -p data/rag_brains
+          mkdir -p data/forever_learning/reports
+          mkdir -p data/Mapping-and-Inventory-storage/forever_learning
+      
+      - name: Deploy Security Team
+        if: github.event.inputs.team == 'security_team' || github.event.inputs.team == 'all' || github.event_name == 'schedule'
+        run: |
+          echo "🏛️ Deploying Security Team..."
+          python3 scripts/agent_legion/wraith_security_agent.py || true
+          python3 scripts/agent_legion/hound_tracker_agent.py || true
+          python3 scripts/agent_legion/sentinel_defensive_agent.py || true
+      
+      - name: Deploy Teaching Team
+        if: github.event.inputs.team == 'teaching_team' || github.event.inputs.team == 'all'
+        run: |
+          echo "🏛️ Deploying Teaching Team..."
+          python3 scripts/agent_legion/tia_teaching_agent.py || true
+      
+      - name: Deploy Autonomous Workers
+        if: github.event.inputs.team == 'all' || github.event_name == 'schedule'
+        run: |
+          echo "🏛️ Deploying Autonomous Workers..."
+          python3 scripts/agent_legion/bridge_worker.py || true
+          python3 scripts/agent_legion/learning_collector.py || true
+      
+      - name: Deploy Multi-Brain RAG System
+        if: github.event.inputs.team == 'all' || github.event_name == 'schedule'
+        run: |
+          echo "🧠 Deploying Multi-Brain RAG System..."
+          python3 scripts/agent_legion/multi_brain_rag_system.py || true
+      
+      - name: Generate Master Report
+        run: |
+          echo "📊 Generating master deployment report..."
+          cat > data/agent_legion/deployment_summary_$(date +%Y%m%d_%H%M%S).txt << EOF
+          Agent Legion Deployment Summary
+          ================================
+          Timestamp: $(date -Iseconds)
+          Team: ${{ github.event.inputs.team || 'security_team' }}
+          Trigger: ${{ github.event_name }}
+          
+          Security Reports: $(find data/security/reports -type f 2>/dev/null | wc -l)
+          Teaching Reports: $(find data/teaching/reports -type f 2>/dev/null | wc -l)
+          Worker Reports: $(find data/workers/reports -type f 2>/dev/null | wc -l)
+          Learning Reports: $(find data/forever_learning/reports -type f 2>/dev/null | wc -l)
+          
+          Status: Complete
+          EOF
+      
+      - name: Commit and push reports
+        run: |
+          git config --local user.email "agent-legion[bot]@citadel.mesh"
+          git config --local user.name "Agent Legion Bot"
+          
+          git add data/
+          git diff --quiet && git diff --staged --quiet || (
+            git commit -m "🏛️ Agent Legion deployment - $(date +%Y%m%d_%H%M%S)
+            
+            Team: ${{ github.event.inputs.team || 'security_team' }}
+            Trigger: ${{ github.event_name }}
+            Timestamp: $(date -Iseconds)"
+            
+            git push
+          )
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-legion-reports
+          path: |
+            data/security/reports/
+            data/teaching/reports/
+            data/workers/reports/
+            data/forever_learning/reports/
+            data/agent_legion/
+          retention-days: 30
