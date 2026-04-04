@@ -101,13 +101,29 @@ echo -e "${GREEN}✅ Starting Ultra Laptop Vacuum...${NC}"
 echo ""
 
 # ============================================================================
-# PHASE 0: MASTER_MERGE_2 INTELLIGENCE EXTRACTION
+# PHASE 0A: SYSTEM PROFILING (Index/Librarian the system)
 # ============================================================================
 echo -e "${CYAN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║ PHASE 0: MASTER_MERGE_2 Intelligence (LOOK HERE FIRST)           ║${NC}"
+echo -e "${CYAN}║ PHASE 0A: System Profiling (Hardware/Software Indexing)          ║${NC}"
 echo -e "${CYAN}╚═══════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
+echo -e "${YELLOW}📚 Running System Librarian...${NC}"
+python3 "$REPO_ROOT/scripts/system_librarian.py" || {
+  echo -e "${YELLOW}⚠️  System profiling failed - continuing anyway${NC}"
+}
+
+echo ""
+
+# ============================================================================
+# PHASE 0B: MASTER_MERGE_2 INTELLIGENCE EXTRACTION
+# ============================================================================
+echo -e "${CYAN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${CYAN}║ PHASE 0B: MASTER_MERGE_2 Intelligence (LOOK HERE FIRST)          ║${NC}"
+echo -e "${CYAN}╚═══════════════════════════════════════════════════════════════════╝${NC}"
+echo ""
+
+echo -e "${YELLOW}🎯 Processing MASTER_MERGE_2...${NC}"
 python3 "$REPO_ROOT/scripts/master_merge_2_processor.py" --desktop "$HOME/Desktop" || {
   echo -e "${YELLOW}⚠️  MASTER_MERGE_2 not found - continuing anyway${NC}"
 }
