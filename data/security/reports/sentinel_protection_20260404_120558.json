@@ -1,0 +1,17 @@
+{
+  "agent": "Sentinel Defensive Agent",
+  "timestamp": "2026-04-04T12:05:58.011858",
+  "baseline": {
+    "created": "2026-04-04T12:05:57.922823",
+    "files_tracked": 1255,
+    "directories_watched": 4
+  },
+  "alerts": [],
+  "summary": {
+    "total_alerts": 0,
+    "deleted_files": 0,
+    "modified_files": 0,
+    "permission_changes": 0,
+    "new_files": 0
+  }
+}

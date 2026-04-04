@@ -1,0 +1,62 @@
+{
+  "agent": "Learning Collector",
+  "timestamp": "2026-04-04T12:05:58.104456",
+  "summary": {
+    "insights_collected": 1,
+    "patterns_identified": 1,
+    "lessons_learned": 1
+  },
+  "insights": [
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 3 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        }
+      ],
+      "timestamp": "2026-04-04T12:05:58.104965"
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": "threat_detection",
+      "occurrences": 1,
+      "examples": [
+        "Detected 3 threats"
+      ],
+      "timestamp": "2026-04-04T12:05:58.105614"
+    }
+  ],
+  "lessons": [
+    {
+      "lesson": "Security monitoring is active and detecting threats",
+      "evidence": "1 security insights collected",
+      "recommendation": "Continue regular security scans and maintain vigilance",
+      "timestamp": "2026-04-04T12:05:58.105665"
+    }
+  ]
+}
