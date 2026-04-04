@@ -1,0 +1,169 @@
+name: 🔧 Autonomous Repository Repair
+
+on:
+  schedule:
+    # Run daily at 03:00 UTC (after census and gap analysis)
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Repair mode'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+          - scan
+          - repair
+          - full
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  autonomous-repair:
+    runs-on: ubuntu-latest
+    name: Autonomous Repo Repair & Integration
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT || github.token }}
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install dependencies
+        run: |
+          pip install requests jq
+      
+      - name: 🔍 Phase 1 - Scan repositories
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "🔍 Scanning all GitHub and HuggingFace repositories..."
+          python3 scripts/broken_repo_scanner.py
+      
+      - name: 🔧 Phase 2 - Repair broken repos
+        if: github.event.inputs.mode != 'scan'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          echo "🔧 Running autonomous repair cycle..."
+          python3 scripts/repo_repair_orchestrator.py
+      
+      - name: 📊 Generate report
+        if: always()
+        run: |
+          echo "📊 Generating repair summary..."
+          
+          # Find latest scan
+          LATEST_SCAN=$(ls -t data/monitoring/health_scan_*.json 2>/dev/null | head -1)
+          
+          # Find latest session
+          LATEST_SESSION=$(ls -t data/repairs/session_*.json 2>/dev/null | head -1)
+          
+          # Create summary
+          cat > repair_summary.md << 'EOF'
+          # 🔧 Autonomous Repair Summary
+          
+          **Timestamp:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          ## Health Scan Results
+          
+          EOF
+          
+          if [ -f "$LATEST_SCAN" ]; then
+            echo "Health scan found: $LATEST_SCAN"
+            echo "" >> repair_summary.md
+            jq -r '
+              "**Total Scanned:** \(.summary.total_scanned)\n" +
+              "**Healthy:** \(.summary.healthy // 0)\n" +
+              "**Warning:** \(.summary.warning // 0)\n" +
+              "**Unhealthy:** \(.summary.unhealthy // 0)\n" +
+              "**Critical:** \(.summary.critical // 0)\n"
+            ' "$LATEST_SCAN" >> repair_summary.md
+          fi
+          
+          if [ -f "$LATEST_SESSION" ]; then
+            echo "" >> repair_summary.md
+            echo "## Repair Session Results" >> repair_summary.md
+            echo "" >> repair_summary.md
+            
+            jq -r '
+              "**Repositories Scanned:** \(.repos_scanned | length)\n" +
+              "**Broken Repos Found:** \(.repos_broken | length)\n" +
+              "**Repos Repaired:** \(.repos_repaired | length)\n" +
+              "**Repos Integrated:** \(.repos_integrated | length)\n" +
+              "**Total Problems:** \(.total_problems)\n" +
+              "**Problems Fixed:** \(.problems_fixed)\n" +
+              "**Solutions Tested:** \(.solutions_tested)\n" +
+              "**Stress Tests Passed:** \(.stress_tests_passed)\n"
+            ' "$LATEST_SESSION" >> repair_summary.md
+          fi
+          
+          cat repair_summary.md
+      
+      - name: 💾 Commit results
+        if: always()
+        run: |
+          git config --global user.name "Autonomous Repair Bot"
+          git config --global user.email "bot@citadel-repair.local"
+          
+          # Add all repair data
+          git add -A data/monitoring/health_scan_*.json || true
+          git add -A data/repairs/ || true
+          git add -A repair_summary.md || true
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🔧 Autonomous repair cycle: $(date -u +"%Y-%m-%d %H:%M UTC")"
+            git push
+          fi
+      
+      - name: 📝 Create issue for critical failures
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const title = '🚨 Autonomous Repair Cycle Failed';
+            const body = `
+            The autonomous repository repair cycle has encountered a critical failure.
+            
+            **Workflow Run:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            **Timestamp:** ${new Date().toISOString()}
+            
+            Please investigate the logs and take manual action if needed.
+            
+            ---
+            *This issue was automatically created by the Autonomous Repair system.*
+            `;
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: title,
+              body: body,
+              labels: ['automated', 'repair-system', 'critical']
+            });
+      
+      - name: 📤 Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repair-results
+          path: |
+            data/monitoring/health_scan_*.json
+            data/repairs/
+            repair_summary.md
+          retention-days: 30
