@@ -1,0 +1,246 @@
+{
+  "timestamp": "2026-04-04T12:15:39.307282Z",
+  "scan_type": "omnidimensional_sweep",
+  "substrates_scanned": [
+    "GitHub Repo",
+    "Local Clone"
+  ],
+  "summary": {
+    "infected_files": 7,
+    "suspicious_files": 0,
+    "duplicate_sets": 67,
+    "total_duplicates": 163,
+    "missing_artifacts": 0,
+    "quarantined": 7
+  },
+  "details": {
+    "infected_files": [
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D12_ZENITH_VIEW/master_overseer.py",
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/omnidimensional_sweep.py",
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/services/final_auth_weld.py",
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/ARK_HUD.py",
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/ARK_PULSE.py",
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/deep_intel.py",
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/citadel_vacuum.py"
+    ],
+    "suspicious_files": [],
+    "duplicate_files": {
+      "1a88da3868794671b8939db4554830db1b13345c006b2edfb5da2769b519c4c2": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/OPERATOR_BRIEFING_TIA_CORE.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/OPERATOR_BRIEFING_TIA_CORE.md"
+      ],
+      "36728be386c9fbb5dd678c1303648691f3dab73fd27ef072c34c4d1edd234a7c": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_ARCHITECT_CORE_STARTUP_WORKFLOW.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_ARCHITECT_CORE_STARTUP_WORKFLOW.md"
+      ],
+      "d21d30744f5b7bae3b95b21973ed81375c6e2cf2129b867e14151963b22713c1": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/restore_tia_core.sh",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/deployment/restore_tia_core.sh"
+      ],
+      "5755454681df268532e2026664b729473f89254c77761390cf68b04abfc5183c": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_CORE_RESTORATION_CHECKLIST.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_CORE_RESTORATION_CHECKLIST.md"
+      ],
+      "3e0943603a87434fc783b441a1147e9226b39aac1035b0ba9e371a6610a726d3": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_PRIVACY_SETUP_GUIDE.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_PRIVACY_SETUP_GUIDE.md"
+      ],
+      "b7920aa3d7419d3c0a809dc0ddd7a46e6c3ead9df724735d95725a6dbe8a93c0": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_DEPLOYMENT_SUMMARY.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_DEPLOYMENT_SUMMARY.md"
+      ],
+      "7ec4af6781deb25ecbf19db2535745211de49c3b42ad5213e62b7e5229a86fb1": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_CORE_COMPLETE_REPAIR_SOLUTION.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_CORE_COMPLETE_REPAIR_SOLUTION.md"
+      ],
+      "8d44b8bc7f1ace977f10fd0f716f02c50c092e07a1bea2ebd56c43862d36a9ef": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_DEPLOYMENT_READY.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_DEPLOYMENT_READY.md"
+      ],
+      "7bd652751f694ebc8e1d7f512a0d150efbd00beeee5e2a70f7c7cf65dcbc03b5": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_CORE_EMERGENCY_REPAIR_QUICKREF.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_CORE_EMERGENCY_REPAIR_QUICKREF.md"
+      ],
+      "ff4c70a8915f1ccb1620fcb115bd9e37e6582df8f0d726db4aaf47b88ae992c6": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIAS_CITADEL_REPAIR_GUIDE.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIAS_CITADEL_REPAIR_GUIDE.md"
+      ],
+      "2271d6bab04b3b4fd5ea42db563912c1b8c9a4b49900411da8b4da1a561a550e": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/citadel_nexus.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/pages/01_\ud83c\udfdb\ufe0f_CITADEL_NEXUS.py"
+      ],
+      "06e06e99648f768dadaf44265e0106996a06e66485f3f20c750ef2bf3a6fb4c0": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_CORE_503_ERROR_FIX.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_CORE_503_ERROR_FIX.md"
+      ],
+      "4b419aad548e805ed9a823381f538ea5e233b2e9ae01176f0123e4b9ea115db4": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_ARCHITECT_CORE_REPAIR_GUIDE.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_ARCHITECT_CORE_REPAIR_GUIDE.md"
+      ],
+      "92a66b51fffc09b368da163ee5f0c367cc3b67756e3537e4a041cdb210c94551": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_CORE_QUICKSTART.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_CORE_QUICKSTART.md"
+      ],
+      "04974b33d6efad1c5b8cc1ce7a25c6938cc51fd4a734025d0f8cedda5804831a": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_CORE_REPAIR_QUICKSTART.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/docs/TIA_CORE_REPAIR_QUICKSTART.md"
+      ],
+      "72623a5136528513fa70df5a6814c51a95bfa3806bda0410114131a2a72c24c0": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D04_OMEGA_TRADER/omega_trader.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/Master_Blueprints/omega_trader.py"
+      ],
+      "64f61346fbac579d728256ad5891065dac779d9583e7968899f12b08ee5f3490": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D04_OMEGA_TRADER/ABN_Trade_Ledger.csv",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_03/ABN_Trade_Ledger.csv"
+      ],
+      "f4c57431feffb74097f12514a31e8b7907f5ea13a9aafa76f827e0232fcb7e4b": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/omega_bots.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/Master_Blueprints/omega_bots.py"
+      ],
+      "2ce95556c0ec5f2e6015fe217f4bedb98dcb717ca8bf02fd9af1cb7f3bf8c915": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/precious_metals_tracker.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_03/precious_metals_tracker.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/precious_metals_tracker.py"
+      ],
+      "842d6b017d24256ff527b24eb249891fb3d7f75c2a4e6531d1951ff4ff6ee35f": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/omega_scout.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/Master_Blueprints/omega_scout.py"
+      ],
+      "787e4bce4472a0350094f5a2ea808e9ed493f5425efebe870d4d952c2f84614f": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/librarian_omega.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/Master_Blueprints/librarian_omega.py"
+      ],
+      "5ab78db671b016c3a87b32ee95043135d0309f2b5055aa303af216149c811abb": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v10_titan.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v10_titan.py"
+      ],
+      "692f4f5c5bc4bbaf7c675bb85ee75ceee9788e194687fdd0962dfed77c9eb840": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v5_legion.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v5_legion.py"
+      ],
+      "47ab19711b884009d09c6172085fb4176a1cc7bac303fc9b453ccb236e7e1cc8": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v6_treasury.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v6_treasury.py"
+      ],
+      "1d666d15ae1d08385046d245b2361d93b7dd41bf924d10d49501d2641a714e17": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/mexc_live.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/mexc_live.py"
+      ],
+      "b19a593ca9ffc13260841f0788ea84062cb3f61167b0ec6ff8a9969e0dbc4b46": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v2.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v2.py"
+      ],
+      "376755b764f487dbfe21c8ae2608d3a507966b50362d11b6e97e1ea02b21744c": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v3.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v3.py"
+      ],
+      "901844f0287a8e68d86f218da85b8de7256f50d636f840b7dbb8d091c4e883d9": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v5_moon.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v5_moon.py"
+      ],
+      "651c347c7808e07ab31ad69a5aaf589d55f0de727bdd3cd9ffbbeabcf52278b4": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/omega_archive.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/Master_Blueprints/omega_archive.py"
+      ],
+      "0336942c1548b76b2fdce884e575b584001f2779d9e70584c7271c1aa1d5a9d6": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/modal_hunt.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/Master_Blueprints/modal_hunt.py"
+      ],
+      "246d53c02f39a4de644245a1139eb4fb15e805a7b34e19402caf28c510ad456c": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v7_moonshot.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v7_moonshot.py"
+      ],
+      "87c99c8da442716718cdfddf1c81b7a5b57b137783cd71c3d4a1bfbf8c0d0534": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D06_RANDOM_FUTURES/vanguard_v7_shadow.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/vanguard_v7_shadow.py"
+      ],
+      "06c81bb84afe8bda2ac79de13c171da85dc1ec81e18b68a1a6df89ede8afd951": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D07_ARCHIVE_SCROLLS/logs.txt",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_46/WASHING_HARVEST_STAGING/logs.txt"
+      ],
+      "fd24cf0b419e91ac481f4562a5d81c2c6477f3469f18c6b94315921fb1dd4abe": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D07_ARCHIVE_SCROLLS/vanguard_pulse.log",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_46/WASHING_HARVEST_STAGING/vanguard_pulse.log"
+      ],
+      "0ea7cf1d885ad4976e0150df9dce6ffc37f00cf7db07e24b2b2e886ad0493c46": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D07_ARCHIVE_SCROLLS/hounds.log",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_46/WASHING_HARVEST_STAGING/hounds.log"
+      ],
+      "201a88407c6a8f041f93af39b208013b259b2bfeac3c838270e4eb7786aa288f": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/tias_sentinel_swarm.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/backend/tias_sentinel_swarm.py"
+      ],
+      "752c758b917f64f71b8b6e536e9b2c08817494ccef50f864c7427c1fd8edcec6": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/tia_sos.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_02/tia_sos.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/backend/tia_sos.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/tia_sos.py"
+      ],
+      "96d3eb2c9e44138d001b8b2aa8a9bd121042aaeea28f2d956a095fe793e9e10a": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/tias_pioneer_trader.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/backend/tias_pioneer_trader.py"
+      ],
+      "7fcf58794f4dd8dc93c4412dd084881d450f90957c184d94ed94f792510e1dba": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/tia_atomic.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_02/tia_atomic.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/backend/tia_atomic.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/tia_atomic.py"
+      ],
+      "14b29705d8f01c9230fbcb39aa893ffc769329da594e16688ff2e7cb7d610497": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Districts/D02_TIA_VAULT/tia_architect.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/backend/tia_architect.py"
+      ],
+      "fc82b12a09d94c9fbb5f588f975e1ef05cff4747f9d8019a85a60005a800c9b9": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/tia-architect-core-templates/scripts/download_citadel_omega_models.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/download_citadel_omega_models.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/models/scripts/download_citadel_omega_models.py"
+      ],
+      "ee307f388fdb76386b5a4e375673d968fee5faa4202713f8f217db89dbb0468c": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/tia-architect-core-templates/scripts/download_frontier_models_2026.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/download_frontier_models_2026.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/models/scripts/download_frontier_models_2026.py"
+      ],
+      "36814860a21b8c9d99598ad0339891ab969fc2681a47b83aa43f4c7beaaf3e36": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/tia-architect-core-templates/workers/worker_watchdog.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/worker_watchdog.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/workers/worker_watchdog.py"
+      ],
+      "ca8b36fd418cc4141dff6cf405c6bab8a2083b86455edf641660d66906b3310a": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/tia-architect-core-templates/workers/apps_script_toolbox.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/workers/apps_script_toolbox.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/apps_script_toolbox.py"
+      ],
+      "a046840cad8188a6c2f53d929a6a0c097300a05b1ee70dc7e75e581257982546": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/tia-architect-core-templates/workers/README.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/workers/README.md",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/Partition_01/README_APPS_SCRIPT.md"
+      ],
+      "f72369a3a10f7cf0ccb7c43b0e82169ef18bf7c12d32f6e7e7074d14aa42d879": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/tia-architect-core-templates/workers/self_healing_worker.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/self_healing_worker.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/workers/self_healing_worker.py"
+      ],
+      "e30704a9a85356f78bed7e3ce73838f331ce3027815500024904b11bc8b6dbff": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/check_tia_status.sh",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/deployment/check_tia_status.sh"
+      ],
+      "53d6be2cbf269064f6b5a3e1fe7f6e14ac05372ad16cd50a616a5eb3ad6a666a": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/repair_tia_core_space.sh",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/deployment/repair_tia_core_space.sh"
+      ],
+      "ef7b0a3fbb337fa13f2040fa2246ca9a3102f16c8a3662a3d3985bff8dcc2701": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/wake_up_tia.py",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/backend/wake_up_tia.py"
+      ],
+      "fa5c634c625d2f74230f135212de2a0b83b7041cc1cf6f56ee60280c3ff50e2c": [
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/repair_tia_architect_core.sh",
+        "/home/runner/work/mapping-and-inventory/mapping-and-inventory/TIA_MASTER_BUILD/deployment/repair_tia_architect_core.sh"
+      ]
+    },
+    "missing_artifacts": []
+  },
+  "recommendations": [
+    "\ud83d\udea8 CRITICAL: Infected files found and quarantined. Review quarantine directory.",
+    "\ud83d\udcbe INFO: 67 duplicate file sets found. Consider deduplication."
+  ]
+}
