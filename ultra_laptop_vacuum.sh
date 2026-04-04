@@ -101,10 +101,25 @@ echo -e "${GREEN}✅ Starting Ultra Laptop Vacuum...${NC}"
 echo ""
 
 # ============================================================================
-# PHASE 0A: SYSTEM PROFILING (Index/Librarian the system)
+# PHASE 0A: HARDWARE FORENSICS (Hidden SSD - PRIORITY!)
 # ============================================================================
 echo -e "${CYAN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║ PHASE 0A: System Profiling (Hardware/Software Indexing)          ║${NC}"
+echo -e "${CYAN}║ PHASE 0A: Hardware Forensics (Hidden SSD Detection - PRIORITY)   ║${NC}"
+echo -e "${CYAN}╚═══════════════════════════════════════════════════════════════════╝${NC}"
+echo ""
+
+echo -e "${YELLOW}🔬 Scanning for hidden SSD and RAM chips...${NC}"
+python3 "$REPO_ROOT/scripts/hardware_forensics.py" --mount-hidden --extract-all || {
+  echo -e "${YELLOW}⚠️  Hardware forensics failed or no hidden SSD found - continuing${NC}"
+}
+
+echo ""
+
+# ============================================================================
+# PHASE 0B: SYSTEM PROFILING (Index/Librarian the system)
+# ============================================================================
+echo -e "${CYAN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
+echo -e "${CYAN}║ PHASE 0B: System Profiling (Hardware/Software Indexing)          ║${NC}"
 echo -e "${CYAN}╚═══════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -116,10 +131,10 @@ python3 "$REPO_ROOT/scripts/system_librarian.py" || {
 echo ""
 
 # ============================================================================
-# PHASE 0B: MASTER_MERGE_2 INTELLIGENCE EXTRACTION
+# PHASE 0C: MASTER_MERGE_2 INTELLIGENCE EXTRACTION
 # ============================================================================
 echo -e "${CYAN}╔═══════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║ PHASE 0B: MASTER_MERGE_2 Intelligence (LOOK HERE FIRST)          ║${NC}"
+echo -e "${CYAN}║ PHASE 0C: MASTER_MERGE_2 Intelligence (LOOK HERE FIRST)          ║${NC}"
 echo -e "${CYAN}╚═══════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 
