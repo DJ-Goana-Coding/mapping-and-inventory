@@ -1,0 +1,116 @@
+name: Mobile Citadel Sync
+on:
+  # Manual trigger for sync operations
+  workflow_dispatch:
+    inputs:
+      sync_mode:
+        description: 'Sync mode'
+        required: true
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - pull_only
+          - push_only
+          - full_sync
+  
+  # Scheduled check every 6 hours
+  schedule:
+    - cron: "0 */6 * * *"
+  
+  # On push to main (but will check connectivity first)
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  connectivity_check:
+    runs-on: ubuntu-latest
+    outputs:
+      is_online: ${{ steps.check.outputs.is_online }}
+      github_available: ${{ steps.check.outputs.github_available }}
+      bandwidth_quality: ${{ steps.check.outputs.bandwidth_quality }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Check Connectivity
+        id: check
+        run: |
+          python3 scripts/mobile_citadel/connectivity_detector.py
+          if [ -f /tmp/connectivity_check.json ]; then
+            cat /tmp/connectivity_check.json
+            IS_ONLINE=$(jq -r '.is_online' /tmp/connectivity_check.json)
+            GITHUB_AVAIL=$(jq -r '.github_available' /tmp/connectivity_check.json)
+            BANDWIDTH=$(jq -r '.bandwidth_quality' /tmp/connectivity_check.json)
+            
+            echo "is_online=$IS_ONLINE" >> $GITHUB_OUTPUT
+            echo "github_available=$GITHUB_AVAIL" >> $GITHUB_OUTPUT
+            echo "bandwidth_quality=$BANDWIDTH" >> $GITHUB_OUTPUT
+          else
+            echo "is_online=true" >> $GITHUB_OUTPUT
+            echo "github_available=true" >> $GITHUB_OUTPUT
+            echo "bandwidth_quality=good" >> $GITHUB_OUTPUT
+          fi
+  
+  sync_operations:
+    needs: connectivity_check
+    runs-on: ubuntu-latest
+    if: needs.connectivity_check.outputs.is_online == 'true' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT || github.token }}
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Display Connectivity Status
+        run: |
+          echo "🌐 Connectivity Status:"
+          echo "  Online: ${{ needs.connectivity_check.outputs.is_online }}"
+          echo "  GitHub Available: ${{ needs.connectivity_check.outputs.github_available }}"
+          echo "  Bandwidth: ${{ needs.connectivity_check.outputs.bandwidth_quality }}"
+      
+      - name: Process Sync Queue
+        run: |
+          echo "📦 Processing sync queue..."
+          python3 scripts/mobile_citadel/sync_queue_manager.py stats
+      
+      - name: Execute Sync Window
+        env:
+          BANDWIDTH_QUALITY: ${{ needs.connectivity_check.outputs.bandwidth_quality }}
+        run: |
+          echo "🔄 Executing sync operations..."
+          # Adjust batch size based on bandwidth
+          if [ "$BANDWIDTH_QUALITY" = "excellent" ]; then
+            MAX_OPS=20
+          elif [ "$BANDWIDTH_QUALITY" = "good" ]; then
+            MAX_OPS=10
+          else
+            MAX_OPS=5
+          fi
+          
+          echo "  Max operations: $MAX_OPS"
+          python3 scripts/mobile_citadel/bridge_agent_mobile.py sync
+      
+      - name: Generate Mobile Report
+        if: always()
+        run: |
+          python3 scripts/mobile_citadel/bridge_agent_mobile.py report
+      
+      - name: Upload Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mobile-citadel-reports
+          path: |
+            /tmp/connectivity_state.json
+            /tmp/mobile_bridge_state.json
+          retention-days: 30
