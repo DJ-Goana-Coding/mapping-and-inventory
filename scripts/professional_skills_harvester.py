@@ -1,0 +1,522 @@
+#!/usr/bin/env python3
+"""
+💼 PROFESSIONAL SKILLS HARVESTER v1.0
+Comprehensive Professional Skills Mapping Agent
+
+Mission: Catalog all professions across light and dark domains
+Scope: Engineering, medicine, security, hacking, intelligence, arts, trades
+
+Output: data/discoveries/professional_skills_matrix.json
+"""
+
+import json
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List
+
+class ProfessionalSkillsHarvester:
+    """Harvest and catalog all professional skills and career paths"""
+    
+    def __init__(self):
+        self.base_path = Path(__file__).parent.parent
+        self.output_dir = self.base_path / "data" / "discoveries"
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        
+        self.skills_data = {
+            "meta": {
+                "agent": "Professional Skills Harvester",
+                "version": "1.0",
+                "timestamp": datetime.utcnow().isoformat(),
+                "mission": "Comprehensive Professional Skills & Career Path Mapping"
+            },
+            "categories": {}
+        }
+    
+    def harvest_light_professions(self) -> Dict:
+        """Harvest constructive, beneficial professional skills"""
+        return {
+            "Technology_Engineering": {
+                "Software_Development": {
+                    "skills": ["Python", "JavaScript", "Java", "C++", "C#", "Go", "Rust"],
+                    "specializations": [
+                        "Frontend (React, Vue, Angular, Svelte)",
+                        "Backend (Node.js, Django, Flask, FastAPI, Spring)",
+                        "Mobile (iOS, Android, React Native, Flutter)",
+                        "DevOps (Docker, Kubernetes, CI/CD, Terraform)",
+                        "Cloud (AWS, Azure, GCP, DigitalOcean)",
+                        "Database (SQL, NoSQL, PostgreSQL, MongoDB, Redis)",
+                        "AI/ML (TensorFlow, PyTorch, scikit-learn, Transformers)"
+                    ],
+                    "certifications": ["AWS Certified", "Azure Certified", "Google Cloud Certified"],
+                    "avg_salary": "$80,000-$200,000+"
+                },
+                "Data_Science_ML": {
+                    "skills": ["Python", "R", "Statistics", "ML algorithms", "Deep learning"],
+                    "specializations": [
+                        "Machine Learning Engineer",
+                        "Data Scientist",
+                        "ML Research Scientist",
+                        "Computer Vision Engineer",
+                        "NLP Engineer",
+                        "Reinforcement Learning Specialist"
+                    ],
+                    "tools": ["Jupyter", "pandas", "NumPy", "scikit-learn", "TensorFlow", "PyTorch"],
+                    "avg_salary": "$100,000-$250,000+"
+                },
+                "Hardware_Engineering": {
+                    "disciplines": [
+                        "Electrical Engineering (circuits, power systems)",
+                        "Computer Engineering (processors, embedded systems)",
+                        "Robotics Engineering",
+                        "IoT Development",
+                        "FPGA/ASIC Design"
+                    ],
+                    "skills": ["Circuit design", "PCB design", "Microcontrollers", "VHDL/Verilog"],
+                    "tools": ["KiCad", "Altium", "EAGLE", "LTSpice"],
+                    "avg_salary": "$75,000-$150,000"
+                },
+                "Network_Engineering": {
+                    "skills": ["TCP/IP", "Routing", "Switching", "Firewall", "VPN", "SDN"],
+                    "certifications": ["Cisco CCNA", "CCNP", "CCIE", "CompTIA Network+"],
+                    "specializations": ["Network architect", "Network admin", "Wireless specialist"],
+                    "avg_salary": "$70,000-$140,000"
+                }
+            },
+            "Healthcare_Medical": {
+                "Physicians": {
+                    "specialties": [
+                        "General Practice / Family Medicine",
+                        "Internal Medicine",
+                        "Pediatrics",
+                        "Surgery (general, orthopedic, cardiac, neuro)",
+                        "Emergency Medicine",
+                        "Anesthesiology",
+                        "Radiology",
+                        "Oncology"
+                    ],
+                    "education": "Medical degree (MD/DO) + residency (3-7 years)",
+                    "avg_salary": "$200,000-$500,000+"
+                },
+                "Nursing": {
+                    "levels": [
+                        "CNA (Certified Nursing Assistant)",
+                        "LPN/LVN (Licensed Practical Nurse)",
+                        "RN (Registered Nurse)",
+                        "NP (Nurse Practitioner)",
+                        "CRNA (Certified Registered Nurse Anesthetist)"
+                    ],
+                    "specializations": ["ICU", "ER", "Pediatrics", "OR", "Home health"],
+                    "avg_salary": "$50,000-$150,000+"
+                },
+                "Allied_Health": {
+                    "professions": [
+                        "Physical Therapy",
+                        "Occupational Therapy",
+                        "Respiratory Therapy",
+                        "Medical Laboratory Scientist",
+                        "Radiologic Technologist",
+                        "Pharmacy Technician"
+                    ],
+                    "avg_salary": "$45,000-$100,000"
+                }
+            },
+            "Education_Research": {
+                "Teaching": {
+                    "levels": [
+                        "Preschool/Kindergarten",
+                        "Elementary (K-5)",
+                        "Middle School (6-8)",
+                        "High School (9-12)",
+                        "College/University Professor"
+                    ],
+                    "specializations": ["STEM", "Special Education", "ESL", "Art", "Music", "PE"],
+                    "requirements": "Bachelor's degree, teaching credential",
+                    "avg_salary": "$45,000-$100,000"
+                },
+                "Academic_Research": {
+                    "fields": ["Physics", "Chemistry", "Biology", "Mathematics", "Social Sciences"],
+                    "positions": ["Postdoc", "Research Scientist", "Principal Investigator", "Lab Director"],
+                    "avg_salary": "$50,000-$150,000+"
+                }
+            },
+            "Creative_Arts": {
+                "Visual_Arts": {
+                    "disciplines": ["Painting", "Sculpture", "Photography", "Digital art", "Illustration"],
+                    "careers": ["Fine artist", "Graphic designer", "Art director", "Gallery curator"],
+                    "tools": ["Photoshop", "Illustrator", "Procreate", "Blender", "3ds Max"],
+                    "avg_salary": "$35,000-$100,000+ (highly variable)"
+                },
+                "Music": {
+                    "roles": ["Musician/Performer", "Composer", "Producer", "Audio engineer", "Music teacher"],
+                    "specializations": ["Classical", "Jazz", "Rock", "Electronic", "Film scoring"],
+                    "tools": ["DAWs (Ableton, Logic, Pro Tools)", "Notation software (Sibelius, Finale)"],
+                    "avg_salary": "$30,000-$150,000+ (highly variable)"
+                },
+                "Writing": {
+                    "types": [
+                        "Creative writing (fiction, poetry)",
+                        "Technical writing",
+                        "Copywriting",
+                        "Journalism",
+                        "Content writing",
+                        "Screenwriting"
+                    ],
+                    "avg_salary": "$40,000-$100,000+"
+                }
+            },
+            "Trades_Skilled_Labor": {
+                "Construction": {
+                    "trades": [
+                        "Carpenter",
+                        "Electrician",
+                        "Plumber",
+                        "HVAC technician",
+                        "Mason",
+                        "Welder",
+                        "Heavy equipment operator"
+                    ],
+                    "certifications": "Trade-specific licenses/certifications",
+                    "avg_salary": "$45,000-$90,000"
+                },
+                "Automotive": {
+                    "roles": [
+                        "Automotive technician/mechanic",
+                        "Diesel mechanic",
+                        "Auto body repair",
+                        "Performance tuning specialist"
+                    ],
+                    "certifications": ["ASE certification"],
+                    "avg_salary": "$40,000-$70,000"
+                }
+            }
+        }
+    
+    def harvest_dark_professions(self) -> Dict:
+        """Harvest security, intelligence, and defensive skills (ethical 'dark arts')"""
+        return {
+            "Cybersecurity_Offensive": {
+                "Penetration_Testing": {
+                    "description": "Ethical hacking to test security defenses",
+                    "skills": [
+                        "Network scanning (Nmap, Masscan)",
+                        "Vulnerability assessment (Nessus, OpenVAS)",
+                        "Exploitation (Metasploit, custom exploits)",
+                        "Web app testing (Burp Suite, OWASP ZAP)",
+                        "Social engineering",
+                        "Wireless hacking (Aircrack-ng)",
+                        "Password cracking (John the Ripper, Hashcat)"
+                    ],
+                    "certifications": [
+                        "CEH (Certified Ethical Hacker)",
+                        "OSCP (Offensive Security Certified Professional)",
+                        "GPEN (GIAC Penetration Tester)",
+                        "PNPT (Practical Network Penetration Tester)"
+                    ],
+                    "tools": ["Kali Linux", "Metasploit", "Burp Suite", "Wireshark", "Ghidra", "IDA Pro"],
+                    "avg_salary": "$90,000-$180,000+",
+                    "ethics": "MUST have explicit permission to test, follow rules of engagement"
+                },
+                "Red_Team_Operations": {
+                    "description": "Simulated adversary attacks on organizations",
+                    "skills": [
+                        "Advanced persistent threat (APT) simulation",
+                        "Physical security breaching",
+                        "Social engineering campaigns",
+                        "Command and control (C2) infrastructure",
+                        "Evasion techniques (AV, EDR bypass)",
+                        "Credential dumping and lateral movement",
+                        "Custom tooling development"
+                    ],
+                    "certifications": ["OSCP", "OSCE", "GXPN", "CRTO (Certified Red Team Operator)"],
+                    "tools": ["Cobalt Strike", "Empire", "BloodHound", "Mimikatz", "Havoc C2"],
+                    "avg_salary": "$100,000-$200,000+",
+                    "ethics": "Legal authorization required, Rules of Engagement (RoE) mandatory"
+                },
+                "Vulnerability_Research": {
+                    "description": "Finding 0-day vulnerabilities in software/hardware",
+                    "skills": [
+                        "Reverse engineering",
+                        "Fuzzing (AFL, LibFuzzer)",
+                        "Binary exploitation",
+                        "Code auditing",
+                        "Assembly (x86, ARM)",
+                        "Exploit development"
+                    ],
+                    "certifications": ["OSCE", "GXPN", "GWAPT"],
+                    "tools": ["Ghidra", "IDA Pro", "Binary Ninja", "AFL++", "Radare2"],
+                    "avg_salary": "$120,000-$250,000+",
+                    "ethics": "Responsible disclosure, bug bounty programs"
+                }
+            },
+            "Intelligence_OSINT": {
+                "Open_Source_Intelligence": {
+                    "description": "Gathering intelligence from publicly available sources",
+                    "skills": [
+                        "Google dorking / advanced search",
+                        "Social media intelligence (SOCMINT)",
+                        "WHOIS / DNS enumeration",
+                        "Metadata analysis (EXIF, document metadata)",
+                        "Geolocation (GEOINT)",
+                        "Dark web monitoring",
+                        "Data aggregation and correlation"
+                    ],
+                    "tools": [
+                        "Maltego (link analysis)",
+                        "Shodan (IoT/device search)",
+                        "theHarvester (email/domain enum)",
+                        "Recon-ng (OSINT framework)",
+                        "SpiderFoot (automation)",
+                        "OSINT Framework (resource directory)"
+                    ],
+                    "certifications": ["GOSI (GIAC Open Source Intelligence)"],
+                    "avg_salary": "$70,000-$140,000",
+                    "applications": ["Threat intelligence", "Investigations", "Due diligence", "Journalism"],
+                    "ethics": "Use publicly available information only, respect privacy laws"
+                },
+                "Threat_Intelligence": {
+                    "description": "Analyzing cyber threats and adversary tactics",
+                    "skills": [
+                        "Malware analysis",
+                        "Indicator of Compromise (IOC) identification",
+                        "Threat actor profiling",
+                        "MITRE ATT&CK framework",
+                        "Dark web monitoring",
+                        "Threat modeling"
+                    ],
+                    "tools": ["MISP", "OpenCTI", "ThreatConnect", "Recorded Future", "Mandiant"],
+                    "certifications": ["GCTI (GIAC Cyber Threat Intelligence)"],
+                    "avg_salary": "$90,000-$160,000"
+                },
+                "Digital_Forensics": {
+                    "description": "Investigating digital crimes and incidents",
+                    "skills": [
+                        "Disk imaging and acquisition",
+                        "File system analysis (NTFS, ext4, APFS)",
+                        "Memory forensics (RAM analysis)",
+                        "Network forensics (packet analysis)",
+                        "Mobile forensics (iOS, Android)",
+                        "Malware forensics",
+                        "Chain of custody and evidence handling"
+                    ],
+                    "tools": [
+                        "Autopsy (open source)",
+                        "FTK (Forensic Toolkit)",
+                        "EnCase",
+                        "Volatility (memory forensics)",
+                        "Wireshark (network analysis)",
+                        "Cellebrite (mobile forensics)"
+                    ],
+                    "certifications": [
+                        "GCFE (GIAC Certified Forensic Examiner)",
+                        "GCFA (GIAC Certified Forensic Analyst)",
+                        "EnCE (EnCase Certified Examiner)",
+                        "CHFI (Computer Hacking Forensic Investigator)"
+                    ],
+                    "avg_salary": "$80,000-$150,000",
+                    "applications": ["Criminal investigations", "Incident response", "Litigation support"]
+                }
+            },
+            "Reverse_Engineering": {
+                "Malware_Analysis": {
+                    "description": "Analyzing malicious software to understand behavior",
+                    "skills": [
+                        "Static analysis (disassembly)",
+                        "Dynamic analysis (sandboxing)",
+                        "Debugging (x64dbg, WinDbg, GDB)",
+                        "Decompilation",
+                        "Unpacking and de-obfuscation",
+                        "IOC extraction",
+                        "YARA rule creation"
+                    ],
+                    "tools": [
+                        "IDA Pro / Ghidra (disassembler)",
+                        "Cuckoo Sandbox / ANY.RUN (dynamic analysis)",
+                        "x64dbg / OllyDbg (debugger)",
+                        "PE-bear / PEStudio (PE analysis)",
+                        "Wireshark / TCPDump (network behavior)",
+                        "YARA (pattern matching)"
+                    ],
+                    "certifications": ["GREM (GIAC Reverse Engineering Malware)"],
+                    "avg_salary": "$100,000-$180,000"
+                },
+                "Software_Reverse_Engineering": {
+                    "description": "Understanding compiled software without source code",
+                    "applications": [
+                        "Security auditing",
+                        "Vulnerability research",
+                        "Compatibility analysis",
+                        "Legacy system maintenance",
+                        "Malware analysis"
+                    ],
+                    "skills": ["Assembly (x86, ARM)", "C/C++", "Debugging", "Binary analysis"],
+                    "tools": ["Ghidra", "IDA Pro", "Binary Ninja", "Radare2", "Hopper"],
+                    "avg_salary": "$110,000-$190,000"
+                }
+            },
+            "Physical_Security": {
+                "Lockpicking_Physical_Penetration": {
+                    "description": "Physical security testing and bypass",
+                    "skills": [
+                        "Lock picking (pin tumbler, wafer, tubular)",
+                        "Bypass techniques",
+                        "Safe cracking",
+                        "RFID/NFC cloning and attacks",
+                        "Social engineering (tailgating, pretexting)",
+                        "Alarm system analysis"
+                    ],
+                    "tools": [
+                        "Lock pick sets (Sparrows, Peterson)",
+                        "Bump keys",
+                        "RFID cloners (Proxmark3)",
+                        "Flipper Zero (multi-tool)",
+                        "Thermal cameras"
+                    ],
+                    "communities": ["TOOOL (The Open Organisation Of Lockpickers)", "Lockpicking subreddit"],
+                    "ethics": "ONLY on locks you own or have permission to test",
+                    "legal": "Possession of lockpicks legal in most areas, but intent matters",
+                    "avg_salary": "$80,000-$150,000 (as part of red team/pentesting)"
+                }
+            },
+            "Cryptography_Cryptanalysis": {
+                "Cryptography": {
+                    "description": "Designing and implementing secure cryptographic systems",
+                    "skills": [
+                        "Symmetric encryption (AES, ChaCha20)",
+                        "Asymmetric encryption (RSA, ECC)",
+                        "Hash functions (SHA-256, SHA-3, Blake3)",
+                        "Key exchange (Diffie-Hellman, ECDH)",
+                        "Digital signatures",
+                        "Post-quantum cryptography",
+                        "Zero-knowledge proofs"
+                    ],
+                    "libraries": ["OpenSSL", "libsodium", "Crypto++", "PyCryptodome"],
+                    "certifications": ["GCUX (GIAC Certified UNIX Security Administrator - crypto modules)"],
+                    "avg_salary": "$100,000-$180,000"
+                },
+                "Cryptanalysis": {
+                    "description": "Breaking or analyzing cryptographic systems",
+                    "skills": [
+                        "Frequency analysis",
+                        "Known-plaintext attacks",
+                        "Chosen-plaintext attacks",
+                        "Side-channel attacks (timing, power analysis)",
+                        "Differential cryptanalysis",
+                        "Mathematical cryptanalysis"
+                    ],
+                    "applications": ["Security research", "Military/intelligence", "Academic research"],
+                    "avg_salary": "$120,000-$200,000+ (NSA, academia, private sector)"
+                }
+            }
+        }
+    
+    def harvest_hybrid_professions(self) -> Dict:
+        """Harvest professions that blend multiple skill domains"""
+        return {
+            "Blockchain_Web3": {
+                "Smart_Contract_Developer": {
+                    "skills": ["Solidity", "Rust", "Move", "Web3.js", "Ethers.js", "Security auditing"],
+                    "blockchains": ["Ethereum", "Solana", "Polygon", "Avalanche", "Binance Smart Chain"],
+                    "tools": ["Hardhat", "Foundry", "Truffle", "Remix", "Tenderly"],
+                    "certifications": ["Certified Blockchain Developer", "Certified Ethereum Developer"],
+                    "avg_salary": "$100,000-$250,000+",
+                    "specializations": ["DeFi", "NFTs", "DAOs", "Gaming (GameFi)", "Smart contract auditing"]
+                },
+                "Security_Auditor": {
+                    "description": "Auditing smart contracts for vulnerabilities",
+                    "skills": ["Solidity security patterns", "Common vulnerabilities (reentrancy, overflow, etc.)", "Formal verification"],
+                    "tools": ["Slither", "Mythril", "Echidna (fuzzing)", "Certora (formal verification)"],
+                    "avg_salary": "$120,000-$300,000+",
+                    "demand": "Extremely high, critical for DeFi protocols"
+                }
+            },
+            "DevSecOps": {
+                "description": "Integrating security into DevOps pipelines",
+                "skills": [
+                    "CI/CD security",
+                    "Container security (Docker, Kubernetes)",
+                    "Infrastructure as Code (IaC) security",
+                    "Secrets management (Vault, AWS Secrets Manager)",
+                    "SAST/DAST tools integration",
+                    "Cloud security (AWS, Azure, GCP)"
+                ],
+                "tools": ["Snyk", "Aqua Security", "Prisma Cloud", "Trivy", "GitLab/GitHub security scanning"],
+                "certifications": ["AWS Security Specialty", "Certified Kubernetes Security Specialist"],
+                "avg_salary": "$100,000-$180,000"
+            },
+            "AI_ML_Security": {
+                "Adversarial_ML": {
+                    "description": "Testing and securing ML models against attacks",
+                    "skills": [
+                        "Adversarial examples generation",
+                        "Model poisoning attacks",
+                        "Model inversion attacks",
+                        "Membership inference attacks",
+                        "Differential privacy"
+                    ],
+                    "tools": ["CleverHans", "Foolbox", "ART (Adversarial Robustness Toolbox)"],
+                    "avg_salary": "$120,000-$220,000+"
+                }
+            },
+            "Quantum_Computing": {
+                "skills": ["Quantum algorithms", "Qiskit", "Cirq", "Q#", "Quantum error correction"],
+                "applications": ["Cryptography", "Optimization", "Simulation", "Machine learning"],
+                "companies": ["IBM Quantum", "Google Quantum AI", "IonQ", "Rigetti"],
+                "avg_salary": "$130,000-$250,000+ (emerging field)",
+                "status": "Early stage, high growth potential"
+            }
+        }
+    
+    def run_harvesting(self):
+        """Execute full professional skills harvesting"""
+        print("💼 PROFESSIONAL SKILLS HARVESTER v1.0")
+        print("=" * 80)
+        print()
+        
+        print("🌟 Harvesting Light Professions (Constructive)...")
+        self.skills_data["categories"]["light"] = self.harvest_light_professions()
+        light_count = sum(len(domain) for domain in self.skills_data["categories"]["light"].values())
+        print(f"   ✅ Cataloged {light_count} light profession categories")
+        print()
+        
+        print("🕵️ Harvesting Dark Professions (Security/Defense)...")
+        self.skills_data["categories"]["dark"] = self.harvest_dark_professions()
+        dark_count = sum(len(domain) for domain in self.skills_data["categories"]["dark"].values())
+        print(f"   ✅ Cataloged {dark_count} dark profession categories")
+        print()
+        
+        print("⚡ Harvesting Hybrid Professions...")
+        self.skills_data["categories"]["hybrid"] = self.harvest_hybrid_professions()
+        hybrid_count = len(self.skills_data["categories"]["hybrid"])
+        print(f"   ✅ Cataloged {hybrid_count} hybrid profession categories")
+        print()
+        
+        # Save skills data
+        output_file = self.output_dir / "professional_skills_matrix.json"
+        with open(output_file, 'w') as f:
+            json.dump(self.skills_data, f, indent=2)
+        
+        print(f"💾 Skills data saved to: {output_file}")
+        print()
+        
+        # Generate summary
+        print("📊 HARVESTING SUMMARY")
+        print("=" * 80)
+        total = light_count + dark_count + hybrid_count
+        print(f"Total Professional Categories: {total}")
+        print(f"  • Light (Constructive): {light_count}")
+        print(f"  • Dark (Security/Defense): {dark_count}")
+        print(f"  • Hybrid (Emerging): {hybrid_count}")
+        print()
+        print("Salary Ranges:")
+        print("  • Entry-level: $40,000-$70,000")
+        print("  • Mid-level: $70,000-$120,000")
+        print("  • Senior/Expert: $120,000-$250,000+")
+        print("  • Top-tier (AI, Security, Blockchain): $200,000-$500,000+")
+        print()
+        print("✅ Professional skills harvesting complete!")
+        
+        return self.skills_data
+
+if __name__ == "__main__":
+    harvester = ProfessionalSkillsHarvester()
+    harvester.run_harvesting()
