@@ -1,0 +1,77 @@
+# ═══════════════════════════════════════════════════════════════════
+# T.I.A. MASTER BUILD - UNIFIED REQUIREMENTS
+# Python 3.13 Compatible Dependencies
+# Build Date: 2026-04-04
+# ═══════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────
+# FRONTEND (Streamlit UI)
+# ─────────────────────────────────────────────────────────────────
+streamlit>=1.42.0                # Streamlit framework (Python 3.13 compatible)
+plotly>=5.18.0                   # Interactive visualizations
+altair>=5.2.0                    # Declarative visualizations
+
+# ─────────────────────────────────────────────────────────────────
+# AI/LLM INTEGRATION
+# ─────────────────────────────────────────────────────────────────
+google-genai>=0.8.0              # Gemini 2.0 Flash oracle integration
+huggingface-hub>=0.28.0          # Model downloads & HF Space integration
+
+# ─────────────────────────────────────────────────────────────────
+# VECTOR SEARCH & RAG
+# ─────────────────────────────────────────────────────────────────
+sentence-transformers>=3.3.1     # Embeddings & semantic search
+faiss-cpu>=1.9.0.post1           # Vector similarity search (CPU version)
+# For GPU: faiss-gpu>=1.9.0.post1
+
+# ─────────────────────────────────────────────────────────────────
+# DATA PROCESSING
+# ─────────────────────────────────────────────────────────────────
+numpy>=2.0.0                     # Pre-built wheels for Python 3.13
+pandas>=2.2.0                    # Data manipulation (Python 3.13 compatible)
+setuptools>=75.0.0               # pkg_resources fix for Python 3.13
+
+# ─────────────────────────────────────────────────────────────────
+# TRADING & FINANCE
+# ─────────────────────────────────────────────────────────────────
+transformers>=4.47.0             # FinBERT, CryptoBERT, RoBERTa
+ccxt>=4.5.0                      # Crypto exchange integration (MEXC, Binance)
+pandas-ta>=0.3.14b               # Technical analysis indicators
+
+# ─────────────────────────────────────────────────────────────────
+# UTILITIES
+# ─────────────────────────────────────────────────────────────────
+requests>=2.32.3                 # HTTP requests
+python-dotenv>=1.0.1             # Environment variables
+pyyaml>=6.0.2                    # YAML parsing
+toml>=0.10.2                     # TOML parsing
+aiohttp>=3.11.0                  # Async HTTP client
+
+# ─────────────────────────────────────────────────────────────────
+# GOOGLE WORKSPACE (Apps Script Integration)
+# ─────────────────────────────────────────────────────────────────
+google-api-python-client>=2.162.0
+google-auth>=2.37.0
+google-auth-oauthlib>=1.2.1
+google-auth-httplib2>=0.2.0
+
+# ─────────────────────────────────────────────────────────────────
+# DEVELOPMENT & MONITORING
+# ─────────────────────────────────────────────────────────────────
+watchdog>=6.0.0                  # File system monitoring
+psutil>=6.1.1                    # System monitoring
+
+# ─────────────────────────────────────────────────────────────────
+# OPTIONAL: ADVANCED MODELS (Uncomment if needed)
+# ─────────────────────────────────────────────────────────────────
+# torch>=2.5.0                   # PyTorch (for local model inference)
+# accelerate>=1.2.0              # Model acceleration
+# bitsandbytes>=0.45.0           # Quantization (4-bit, 8-bit models)
+# llama-cpp-python>=0.3.6        # GGUF quantized models (Q4_K_M, Q5_K_M)
+
+# ─────────────────────────────────────────────────────────────────
+# OPTIONAL: AGENTIC FRAMEWORKS (Uncomment if needed)
+# ─────────────────────────────────────────────────────────────────
+# smolagents>=1.0.0              # HuggingFace agentic framework
+# llama-index>=0.12.0            # RAG & agentic orchestration
+# langchain>=0.3.14              # Agentic chains
