@@ -1,7 +1,7 @@
 {
   "account": "chancemather@yahoo.com",
   "provider": "yahoo",
-  "extraction_date": "2026-04-04T04:21:14.528268",
+  "extraction_date": "2026-04-04T06:21:11.536931",
   "status": "success",
   "statistics": {
     "total_emails": 987,
@@ -10,7 +10,7 @@
     "total_size_mb": 1234.56,
     "date_range": {
       "earliest": "2016-06-01T00:00:00Z",
-      "latest": "2026-04-04T04:21:14.528272"
+      "latest": "2026-04-04T06:21:11.536934"
     }
   },
   "folders": [

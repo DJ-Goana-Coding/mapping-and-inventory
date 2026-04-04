@@ -2,7 +2,7 @@
   "account": "hippy@carpkingdom.com",
   "provider": "imap",
   "server": "mail.carpkingdom.com",
-  "extraction_date": "2026-04-04T04:21:14.529439",
+  "extraction_date": "2026-04-04T06:21:11.538204",
   "status": "success",
   "statistics": {
     "total_emails": 543,
@@ -11,7 +11,7 @@
     "total_size_mb": 876.54,
     "date_range": {
       "earliest": "2018-03-01T00:00:00Z",
-      "latest": "2026-04-04T04:21:14.529442"
+      "latest": "2026-04-04T06:21:11.538208"
     }
   },
   "folders": [
