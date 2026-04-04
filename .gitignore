@@ -44,6 +44,32 @@ omni_map.json
 config
 rclone.conf
 
+# Quantum Vault - NEVER COMMIT UNENCRYPTED CREDENTIALS
+*.vault
+*.vault.json
+*_vault.json
+data/security/*.json
+data/security/*.key
+data/security/*.pem
+data/security/google_drive_credentials.json
+!data/security/.gitkeep
+
+# Encrypted vaults are OK to commit
+!data/security/*.vault.enc
+!data/security/credentials.vault.enc
+
+# OAuth tokens and API keys
+token.json
+*.token
+client_secret*.json
+service_account*.json
+
+# Email/GDrive harvest data (may contain sensitive info)
+data/personal_archive/email_harvest_report.json
+data/personal_archive/gdrive_harvest_report.json
+data/personal_archive/devices/laptop/*
+!data/personal_archive/devices/laptop/.gitkeep
+
 # RAG vector store (generated artifacts)
 rag_store/
 
