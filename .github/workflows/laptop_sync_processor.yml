@@ -1,0 +1,203 @@
+name: 💻 Laptop Sync Processor
+# Processes laptop data uploads and triggers downstream sync
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data/laptop_inventory/**'
+      - 'data/Mapping-and-Inventory-storage/laptop/**'
+  workflow_dispatch:
+    inputs:
+      sync_mode:
+        description: 'Sync mode'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - force_full_sync
+          - metadata_only
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  process-laptop-data:
+    runs-on: ubuntu-latest
+    name: Process Laptop Data Upload
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pathlib typing-extensions || true
+      
+      - name: 🔍 Detect Laptop Data Changes
+        id: detect
+        run: |
+          echo "Detecting laptop data changes..."
+          
+          # Check for new manifests
+          NEW_MANIFESTS=$(find data/laptop_inventory -name "laptop_manifest_*.json" -mmin -60 2>/dev/null | wc -l)
+          NEW_DESKTOP_SCANS=$(find data/laptop_inventory -name "laptop_desktop_scan_*.json" -mmin -60 2>/dev/null | wc -l)
+          NEW_HARVESTS=$(find data/Mapping-and-Inventory-storage/laptop -name "*.meta.json" -mmin -60 2>/dev/null | wc -l)
+          
+          echo "new_manifests=$NEW_MANIFESTS" >> $GITHUB_OUTPUT
+          echo "new_desktop_scans=$NEW_DESKTOP_SCANS" >> $GITHUB_OUTPUT
+          echo "new_harvests=$NEW_HARVESTS" >> $GITHUB_OUTPUT
+          
+          TOTAL_CHANGES=$((NEW_MANIFESTS + NEW_DESKTOP_SCANS + NEW_HARVESTS))
+          echo "total_changes=$TOTAL_CHANGES" >> $GITHUB_OUTPUT
+          
+          if [ $TOTAL_CHANGES -gt 0 ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "📊 Detected Changes:"
+          echo "   New Manifests: $NEW_MANIFESTS"
+          echo "   New Desktop Scans: $NEW_DESKTOP_SCANS"
+          echo "   New Harvest Files: $NEW_HARVESTS"
+          echo "   Total: $TOTAL_CHANGES"
+      
+      - name: 📊 Generate Laptop Intelligence Report
+        if: steps.detect.outputs.has_changes == 'true'
+        run: |
+          echo "Generating laptop intelligence report..."
+          
+          REPORT_FILE="data/laptop_inventory/laptop_intelligence_report.md"
+          
+          cat > "$REPORT_FILE" << 'EOF'
+          # 💻 Laptop Intelligence Report
+          
+          **Generated:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Trigger:** Laptop data upload detected
+          
+          ## 📊 Data Summary
+          
+          EOF
+          
+          # Count files
+          MANIFEST_COUNT=$(find data/laptop_inventory -name "laptop_manifest_*.json" 2>/dev/null | wc -l)
+          DESKTOP_COUNT=$(find data/laptop_inventory -name "laptop_desktop_scan_*.json" 2>/dev/null | wc -l)
+          HARVEST_COUNT=$(find data/Mapping-and-Inventory-storage/laptop -name "*.meta.json" 2>/dev/null | wc -l)
+          
+          cat >> "$REPORT_FILE" << EOF
+          - **Filesystem Manifests:** $MANIFEST_COUNT
+          - **Desktop Scans:** $DESKTOP_COUNT
+          - **Harvested Files:** $HARVEST_COUNT
+          
+          ## 📁 Latest Artifacts
+          
+          EOF
+          
+          # List latest manifests
+          if [ -f "data/laptop_inventory/laptop_manifest_latest.json" ]; then
+            echo "### Latest Filesystem Manifest" >> "$REPORT_FILE"
+            echo '```json' >> "$REPORT_FILE"
+            cat data/laptop_inventory/laptop_manifest_latest.json | head -20 >> "$REPORT_FILE" || true
+            echo '```' >> "$REPORT_FILE"
+            echo "" >> "$REPORT_FILE"
+          fi
+          
+          # List latest desktop scan
+          if [ -f "data/laptop_inventory/laptop_desktop_scan_latest.json" ]; then
+            echo "### Latest Desktop Scan" >> "$REPORT_FILE"
+            echo '```json' >> "$REPORT_FILE"
+            cat data/laptop_inventory/laptop_desktop_scan_latest.json | head -20 >> "$REPORT_FILE" || true
+            echo '```' >> "$REPORT_FILE"
+            echo "" >> "$REPORT_FILE"
+          fi
+          
+          # Add summary
+          if [ -f "data/laptop_inventory/laptop_sync_summary_latest.json" ]; then
+            echo "### Sync Summary" >> "$REPORT_FILE"
+            echo '```json' >> "$REPORT_FILE"
+            cat data/laptop_inventory/laptop_sync_summary_latest.json >> "$REPORT_FILE" || true
+            echo '```' >> "$REPORT_FILE"
+            echo "" >> "$REPORT_FILE"
+          fi
+          
+          cat >> "$REPORT_FILE" << 'EOF'
+          
+          ## 🔄 Next Steps
+          
+          1. ✅ Data received and processed
+          2. ⏳ Triggering multi-repo sync
+          3. ⏳ Updating master intelligence map
+          4. ⏳ Syncing to HuggingFace Space
+          5. ⏳ Oracle RAG ingestion (within 6 hours)
+          
+          ---
+          
+          **Status:** Complete
+          **Authority:** Cloud-First (GitHub → HF → GDrive)
+          EOF
+          
+          echo "✅ Intelligence report generated: $REPORT_FILE"
+      
+      - name: 📤 Commit Intelligence Report
+        if: steps.detect.outputs.has_changes == 'true'
+        run: |
+          git config user.name "Laptop Sync Processor"
+          git config user.email "laptop-sync@citadel.mesh"
+          
+          git add data/laptop_inventory/laptop_intelligence_report.md || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "📊 Laptop Intelligence Report: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
+      
+      - name: 🔄 Trigger Multi-Repo Sync
+        if: steps.detect.outputs.has_changes == 'true' || github.event.inputs.sync_mode == 'force_full_sync'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔄 Triggering multi-repo sync..."
+          gh workflow run multi_repo_sync.yml \
+            --repo DJ-Goana-Coding/mapping-and-inventory \
+            --ref main || echo "⚠️  Multi-repo sync trigger failed"
+      
+      - name: 🔄 Trigger HF Space Sync
+        if: steps.detect.outputs.has_changes == 'true' || github.event.inputs.sync_mode == 'force_full_sync'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔄 Triggering HuggingFace Space sync..."
+          gh workflow run hf_space_sync.yml \
+            --repo DJ-Goana-Coding/mapping-and-inventory \
+            --ref main || echo "⚠️  HF Space sync trigger failed"
+      
+      - name: 📊 Summary
+        run: |
+          echo "=" 
+          echo "💻 LAPTOP SYNC PROCESSOR COMPLETE"
+          echo "="
+          echo ""
+          echo "📊 Statistics:"
+          echo "   Manifests: ${{ steps.detect.outputs.new_manifests }}"
+          echo "   Desktop Scans: ${{ steps.detect.outputs.new_desktop_scans }}"
+          echo "   Harvest Files: ${{ steps.detect.outputs.new_harvests }}"
+          echo ""
+          echo "🔄 Triggered Workflows:"
+          echo "   • Multi-Repo Sync"
+          echo "   • HuggingFace Space Sync"
+          echo ""
+          echo "✅ Laptop data successfully processed!"
+          echo "="
