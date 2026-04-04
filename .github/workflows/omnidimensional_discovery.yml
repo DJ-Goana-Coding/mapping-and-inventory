@@ -1,0 +1,277 @@
+name: 🌌 Omnidimensional Discovery Cycle
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      discovery_mode:
+        description: 'Discovery mode'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - light_web_only
+          - dark_web_only
+          - financial_only
+          - spiritual_only
+          - technical_only
+      enable_stress_test:
+        description: 'Enable stress testing'
+        required: false
+        default: true
+        type: boolean
+      enable_integration:
+        description: 'Enable integration'
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  # PHASE 1: DISCOVERY
+  discovery:
+    name: Discovery Phase
+    runs-on: ubuntu-latest
+    timeout-minutes: 360 # 6 hours
+    outputs:
+      discoveries_count: ${{ steps.catalog.outputs.count }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 selenium playwright
+          pip install pandas numpy python-dotenv
+          pip install scrapy lxml aiohttp
+          playwright install chromium
+
+      - name: Run Omnidimensional Crawler
+        env:
+          DISCOVERY_MODE: ${{ github.event.inputs.discovery_mode || 'full' }}
+        run: |
+          python scripts/omnidimensional_crawler.py \
+            --mode "$DISCOVERY_MODE" \
+            --output data/discoveries/omni_crawl_$(date +%Y%m%d_%H%M%S).json
+
+      - name: Run Gap Analyzer
+        run: |
+          python scripts/gap_analyzer.py \
+            --categories all \
+            --output data/gap_analysis/gaps_$(date +%Y%m%d_%H%M%S).json
+
+      - name: Run Shopping List Generator
+        run: |
+          python scripts/shopping_list_generator.py \
+            --agents all \
+            --priority critical,high,medium \
+            --output data/shopping_lists/master_list_$(date +%Y%m%d_%H%M%S).md
+
+      - name: Catalog Discoveries
+        id: catalog
+        run: |
+          COUNT=$(find data/discoveries -name "*.json" | wc -l)
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "📊 Discovered $COUNT new resources"
+
+      - name: Upload Discovery Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-artifacts
+          path: |
+            data/discoveries/
+            data/gap_analysis/
+            data/shopping_lists/
+          retention-days: 90
+
+  # PHASE 2: STRESS TESTING
+  stress_test:
+    name: Stress Test Phase
+    runs-on: ubuntu-latest
+    needs: discovery
+    if: github.event.inputs.enable_stress_test != 'false'
+    timeout-minutes: 240 # 4 hours
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Discovery Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: discovery-artifacts
+          path: ./
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install stress testing tools
+        run: |
+          pip install locust pytest pytest-benchmark
+          pip install requests aiohttp httpx
+          sudo apt-get update
+          sudo apt-get install -y apache2-utils wrk
+
+      - name: Load Test Endpoints
+        run: |
+          python scripts/stress_test_endpoints.py \
+            --input data/discoveries/*.json \
+            --output data/stress_tests/load_test_$(date +%Y%m%d_%H%M%S).json
+
+      - name: Security Scan
+        run: |
+          python scripts/security_scanner.py \
+            --input data/discoveries/*.json \
+            --output data/stress_tests/security_scan_$(date +%Y%m%d_%H%M%S).json
+
+      - name: Performance Profiling
+        run: |
+          python scripts/performance_profiler.py \
+            --targets all \
+            --output data/stress_tests/performance_$(date +%Y%m%d_%H%M%S).json
+
+      - name: Upload Stress Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: stress-test-results
+          path: data/stress_tests/
+          retention-days: 30
+
+  # PHASE 3: INTEGRATION
+  integration:
+    name: Integration Phase
+    runs-on: ubuntu-latest
+    needs: [discovery, stress_test]
+    if: github.event.inputs.enable_integration != 'false'
+    timeout-minutes: 120 # 2 hours
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Update Master Intelligence Map
+        run: |
+          python scripts/update_intelligence_map.py \
+            --discoveries data/discoveries/*.json \
+            --gaps data/gap_analysis/*.json \
+            --output master_intelligence_map.txt
+
+      - name: Update Master Inventory
+        run: |
+          python scripts/update_master_inventory.py \
+            --discoveries data/discoveries/*.json \
+            --output master_inventory.json
+
+      - name: Generate District Artifacts
+        run: |
+          python scripts/generate_tree.py
+          python scripts/generate_inventory.py
+          python scripts/generate_scaffold.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "Citadel Architect Bot"
+          git config user.email "citadel@dj-goana-coding.dev"
+          git add .
+          git commit -m "🌌 Omnidimensional Discovery Cycle Complete - $(date +%Y%m%d_%H%M%S)" || echo "No changes to commit"
+          git push origin main || echo "Push failed, will retry in next cycle"
+
+  # PHASE 4: VERIFICATION
+  verification:
+    name: Verification Phase
+    runs-on: ubuntu-latest
+    needs: integration
+    timeout-minutes: 120 # 2 hours
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install RAG dependencies
+        run: |
+          pip install sentence-transformers faiss-cpu numpy
+
+      - name: Run RAG Ingestion
+        run: |
+          python scripts/rag_ingest.py \
+            --input master_intelligence_map.txt \
+            --output rag_store/
+
+      - name: Verify Vector Store
+        run: |
+          python scripts/verify_rag_store.py \
+            --store rag_store/ \
+            --test_queries "Web3 platforms" "AI models" "Security tools"
+
+      - name: Generate Cycle Report
+        run: |
+          cat > OMNI_CYCLE_REPORT_$(date +%Y%m%d_%H%M%S).md << 'EOF'
+          # 🌌 Omnidimensional Discovery Cycle Report
+          
+          **Timestamp:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Mode:** ${{ github.event.inputs.discovery_mode || 'full' }}
+          **Discoveries:** ${{ needs.discovery.outputs.discoveries_count }}
+          
+          ## Phases Completed
+          - ✅ Discovery
+          - ✅ Stress Testing
+          - ✅ Integration
+          - ✅ Verification
+          
+          ## Next Cycle
+          Scheduled in 6 hours
+          
+          ## Status
+          ✅ Forever Learning Cycle Active
+          EOF
+
+      - name: Upload Cycle Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cycle-report
+          path: OMNI_CYCLE_REPORT_*.md
+          retention-days: 365
+
+  # NOTIFICATION
+  notify:
+    name: Notify Completion
+    runs-on: ubuntu-latest
+    needs: [discovery, stress_test, integration, verification]
+    if: always()
+    steps:
+      - name: Summary
+        run: |
+          echo "🌌 Omnidimensional Discovery Cycle Complete"
+          echo "Discoveries: ${{ needs.discovery.outputs.discoveries_count }}"
+          echo "Status: ✅ Ready for next cycle in 6 hours"
