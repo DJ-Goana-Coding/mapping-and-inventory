@@ -214,9 +214,12 @@ class ComprehensiveLaptopVacuum:
             # Copy file
             shutil.copy2(file_path, dest_path)
             
-            # Generate metadata
+            # Generate metadata (hash in chunks to avoid memory issues with large files)
+            sha256_hash = hashlib.sha256()
             with open(file_path, 'rb') as f:
-                content_hash = hashlib.sha256(f.read()).hexdigest()
+                for chunk in iter(lambda: f.read(8192), b""):
+                    sha256_hash.update(chunk)
+            content_hash = sha256_hash.hexdigest()
             
             metadata = {
                 'source_path': str(file_path),

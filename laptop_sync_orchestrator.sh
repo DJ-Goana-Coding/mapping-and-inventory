@@ -208,9 +208,9 @@ echo ""
 
 SUMMARY_FILE="$DATA_DIR/laptop_sync_summary_${TIMESTAMP}.json"
 
-# Count files
-MANIFEST_FILES=$(ls -1 "$DATA_DIR"/laptop_manifest_*.json 2>/dev/null | wc -l)
-DESKTOP_FILES=$(ls -1 "$DATA_DIR"/laptop_desktop_scan_*.json 2>/dev/null | wc -l)
+# Count files (using find to handle special characters in filenames)
+MANIFEST_FILES=$(find "$DATA_DIR" -maxdepth 1 -type f -name "laptop_manifest_*.json" 2>/dev/null | wc -l)
+DESKTOP_FILES=$(find "$DATA_DIR" -maxdepth 1 -type f -name "laptop_desktop_scan_*.json" 2>/dev/null | wc -l)
 HARVESTED_FILES=$(find "$STORAGE_DIR" -type f -name "*.meta.json" 2>/dev/null | wc -l)
 
 cat > "$SUMMARY_FILE" << EOF

@@ -186,9 +186,9 @@ jobs:
       
       - name: 📊 Summary
         run: |
-          echo "=" 
+          echo "================================================================"
           echo "💻 LAPTOP SYNC PROCESSOR COMPLETE"
-          echo "="
+          echo "================================================================"
           echo ""
           echo "📊 Statistics:"
           echo "   Manifests: ${{ steps.detect.outputs.new_manifests }}"

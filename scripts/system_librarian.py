@@ -573,11 +573,16 @@ class SystemLibrarian:
         
         print(f"\n✅ Profile saved: {output_file}")
         
-        # Create symlink to latest
+        # Create symlink to latest (Windows requires admin privileges for symlinks)
         latest_link = self.output_dir / "system_profile_latest.json"
-        if latest_link.exists():
-            latest_link.unlink()
-        latest_link.symlink_to(output_file.name)
+        try:
+            if latest_link.exists():
+                latest_link.unlink()
+            latest_link.symlink_to(output_file.name)
+        except OSError as e:
+            # On Windows, symlinks require admin privileges, so copy instead
+            print(f"⚠️  Could not create symlink (Windows limitation), copying file instead")
+            shutil.copy2(output_file, latest_link)
         
         # Generate markdown report
         md_file = output_file.with_suffix('.md')
