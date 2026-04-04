@@ -1,0 +1,205 @@
+name: 🧪 Comprehensive Stress Test Suite
+# Stress tests all systems for reliability and performance
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'  # Weekly on Sunday at 2 AM UTC
+  workflow_dispatch:
+    inputs:
+      intensity:
+        description: 'Test intensity'
+        required: true
+        default: 'medium'
+        type: choice
+        options:
+          - light     # Quick validation tests
+          - medium    # Standard stress tests
+          - heavy     # Comprehensive load tests
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  stress-test:
+    name: Run Stress Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install psutil  # For system metrics
+      
+      - name: 💪 Run Stress Test Orchestrator
+        run: |
+          echo "🏛️ Running Comprehensive Stress Tests..."
+          python scripts/stress_test_orchestrator.py
+      
+      - name: 🧪 Test Script Load (Light)
+        if: inputs.intensity == 'light' || inputs.intensity == 'medium' || inputs.intensity == 'heavy'
+        run: |
+          echo "Testing script execution under load..."
+          for i in {1..10}; do
+            python scripts/repo_census_builder.py --help &
+          done
+          wait
+          echo "✅ Light load test complete"
+      
+      - name: 💾 Test File I/O (Medium)
+        if: inputs.intensity == 'medium' || inputs.intensity == 'heavy'
+        run: |
+          echo "Testing file I/O performance..."
+          python -c "
+import tempfile
+from pathlib import Path
+import time
+
+temp_dir = Path(tempfile.mkdtemp())
+start = time.time()
+
+# Write test
+for i in range(1000):
+    (temp_dir / f'test_{i}.txt').write_text('test data' * 100)
+
+write_time = time.time() - start
+print(f'Write 1000 files: {write_time:.2f}s')
+
+# Read test
+start = time.time()
+for i in range(1000):
+    _ = (temp_dir / f'test_{i}.txt').read_text()
+
+read_time = time.time() - start
+print(f'Read 1000 files: {read_time:.2f}s')
+
+# Cleanup
+import shutil
+shutil.rmtree(temp_dir)
+print('✅ File I/O stress test complete')
+"
+      
+      - name: 🔄 Test Parallel Execution (Heavy)
+        if: inputs.intensity == 'heavy'
+        run: |
+          echo "Testing parallel script execution..."
+          python -c "
+import concurrent.futures
+import subprocess
+import sys
+
+def run_script(script):
+    try:
+        result = subprocess.run(
+            [sys.executable, script, '--help'],
+            capture_output=True,
+            timeout=10
+        )
+        return script, result.returncode == 0
+    except:
+        return script, False
+
+scripts = [
+    'scripts/repo_census_builder.py',
+    'scripts/gap_analyzer.py',
+    'scripts/mistake_hunter.py',
+    'scripts/stress_test_orchestrator.py',
+]
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+    results = list(executor.map(run_script, scripts))
+
+for script, success in results:
+    status = '✅' if success else '❌'
+    print(f'{status} {script}')
+
+print('✅ Parallel execution test complete')
+"
+      
+      - name: 🧠 Test Memory Stress (Heavy)
+        if: inputs.intensity == 'heavy'
+        run: |
+          echo "Testing memory allocation..."
+          python -c "
+import gc
+
+# Allocate 200MB
+data = []
+for i in range(200):
+    data.append(bytearray(1024 * 1024))
+
+print(f'Allocated {len(data)} MB')
+
+# Clear
+data.clear()
+gc.collect()
+
+print('✅ Memory stress test complete')
+"
+      
+      - name: 📊 Generate Test Report
+        if: always()
+        run: |
+          echo "# 🧪 Stress Test Report" > STRESS_TEST_REPORT.md
+          echo "" >> STRESS_TEST_REPORT.md
+          echo "**Date:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> STRESS_TEST_REPORT.md
+          echo "**Intensity:** ${{ inputs.intensity || 'medium' }}" >> STRESS_TEST_REPORT.md
+          echo "" >> STRESS_TEST_REPORT.md
+          
+          if [ -f data/monitoring/stress_test_results.json ]; then
+            echo "## 📊 Results" >> STRESS_TEST_REPORT.md
+            python -c "
+import json
+with open('data/monitoring/stress_test_results.json') as f:
+    results = json.load(f)
+print(f\"Total Tests: {results['summary']['total_tests']}\")
+print(f\"Passed: {results['summary']['passed']}\")
+print(f\"Failed: {results['summary']['failed']}\")
+print(f\"Warnings: {results['summary']['warnings']}\")
+" >> STRESS_TEST_REPORT.md
+          fi
+          
+          cat STRESS_TEST_REPORT.md
+      
+      - name: 📤 Upload Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stress-test-results
+          path: |
+            data/monitoring/stress_test_results.json
+            STRESS_TEST_REPORT.md
+          retention-days: 30
+      
+      - name: ❌ Fail on Critical Issues
+        if: always()
+        run: |
+          if [ -f data/monitoring/stress_test_results.json ]; then
+            python -c "
+import json
+import sys
+
+with open('data/monitoring/stress_test_results.json') as f:
+    results = json.load(f)
+
+failed = results['summary']['failed']
+total = results['summary']['total_tests']
+
+if total > 0 and (failed / total) > 0.3:
+    print(f'❌ Critical: {failed}/{total} tests failed (>30%)')
+    sys.exit(1)
+else:
+    print(f'✅ Stress tests acceptable: {failed}/{total} failures')
+"
+          fi
