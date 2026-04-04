@@ -1,0 +1,80 @@
+{
+  "agent_name": "Surveyor",
+  "agent_role": "Mapping Hub Harvester",
+  "timestamp": "2026-04-03T13:18:35.598147",
+  "total_items": 8,
+  "items": [
+    {
+      "category": "tools",
+      "name": "GitHub Repository Scanner",
+      "description": "Advanced repo discovery and metadata extraction",
+      "priority": "critical",
+      "url": "https://api.github.com",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598211"
+    },
+    {
+      "category": "tools",
+      "name": "GDrive Partition Scanner",
+      "description": "Partition-aware file discovery without ingestion",
+      "priority": "critical",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598220"
+    },
+    {
+      "category": "tools",
+      "name": "Tree Generator Pro",
+      "description": "Enhanced TREE.md generation with depth control",
+      "priority": "high",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598225"
+    },
+    {
+      "category": "tools",
+      "name": "Inventory Builder",
+      "description": "Advanced INVENTORY.json generation with metadata",
+      "priority": "high",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598228"
+    },
+    {
+      "category": "libraries",
+      "name": "gitpython",
+      "description": "Git repository manipulation library",
+      "priority": "high",
+      "url": "https://gitpython.readthedocs.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598233"
+    },
+    {
+      "category": "libraries",
+      "name": "PyGithub",
+      "description": "GitHub API wrapper for Python",
+      "priority": "high",
+      "url": "https://pygithub.readthedocs.io",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598237"
+    },
+    {
+      "category": "libraries",
+      "name": "google-api-python-client",
+      "description": "GDrive API access",
+      "priority": "critical",
+      "url": null,
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598239"
+    },
+    {
+      "category": "models",
+      "name": "all-MiniLM-L6-v2",
+      "description": "Lightweight embedding model for metadata",
+      "priority": "medium",
+      "url": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2",
+      "cost": "free",
+      "requested_at": "2026-04-03T13:18:35.598241"
+    }
+  ]
+}

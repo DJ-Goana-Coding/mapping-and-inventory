@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:24:15.570402",
+    "purpose": "Website generation and deployment"
+  },
+  "sites": {
+    "vamguard": {
+      "pages": {
+        "home": {
+          "sections": [
+            "Hero: VAMGUARD - The People's Financial Freedom Platform",
+            "Mission: ISO 20022 compliance + Decentralized crypto",
+            "Features: Trading bots, Token ecosystem, Cross-border payments",
+            "Tokenomics: VGT token overview",
+            "Call to Action: Join the movement"
+          ]
+        },
+        "token": {
+          "sections": [
+            "VAMGUARD Token (VGT) overview",
+            "Multi-chain deployment",
+            "Tokenomics breakdown",
+            "How to buy/trade",
+            "Staking rewards"
+          ]
+        },
+        "trading": {
+          "sections": [
+            "Trading bots overview",
+            "Supported exchanges (MEXC, Binance, etc)",
+            "Strategies available",
+            "Performance metrics",
+            "Get started"
+          ]
+        },
+        "about": {
+          "sections": [
+            "Our mission",
+            "Team (DJ Goanna / Quantum Goanna)",
+            "Technology stack",
+            "Roadmap"
+          ]
+        },
+        "community": {
+          "sections": [
+            "Join our community",
+            "Social links",
+            "Documentation",
+            "Support"
+          ]
+        }
+      },
+      "tech_stack": {
+        "framework": "Next.js 14 (React)",
+        "styling": "Tailwind CSS + shadcn/ui",
+        "animations": "Framer Motion",
+        "hosting": "Vercel (free)",
+        "cms": "MDX for content"
+      }
+    },
+    "tia_architect": {
+      "pages": {
+        "home": {
+          "sections": [
+            "Hero: TIA - The Intelligent Architect",
+            "Mission: AI-powered intelligence coordination",
+            "Features: RAG system, Multi-agent orchestration",
+            "Use cases",
+            "Live demo"
+          ]
+        },
+        "architecture": {
+          "sections": [
+            "System overview",
+            "Agent constellation",
+            "Districts (D01-D12)",
+            "Technology stack"
+          ]
+        },
+        "playground": {
+          "sections": [
+            "Interactive TIA Core demo",
+            "Try the RAG system",
+            "Explore the mesh"
+          ]
+        },
+        "docs": {
+          "sections": [
+            "Getting started",
+            "API reference",
+            "Deployment guides",
+            "Contributing"
+          ]
+        }
+      },
+      "tech_stack": {
+        "framework": "Astro (static) or Next.js",
+        "components": "React + Streamlit embed",
+        "styling": "Tailwind CSS",
+        "docs": "Docusaurus or Nextra",
+        "hosting": "Vercel or Cloudflare Pages"
+      }
+    },
+    "spiritual_portal": {
+      "pages": {
+        "home": {
+          "sections": [
+            "Hero: Divine Frequency - Awakening Through Vibration",
+            "Mission: Raise collective consciousness",
+            "Features: Healing frequencies, Sacred geometry, Community",
+            "528 Hz Love Frequency player",
+            "Join the high-frequency collective"
+          ]
+        },
+        "frequencies": {
+          "sections": [
+            "Solfeggio frequencies guide",
+            "Schumann resonance",
+            "Binaural beats",
+            "Interactive frequency player",
+            "Meditation tracks"
+          ]
+        },
+        "sacred_geometry": {
+          "sections": [
+            "Flower of Life",
+            "Metatron's Cube",
+            "Interactive visualizations",
+            "Meanings and uses",
+            "Downloadable art"
+          ]
+        },
+        "community": {
+          "sections": [
+            "Reddit communities",
+            "Consciousness platforms",
+            "Events and gatherings",
+            "Share your journey"
+          ]
+        },
+        "practices": {
+          "sections": [
+            "Daily vibration practices",
+            "Meditation guides",
+            "Heart coherence exercises",
+            "Downloadable resources"
+          ]
+        }
+      },
+      "tech_stack": {
+        "framework": "Next.js",
+        "audio": "Howler.js or Tone.js",
+        "visualizations": "Three.js or P5.js",
+        "styling": "Tailwind with gradients",
+        "hosting": "Vercel"
+      }
+    }
+  },
+  "deployment": {
+    "quickstart_vercel": {
+      "steps": [
+        "1. Create Next.js app: npx create-next-app@latest",
+        "2. Build site locally",
+        "3. Push to GitHub",
+        "4. Import to Vercel",
+        "5. Connect custom domain",
+        "6. Deploy (automatic)"
+      ],
+      "cost": "Free for hobby projects",
+      "time": "30 minutes"
+    },
+    "quickstart_cloudflare": {
+      "steps": [
+        "1. Build static site (Astro/Hugo)",
+        "2. Push to GitHub",
+        "3. Connect to Cloudflare Pages",
+        "4. Configure build settings",
+        "5. Add custom domain",
+        "6. Enable HTTPS"
+      ],
+      "cost": "Free unlimited bandwidth",
+      "time": "20 minutes"
+    },
+    "web3_deployment": {
+      "ipfs": {
+        "tool": "Fleek.co",
+        "steps": [
+          "1. Build static site",
+          "2. Connect GitHub to Fleek",
+          "3. Deploy to IPFS",
+          "4. Link ENS domain"
+        ],
+        "benefit": "Censorship resistant, decentralized"
+      }
+    }
+  },
+  "automation": {
+    "ci_cd": "GitHub Actions for automatic deployment",
+    "testing": "Playwright for E2E tests",
+    "monitoring": "Vercel Analytics (free)",
+    "seo": "Next.js metadata API"
+  }
+}

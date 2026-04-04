@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:25:17.083046",
+    "purpose": "Complete worker constellation orchestration"
+  },
+  "worker_categories": {
+    "discovery_workers": {
+      "domain_scout": {
+        "file": "scripts/domain_scout.py",
+        "purpose": "Discover available domains and opportunities",
+        "schedule": "daily",
+        "priority": "medium"
+      },
+      "spiritual_network_mapper": {
+        "file": "scripts/spiritual_network_mapper.py",
+        "purpose": "Map spiritual communities and resources",
+        "schedule": "daily",
+        "priority": "high"
+      },
+      "github_trending_harvester": {
+        "file": "scripts/harvest_github_trending.py",
+        "purpose": "Harvest trending GitHub repos",
+        "schedule": "daily",
+        "priority": "medium"
+      },
+      "web_scout": {
+        "file": "scripts/web_scout.py",
+        "purpose": "Discover free resources and platforms",
+        "schedule": "weekly",
+        "priority": "medium"
+      }
+    },
+    "sync_workers": {
+      "global_sync": {
+        "file": "global_sync.sh",
+        "purpose": "Multi-repo synchronization",
+        "schedule": "every 6 hours",
+        "priority": "critical"
+      },
+      "bridge_push": {
+        "workflow": ".github/workflows/bridge_push.yml",
+        "purpose": "Bridge device to hub sync",
+        "trigger": "manual + schedule",
+        "priority": "critical"
+      },
+      "oracle_sync": {
+        "workflow": ".github/workflows/oracle_sync.yml",
+        "purpose": "RAG ingestion and diff analysis",
+        "schedule": "every 6 hours",
+        "priority": "high"
+      }
+    },
+    "monitoring_workers": {
+      "security_sentinel": {
+        "file": "scripts/security_sentinel.py",
+        "purpose": "Security monitoring and threat detection",
+        "schedule": "hourly",
+        "priority": "critical"
+      },
+      "autonomous_health_monitor": {
+        "file": "scripts/autonomous_health_monitor.py",
+        "purpose": "System health monitoring",
+        "schedule": "every 15 minutes",
+        "priority": "high"
+      },
+      "nerve_check": {
+        "file": "nerve_check.py",
+        "purpose": "Quick system status check",
+        "schedule": "on-demand",
+        "priority": "medium"
+      }
+    },
+    "trading_workers": {
+      "mexc_trader": {
+        "type": "Trading bot",
+        "purpose": "MEXC exchange trading",
+        "schedule": "continuous",
+        "priority": "high"
+      },
+      "arbitrage_scanner": {
+        "type": "Trading bot",
+        "purpose": "Cross-exchange arbitrage",
+        "schedule": "continuous",
+        "priority": "high"
+      },
+      "sentiment_analyzer": {
+        "type": "Analysis worker",
+        "purpose": "Social sentiment analysis",
+        "schedule": "every 30 minutes",
+        "priority": "medium"
+      }
+    },
+    "harvester_workers": {
+      "autonomous_district_harvester": {
+        "file": "scripts/autonomous_district_harvester.py",
+        "purpose": "Harvest District artifacts",
+        "schedule": "daily",
+        "priority": "high"
+      },
+      "harvestmoon_coordinator": {
+        "file": "scripts/harvestmoon_coordinator.py",
+        "purpose": "Coordinate harvest operations",
+        "schedule": "daily",
+        "priority": "high"
+      },
+      "laptop_filesystem_scanner": {
+        "file": "scripts/laptop_filesystem_scanner.py",
+        "purpose": "Scan local filesystems",
+        "schedule": "weekly",
+        "priority": "medium"
+      }
+    },
+    "gdrive_workers": {
+      "partition_harvester": {
+        "workflow": ".github/workflows/gdrive_partition_harvester.yml",
+        "purpose": "Harvest GDrive partitions",
+        "schedule": "daily",
+        "priority": "critical"
+      },
+      "model_ingester": {
+        "workflow": ".github/workflows/gdrive_model_ingester.yml",
+        "purpose": "Ingest models from GDrive",
+        "schedule": "weekly",
+        "priority": "high"
+      },
+      "worker_harvester": {
+        "workflow": ".github/workflows/gdrive_worker_harvester.yml",
+        "purpose": "Harvest worker scripts from GDrive",
+        "schedule": "weekly",
+        "priority": "medium"
+      }
+    },
+    "citadel_awakening_workers": {
+      "citadel_awakening": {
+        "file": "scripts/citadel_awakening.py",
+        "purpose": "Master awakening orchestrator",
+        "schedule": "daily 6am UTC",
+        "priority": "critical"
+      },
+      "protection_constellation": {
+        "file": "scripts/deploy_protection_constellation.py",
+        "purpose": "Deploy security constellation",
+        "schedule": "on-demand",
+        "priority": "high"
+      }
+    }
+  },
+  "deployment_strategy": {
+    "github_actions": {
+      "scheduled_workflows": "Use cron expressions for timing",
+      "manual_workflows": "workflow_dispatch for on-demand",
+      "event_triggered": "Trigger on push, PR, etc",
+      "secrets_required": [
+        "GH_PAT",
+        "HF_TOKEN",
+        "GDRIVE_CREDENTIALS"
+      ]
+    },
+    "huggingface_spaces": {
+      "persistent_workers": "Deploy long-running workers as Spaces",
+      "benefits": "Free compute, persistent storage, public dashboards",
+      "deployment": "Push to HF Space repository"
+    },
+    "local_deployment": {
+      "cron_jobs": "Set up cron for local scheduling",
+      "systemd_services": "For always-running workers",
+      "tmux_sessions": "For interactive monitoring"
+    },
+    "apps_script": {
+      "google_workspace": "Deploy as Google Apps Script",
+      "triggers": "Time-driven, event-driven, onEdit",
+      "benefits": "Native GDrive integration"
+    }
+  },
+  "coordination_logic": {
+    "forever_learning_cycle": {
+      "sequence": [
+        "1. Global Sync: Pull all repos",
+        "2. Surveyor: Extract District artifacts",
+        "3. Consolidator: Aggregate into master files",
+        "4. Oracle Sync: Generate diffs and RAG ingest",
+        "5. Health Monitor: Verify all systems",
+        "6. Security Sentinel: Check for threats",
+        "7. Push updates back to repos"
+      ],
+      "frequency": "Every 6 hours",
+      "dependencies": "Each step depends on previous"
+    },
+    "trading_cycle": {
+      "sequence": [
+        "1. Market Data: Fetch latest OHLCV",
+        "2. Sentiment: Analyze social sentiment",
+        "3. Signals: Generate trading signals",
+        "4. Risk Check: Verify risk parameters",
+        "5. Execute: Place trades",
+        "6. Monitor: Track positions",
+        "7. Report: Generate performance report"
+      ],
+      "frequency": "Continuous with periodic checks",
+      "dependencies": "Real-time data flow"
+    },
+    "discovery_cycle": {
+      "sequence": [
+        "1. Domain Scout: Find new domains",
+        "2. Spiritual Mapper: Discover communities",
+        "3. GitHub Harvester: Find trending repos",
+        "4. Web Scout: Find free resources",
+        "5. Consolidate: Aggregate discoveries",
+        "6. Report: Generate discovery report"
+      ],
+      "frequency": "Daily",
+      "dependencies": "Can run in parallel"
+    }
+  },
+  "control_script": "#!/bin/bash\n# \ud83c\udf9b\ufe0f WORKER CONSTELLATION MASTER CONTROL\n# Authority: Citadel Architect v25.0.OMNI+\n\nset -e\n\nSCRIPT_DIR=\"$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)\"\nLOG_DIR=\"$SCRIPT_DIR/data/worker_logs\"\nmkdir -p \"$LOG_DIR\"\n\nlog() {\n    echo \"[$(date +'%Y-%m-%d %H:%M:%S')] $1\" | tee -a \"$LOG_DIR/master.log\"\n}\n\n# Worker Control Functions\nstart_discovery_workers() {\n    log \"\ud83d\udd0d Starting discovery workers...\"\n    python scripts/domain_scout.py &\n    python scripts/spiritual_network_mapper.py &\n    python scripts/harvest_github_trending.py &\n    wait\n    log \"\u2705 Discovery workers complete\"\n}\n\nstart_sync_workers() {\n    log \"\ud83d\udd04 Starting sync workers...\"\n    ./global_sync.sh\n    log \"\u2705 Sync workers complete\"\n}\n\nstart_monitoring_workers() {\n    log \"\ud83d\udc41\ufe0f Starting monitoring workers...\"\n    python scripts/security_sentinel.py &\n    python scripts/autonomous_health_monitor.py &\n    wait\n    log \"\u2705 Monitoring workers complete\"\n}\n\nrun_forever_learning_cycle() {\n    log \"\ud83d\udd04 Starting Forever Learning Cycle...\"\n    start_sync_workers\n    start_monitoring_workers\n    log \"\u2705 Forever Learning Cycle complete\"\n}\n\n# Command Dispatcher\ncase \"${1:-help}\" in\n    discovery)\n        start_discovery_workers\n        ;;\n    sync)\n        start_sync_workers\n        ;;\n    monitoring)\n        start_monitoring_workers\n        ;;\n    forever-learning)\n        run_forever_learning_cycle\n        ;;\n    all)\n        log \"\ud83d\ude80 Starting all workers...\"\n        start_discovery_workers\n        start_sync_workers\n        start_monitoring_workers\n        log \"\u2705 All workers complete\"\n        ;;\n    status)\n        log \"\ud83d\udcca Worker Status:\"\n        ps aux | grep -E \"python|bash\" | grep -E \"scripts|global_sync\"\n        ;;\n    help|*)\n        echo \"Worker Constellation Master Control\"\n        echo \"\"\n        echo \"Usage: $0 [command]\"\n        echo \"\"\n        echo \"Commands:\"\n        echo \"  discovery          - Run discovery workers\"\n        echo \"  sync              - Run sync workers\"\n        echo \"  monitoring        - Run monitoring workers\"\n        echo \"  forever-learning  - Run Forever Learning Cycle\"\n        echo \"  all               - Run all workers\"\n        echo \"  status            - Show worker status\"\n        echo \"  help              - Show this help\"\n        ;;\nesac\n",
+  "statistics": {
+    "total_categories": 7,
+    "total_workers": 21,
+    "critical_workers": 6,
+    "high_priority": 12,
+    "medium_priority": 8
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "generated_at": "2026-04-03T13:20:59.830009",
+    "purpose": "Comprehensive trading strategy library"
+  },
+  "strategies": {
+    "momentum_strategies": {
+      "rsi_mean_reversion": {
+        "description": "Buy oversold, sell overbought using RSI",
+        "indicators": [
+          "RSI"
+        ],
+        "timeframes": [
+          "15m",
+          "1h",
+          "4h"
+        ],
+        "risk_level": "medium"
+      },
+      "macd_crossover": {
+        "description": "Trade MACD line crossovers",
+        "indicators": [
+          "MACD",
+          "Signal Line"
+        ],
+        "timeframes": [
+          "1h",
+          "4h",
+          "1d"
+        ],
+        "risk_level": "medium"
+      },
+      "moving_average_crossover": {
+        "description": "Golden/Death cross strategy",
+        "indicators": [
+          "SMA 50",
+          "SMA 200"
+        ],
+        "timeframes": [
+          "4h",
+          "1d"
+        ],
+        "risk_level": "low"
+      }
+    },
+    "arbitrage_strategies": {
+      "simple_arbitrage": {
+        "description": "Price differences between exchanges",
+        "exchanges": [
+          "MEXC",
+          "Binance",
+          "Kraken"
+        ],
+        "risk_level": "low",
+        "speed_requirement": "high"
+      },
+      "triangular_arbitrage": {
+        "description": "Three-way arbitrage within single exchange",
+        "example": "BTC->ETH->USDT->BTC",
+        "risk_level": "medium",
+        "speed_requirement": "very high"
+      }
+    },
+    "market_making": {
+      "spread_capture": {
+        "description": "Provide liquidity and capture spread",
+        "risk_level": "medium",
+        "capital_requirement": "high"
+      }
+    },
+    "ml_strategies": {
+      "lstm_price_prediction": {
+        "description": "Use LSTM to predict next prices",
+        "model": "LSTM neural network",
+        "features": [
+          "OHLCV",
+          "volume",
+          "technical indicators"
+        ],
+        "risk_level": "high"
+      },
+      "sentiment_trading": {
+        "description": "Trade based on social sentiment",
+        "models": [
+          "FinBERT",
+          "CryptoBERT"
+        ],
+        "data_sources": [
+          "Twitter",
+          "Reddit",
+          "News"
+        ],
+        "risk_level": "high"
+      }
+    }
+  },
+  "risk_management": {
+    "position_sizing": {
+      "fixed_percentage": "Risk 1-2% of capital per trade",
+      "kelly_criterion": "Mathematical position sizing",
+      "volatility_adjusted": "Adjust size based on volatility"
+    },
+    "stop_loss_strategies": {
+      "fixed_percentage": "2-5% stop loss",
+      "atr_based": "Stop loss based on ATR",
+      "trailing_stop": "Lock in profits with trailing stop"
+    },
+    "portfolio_management": {
+      "max_positions": "5-10 simultaneous positions",
+      "correlation_check": "Avoid correlated positions",
+      "diversification": "Spread across assets/strategies"
+    }
+  },
+  "backtesting_framework": {
+    "tools": [
+      "VectorBT",
+      "Backtrader",
+      "Zipline"
+    ],
+    "data_requirements": "Historical OHLCV data",
+    "metrics": [
+      "Sharpe Ratio",
+      "Max Drawdown",
+      "Win Rate",
+      "Profit Factor",
+      "Return on Investment"
+    ]
+  }
+}
