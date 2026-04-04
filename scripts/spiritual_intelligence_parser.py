@@ -154,6 +154,11 @@ class SpiritualIntelligenceParser:
             "333": "Ascended masters with you, divine protection, expansion, growth",
             "444": "Angels surrounding you, Jesus frequency, strong foundation, safety",
             "555": "Major transformation, change is here, freedom incoming",
+            "666": "Balance material/spiritual, reflect and realign, earth grounding",
+            "777": "Divine magic, miracles incoming, lucky number, spiritual awakening",
+            "888": "Abundance, infinity loop, financial blessings, karmic rewards",
+            "8888": "Maximum abundance activation, infinity amplified, limitless potential",
+            "999": "Completion, endings leading to new beginnings, wisdom integration",
             "11:11": "Wake up call, spiritual awakening, manifestation master number",
             "1111": "Portal opening, alignment with highest self, instant manifestation",
             "1212": "Spiritual growth accelerating, stay positive, higher consciousness",
@@ -161,6 +166,9 @@ class SpiritualIntelligenceParser:
             "1234": "Angels guiding step by step, progress sequence, keep going",
             "123": "Simplify, step by step, remove complexity, flow naturally",
             "313": "Ascended masters + new beginnings, co-creation with divine",
+            "355": "Major change + freedom, transformation accelerating, release old patterns",
+            "404": "Foundation + divine support, angels rebuilding your life, solid ground",
+            "505": "Major transformation, divine intervention, freedom from limitations",
             "1333": "Trinity protection, ascended master guidance amplified",
             "1414": "Exodus frequency, liberation, breaking free from bondage",
             "144": "Chosen one activation, lightworker code, divine mission",
@@ -243,11 +251,11 @@ class SpiritualIntelligenceParser:
         # Patterns for angel numbers
         patterns = [
             (r'\b(111|222|333|444|555|666|777|888|999)\b', 'triple'),
-            (r'\b(1111|2222|3333|4444|5555)\b', 'quad'),
+            (r'\b(1111|2222|3333|4444|5555|6666|7777|8888|9999)\b', 'quad'),
             (r'\b(11:11|1:11|11)\b', 'master'),
             (r'\b(1212|1234|1222|1333|1414)\b', 'sequence'),
             (r'\b(144|144000)\b', 'biblical'),
-            (r'\b(123|313)\b', 'special')
+            (r'\b(123|313|355|404|505)\b', 'special')
         ]
         
         for pattern, category in patterns:
@@ -306,21 +314,27 @@ class SpiritualIntelligenceParser:
             (r'Iron in the Soul\s*([\d\.]+k?)', 'Iron in the Soul'),
             (r'Teresa Tarot\s*&\s*Psychic Reading\s*(\d+)', 'Teresa Tarot & Psychic Reading'),
             (r'the black rose priestess', 'The Black Rose Priestess'),
-            (r'TT@peacequeen_101', 'Peace Queen 101')
+            (r'TT@peacequeen_101', 'Peace Queen 101'),
+            (r'The\s*Herbal\s*Fox', 'The Herbal Fox'),
+            (r'Thepsychic\s*Fairy', 'The Psychic Fairy'),
+            (r'Crypto\s*Wendy', 'Crypto Wendy')
         ]
         
         for pattern_regex, name in channel_patterns:
             match = re.search(pattern_regex, text, re.IGNORECASE)
             if match:
                 # Try to extract numbers after channel name
-                nums = re.findall(r'([\d\.]+)k?', text[match.start():match.end()+50])
+                nums = re.findall(r'([\d\.]+)k', text[match.start():match.end()+50], re.IGNORECASE)
                 subscribers = nums[0] if nums else "0"
                 
                 # Convert k notation
-                if 'k' in subscribers.lower():
-                    subs = float(subscribers.replace('k', '')) * 1000
+                if subscribers != "0":
+                    try:
+                        subs = float(subscribers) * 1000
+                    except ValueError:
+                        subs = 0
                 else:
-                    subs = float(subscribers) if subscribers.replace('.','').isdigit() else 0
+                    subs = 0
                 
                 channels.append({
                     "name": name,
@@ -374,12 +388,28 @@ class SpiritualIntelligenceParser:
         
         card_patterns = [
             r'ace\s*of\s*cups',
+            r'ace\s*of\s*pentacles',
+            r'ace\s*of\s*swords?',
+            r'ace\s*of\s*wands',
             r'queen\s*of\s*wands',
-            r'lovers?\s*card',
             r'queen\s*of\s*swords',
             r'queen\s*of\s*pentacles',
             r'king\s*of\s*pentacles',
-            r'king\s*of\s*wands'
+            r'king\s*of\s*wands',
+            r'lovers?\s*card',
+            r'the\s*tower',
+            r'the\s*hermit',
+            r'the\s*chariot',
+            r'10\s*of\s*pentecles',
+            r'ten\s*of\s*pentacles',
+            r'7\s*of\s*pentacles',
+            r'seven\s*of\s*pentacles',
+            r'7\s*of\s*cups',
+            r'seven\s*of\s*cups',
+            r'10\s*of\s*swords',
+            r'ten\s*of\s*swords',
+            r'4\s*of\s*wands',
+            r'four\s*of\s*wands'
         ]
         
         for pattern in card_patterns:
