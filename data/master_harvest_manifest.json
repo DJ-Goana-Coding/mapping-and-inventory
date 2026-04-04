@@ -1,10 +1,10 @@
 {
-  "harvest_timestamp": "2026-04-04T00:36:58.404129Z",
+  "harvest_timestamp": "2026-04-04T00:38:41.364154Z",
   "sources": {
     "partitions": {},
     "models": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-03T18:47:16.585927Z",
+      "last_updated": "2026-04-04T00:36:59.610068Z",
       "total_models": 0,
       "categories": {
         "Core": {
