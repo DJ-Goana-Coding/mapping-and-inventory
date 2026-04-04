@@ -306,21 +306,27 @@ class SpiritualIntelligenceParser:
             (r'Iron in the Soul\s*([\d\.]+k?)', 'Iron in the Soul'),
             (r'Teresa Tarot\s*&\s*Psychic Reading\s*(\d+)', 'Teresa Tarot & Psychic Reading'),
             (r'the black rose priestess', 'The Black Rose Priestess'),
-            (r'TT@peacequeen_101', 'Peace Queen 101')
+            (r'TT@peacequeen_101', 'Peace Queen 101'),
+            (r'The\s*Herbal\s*Fox', 'The Herbal Fox'),
+            (r'Thepsychic\s*Fairy', 'The Psychic Fairy'),
+            (r'Crypto\s*Wendy', 'Crypto Wendy')
         ]
         
         for pattern_regex, name in channel_patterns:
             match = re.search(pattern_regex, text, re.IGNORECASE)
             if match:
                 # Try to extract numbers after channel name
-                nums = re.findall(r'([\d\.]+)k?', text[match.start():match.end()+50])
+                nums = re.findall(r'([\d\.]+)k', text[match.start():match.end()+50], re.IGNORECASE)
                 subscribers = nums[0] if nums else "0"
                 
                 # Convert k notation
-                if 'k' in subscribers.lower():
-                    subs = float(subscribers.replace('k', '')) * 1000
+                if subscribers != "0":
+                    try:
+                        subs = float(subscribers) * 1000
+                    except ValueError:
+                        subs = 0
                 else:
-                    subs = float(subscribers) if subscribers.replace('.','').isdigit() else 0
+                    subs = 0
                 
                 channels.append({
                     "name": name,
@@ -374,12 +380,25 @@ class SpiritualIntelligenceParser:
         
         card_patterns = [
             r'ace\s*of\s*cups',
+            r'ace\s*of\s*pentacles',
+            r'ace\s*of\s*swords?',
+            r'ace\s*of\s*wands',
             r'queen\s*of\s*wands',
-            r'lovers?\s*card',
             r'queen\s*of\s*swords',
             r'queen\s*of\s*pentacles',
             r'king\s*of\s*pentacles',
-            r'king\s*of\s*wands'
+            r'king\s*of\s*wands',
+            r'lovers?\s*card',
+            r'the\s*tower',
+            r'the\s*hermit',
+            r'10\s*of\s*pentecles',
+            r'ten\s*of\s*pentacles',
+            r'7\s*of\s*pentacles',
+            r'seven\s*of\s*pentacles',
+            r'7\s*of\s*cups',
+            r'seven\s*of\s*cups',
+            r'10\s*of\s*swords',
+            r'ten\s*of\s*swords'
         ]
         
         for pattern in card_patterns:
