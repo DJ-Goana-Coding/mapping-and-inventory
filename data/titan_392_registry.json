@@ -6,7 +6,7 @@
   "status": {
     "foundation": "STABLE",
     "pulse": "INITIALIZING",
-    "weld": "PENDING",
+    "weld": "IN_PROGRESS",
     "ignition": "READY"
   },
   "nodes": {
@@ -153,7 +153,7 @@
     "next_sync": null
   },
   "weld_operations": {
-    "district_weld": "PENDING",
+    "district_weld": "COMPLETE",
     "worker_weld": "PENDING",
     "model_weld": "PENDING",
     "partition_weld": "PENDING",
