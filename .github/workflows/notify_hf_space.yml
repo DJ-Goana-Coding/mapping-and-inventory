@@ -1,0 +1,130 @@
+name: 🔔 Notify HF Space of Updates
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: 'Force HF Space rebuild'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  notify-hf:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🔔 Send Sync Signal to HF Space
+        env:
+          HF_SPACE_WEBHOOK_URL: ${{ secrets.HF_SPACE_WEBHOOK_URL }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          FORCE_REBUILD: ${{ github.event.inputs.force_rebuild }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔔 CITADEL HF SPACE NOTIFICATION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📅 Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          echo "🌿 Branch: ${GITHUB_REF##*/}"
+          echo "📝 Commit: ${GITHUB_SHA:0:7}"
+          echo "👤 Author: ${GITHUB_ACTOR}"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          
+          # Method 1: Webhook notification (instant pull)
+          if [ -n "$HF_SPACE_WEBHOOK_URL" ]; then
+            echo "📡 Sending webhook notification..."
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$HF_SPACE_WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"ref\": \"refs/heads/main\",
+                \"repository\": {
+                  \"full_name\": \"DJ-Goana-Coding/mapping-and-inventory\"
+                },
+                \"pusher\": {
+                  \"name\": \"${GITHUB_ACTOR}\"
+                },
+                \"head_commit\": {
+                  \"id\": \"${GITHUB_SHA}\",
+                  \"message\": \"GitHub push trigger\"
+                }
+              }")
+            
+            if [ "$HTTP_CODE" -eq 200 ]; then
+              echo "✅ Webhook notification sent successfully (HTTP $HTTP_CODE)"
+            else
+              echo "⚠️ Webhook returned HTTP $HTTP_CODE (Space will sync on schedule)"
+            fi
+          else
+            echo "ℹ️ HF_SPACE_WEBHOOK_URL not configured"
+            echo "   Space will sync on next scheduled pull (every 6 hours)"
+          fi
+          
+          echo ""
+          
+          # Method 2: HF API restart (if token available and force rebuild requested)
+          if [ "$FORCE_REBUILD" = "true" ] && [ -n "$HF_TOKEN" ]; then
+            echo "🔄 Triggering HF Space rebuild via API..."
+            
+            SPACE_ID="DJ-Goanna-Coding/Mapping-and-Inventory"
+            
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+              "https://huggingface.co/api/spaces/${SPACE_ID}/restart" \
+              -H "Authorization: Bearer ${HF_TOKEN}")
+            
+            if [ "$HTTP_CODE" -eq 200 ] || [ "$HTTP_CODE" -eq 202 ]; then
+              echo "✅ HF Space restart triggered successfully (HTTP $HTTP_CODE)"
+            else
+              echo "⚠️ HF API returned HTTP $HTTP_CODE"
+            fi
+          fi
+          
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📊 NOTIFICATION SUMMARY"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔗 HF Space: https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory"
+          echo "📚 GitHub:   https://github.com/DJ-Goana-Coding/mapping-and-inventory"
+          echo ""
+          echo "✅ GitHub → HF notification complete"
+          echo "⏰ HF Space will pull latest changes on next sync cycle"
+          echo ""
+          echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  summary:
+    needs: notify-hf
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: 📋 Deployment Summary
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🎯 CITADEL SYNC ARCHITECTURE SUMMARY"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "📐 Architecture Pattern: PULL-OVER-PUSH"
+          echo ""
+          echo "Data Flow:"
+          echo "  1. 📝 Developer commits to GitHub"
+          echo "  2. 🔔 GitHub notifies HF Space (webhook)"
+          echo "  3. 📥 HF Space pulls from GitHub (autonomous)"
+          echo "  4. 🚀 HF Space rebuilds application (L4 GPU)"
+          echo ""
+          echo "Authority Hierarchy (Core Directive #2):"
+          echo "  1. 🥇 HuggingFace Spaces (L4) - Sovereign Compute"
+          echo "  2. 🥈 GitHub Repository - Source of Truth"
+          echo "  3. 🥉 GDrive Metadata - Partition Authority"
+          echo "  4. 📱 Local Nodes - Telemetry Bridge"
+          echo ""
+          echo "🔗 Live URLs:"
+          echo "  🤗 HF Space:  https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory"
+          echo "  📚 GitHub:    https://github.com/DJ-Goana-Coding/mapping-and-inventory"
+          echo ""
+          echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
