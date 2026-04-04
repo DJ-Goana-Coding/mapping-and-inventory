@@ -1,0 +1,366 @@
+{
+  "timestamp": "2026-04-04T13:11:43.702783",
+  "total_checks": 59,
+  "passed_checks": 45,
+  "failed_checks": 14,
+  "coverage_percentage": 76.27118644067797,
+  "target": 100.0,
+  "achieved": false,
+  "validation_results": {
+    "districts": {
+      "checks": [
+        {
+          "name": "Districts directory exists",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "D01 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D02 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D03 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D04 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D05 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D06 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D07 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D08 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D09 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D10 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D11 exists",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "D12 exists",
+          "status": "failed",
+          "description": ""
+        }
+      ],
+      "passed": 1,
+      "failed": 12
+    },
+    "documentation": {
+      "checks": [
+        {
+          "name": "README.md",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "CITADEL_AWAKENING_GUIDE.md",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "OMNI_AUDIT_MASTER_PLAN.md",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "QUANTUM_VAULT_OPERATOR_GUIDE.md",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "TRADING_SAFETY_OPERATOR_MANUAL.md",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "COMPREHENSIVE_DISCOVERY_FRAMEWORK.md",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 6,
+      "failed": 0
+    },
+    "workflows": {
+      "checks": [
+        {
+          "name": "Workflows directory exists",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "omni_audit_orchestrator.yml",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "citadel_awakening.yml",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "security_scan.yml",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "mesh_heartbeat.yml",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "oracle_sync.yml",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 6,
+      "failed": 0
+    },
+    "scripts": {
+      "checks": [
+        {
+          "name": "citadel_awakening.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "gap_analyzer.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "solution_generator.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "repo_census_builder.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "continuous_improvement_engine.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "security_sentinel.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "web_scout.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "master_systems_auditor.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "ten_solution_generator.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "shopping_expedition_orchestrator.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "continuous_testing_engine.py",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 11,
+      "failed": 0
+    },
+    "security": {
+      "checks": [
+        {
+          "name": "Security directory exists",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "quantum_vault.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "input_validator.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "rate_limiter.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "encryption_manager.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "audit_logger.py",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 6,
+      "failed": 0
+    },
+    "trading": {
+      "checks": [
+        {
+          "name": "Trading safety directory exists",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "circuit_breaker.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "credential_manager.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "trading_monitors.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "safe_trader.py",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 5,
+      "failed": 0
+    },
+    "rag": {
+      "checks": [
+        {
+          "name": "rag_ingest.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "personal_archive_rag_ingest.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "multi_brain_rag_system.py",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 3,
+      "failed": 0
+    },
+    "workers": {
+      "checks": [
+        {
+          "name": "Workers directory exists",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "workers_constellation_setup.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "worker_constellation_orchestrator.py",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "worker_watchdog.py",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 4,
+      "failed": 0
+    },
+    "integrations": {
+      "checks": [
+        {
+          "name": "oracle_sync.yml",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "bridge_push.yml",
+          "status": "passed",
+          "description": ""
+        }
+      ],
+      "passed": 2,
+      "failed": 0
+    },
+    "audit": {
+      "checks": [
+        {
+          "name": "No critical issues",
+          "status": "passed",
+          "description": ""
+        },
+        {
+          "name": "No high severity issues",
+          "status": "failed",
+          "description": ""
+        },
+        {
+          "name": "Health score >= 90",
+          "status": "failed",
+          "description": ""
+        }
+      ],
+      "passed": 1,
+      "failed": 2
+    }
+  }
+}
