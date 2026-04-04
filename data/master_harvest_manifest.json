@@ -1,10 +1,10 @@
 {
-  "harvest_timestamp": "2026-04-04T06:30:54.914851Z",
+  "harvest_timestamp": "2026-04-04T07:24:29.204673Z",
   "sources": {
     "partitions": {},
     "models": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-04T06:27:55.567767Z",
+      "last_updated": "2026-04-04T06:48:53.436324Z",
       "total_models": 0,
       "categories": {
         "Core": {
@@ -31,37 +31,33 @@
     },
     "workers": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-04T01:11:31.261632Z",
+      "last_updated": "2026-04-04T07:08:19.050750Z",
       "total_workers": 0,
       "categories": {
         "Vacuums": {
           "count": 0,
           "workers": []
         },
-        "python_workers": {
-          "gdrive_sync_worker": {
-            "name": "GDrive Sync Worker",
-            "description": "Sync GDrive to GitHub",
-            "language": "python",
-            "priority": "critical"
-          },
-          "partition_scanner": {
-            "name": "Partition Scanner Worker",
-            "description": "Scan GDrive partitions",
-            "language": "python",
-            "priority": "high"
-          },
-          "model_harvester": {
-            "name": "Model Harvester Worker",
-            "description": "Harvest models from GDrive",
-            "language": "python",
-            "priority": "critical"
-          }
+        "Harvesters": {
+          "count": 0,
+          "workers": []
+        },
+        "Librarians": {
+          "count": 0,
+          "workers": []
+        },
+        "Reporters": {
+          "count": 0,
+          "workers": []
+        },
+        "Archivists": {
+          "count": 0,
+          "workers": []
+        },
+        "Utility": {
+          "count": 0,
+          "workers": []
         }
-      },
-      "deployment_strategy": {
-        "apps_script": "Deploy to Google Apps Script editor",
-        "python": "Deploy to HuggingFace Space or GitHub Actions"
       }
     },
     "documents": {}
