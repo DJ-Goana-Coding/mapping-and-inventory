@@ -1,0 +1,162 @@
+{
+  "timestamp": "2026-04-04T13:11:32.736772",
+  "repository": "/home/runner/work/mapping-and-inventory/mapping-and-inventory",
+  "metrics": {
+    "total_workflows": 50,
+    "total_py_scripts": 124,
+    "total_sh_scripts": 11,
+    "total_districts": 9,
+    "expected_districts": 12,
+    "agent_legion_agents": 9,
+    "root_documentation": 143,
+    "rag_systems": 3,
+    "workers": 0,
+    "test_files": 0,
+    "total_holes": 21,
+    "severity_distribution": {
+      "HIGH": 21
+    },
+    "health_score": 0
+  },
+  "coverage": {
+    "districts": 75.0
+  },
+  "holes": {
+    "BROKEN_INTEGRATIONS": [
+      {
+        "type": "workflow_parse_error",
+        "workflow": "mesh_heartbeat.yml",
+        "error": "while scanning a simple key\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/mesh_heartbeat.yml\", line 114, column 1\ncould not find expected ':'\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/mesh_heartbeat.yml\", line 115, column 3",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "worker_watchdog.yml",
+        "error": "while parsing a block mapping\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/worker_watchdog.yml\", line 1, column 1\nexpected <block end>, but found '-'\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/worker_watchdog.yml\", line 122, column 1",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "repair_tia_core_space.yml",
+        "error": "while parsing a block mapping\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/repair_tia_core_space.yml\", line 1, column 1\nexpected <block end>, but found '-'\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/repair_tia_core_space.yml\", line 111, column 1",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "global_repo_bridge.yml",
+        "error": "while scanning a simple key\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/global_repo_bridge.yml\", line 77, column 1\ncould not find expected ':'\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/global_repo_bridge.yml\", line 78, column 1",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "deploy_tia_core_full.yml",
+        "error": "mapping values are not allowed here\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/deploy_tia_core_full.yml\", line 238, column 13",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "spoke_registration.yml",
+        "error": "while parsing a block mapping\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/spoke_registration.yml\", line 1, column 1\nexpected <block end>, but found '-'\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/spoke_registration.yml\", line 146, column 1",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "trading_safety_monitor.yml",
+        "error": "while scanning an alias\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/trading_safety_monitor.yml\", line 154, column 11\nexpected alphabetic or numeric character, but found '*'\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/trading_safety_monitor.yml\", line 154, column 12",
+        "severity": "HIGH"
+      },
+      {
+        "type": "workflow_parse_error",
+        "workflow": "emergency_repair_tia_core.yml",
+        "error": "expected a single document in the stream\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/emergency_repair_tia_core.yml\", line 1, column 1\nbut found another document\n  in \"/home/runner/work/mapping-and-inventory/mapping-and-inventory/.github/workflows/emergency_repair_tia_core.yml\", line 129, column 1",
+        "severity": "HIGH"
+      }
+    ],
+    "COVERAGE_GAPS": [
+      {
+        "type": "missing_district",
+        "district": "D01",
+        "severity": "HIGH",
+        "impact": "District D01 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D02",
+        "severity": "HIGH",
+        "impact": "District D02 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D03",
+        "severity": "HIGH",
+        "impact": "District D03 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D04",
+        "severity": "HIGH",
+        "impact": "District D04 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D05",
+        "severity": "HIGH",
+        "impact": "District D05 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D06",
+        "severity": "HIGH",
+        "impact": "District D06 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D07",
+        "severity": "HIGH",
+        "impact": "District D07 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D08",
+        "severity": "HIGH",
+        "impact": "District D08 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D09",
+        "severity": "HIGH",
+        "impact": "District D09 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D10",
+        "severity": "HIGH",
+        "impact": "District D10 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D11",
+        "severity": "HIGH",
+        "impact": "District D11 not mapped"
+      },
+      {
+        "type": "missing_district",
+        "district": "D12",
+        "severity": "HIGH",
+        "impact": "District D12 not mapped"
+      },
+      {
+        "type": "no_tests",
+        "severity": "HIGH",
+        "impact": "No test coverage exists"
+      }
+    ]
+  },
+  "summary": {
+    "total_categories": 2,
+    "total_holes": 21,
+    "health_score": 0,
+    "critical_count": 0,
+    "high_count": 21
+  }
+}
