@@ -1,0 +1,285 @@
+name: 🚨 GDrive Emergency Extraction
+# Critical workflow for extracting all data from GDrive accounts
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      accounts:
+        description: 'Accounts to extract (chanceroofing, mynewemail, or all)'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - chanceroofing
+          - mynewemail
+      priority_only:
+        description: 'Extract P0/P1 priority files only'
+        required: false
+        default: false
+        type: boolean
+  
+  # Daily extraction at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  verify-access:
+    runs-on: ubuntu-latest
+    name: Verify GDrive Access
+    outputs:
+      chanceroofing_accessible: ${{ steps.verify.outputs.chanceroofing }}
+      mynewemail_accessible: ${{ steps.verify.outputs.mynewemail }}
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+      
+      - name: 🔐 Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" | base64 -d > ~/.config/rclone/rclone.conf
+      
+      - name: ✅ Verify Access
+        id: verify
+        run: |
+          # Test chanceroofing
+          if rclone lsf gdrive_chanceroofing: --max-depth 1 --max-results 1 &> /dev/null; then
+            echo "chanceroofing=true" >> $GITHUB_OUTPUT
+            echo "✅ chanceroofing@gmail.com accessible"
+          else
+            echo "chanceroofing=false" >> $GITHUB_OUTPUT
+            echo "❌ chanceroofing@gmail.com not accessible"
+          fi
+          
+          # Test mynewemail
+          if rclone lsf gdrive_mynewemail: --max-depth 1 --max-results 1 &> /dev/null; then
+            echo "mynewemail=true" >> $GITHUB_OUTPUT
+            echo "✅ mynewemail110411@gmail.com accessible"
+          else
+            echo "mynewemail=false" >> $GITHUB_OUTPUT
+            echo "❌ mynewemail110411@gmail.com not accessible"
+          fi
+
+  extract-chanceroofing:
+    runs-on: ubuntu-latest
+    name: Extract chanceroofing@gmail.com
+    needs: verify-access
+    if: |
+      needs.verify-access.outputs.chanceroofing_accessible == 'true' &&
+      (github.event.inputs.accounts == 'all' || github.event.inputs.accounts == 'chanceroofing' || github.event.inputs.accounts == '')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          pip install huggingface_hub
+      
+      - name: 🔐 Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" | base64 -d > ~/.config/rclone/rclone.conf
+      
+      - name: 📊 Scan & Catalog Files
+        run: |
+          echo "🔍 Scanning chanceroofing@gmail.com GDrive..."
+          rclone lsjson gdrive_chanceroofing: --recursive --max-depth 10 \
+            > data/gdrive_manifests/chanceroofing_raw_inventory.json || true
+          
+          echo "📊 Processing inventory..."
+          python3 << 'PYTHON'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          
+          raw_file = Path("data/gdrive_manifests/chanceroofing_raw_inventory.json")
+          if raw_file.exists():
+              with open(raw_file) as f:
+                  files = json.load(f)
+              
+              manifest = {
+                  "account": "chanceroofing@gmail.com",
+                  "scan_timestamp": datetime.utcnow().isoformat() + "Z",
+                  "total_files": len(files),
+                  "total_size_bytes": sum(f.get("Size", 0) for f in files if not f.get("IsDir")),
+                  "files": files
+              }
+              
+              output = Path("data/gdrive_manifests/chanceroofing_complete_index.json")
+              output.parent.mkdir(parents=True, exist_ok=True)
+              with open(output, 'w') as f:
+                  json.dump(manifest, f, indent=2)
+              
+              print(f"✅ Cataloged {manifest['total_files']} files")
+              print(f"💾 Total size: {manifest['total_size_bytes'] / (1024**3):.2f} GB")
+          PYTHON
+      
+      - name: 📦 Priority Copy (P0 - CRITICAL)
+        run: |
+          python3 scripts/gdrive_priority_copier.py \
+            --remote gdrive_chanceroofing \
+            --account chanceroofing
+      
+      - name: 📤 Commit Extracted Files
+        run: |
+          git config user.name "GDrive Emergency Extractor"
+          git config user.email "gdrive-extractor@citadel.mesh"
+          
+          git add data/gdrive_archive/chanceroofing/ || true
+          git add data/gdrive_manifests/chanceroofing_*.json || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "🚨 GDrive Emergency Extract: chanceroofing - $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
+
+  extract-mynewemail:
+    runs-on: ubuntu-latest
+    name: Extract mynewemail110411@gmail.com
+    needs: verify-access
+    if: |
+      needs.verify-access.outputs.mynewemail_accessible == 'true' &&
+      (github.event.inputs.accounts == 'all' || github.event.inputs.accounts == 'mynewemail' || github.event.inputs.accounts == '')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📦 Install Dependencies
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          pip install huggingface_hub
+      
+      - name: 🔐 Configure Rclone
+        env:
+          RCLONE_CONFIG_DATA: ${{ secrets.RCLONE_CONFIG_DATA }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG_DATA" | base64 -d > ~/.config/rclone/rclone.conf
+      
+      - name: 📊 Scan & Catalog Files
+        run: |
+          echo "🔍 Scanning mynewemail110411@gmail.com GDrive..."
+          rclone lsjson gdrive_mynewemail: --recursive --max-depth 10 \
+            > data/gdrive_manifests/mynewemail_raw_inventory.json || true
+          
+          echo "📊 Processing inventory..."
+          python3 << 'PYTHON'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          
+          raw_file = Path("data/gdrive_manifests/mynewemail_raw_inventory.json")
+          if raw_file.exists():
+              with open(raw_file) as f:
+                  files = json.load(f)
+              
+              manifest = {
+                  "account": "mynewemail110411@gmail.com",
+                  "scan_timestamp": datetime.utcnow().isoformat() + "Z",
+                  "total_files": len(files),
+                  "total_size_bytes": sum(f.get("Size", 0) for f in files if not f.get("IsDir")),
+                  "files": files
+              }
+              
+              output = Path("data/gdrive_manifests/mynewemail_complete_index.json")
+              output.parent.mkdir(parents=True, exist_ok=True)
+              with open(output, 'w') as f:
+                  json.dump(manifest, f, indent=2)
+              
+              print(f"✅ Cataloged {manifest['total_files']} files")
+              print(f"💾 Total size: {manifest['total_size_bytes'] / (1024**3):.2f} GB")
+          PYTHON
+      
+      - name: 📦 Priority Copy (P0 - CRITICAL)
+        run: |
+          python3 scripts/gdrive_priority_copier.py \
+            --remote gdrive_mynewemail \
+            --account mynewemail
+      
+      - name: 📤 Commit Extracted Files
+        run: |
+          git config user.name "GDrive Emergency Extractor"
+          git config user.email "gdrive-extractor@citadel.mesh"
+          
+          git add data/gdrive_archive/mynewemail/ || true
+          git add data/gdrive_manifests/mynewemail_*.json || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "🚨 GDrive Emergency Extract: mynewemail - $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
+
+  generate-report:
+    runs-on: ubuntu-latest
+    name: Generate Extraction Report
+    needs: [extract-chanceroofing, extract-mynewemail]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📊 Generate Report
+        run: |
+          cat > data/gdrive_archive/extraction_report_$(date +%Y%m%d).md << 'EOF'
+          # 🚨 GDrive Emergency Extraction Report
+          
+          **Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Workflow:** ${{ github.run_id }}
+          
+          ## Accounts Processed
+          
+          - chanceroofing@gmail.com: ${{ needs.extract-chanceroofing.result }}
+          - mynewemail110411@gmail.com: ${{ needs.extract-mynewemail.result }}
+          
+          ## Files Extracted
+          
+          See manifests in `data/gdrive_manifests/`
+          
+          ## Next Steps
+          
+          1. Review extracted files in `data/gdrive_archive/`
+          2. Upload large files to HuggingFace Datasets
+          3. Verify integrity of critical files
+          4. Update master intelligence map
+          
+          ---
+          
+          **Authority:** Citadel Architect v25.0.OMNI+
+          EOF
+          
+          echo "✅ Report generated"

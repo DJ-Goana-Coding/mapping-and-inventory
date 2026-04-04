@@ -1,0 +1,244 @@
+name: 💻 Laptop Complete Vacuum
+# Complete laptop data extraction workflow
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      scan_mode:
+        description: 'Scan mode'
+        required: false
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - media_only
+          - programs_only
+          - scan_only
+  
+  # Weekly on Sunday at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * 0'
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  system-profile:
+    runs-on: ubuntu-latest
+    name: System Profile & Capabilities
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 📊 Run System Librarian
+        run: |
+          if [ -f "scripts/system_librarian.py" ]; then
+            python3 scripts/system_librarian.py || true
+          else
+            echo "⚠️  system_librarian.py not found, generating basic profile..."
+            python3 << 'PYTHON'
+          import json, platform, os
+          from datetime import datetime
+          from pathlib import Path
+          
+          profile = {
+              "timestamp": datetime.utcnow().isoformat() + "Z",
+              "hostname": platform.node(),
+              "os": {
+                  "system": platform.system(),
+                  "release": platform.release(),
+                  "version": platform.version()
+              },
+              "python_version": platform.python_version(),
+              "note": "Running in GitHub Actions environment"
+          }
+          
+          output = Path("data/laptop_inventory/system_profile_latest.json")
+          output.parent.mkdir(parents=True, exist_ok=True)
+          with open(output, 'w') as f:
+              json.dump(profile, f, indent=2)
+          print("✅ Basic profile generated")
+          PYTHON
+          fi
+      
+      - name: 📤 Commit Profile
+        run: |
+          git config user.name "Laptop Vacuum Bot"
+          git config user.email "laptop-vacuum@citadel.mesh"
+          
+          git add data/laptop_inventory/*.json || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "📊 System Profile: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
+
+  media-harvest:
+    runs-on: ubuntu-latest
+    name: Media Harvest (Music/Art/Video)
+    if: |
+      github.event.inputs.scan_mode == 'full' || 
+      github.event.inputs.scan_mode == 'media_only' ||
+      github.event.inputs.scan_mode == ''
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 🎵 Run Media Harvester
+        run: |
+          echo "🎵 Running laptop media harvester..."
+          python3 scripts/laptop_media_harvester.py \
+            --output-dir data/laptop_inventory || true
+      
+      - name: 📤 Commit Media Catalog
+        run: |
+          git config user.name "Laptop Vacuum Bot"
+          git config user.email "laptop-vacuum@citadel.mesh"
+          
+          git add data/laptop_inventory/media_*.json || true
+          git add data/laptop_inventory/media_*.md || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "🎵 Media Harvest: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
+
+  programs-catalog:
+    runs-on: ubuntu-latest
+    name: Programs Catalog
+    if: |
+      github.event.inputs.scan_mode == 'full' || 
+      github.event.inputs.scan_mode == 'programs_only' ||
+      github.event.inputs.scan_mode == ''
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: 🎯 Run Programs Cataloger
+        run: |
+          echo "🎯 Running laptop programs cataloger..."
+          echo "⚠️  Note: Windows-specific registry scanning not available in Linux environment"
+          echo "   Portable apps scanning will work cross-platform"
+          python3 scripts/laptop_programs_cataloger.py || true
+      
+      - name: 📤 Commit Programs Catalog
+        run: |
+          git config user.name "Laptop Vacuum Bot"
+          git config user.email "laptop-vacuum@citadel.mesh"
+          
+          git add data/laptop_inventory/programs_*.json || true
+          git add data/laptop_inventory/programs_*.md || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "🎯 Programs Catalog: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
+
+  generate-vacuum-report:
+    runs-on: ubuntu-latest
+    name: Generate Vacuum Report
+    needs: [system-profile, media-harvest, programs-catalog]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📊 Generate Complete Report
+        run: |
+          mkdir -p data/laptop_inventory
+          cat > data/laptop_inventory/vacuum_report_$(date +%Y%m%d).md << 'EOF'
+          # 💻 Laptop Complete Vacuum Report
+          
+          **Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          **Workflow:** ${{ github.run_id }}
+          **Mode:** ${{ github.event.inputs.scan_mode || 'full' }}
+          
+          ## Jobs Completed
+          
+          - System Profile: ${{ needs.system-profile.result }}
+          - Media Harvest: ${{ needs.media-harvest.result }}
+          - Programs Catalog: ${{ needs.programs-catalog.result }}
+          
+          ## Artifacts Generated
+          
+          Check `data/laptop_inventory/` for:
+          - System profiles (`system_profile_*.json`)
+          - Media catalogs (`media_harvest_*.json`)
+          - Programs catalogs (`programs_catalog_*.json`)
+          
+          ## Next Steps
+          
+          1. Run on actual laptop for complete data
+          2. Use smart file router to organize files by size
+          3. Upload large media to HuggingFace Datasets
+          4. Commit small files to GitHub
+          
+          ## Operator Instructions
+          
+          To run on your laptop:
+          
+          ```bash
+          # Clone repository
+          git clone https://github.com/DJ-Goana-Coding/mapping-and-inventory.git
+          cd mapping-and-inventory
+          
+          # Run media harvester
+          python scripts/laptop_media_harvester.py --paths C:/ D:/ F:/
+          
+          # Run programs cataloger  
+          python scripts/laptop_programs_cataloger.py
+          
+          # Route files by size
+          python scripts/smart_file_router.py \
+            --source C:/Users/YourName \
+            --output . \
+            --execute \
+            --tiers small medium
+          
+          # Commit and push
+          git add data/
+          git commit -m "Laptop vacuum: $(date)"
+          git push
+          ```
+          
+          ---
+          
+          **Authority:** Citadel Architect v25.0.OMNI+
+          EOF
+          
+          echo "✅ Report generated"
+      
+      - name: 📤 Commit Report
+        run: |
+          git config user.name "Laptop Vacuum Bot"
+          git config user.email "laptop-vacuum@citadel.mesh"
+          
+          git add data/laptop_inventory/vacuum_report_*.md || true
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "📊 Laptop Vacuum Report: $(date -u +%Y-%m-%dT%H:%M:%SZ)" || true
+            git push || true
+          fi
