@@ -1,187 +1,58 @@
 {
-  "harvest_timestamp": "2026-04-05T06:28:19.159913Z",
+  "harvest_timestamp": "2026-04-05T06:34:12.606001Z",
   "sources": {
     "partitions": {},
     "models": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-05T04:10:00Z",
-      "total_models": 8,
+      "last_updated": "2026-04-05T06:32:30.202739Z",
+      "total_models": 0,
       "categories": {
         "Core": {
-          "count": 3,
-          "models": [
-            {
-              "id": "claude_sonnet_4_5",
-              "name": "Claude Sonnet 4.5",
-              "provider": "Anthropic",
-              "purpose": "Primary reasoning and code generation",
-              "location": "api",
-              "status": "active"
-            },
-            {
-              "id": "gpt_4_turbo",
-              "name": "GPT-4 Turbo",
-              "provider": "OpenAI",
-              "purpose": "Alternative reasoning engine",
-              "location": "api",
-              "status": "active"
-            },
-            {
-              "id": "gemini_pro",
-              "name": "Gemini Pro",
-              "provider": "Google",
-              "purpose": "Multi-modal processing",
-              "location": "api",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "models": []
         },
         "Genetics": {
-          "count": 1,
-          "models": [
-            {
-              "id": "citadel_genetics_swarm",
-              "name": "Citadel Genetics Swarm",
-              "provider": "Internal",
-              "purpose": "Evolutionary algorithm optimization",
-              "location": "Citadel_Genetics repository",
-              "status": "pending_integration"
-            }
-          ]
+          "count": 0,
+          "models": []
         },
         "Lore": {
-          "count": 2,
-          "models": [
-            {
-              "id": "spiritual_intelligence_parser",
-              "name": "Spiritual Intelligence Parser",
-              "provider": "Internal",
-              "purpose": "Multi-dimensional transmission processing",
-              "location": "scripts/spiritual_intelligence_parser.py",
-              "status": "active"
-            },
-            {
-              "id": "tarot_interpreter",
-              "name": "Tarot Reading Interpreter",
-              "provider": "Internal",
-              "purpose": "94-card tarot database and interpretation",
-              "location": "scripts/tarot_reading_interpreter.py",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "models": []
         },
         "Research": {
-          "count": 1,
-          "models": [
-            {
-              "id": "blockchain_research_agent",
-              "name": "Blockchain Technology Researcher",
-              "provider": "Internal",
-              "purpose": "L1/L2/L3 blockchain research and analysis",
-              "location": "scripts/blockchain_technology_researcher.py",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "models": []
         },
         "Utility": {
-          "count": 1,
-          "models": [
-            {
-              "id": "sentence_transformers",
-              "name": "Sentence Transformers",
-              "provider": "HuggingFace",
-              "purpose": "Text embeddings for RAG system",
-              "location": "requirements.txt",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "models": []
         }
-      },
-      "model_pipeline": {
-        "embedding": "sentence-transformers/all-MiniLM-L6-v2",
-        "reasoning": "claude-sonnet-4.5",
-        "spiritual": "spiritual_intelligence_parser",
-        "trading": "pending_activation"
-      },
-      "notes": "Registry represents models referenced in codebase. Additional models may be stored in GDrive partitions."
+      }
     },
     "workers": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-05T04:10:00Z",
-      "total_workers": 6,
+      "last_updated": "2026-04-05T06:32:31.696450Z",
+      "total_workers": 0,
       "categories": {
         "Vacuums": {
-          "count": 1,
-          "workers": [
-            {
-              "id": "oppo_file_vacuum",
-              "name": "Oppo File Vacuum",
-              "description": "Scans Oppo device for new files and stages for ingestion",
-              "source": "Partition_46/oppo_staged_updates.json",
-              "frequency": "on_change",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "workers": []
         },
         "Harvesters": {
-          "count": 2,
-          "workers": [
-            {
-              "id": "gdrive_partition_harvester",
-              "name": "GDrive Partition Harvester",
-              "description": "Harvests metadata from GDrive partitions",
-              "source": "scripts/gdrive_partition_harvester.py",
-              "frequency": "6_hours",
-              "status": "active"
-            },
-            {
-              "id": "s10_field_harvester",
-              "name": "S10 Field Data Harvester",
-              "description": "Harvests tactical data from S10 device",
-              "source": "Partition_02/s10_uplink.py",
-              "frequency": "on_push",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "workers": []
         },
         "Librarians": {
-          "count": 1,
-          "workers": [
-            {
-              "id": "master_intelligence_librarian",
-              "name": "Master Intelligence Librarian",
-              "description": "Maintains master_intelligence_map.txt and master_inventory.json",
-              "source": "Partition_01/vault.py",
-              "frequency": "daily",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "workers": []
         },
         "Reporters": {
-          "count": 1,
-          "workers": [
-            {
-              "id": "district_reporter",
-              "name": "District Status Reporter",
-              "description": "Generates TREE.md and INVENTORY.json for all Districts",
-              "source": "scripts/generate_district_reports.py",
-              "frequency": "6_hours",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "workers": []
         },
         "Archivists": {
-          "count": 1,
-          "workers": [
-            {
-              "id": "spiritual_transmission_archivist",
-              "name": "Spiritual Transmission Archivist",
-              "description": "Archives and catalogs spiritual intelligence transmissions",
-              "source": "scripts/spiritual_intelligence_parser.py",
-              "frequency": "on_demand",
-              "status": "active"
-            }
-          ]
+          "count": 0,
+          "workers": []
         },
         "Utility": {
           "count": 0,
@@ -194,8 +65,8 @@
   "summary": {
     "total_partitions": 0,
     "total_files": 0,
-    "total_models": 8,
-    "total_workers": 6,
+    "total_models": 0,
+    "total_workers": 0,
     "total_documents": 0
   }
 }
