@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-05T06:26:26.016482",
+  "github_repos": [],
+  "huggingface_spaces": [],
+  "summary": {
+    "total_github_repos": 0,
+    "total_hf_spaces": 0,
+    "total_repositories": 0,
+    "primary_languages": {},
+    "repos_with_tests": 0,
+    "repos_with_ci": 0,
+    "repos_with_docs": 0,
+    "avg_documentation_score": 0,
+    "total_size_kb": 0,
+    "total_size_mb": 0.0
+  }
+}
