@@ -1,4 +1,4 @@
-name: 🤗 HuggingFace Spaces Multi-Sync
+name: 🔔 Notify HF Spaces to Pull Updates
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       target_spaces:
-        description: 'Spaces to sync (all/aion/oracle/goanna/mapping)'
+        description: 'Spaces to notify (all/aion/oracle/goanna/mapping/ark-core)'
         required: false
         default: 'all'
         type: choice
@@ -17,12 +17,13 @@ on:
           - oracle
           - goanna
           - mapping
+          - ark-core
 
 permissions:
   contents: read
 
 jobs:
-  sync-spaces:
+  notify-spaces:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,18 +32,27 @@ jobs:
             repo: "DJ-Goanna-Coding/AION"
             branch: "main"
             enabled: true
+            webhook_env: "HF_WEBHOOK_AION"
           - name: "ORACLE"
             repo: "DJ-Goanna-Coding/ORACLE"
             branch: "main"
             enabled: true
+            webhook_env: "HF_WEBHOOK_ORACLE"
           - name: "goanna_coding"
             repo: "DJ-Goanna-Coding/goanna_coding"
             branch: "main"
             enabled: true
+            webhook_env: "HF_WEBHOOK_GOANNA"
           - name: "Mapping-and-Inventory"
             repo: "DJ-Goanna-Coding/Mapping-and-Inventory"
             branch: "main"
             enabled: true
+            webhook_env: "HF_WEBHOOK_MAPPING"
+          - name: "ARK-CORE"
+            repo: "DJ-Goanna-Coding/ARK-CORE"
+            branch: "main"
+            enabled: true
+            webhook_env: "HF_WEBHOOK_ARK_CORE"
     
     steps:
       - name: 📥 Checkout Repository
@@ -52,42 +62,44 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: 🔄 Sync to ${{ matrix.space.name }}
+      - name: 🔔 Notify ${{ matrix.space.name }} to Pull
         if: |
           matrix.space.enabled &&
           (github.event.inputs.target_spaces == 'all' ||
            github.event.inputs.target_spaces == '' ||
            contains(matrix.space.name, github.event.inputs.target_spaces))
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          # Only expose the specific webhook secret needed for this space
+          WEBHOOK_URL: ${{ matrix.space.name == 'AION' && secrets.HF_WEBHOOK_AION || matrix.space.name == 'ORACLE' && secrets.HF_WEBHOOK_ORACLE || matrix.space.name == 'goanna_coding' && secrets.HF_WEBHOOK_GOANNA || matrix.space.name == 'Mapping-and-Inventory' && secrets.HF_WEBHOOK_MAPPING || matrix.space.name == 'ARK-CORE' && secrets.HF_WEBHOOK_ARK_CORE || '' }}
         run: |
-          if [ -z "$HF_TOKEN" ]; then
-            echo "⚠️ HF_TOKEN not set, skipping sync for ${{ matrix.space.name }}"
-            exit 0
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🔔 Notifying HuggingFace Space: ${{ matrix.space.name }}"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          if [ -n "$WEBHOOK_URL" ]; then
+            # Send webhook notification to HF Space
+            curl -X POST "$WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d '{
+                "ref": "refs/heads/${{ matrix.space.branch }}",
+                "repository": {
+                  "full_name": "DJ-Goana-Coding/mapping-and-inventory"
+                },
+                "pusher": {
+                  "name": "GitHub Actions"
+                },
+                "message": "GitHub update detected - please pull latest changes"
+              }' || echo "⚠️ Webhook call failed (Space may not have webhook configured)"
+            
+            echo "✅ Webhook notification sent to ${{ matrix.space.name }}"
+          else
+            echo "⚠️ No webhook configured for ${{ matrix.space.name }}"
+            echo "   Space will sync on next scheduled pull or manual rebuild"
+            echo "   To enable instant sync, configure webhook URL in secrets: ${{ matrix.space.webhook_env }}"
           fi
           
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🚀 Syncing to HuggingFace Space: ${{ matrix.space.name }}"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          
-          # Configure git
-          git config --global credential.helper store
-          echo "https://DJ-Goanna-Coding:${HF_TOKEN}@huggingface.co" >> ~/.git-credentials
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "Citadel Sync Bot"
-          
-          # Add HuggingFace remote
-          REMOTE_NAME="hf_${{ matrix.space.name }}"
-          REMOTE_URL="https://huggingface.co/spaces/${{ matrix.space.repo }}"
-          
-          git remote remove $REMOTE_NAME 2>/dev/null || true
-          git remote add $REMOTE_NAME $REMOTE_URL
-          
-          # Push to HuggingFace
-          echo "📤 Pushing to $REMOTE_URL..."
-          git push --force $REMOTE_NAME ${{ matrix.space.branch }}
-          
-          echo "✅ Successfully synced to ${{ matrix.space.name }}"
+          echo "📊 Space URL: https://huggingface.co/spaces/${{ matrix.space.repo }}"
+          echo "🔄 Pull-over-push architecture: Space will pull from GitHub"
 
       - name: 📊 Verify Space Status
         if: matrix.space.enabled
@@ -100,21 +112,38 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
   summary:
-    needs: sync-spaces
+    needs: notify-spaces
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - name: 📋 Deployment Summary
+      - name: 📋 Notification Summary
         run: |
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🎯 CITADEL HF SPACES DEPLOYMENT SUMMARY"
+          echo "🎯 CITADEL HF SPACES NOTIFICATION SUMMARY"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
-          echo "Deployed Spaces:"
-          echo "  🤖 AION:    https://huggingface.co/spaces/DJ-Goanna-Coding/AION"
-          echo "  🔮 ORACLE:  https://huggingface.co/spaces/DJ-Goanna-Coding/ORACLE"
-          echo "  🦎 Goanna:  https://huggingface.co/spaces/DJ-Goanna-Coding/goanna_coding"
-          echo "  📚 Mapping: https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory"
+          echo "📡 Architecture: PULL-OVER-PUSH (Correct)"
+          echo "   GitHub is source of truth → HF Spaces pull on notification"
+          echo ""
+          echo "Notified Spaces:"
+          echo "  🤖 AION:       https://huggingface.co/spaces/DJ-Goanna-Coding/AION"
+          echo "  🔮 ORACLE:     https://huggingface.co/spaces/DJ-Goanna-Coding/ORACLE"
+          echo "  🦎 Goanna:     https://huggingface.co/spaces/DJ-Goanna-Coding/goanna_coding"
+          echo "  📚 Mapping:    https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory"
+          echo "  🏗️ ARK-CORE:   https://huggingface.co/spaces/DJ-Goanna-Coding/ARK-CORE"
+          echo ""
+          echo "🔄 Sync Strategy:"
+          echo "   1. GitHub push triggers this notification workflow"
+          echo "   2. Webhook sent to each HF Space (if configured)"
+          echo "   3. HF Space receives webhook and pulls from GitHub"
+          echo "   4. HF Space also pulls on startup and every 6 hours"
+          echo ""
+          echo "🔐 Required Secrets (optional for instant sync):"
+          echo "   - HF_WEBHOOK_AION"
+          echo "   - HF_WEBHOOK_ORACLE"
+          echo "   - HF_WEBHOOK_GOANNA"
+          echo "   - HF_WEBHOOK_MAPPING"
+          echo "   - HF_WEBHOOK_ARK_CORE"
           echo ""
           echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

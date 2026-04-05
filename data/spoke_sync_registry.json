@@ -1,0 +1,62 @@
+{
+  "registry_version": "1.0.0",
+  "last_updated": "2026-04-05T04:03:00Z",
+  "sync_authority": "Citadel Architect v25.0.OMNI+",
+  "total_spokes": 1,
+  "spokes": {
+    "ARK-CORE": {
+      "repo_url": "https://github.com/DJ-Goana-Coding/ARK_CORE",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/ARK-CORE",
+      "pillar": "Infrastructure",
+      "role": "Device Sync Orchestrator",
+      "substrates": [
+        "Oppo Node (Partition_01)",
+        "S10 Field Uplink (Partition_02)",
+        "GitHub Titan",
+        "Google Drive (321GB GENESIS_VAULT)"
+      ],
+      "last_sync": "2026-04-05T04:03:00Z",
+      "sync_status": "integrated",
+      "agent_configured": true,
+      "agent_file": ".github/agents/ark-core.agent.md",
+      "artifacts": {
+        "TREE.md": "pending",
+        "INVENTORY.json": "pending",
+        "SCAFFOLD.md": "pending"
+      },
+      "capabilities": [
+        "Spiritual transmission processing",
+        "Device synchronization (Oppo/S10)",
+        "Master intelligence map generation",
+        "Worker constellation management",
+        "Model registry management",
+        "GDrive partition awareness",
+        "Stainless pipeline enforcement"
+      ],
+      "sync_frequency": "on_push",
+      "notes": "Newly integrated 2026-04-05. Agent instructions created. Processing first spiritual transmission."
+    }
+  },
+  "sync_strategy": {
+    "hub": "mapping-and-inventory",
+    "spokes_pull_from_hub": true,
+    "hub_aggregates_from_spokes": true,
+    "conflict_resolution": "Cloud > GitHub > GDrive > Local",
+    "sync_interval_hours": 6
+  },
+  "pending_integrations": [
+    "TIA-ARCHITECT-CORE",
+    "CITADEL_OMEGA",
+    "Citadel_Genetics",
+    "Genesis-Research-Rack"
+  ],
+  "integration_protocol": {
+    "step_1": "Create agent configuration in .github/agents/",
+    "step_2": "Add spoke to this registry",
+    "step_3": "Deploy spoke-to-hub-sync.yml workflow",
+    "step_4": "Configure HF Space pull-over-push",
+    "step_5": "Generate TREE/INVENTORY/SCAFFOLD artifacts",
+    "step_6": "Verify sync pathway",
+    "step_7": "Activate Forever Learning cycle"
+  }
+}
