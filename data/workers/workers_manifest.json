@@ -1,80 +1,27 @@
 {
   "registry_version": "1.0.0",
-  "last_updated": "2026-04-05T04:10:00Z",
-  "total_workers": 6,
+  "last_updated": "2026-04-05T06:32:31.696450Z",
+  "total_workers": 0,
   "categories": {
     "Vacuums": {
-      "count": 1,
-      "workers": [
-        {
-          "id": "oppo_file_vacuum",
-          "name": "Oppo File Vacuum",
-          "description": "Scans Oppo device for new files and stages for ingestion",
-          "source": "Partition_46/oppo_staged_updates.json",
-          "frequency": "on_change",
-          "status": "active"
-        }
-      ]
+      "count": 0,
+      "workers": []
     },
     "Harvesters": {
-      "count": 2,
-      "workers": [
-        {
-          "id": "gdrive_partition_harvester",
-          "name": "GDrive Partition Harvester",
-          "description": "Harvests metadata from GDrive partitions",
-          "source": "scripts/gdrive_partition_harvester.py",
-          "frequency": "6_hours",
-          "status": "active"
-        },
-        {
-          "id": "s10_field_harvester",
-          "name": "S10 Field Data Harvester",
-          "description": "Harvests tactical data from S10 device",
-          "source": "Partition_02/s10_uplink.py",
-          "frequency": "on_push",
-          "status": "active"
-        }
-      ]
+      "count": 0,
+      "workers": []
     },
     "Librarians": {
-      "count": 1,
-      "workers": [
-        {
-          "id": "master_intelligence_librarian",
-          "name": "Master Intelligence Librarian",
-          "description": "Maintains master_intelligence_map.txt and master_inventory.json",
-          "source": "Partition_01/vault.py",
-          "frequency": "daily",
-          "status": "active"
-        }
-      ]
+      "count": 0,
+      "workers": []
     },
     "Reporters": {
-      "count": 1,
-      "workers": [
-        {
-          "id": "district_reporter",
-          "name": "District Status Reporter",
-          "description": "Generates TREE.md and INVENTORY.json for all Districts",
-          "source": "scripts/generate_district_reports.py",
-          "frequency": "6_hours",
-          "status": "active"
-        }
-      ]
+      "count": 0,
+      "workers": []
     },
     "Archivists": {
-      "count": 1,
-      "workers": [
-        {
-          "id": "spiritual_transmission_archivist",
-          "name": "Spiritual Transmission Archivist",
-          "description": "Archives and catalogs spiritual intelligence transmissions",
-          "source": "scripts/spiritual_intelligence_parser.py",
-          "frequency": "on_demand",
-          "status": "active"
-        }
-      ]
+      "count": 0,
+      "workers": []
     },
     "Utility": {
       "count": 0,
