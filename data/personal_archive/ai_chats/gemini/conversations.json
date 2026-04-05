@@ -1,6 +1,6 @@
 {
   "platform": "gemini",
-  "extraction_date": "2026-04-04T06:21:11.661937",
+  "extraction_date": "2026-04-05T06:26:05.774306",
   "status": "success",
   "statistics": {
     "total_conversations": 156,
@@ -8,7 +8,7 @@
     "total_code_blocks": 234,
     "date_range": {
       "earliest": "2023-12-01T00:00:00Z",
-      "latest": "2026-04-04T06:21:11.661940"
+      "latest": "2026-04-05T06:26:05.774310"
     }
   },
   "conversations_sample": [
