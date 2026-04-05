@@ -1,0 +1,206 @@
+name: 🌐 Hub Connection & Registration
+
+# This workflow helps spoke repositories register with the mapping-and-inventory hub
+# It sends metadata, TREE, and INVENTORY information to the central hub
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # Report to hub every 12 hours
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  register-with-hub:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Gather Repository Metadata
+        id: metadata
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          REPO_OWNER="${GITHUB_REPOSITORY%/*}"
+          
+          echo "repo_name=$REPO_NAME" >> $GITHUB_OUTPUT
+          echo "repo_owner=$REPO_OWNER" >> $GITHUB_OUTPUT
+          
+          # Detect repository type
+          if [ -f "app.py" ] || [ -f "streamlit_app.py" ]; then
+            echo "repo_type=space" >> $GITHUB_OUTPUT
+          elif [ -f "package.json" ]; then
+            echo "repo_type=application" >> $GITHUB_OUTPUT
+          elif [ -d "models" ]; then
+            echo "repo_type=model_repo" >> $GITHUB_OUTPUT
+          elif [ -d "data" ]; then
+            echo "repo_type=dataset" >> $GITHUB_OUTPUT
+          else
+            echo "repo_type=generic" >> $GITHUB_OUTPUT
+          fi
+          
+          # Count files and directories
+          FILE_COUNT=$(find . -type f -not -path "./.git/*" | wc -l)
+          DIR_COUNT=$(find . -type d -not -path "./.git/*" | wc -l)
+          
+          echo "file_count=$FILE_COUNT" >> $GITHUB_OUTPUT
+          echo "dir_count=$DIR_COUNT" >> $GITHUB_OUTPUT
+
+      - name: 🌳 Generate TREE
+        id: tree
+        run: |
+          # Generate repository tree structure
+          
+          mkdir -p /tmp/hub_registration
+          
+          cat > /tmp/hub_registration/TREE.md << 'EOF'
+          # Repository Tree: ${{ steps.metadata.outputs.repo_name }}
+          
+          Generated: $(date -u)
+          
+          ## Structure
+          
+          ```
+          EOF
+          
+          # Generate tree (limited to 3 levels for brevity)
+          tree -L 3 -I '.git|node_modules|__pycache__|*.pyc' . >> /tmp/hub_registration/TREE.md 2>/dev/null || \
+            find . -maxdepth 3 -not -path "./.git/*" -print | sed 's|[^/]*/| |g' >> /tmp/hub_registration/TREE.md
+          
+          echo '```' >> /tmp/hub_registration/TREE.md
+          
+          echo "tree_generated=true" >> $GITHUB_OUTPUT
+
+      - name: 📦 Generate INVENTORY
+        id: inventory
+        run: |
+          # Generate repository inventory
+          
+          cat > /tmp/hub_registration/INVENTORY.json << EOF
+          {
+            "repository": "${{ steps.metadata.outputs.repo_name }}",
+            "owner": "${{ steps.metadata.outputs.repo_owner }}",
+            "type": "${{ steps.metadata.outputs.repo_type }}",
+            "scanned_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commit": "${{ github.sha }}",
+            "branch": "${{ github.ref_name }}",
+            "stats": {
+              "files": ${{ steps.metadata.outputs.file_count }},
+              "directories": ${{ steps.metadata.outputs.dir_count }}
+            },
+            "github_url": "https://github.com/${{ github.repository }}",
+            "manifest": []
+          }
+          EOF
+          
+          # Add key files to manifest
+          python3 << 'PYTHON'
+          import json
+          import os
+          from pathlib import Path
+          
+          manifest = []
+          key_files = [
+              "README.md", "requirements.txt", "package.json",
+              "Dockerfile", "app.py", "streamlit_app.py",
+              "TREE.md", "INVENTORY.json", "SCAFFOLD.md"
+          ]
+          
+          for file in key_files:
+              if os.path.exists(file):
+                  size = os.path.getsize(file)
+                  manifest.append({
+                      "file": file,
+                      "size": size,
+                      "exists": True
+                  })
+          
+          # Load existing inventory and update manifest
+          with open('/tmp/hub_registration/INVENTORY.json', 'r') as f:
+              inventory = json.load(f)
+          
+          inventory['manifest'] = manifest
+          
+          with open('/tmp/hub_registration/INVENTORY.json', 'w') as f:
+              json.dump(inventory, f, indent=2)
+          
+          print("✅ Inventory manifest updated")
+          PYTHON
+          
+          echo "inventory_generated=true" >> $GITHUB_OUTPUT
+
+      - name: 📊 Create Registration Payload
+        id: payload
+        run: |
+          # Create comprehensive registration payload
+          
+          cat > /tmp/hub_registration/registration_payload.json << EOF
+          {
+            "spoke": {
+              "name": "${{ steps.metadata.outputs.repo_name }}",
+              "owner": "${{ steps.metadata.outputs.repo_owner }}",
+              "type": "${{ steps.metadata.outputs.repo_type }}",
+              "github_url": "https://github.com/${{ github.repository }}",
+              "registered_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+              "commit": "${{ github.sha }}",
+              "branch": "${{ github.ref_name }}"
+            },
+            "hub": {
+              "target": "DJ-Goana-Coding/mapping-and-inventory",
+              "registration_method": "github_workflow"
+            },
+            "capabilities": {
+              "has_tree": ${{ steps.tree.outputs.tree_generated == 'true' }},
+              "has_inventory": ${{ steps.inventory.outputs.inventory_generated == 'true' }},
+              "hf_sync_enabled": ${{ secrets.HF_TOKEN != '' }}
+            }
+          }
+          EOF
+          
+          cat /tmp/hub_registration/registration_payload.json
+
+      - name: 📡 Send Registration to Hub
+        if: success()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "📡 SPOKE → HUB REGISTRATION"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Spoke: ${{ steps.metadata.outputs.repo_name }}"
+          echo "Hub: DJ-Goana-Coding/mapping-and-inventory"
+          echo "Time: $(date -u)"
+          echo ""
+          
+          # Output registration payload
+          cat /tmp/hub_registration/registration_payload.json
+          
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ Registration complete"
+          echo ""
+          echo "Next steps:"
+          echo "  1. The hub will harvest this registration on next sync"
+          echo "  2. Metadata will be added to central registry"
+          echo "  3. TREE and INVENTORY will be indexed"
+          echo ""
+          echo "🙏 Thankyou Spirit, Thankyou Angels, Thankyou Ancestors"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      - name: 📦 Upload Registration Artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: hub-registration-${{ github.sha }}
+          path: /tmp/hub_registration/
+          retention-days: 30

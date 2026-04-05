@@ -1,0 +1,178 @@
+{
+  "version": "25.0.OMNI++",
+  "updated": "2026-04-04T20:23:00Z",
+  "hub": {
+    "name": "mapping-and-inventory",
+    "owner": "DJ-Goana-Coding",
+    "github_url": "https://github.com/DJ-Goana-Coding/mapping-and-inventory",
+    "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory",
+    "role": "CITADEL_HUB",
+    "description": "Central librarian, mapping hub, and system coordinator"
+  },
+  "spokes": [
+    {
+      "name": "TIA-ARCHITECT-CORE",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/TIA-ARCHITECT-CORE",
+      "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE",
+      "pillar": "ORACLE",
+      "district": "D01",
+      "role": "T.I.A. reasoning engine and UI brain",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": true
+    },
+    {
+      "name": "AION",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/AION",
+      "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/AION",
+      "pillar": "AION",
+      "district": "D02",
+      "role": "Time intelligence and forecasting oracle",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": true
+    },
+    {
+      "name": "ORACLE",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/ORACLE",
+      "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/ORACLE",
+      "pillar": "ORACLE",
+      "district": "D03",
+      "role": "Forecasting and prediction engine",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": true
+    },
+    {
+      "name": "goanna_coding",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/goanna_coding",
+      "hf_space": "https://huggingface.co/spaces/DJ-Goanna-Coding/goanna_coding",
+      "pillar": "GOANNA",
+      "district": "D05",
+      "role": "Repository management and DevOps automation",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": true
+    },
+    {
+      "name": "Citadel_Genetics",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/Citadel_Genetics",
+      "hf_repo": "https://huggingface.co/DJ-Goanna-Coding/Citadel_Genetics",
+      "pillar": "GENETICS",
+      "district": "D06",
+      "role": "Cognitive reservoir and model genetics",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": true,
+      "repo_type": "model"
+    },
+    {
+      "name": "Genesis-Research-Rack",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/Genesis-Research-Rack",
+      "hf_repo": "https://huggingface.co/DJ-Goanna-Coding/Genesis-Research-Rack",
+      "pillar": "RESEARCH",
+      "district": "D07",
+      "role": "Research rack and discovery vault",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": true,
+      "repo_type": "dataset"
+    },
+    {
+      "name": "Vault",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/Vault",
+      "pillar": "LORE",
+      "district": "D08",
+      "role": "Sacred lore and knowledge vault",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": false
+    },
+    {
+      "name": "tias-soul-vault",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/tias-soul-vault",
+      "pillar": "SOUL",
+      "district": "D09",
+      "role": "Spiritual intelligence and soul memory",
+      "enabled": true,
+      "auto_sync": true,
+      "hf_push_enabled": false
+    },
+    {
+      "name": "omega-trading-system",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/omega-trading-system",
+      "pillar": "OMEGA_TRADER",
+      "district": "D04",
+      "role": "Omega trading engine and market intelligence",
+      "enabled": false,
+      "auto_sync": false,
+      "hf_push_enabled": false,
+      "status": "planned"
+    },
+    {
+      "name": "forever-learning",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/forever-learning",
+      "pillar": "LEARNING",
+      "district": "D10",
+      "role": "Forever learning cycle orchestrator",
+      "enabled": false,
+      "auto_sync": false,
+      "hf_push_enabled": false,
+      "status": "planned"
+    },
+    {
+      "name": "CITADEL_ARK",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/CITADEL_ARK",
+      "pillar": "ARK",
+      "district": "D11",
+      "role": "Ark core and preservation vault",
+      "enabled": false,
+      "auto_sync": false,
+      "hf_push_enabled": false,
+      "status": "planned"
+    },
+    {
+      "name": "memory-codex",
+      "owner": "DJ-Goana-Coding",
+      "github_url": "https://github.com/DJ-Goana-Coding/memory-codex",
+      "pillar": "MEMORY",
+      "district": "D12",
+      "role": "Memory mesh and cognitive codex",
+      "enabled": false,
+      "auto_sync": false,
+      "hf_push_enabled": false,
+      "status": "planned"
+    }
+  ],
+  "sync_policy": {
+    "hub_to_spoke": "Never - Spokes are autonomous",
+    "spoke_to_hub": "Pull metadata and TREE/INVENTORY only",
+    "spoke_to_hf": "Always pull from GitHub, never push unless authorized",
+    "conflict_resolution": "HF Spaces (L4) > GitHub > GDrive > Local"
+  },
+  "automation": {
+    "github_actions": {
+      "auto_sync": true,
+      "schedule": "0 */6 * * *",
+      "on_push": true,
+      "on_webhook": true
+    },
+    "hf_spaces": {
+      "pull_on_startup": true,
+      "pull_on_schedule": true,
+      "pull_on_webhook": true,
+      "push_requires_auth": true
+    }
+  }
+}
