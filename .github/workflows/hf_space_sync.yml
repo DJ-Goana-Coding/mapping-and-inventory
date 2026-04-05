@@ -69,7 +69,8 @@ jobs:
            github.event.inputs.target_spaces == '' ||
            contains(matrix.space.name, github.event.inputs.target_spaces))
         env:
-          WEBHOOK_URL: ${{ secrets[matrix.space.webhook_env] }}
+          # Only expose the specific webhook secret needed for this space
+          WEBHOOK_URL: ${{ matrix.space.name == 'AION' && secrets.HF_WEBHOOK_AION || matrix.space.name == 'ORACLE' && secrets.HF_WEBHOOK_ORACLE || matrix.space.name == 'goanna_coding' && secrets.HF_WEBHOOK_GOANNA || matrix.space.name == 'Mapping-and-Inventory' && secrets.HF_WEBHOOK_MAPPING || matrix.space.name == 'ARK-CORE' && secrets.HF_WEBHOOK_ARK_CORE || '' }}
         run: |
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "🔔 Notifying HuggingFace Space: ${{ matrix.space.name }}"
