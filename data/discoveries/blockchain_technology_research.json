@@ -1,0 +1,815 @@
+{
+  "meta": {
+    "agent": "Blockchain Technology Researcher",
+    "version": "1.0",
+    "timestamp": "2026-04-05T12:16:52.837017",
+    "mission": "Q.G.T.N.L. Blockchain Infrastructure Research"
+  },
+  "categories": {
+    "layer1": {
+      "Ethereum": {
+        "type": "Layer 1 Smart Contract Platform",
+        "consensus": "Proof of Stake (PoS) - Beacon Chain",
+        "tps": "15-30 transactions/second",
+        "finality": "~13-15 minutes",
+        "evm": "Ethereum Virtual Machine - industry standard",
+        "key_features": [
+          "Largest developer ecosystem",
+          "Most battle-tested smart contracts",
+          "Widest DeFi ecosystem",
+          "EIP-1559 fee burning",
+          "Upcoming sharding (Danksharding)"
+        ],
+        "tokens": "ERC-20, ERC-721, ERC-1155, ERC-4626",
+        "use_for_qgtnl": "Smart contract standards, EVM compatibility, DeFi protocols"
+      },
+      "Bitcoin": {
+        "type": "Layer 1 Digital Currency",
+        "consensus": "Proof of Work (PoW) - SHA-256",
+        "tps": "7 transactions/second",
+        "finality": "~60 minutes (6 confirmations)",
+        "key_features": [
+          "Most secure blockchain",
+          "21M supply cap",
+          "Lightning Network (L2)",
+          "Taproot upgrade (privacy + smart contracts)",
+          "Store of value narrative"
+        ],
+        "use_for_qgtnl": "Security model, UTXO architecture, Lightning Network integration"
+      },
+      "Solana": {
+        "type": "Layer 1 High-Performance",
+        "consensus": "Proof of History (PoH) + Tower BFT",
+        "tps": "50,000+ theoretical, 3,000-5,000 actual",
+        "finality": "~400ms",
+        "key_features": [
+          "Extremely fast",
+          "Low transaction costs ($0.00025)",
+          "Parallel transaction processing",
+          "No sharding needed",
+          "Growing NFT/gaming ecosystem"
+        ],
+        "weaknesses": "Network outages, centralization concerns",
+        "use_for_qgtnl": "High TPS architecture, gaming performance, NFT minting speed"
+      },
+      "Polygon": {
+        "type": "Layer 2 (Ethereum) / Sidechain",
+        "consensus": "Proof of Stake",
+        "tps": "7,000+ transactions/second",
+        "finality": "~2 seconds",
+        "key_features": [
+          "EVM compatible",
+          "Low gas fees",
+          "Ethereum security (via checkpointing)",
+          "zkEVM (zero-knowledge rollup)",
+          "Large gaming/NFT adoption"
+        ],
+        "use_for_qgtnl": "Ethereum scaling, low-cost transactions, gaming infrastructure"
+      },
+      "Avalanche": {
+        "type": "Layer 1 Multi-Chain Platform",
+        "consensus": "Avalanche Consensus (DAG-based)",
+        "tps": "4,500+ transactions/second",
+        "finality": "<2 seconds",
+        "key_features": [
+          "Subnet architecture (custom blockchains)",
+          "EVM compatible (C-Chain)",
+          "Very fast finality",
+          "Low fees",
+          "Institutional adoption"
+        ],
+        "use_for_qgtnl": "Subnet model for modular architecture, fast finality"
+      },
+      "Cosmos": {
+        "type": "Layer 0 Interoperability Hub",
+        "consensus": "Tendermint BFT",
+        "tps": "10,000+ (per chain)",
+        "key_features": [
+          "Inter-Blockchain Communication (IBC)",
+          "Cosmos SDK for custom chains",
+          "Application-specific blockchains",
+          "Hub and zone model",
+          "Interchain security"
+        ],
+        "use_for_qgtnl": "IBC protocol, modular architecture, cross-chain messaging"
+      },
+      "Polkadot": {
+        "type": "Layer 0 Multi-Chain Platform",
+        "consensus": "Nominated Proof of Stake (NPoS)",
+        "key_features": [
+          "Relay chain + parachains",
+          "Shared security model",
+          "Cross-chain message passing (XCMP)",
+          "Substrate framework",
+          "On-chain governance"
+        ],
+        "use_for_qgtnl": "Parachain architecture, shared security, Substrate framework"
+      },
+      "Hedera_Hashgraph": {
+        "type": "Layer 1 DAG-based",
+        "consensus": "Hashgraph (Asynchronous Byzantine Fault Tolerance)",
+        "tps": "10,000+ transactions/second",
+        "finality": "3-5 seconds",
+        "token": "HBAR",
+        "key_features": [
+          "Directed Acyclic Graph (not blockchain)",
+          "Fair ordering (consensus timestamp)",
+          "Low fixed fees ($0.0001)",
+          "Energy efficient",
+          "Enterprise governance council"
+        ],
+        "use_for_qgtnl": "DAG architecture alternative, enterprise features, HBAR integration"
+      },
+      "Stellar": {
+        "type": "Layer 1 Payment Network",
+        "consensus": "Stellar Consensus Protocol (Federated Byzantine Agreement)",
+        "tps": "1,000-2,000 transactions/second",
+        "finality": "3-5 seconds",
+        "token": "XLM (Lumens)",
+        "key_features": [
+          "Cross-border payments focus",
+          "Asset issuance (tokens)",
+          "Decentralized exchange built-in",
+          "Anchors for fiat on/off ramps",
+          "Non-profit foundation"
+        ],
+        "use_for_qgtnl": "Payment rails, cross-border settlement, XLM integration, built-in DEX"
+      },
+      "XRP_Ledger": {
+        "type": "Layer 1 Payment Network",
+        "consensus": "Ripple Protocol Consensus Algorithm (RPCA)",
+        "tps": "1,500 transactions/second",
+        "finality": "3-5 seconds",
+        "token": "XRP",
+        "key_features": [
+          "Designed for institutional payments",
+          "RippleNet for banks",
+          "On-Demand Liquidity (ODL)",
+          "Low fees ($0.00001)",
+          "SWIFT integration path"
+        ],
+        "use_for_qgtnl": "International payment rails, XRP integration, SWIFT compatibility"
+      }
+    },
+    "layer2": {
+      "Optimistic_Rollups": {
+        "type": "Layer 2 Scaling",
+        "mechanism": "Optimistic execution with fraud proofs",
+        "finality": "~7 days (withdrawal period)",
+        "implementations": {
+          "Optimism": {
+            "evm": "Full EVM equivalence",
+            "tps": "2,000-4,000",
+            "features": [
+              "OP Stack",
+              "Superchain vision",
+              "Retroactive funding"
+            ]
+          },
+          "Arbitrum": {
+            "evm": "Full EVM compatibility",
+            "tps": "40,000+",
+            "features": [
+              "Arbitrum One",
+              "Arbitrum Nova (gaming)",
+              "Stylus (WASM)"
+            ]
+          }
+        },
+        "use_for_qgtnl": "Gaming infrastructure (Arbitrum Nova), low fees, Ethereum security"
+      },
+      "ZK_Rollups": {
+        "type": "Layer 2 Scaling with Zero-Knowledge Proofs",
+        "mechanism": "Validity proofs (cryptographic verification)",
+        "finality": "Minutes to hours",
+        "implementations": {
+          "zkSync": {
+            "evm": "zkEVM (EVM compatible)",
+            "tps": "2,000+",
+            "features": [
+              "Account abstraction",
+              "Native AA",
+              "Hyperchains"
+            ]
+          },
+          "StarkNet": {
+            "vm": "Cairo VM (not EVM)",
+            "tps": "Thousands",
+            "features": [
+              "STARKs (no trusted setup)",
+              "Account abstraction",
+              "Volition"
+            ]
+          },
+          "Polygon_zkEVM": {
+            "evm": "Full EVM equivalence",
+            "features": [
+              "Ethereum security",
+              "Low gas",
+              "Fast finality"
+            ]
+          }
+        },
+        "advantages": "Faster withdrawals than Optimistic, better security, data compression",
+        "use_for_qgtnl": "Privacy features, fast finality, cryptographic security"
+      },
+      "State_Channels": {
+        "type": "Off-Chain Scaling",
+        "mechanism": "Off-chain transactions, on-chain settlement",
+        "implementations": {
+          "Lightning_Network": {
+            "blockchain": "Bitcoin",
+            "features": [
+              "Instant payments",
+              "Micropayments",
+              "Privacy"
+            ]
+          },
+          "Raiden_Network": {
+            "blockchain": "Ethereum",
+            "features": [
+              "ERC-20 transfers",
+              "Payment channels"
+            ]
+          }
+        },
+        "use_for_qgtnl": "Instant payments, micropayments, gaming transactions"
+      },
+      "Validium": {
+        "type": "Hybrid L2 (ZK proofs + off-chain data)",
+        "mechanism": "Zero-knowledge proofs but data stored off-chain",
+        "examples": [
+          "StarkEx (dYdX, Immutable X)",
+          "Polygon Miden"
+        ],
+        "advantages": "High throughput, low costs",
+        "tradeoffs": "Data availability assumptions",
+        "use_for_qgtnl": "Gaming NFTs (Immutable X model), high-volume trading"
+      }
+    },
+    "consensus": {
+      "Proof_of_Work": {
+        "description": "Computational puzzles for block production",
+        "energy": "High energy consumption",
+        "security": "Extremely high (Bitcoin)",
+        "examples": [
+          "Bitcoin (SHA-256)",
+          "Ethereum Classic",
+          "Litecoin (Scrypt)",
+          "Monero (RandomX)"
+        ],
+        "pros": [
+          "Proven security",
+          "Decentralized",
+          "No slashing"
+        ],
+        "cons": [
+          "Energy intensive",
+          "Slow finality",
+          "Hardware arms race"
+        ],
+        "use_for_qgtnl": "Security model reference, mining-resistant alternatives"
+      },
+      "Proof_of_Stake": {
+        "description": "Validators stake tokens to secure network",
+        "energy": "Very low energy",
+        "security": "High (if well-designed)",
+        "variants": {
+          "Pure_PoS": "Algorand, Cardano",
+          "Delegated_PoS": "EOS, Tron",
+          "Nominated_PoS": "Polkadot",
+          "Liquid_PoS": "Tezos"
+        },
+        "pros": [
+          "Energy efficient",
+          "Fast finality",
+          "Staking rewards"
+        ],
+        "cons": [
+          "Nothing at stake problem",
+          "Wealth concentration risk"
+        ],
+        "use_for_qgtnl": "Primary consensus mechanism (energy efficient, secure)"
+      },
+      "Practical_Byzantine_Fault_Tolerance": {
+        "description": "Voting-based consensus (classic BFT)",
+        "finality": "Instant (once consensus reached)",
+        "examples": [
+          "Tendermint (Cosmos)",
+          "HotStuff (Diem)",
+          "QBFT (Quorum)"
+        ],
+        "pros": [
+          "Fast finality",
+          "No forks",
+          "Low energy"
+        ],
+        "cons": [
+          "Scalability limits",
+          "Known validator set"
+        ],
+        "use_for_qgtnl": "Instant finality layer, permissioned components"
+      },
+      "Proof_of_History": {
+        "description": "Cryptographic clock for ordering (Solana)",
+        "mechanism": "SHA-256 hash chain as time reference",
+        "combined_with": "Tower BFT",
+        "pros": [
+          "Parallel processing",
+          "High throughput",
+          "Low latency"
+        ],
+        "use_for_qgtnl": "Time-ordering innovation, high TPS design"
+      },
+      "Avalanche_Consensus": {
+        "description": "DAG-based repeated sub-sampled voting",
+        "finality": "<2 seconds",
+        "pros": [
+          "Very fast",
+          "Scalable",
+          "Low overhead"
+        ],
+        "use_for_qgtnl": "Fast finality alternative, subnet consensus"
+      },
+      "Hashgraph_Consensus": {
+        "description": "Gossip about gossip + virtual voting (Hedera)",
+        "finality": "3-5 seconds",
+        "pros": [
+          "Fair ordering",
+          "Asynchronous BFT",
+          "Efficient"
+        ],
+        "cons": [
+          "Patented (though Hedera open-reviewed)"
+        ],
+        "use_for_qgtnl": "DAG architecture reference, fair ordering"
+      }
+    },
+    "interoperability": {
+      "IBC_Protocol": {
+        "name": "Inter-Blockchain Communication",
+        "ecosystem": "Cosmos",
+        "mechanism": "Light client verification",
+        "features": [
+          "Trustless cross-chain transfers",
+          "Packet relay system",
+          "Connection, channel, packet layers",
+          "50+ chains connected"
+        ],
+        "use_for_qgtnl": "Primary interop protocol, trustless messaging"
+      },
+      "Chainlink_CCIP": {
+        "name": "Cross-Chain Interoperability Protocol",
+        "type": "Decentralized Oracle Network",
+        "features": [
+          "Cross-chain token transfers",
+          "Arbitrary messaging",
+          "Programmable token transfers",
+          "Risk management network"
+        ],
+        "use_for_qgtnl": "Oracle services, price feeds, cross-chain messaging"
+      },
+      "LayerZero": {
+        "type": "Omnichain Messaging Protocol",
+        "mechanism": "Ultra Light Nodes + Relayers",
+        "features": [
+          "Cross-chain dApp development",
+          "Unified liquidity",
+          "Omnichain fungible tokens (OFT)"
+        ],
+        "use_for_qgtnl": "Omnichain token standard, unified dApp deployment"
+      },
+      "Wormhole": {
+        "type": "Generic Messaging Protocol",
+        "mechanism": "Guardian network + message verification",
+        "supported_chains": "30+ blockchains",
+        "use_cases": [
+          "Token bridge",
+          "NFT bridge",
+          "Messaging"
+        ],
+        "use_for_qgtnl": "Multi-chain bridge, NFT interoperability"
+      },
+      "Axelar": {
+        "type": "Cross-Chain Communication Network",
+        "mechanism": "Proof-of-Stake validator network",
+        "features": [
+          "General message passing",
+          "Secure cross-chain calls",
+          "Interchain token service"
+        ],
+        "use_for_qgtnl": "PoS-secured messaging, interchain tokens"
+      },
+      "Polkadot_XCMP": {
+        "name": "Cross-Chain Message Passing",
+        "ecosystem": "Polkadot",
+        "mechanism": "Relay chain mediated",
+        "features": [
+          "Shared security",
+          "Trustless",
+          "Native to Polkadot"
+        ],
+        "use_for_qgtnl": "Parachain communication model"
+      }
+    },
+    "payment_settlement": {
+      "SWIFT": {
+        "name": "Society for Worldwide Interbank Financial Telecommunication",
+        "type": "Traditional messaging network",
+        "coverage": "200+ countries, 11,000+ institutions",
+        "speed": "1-5 days",
+        "blockchain_integration": {
+          "Ripple_partnership": "On-Demand Liquidity (ODL) with XRP",
+          "SWIFT_gpi": "Global Payments Innovation (tracking)",
+          "ISO_20022": "New messaging standard (crypto-compatible)"
+        },
+        "use_for_qgtnl": "SWIFT compatibility layer, ISO 20022 messaging"
+      },
+      "Stellar_Anchors": {
+        "type": "Fiat on/off ramp system",
+        "mechanism": "Trusted entities hold fiat, issue tokens",
+        "features": [
+          "Multi-currency support",
+          "Atomic path payments",
+          "Built-in DEX",
+          "Circle USDC native"
+        ],
+        "use_for_qgtnl": "Fiat bridge architecture, stablecoin integration"
+      },
+      "Ripple_RippleNet": {
+        "type": "Institutional payment network",
+        "products": {
+          "xCurrent": "Messaging (like SWIFT)",
+          "xRapid_ODL": "Liquidity via XRP",
+          "xVia": "Payment interface"
+        },
+        "partnerships": "Bank of America, Santander, SBI, etc.",
+        "use_for_qgtnl": "Enterprise payment rails, XRP liquidity"
+      },
+      "Stablecoins": {
+        "types": {
+          "Fiat_Collateralized": {
+            "examples": [
+              "USDC (Circle)",
+              "USDT (Tether)",
+              "BUSD",
+              "PYUSD"
+            ],
+            "mechanism": "1:1 fiat reserves",
+            "pros": "Stable, liquid",
+            "cons": "Centralized, regulatory risk"
+          },
+          "Crypto_Collateralized": {
+            "examples": [
+              "DAI (MakerDAO)",
+              "sUSD (Synthetix)"
+            ],
+            "mechanism": "Over-collateralized crypto",
+            "pros": "Decentralized",
+            "cons": "Capital inefficient"
+          },
+          "Algorithmic": {
+            "examples": [
+              "FRAX (hybrid)",
+              "UST (failed)"
+            ],
+            "mechanism": "Algorithm maintains peg",
+            "pros": "Capital efficient",
+            "cons": "Death spiral risk"
+          }
+        },
+        "use_for_qgtnl": "Native stablecoin (hybrid model), multi-currency support"
+      },
+      "Central_Bank_Digital_Currencies": {
+        "description": "Government-issued digital currencies",
+        "examples": {
+          "Digital_Yuan": "China (eCNY) - live",
+          "Digital_Euro": "EU - pilot",
+          "Digital_Dollar": "US - research"
+        },
+        "interop_considerations": "Regulatory compliance, AML/KYC, reporting",
+        "use_for_qgtnl": "CBDC compatibility layer, regulatory bridge"
+      }
+    },
+    "defi": {
+      "Decentralized_Exchanges": {
+        "AMM_Models": {
+          "Uniswap_V2": {
+            "formula": "x * y = k (constant product)",
+            "features": [
+              "Simple",
+              "Permissionless",
+              "ERC-20 pairs"
+            ],
+            "use": "Basic DEX model"
+          },
+          "Uniswap_V3": {
+            "features": [
+              "Concentrated liquidity",
+              "Multiple fee tiers",
+              "Capital efficiency"
+            ],
+            "use": "Advanced DEX with concentrated liquidity"
+          },
+          "Curve": {
+            "formula": "StableSwap (optimized for stable assets)",
+            "features": [
+              "Low slippage stablecoins",
+              "veCRV governance"
+            ],
+            "use": "Stablecoin swaps, low slippage"
+          },
+          "Balancer": {
+            "features": [
+              "Weighted pools",
+              "Custom ratios",
+              "Smart order routing"
+            ],
+            "use": "Multi-asset pools, index funds"
+          }
+        },
+        "Order_Book_DEXs": {
+          "dYdX": {
+            "type": "Perpetuals exchange (StarkEx)",
+            "features": [
+              "Off-chain order book",
+              "On-chain settlement",
+              "High leverage"
+            ]
+          },
+          "Serum": {
+            "blockchain": "Solana",
+            "features": [
+              "Central limit order book",
+              "Fast",
+              "Composable"
+            ]
+          }
+        },
+        "use_for_qgtnl": "Native DEX with AMM + order book hybrid, gaming asset trading"
+      },
+      "Lending_Protocols": {
+        "Aave": {
+          "type": "Liquidity pool lending",
+          "features": [
+            "Flash loans",
+            "Rate switching",
+            "Credit delegation",
+            "GHO stablecoin"
+          ],
+          "use": "Lending/borrowing model, flash loans"
+        },
+        "Compound": {
+          "type": "Algorithmic money market",
+          "features": [
+            "cTokens",
+            "COMP governance",
+            "Simple interest"
+          ],
+          "use": "Simple lending model"
+        },
+        "MakerDAO": {
+          "type": "CDP (Collateralized Debt Position)",
+          "features": [
+            "DAI stablecoin",
+            "Vaults",
+            "Decentralized governance"
+          ],
+          "use": "Stablecoin minting, overcollateralization"
+        }
+      },
+      "Derivatives": {
+        "Perpetual_Protocols": {
+          "examples": [
+            "dYdX",
+            "Perpetual Protocol",
+            "GMX"
+          ],
+          "features": "Leverage trading without expiry"
+        },
+        "Options": {
+          "examples": [
+            "Opyn",
+            "Lyra",
+            "Ribbon"
+          ],
+          "features": "Put/call options, automated vaults"
+        }
+      },
+      "Yield_Aggregators": {
+        "examples": [
+          "Yearn Finance",
+          "Beefy Finance",
+          "Convex"
+        ],
+        "features": "Automated strategy optimization, compounding",
+        "use_for_qgtnl": "Auto-compounding vaults, yield optimization"
+      }
+    },
+    "wallets": {
+      "Cold_Wallets": {
+        "Hardware_Wallets": {
+          "Ledger": {
+            "models": [
+              "Nano S Plus",
+              "Nano X"
+            ],
+            "chip": "Secure Element (CC EAL5+)",
+            "features": [
+              "BLE (Nano X)",
+              "2,000+ coins",
+              "Ledger Live"
+            ]
+          },
+          "Trezor": {
+            "models": [
+              "One",
+              "Model T"
+            ],
+            "chip": "General purpose (no secure element)",
+            "features": [
+              "Open source",
+              "Shamir Backup",
+              "Touchscreen (T)"
+            ]
+          },
+          "Keystone": {
+            "features": [
+              "Air-gapped",
+              "QR code communication",
+              "Open source"
+            ]
+          }
+        },
+        "Paper_Wallets": {
+          "description": "Private keys printed/written",
+          "pros": "Offline, cheap",
+          "cons": "Physical damage risk, no partial spend"
+        },
+        "Steel_Wallets": {
+          "description": "Seed phrases engraved in metal",
+          "products": [
+            "Cryptosteel",
+            "Billfodl"
+          ],
+          "pros": "Fire/water resistant"
+        },
+        "use_for_qgtnl": "Integrated cold wallet with QR air-gap, secure element chip"
+      },
+      "Hot_Wallets": {
+        "Browser_Extensions": {
+          "MetaMask": "Most popular, EVM chains",
+          "Phantom": "Solana ecosystem",
+          "Keplr": "Cosmos ecosystem"
+        },
+        "Mobile_Wallets": {
+          "Trust_Wallet": "Multi-chain, Binance",
+          "Rainbow": "Ethereum, iOS focus",
+          "Coinbase_Wallet": "Self-custody"
+        },
+        "Desktop_Wallets": {
+          "Exodus": "Multi-chain, beautiful UI",
+          "Electrum": "Bitcoin, open source"
+        }
+      },
+      "MPC_Wallets": {
+        "description": "Multi-Party Computation (no single private key)",
+        "examples": [
+          "Fireblocks",
+          "ZenGo",
+          "Qredo"
+        ],
+        "features": "Key shards, threshold signatures",
+        "use_for_qgtnl": "Enterprise-grade MPC for institutional custody"
+      },
+      "Smart_Contract_Wallets": {
+        "Account_Abstraction": {
+          "ERC_4337": "Ethereum account abstraction standard",
+          "features": [
+            "Social recovery",
+            "Gas sponsorship",
+            "Batched transactions",
+            "Session keys"
+          ]
+        },
+        "examples": [
+          "Argent",
+          "Safe (Gnosis)",
+          "Braavos (StarkNet)"
+        ],
+        "use_for_qgtnl": "Native account abstraction, social recovery, gas-less UX"
+      },
+      "Security_Features": {
+        "Multi_Signature": "M-of-N signatures required",
+        "Time_Locks": "Delay withdrawals for security",
+        "Whitelisting": "Approved addresses only",
+        "Spending_Limits": "Daily/transaction limits",
+        "Biometric_Auth": "Fingerprint, Face ID",
+        "use_for_qgtnl": "All security features integrated"
+      }
+    },
+    "privacy": {
+      "Zero_Knowledge_Proofs": {
+        "SNARKs": {
+          "name": "Succinct Non-Interactive Argument of Knowledge",
+          "examples": [
+            "Zcash",
+            "Tornado Cash",
+            "zkSync"
+          ],
+          "pros": "Small proof size, fast verification",
+          "cons": "Trusted setup required (some variants)"
+        },
+        "STARKs": {
+          "name": "Scalable Transparent Argument of Knowledge",
+          "examples": [
+            "StarkNet",
+            "StarkEx"
+          ],
+          "pros": "No trusted setup, quantum resistant",
+          "cons": "Larger proof size"
+        },
+        "Bulletproofs": {
+          "examples": [
+            "Monero",
+            "Mimblewimble"
+          ],
+          "pros": "No trusted setup, compact",
+          "cons": "Slower to verify"
+        },
+        "use_for_qgtnl": "Privacy layer using STARKs (no trusted setup)"
+      },
+      "Privacy_Coins": {
+        "Monero": {
+          "features": [
+            "Ring signatures",
+            "Stealth addresses",
+            "RingCT"
+          ],
+          "privacy": "Default private"
+        },
+        "Zcash": {
+          "features": [
+            "zk-SNARKs",
+            "Shielded transactions"
+          ],
+          "privacy": "Optional (transparent + shielded)"
+        }
+      },
+      "Mixing_Services": {
+        "Tornado_Cash": {
+          "type": "ERC-20 mixer (sanctioned by US)",
+          "mechanism": "zkSNARK privacy pool"
+        },
+        "alternatives": [
+          "Railgun",
+          "Aztec Network"
+        ],
+        "use_for_qgtnl": "Built-in privacy pools (regulatory compliant)"
+      }
+    },
+    "tokenomics": {
+      "Token_Standards": {
+        "Fungible_Tokens": {
+          "ERC_20": "Ethereum standard",
+          "BEP_20": "Binance Smart Chain",
+          "SPL": "Solana",
+          "TRC_20": "Tron"
+        },
+        "NFTs": {
+          "ERC_721": "Non-fungible unique tokens",
+          "ERC_1155": "Multi-token (fungible + non-fungible)",
+          "Metaplex": "Solana NFT standard"
+        },
+        "Semi_Fungible": {
+          "ERC_1155": "Gaming items, tickets"
+        },
+        "use_for_qgtnl": "Custom token standards for gaming assets"
+      },
+      "Distribution_Models": {
+        "Fair_Launch": "No pre-mine, everyone equal (Bitcoin, Yearn)",
+        "Pre_Mine": "Team/investors get allocation",
+        "ICO": "Initial Coin Offering (fundraise)",
+        "IEO": "Initial Exchange Offering",
+        "IDO": "Initial DEX Offering",
+        "Airdrop": "Free distribution to users",
+        "use_for_qgtnl": "Fair launch + community airdrop model"
+      },
+      "Utility_Models": {
+        "Governance": "Voting rights (UNI, COMP, AAVE)",
+        "Fee_Capture": "Revenue share (BNB burn, ETH burn)",
+        "Staking": "Secure network, earn rewards",
+        "Access": "Premium features, NFT minting",
+        "Liquidity_Mining": "Incentivize TVL",
+        "use_for_qgtnl": "Multi-utility: governance + staking + gaming + fee burn"
+      },
+      "Supply_Models": {
+        "Fixed_Supply": "Bitcoin (21M), deflationary",
+        "Inflationary": "Ethereum post-merge (variable)",
+        "Burn_Mechanisms": "Buyback and burn, fee burn",
+        "Halving": "Reduction over time",
+        "use_for_qgtnl": "Dynamic supply with burn matching inflation"
+      }
+    }
+  }
+}
