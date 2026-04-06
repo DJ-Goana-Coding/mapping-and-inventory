@@ -1,0 +1,73 @@
+{
+  "agent": "Wraith Security Agent",
+  "timestamp": "2026-04-04T18:06:22.081926",
+  "summary": {
+    "threats_found": 7,
+    "suspicious_files": 0,
+    "clean_files": 1378,
+    "quarantined": 0
+  },
+  "threats": [
+    {
+      "path": "scripts/deploy_character_swarms.py",
+      "threats": [
+        "Tracker pattern: tracking\\.js"
+      ],
+      "suspicious": true,
+      "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+    },
+    {
+      "path": "scripts/agent_legion/hound_tracker_agent.py",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+    },
+    {
+      "path": "scripts/agent_legion/wraith_security_agent.py",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260404_120556.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "1cba13e50c98c691845f7293c1bb7dc1acb8ce5d88b4a814597f7c55024d4f22"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260404_120557.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260404_120558.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "5ea52bf23bf0b3c42091df8c1fd44c2cf2e167c9205a8196de513675b52c27b1"
+    }
+  ],
+  "suspicious": [],
+  "quarantined": []
+}
