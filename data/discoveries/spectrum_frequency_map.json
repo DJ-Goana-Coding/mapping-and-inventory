@@ -1,0 +1,765 @@
+{
+  "meta": {
+    "agent": "Spectrum & Frequency Mapper",
+    "version": "1.0",
+    "timestamp": "2026-04-06T06:52:37.000824",
+    "mission": "Complete Electromagnetic Spectrum & Frequency Mapping"
+  },
+  "spectrum": {
+    "electromagnetic": {
+      "ELF": {
+        "name": "Extremely Low Frequency",
+        "frequency_range": "3 Hz - 30 Hz",
+        "wavelength_range": "100,000 km - 10,000 km",
+        "applications": [
+          "Submarine communication",
+          "Geophysical exploration",
+          "Power transmission (50/60 Hz)"
+        ],
+        "biological_effects": [
+          "Potential health concerns from power lines",
+          "Possible effects on circadian rhythms",
+          "Schumann resonance alignment (7.83 Hz)"
+        ],
+        "natural_sources": [
+          "Lightning",
+          "Schumann resonances (7.83, 14.3, 20.8 Hz)",
+          "Earth's magnetic field oscillations"
+        ],
+        "notable_frequencies": {
+          "7.83_Hz": "Schumann resonance (Earth's heartbeat)",
+          "10_Hz": "Alpha brain wave boundary",
+          "50_60_Hz": "Power grid frequencies"
+        }
+      },
+      "SLF": {
+        "name": "Super Low Frequency",
+        "frequency_range": "30 Hz - 300 Hz",
+        "wavelength_range": "10,000 km - 1,000 km",
+        "applications": [
+          "Submarine communication",
+          "Mine communication",
+          "Geophysical surveys"
+        ],
+        "biological_effects": [
+          "Potential nervous system effects",
+          "EMF sensitivity concerns"
+        ]
+      },
+      "ULF": {
+        "name": "Ultra Low Frequency",
+        "frequency_range": "300 Hz - 3 kHz",
+        "wavelength_range": "1,000 km - 100 km",
+        "applications": [
+          "Underground/underwater communication",
+          "Heart rate monitoring frequency range"
+        ]
+      },
+      "VLF": {
+        "name": "Very Low Frequency",
+        "frequency_range": "3 kHz - 30 kHz",
+        "wavelength_range": "100 km - 10 km",
+        "applications": [
+          "Navigation systems",
+          "Time signals",
+          "Military communication"
+        ],
+        "notable_systems": [
+          "WWVB time signal (60 kHz)",
+          "MSF time signal (60 kHz)",
+          "DCF77 time signal (77.5 kHz)"
+        ]
+      },
+      "LF": {
+        "name": "Low Frequency",
+        "frequency_range": "30 kHz - 300 kHz",
+        "wavelength_range": "10 km - 1 km",
+        "applications": [
+          "AM radio broadcasting",
+          "RFID (125/134 kHz)",
+          "Navigation (LORAN)",
+          "Wireless charging (Qi standard)"
+        ],
+        "rfid_frequencies": {
+          "125_kHz": "Access control, animal ID",
+          "134_kHz": "Pet microchips (ISO standard)"
+        }
+      },
+      "MF": {
+        "name": "Medium Frequency",
+        "frequency_range": "300 kHz - 3 MHz",
+        "wavelength_range": "1 km - 100 m",
+        "applications": [
+          "AM radio (530-1710 kHz)",
+          "Maritime radio",
+          "Aviation navigation"
+        ],
+        "bands": {
+          "AM_broadcast": "530-1710 kHz",
+          "160m_ham": "1.8-2.0 MHz"
+        }
+      },
+      "HF": {
+        "name": "High Frequency (Shortwave)",
+        "frequency_range": "3 MHz - 30 MHz",
+        "wavelength_range": "100 m - 10 m",
+        "applications": [
+          "Shortwave radio",
+          "International broadcasting",
+          "Amateur radio",
+          "Over-the-horizon radar",
+          "HF RFID (13.56 MHz)"
+        ],
+        "propagation": "Ionospheric reflection - worldwide communication",
+        "ham_bands": [
+          "80m: 3.5-4.0 MHz",
+          "40m: 7.0-7.3 MHz",
+          "20m: 14.0-14.35 MHz",
+          "10m: 28.0-29.7 MHz"
+        ],
+        "rfid": {
+          "13.56_MHz": "NFC, payment cards, passports, library tags"
+        }
+      },
+      "VHF": {
+        "name": "Very High Frequency",
+        "frequency_range": "30 MHz - 300 MHz",
+        "wavelength_range": "10 m - 1 m",
+        "applications": [
+          "FM radio (88-108 MHz)",
+          "Television (analog)",
+          "Aviation communication",
+          "Marine radio",
+          "Amateur radio",
+          "RFID (70 MHz)"
+        ],
+        "bands": {
+          "FM_broadcast": "88-108 MHz",
+          "VHF_TV_low": "54-88 MHz",
+          "VHF_TV_high": "174-216 MHz",
+          "Aviation": "108-137 MHz",
+          "Marine": "156-174 MHz",
+          "2m_ham": "144-148 MHz"
+        }
+      },
+      "UHF": {
+        "name": "Ultra High Frequency",
+        "frequency_range": "300 MHz - 3 GHz",
+        "wavelength_range": "1 m - 10 cm",
+        "applications": [
+          "Television (digital)",
+          "Mobile phones (700-900 MHz)",
+          "GPS (1.2/1.5 GHz)",
+          "WiFi (2.4 GHz)",
+          "Bluetooth (2.4 GHz)",
+          "UHF RFID (860-960 MHz)",
+          "Microwave ovens (2.45 GHz)"
+        ],
+        "cellular_bands": {
+          "700_MHz": "LTE Band 12/13/14/17/29",
+          "800_MHz": "CDMA, iDEN",
+          "850_MHz": "GSM, 3G, LTE",
+          "900_MHz": "GSM (EU)",
+          "1800_MHz": "GSM, LTE",
+          "1900_MHz": "PCS, 3G, LTE",
+          "2100_MHz": "3G UMTS",
+          "2.4_GHz": "WiFi 2.4 GHz, Bluetooth, ZigBee",
+          "2.5_GHz": "WiMAX, LTE"
+        },
+        "wifi_channels": {
+          "2.4_GHz": "Channels 1-14, 20/40 MHz bandwidth",
+          "5_GHz": "Channels 36-165, 20/40/80/160 MHz"
+        }
+      },
+      "SHF": {
+        "name": "Super High Frequency (Microwave)",
+        "frequency_range": "3 GHz - 30 GHz",
+        "wavelength_range": "10 cm - 1 cm",
+        "applications": [
+          "WiFi 5/6 GHz",
+          "Satellite communication",
+          "Radar",
+          "5G (3.5-26 GHz)",
+          "Microwave links",
+          "Radio astronomy"
+        ],
+        "5G_bands": {
+          "sub_6_GHz": "3.3-3.8 GHz (primary mid-band)",
+          "C_band": "3.7-4.2 GHz",
+          "24_GHz": "24.25-27.5 GHz (mmWave)",
+          "28_GHz": "27.5-28.35 GHz (mmWave)"
+        },
+        "wifi_6E": {
+          "6_GHz": "5.925-7.125 GHz, Channels 1-233"
+        },
+        "satellite_bands": {
+          "C_band": "4-8 GHz",
+          "X_band": "8-12 GHz (military, radar)",
+          "Ku_band": "12-18 GHz (satellite TV, VSAT)",
+          "K_band": "18-27 GHz (satellite)"
+        }
+      },
+      "EHF": {
+        "name": "Extremely High Frequency (Millimeter wave)",
+        "frequency_range": "30 GHz - 300 GHz",
+        "wavelength_range": "1 cm - 1 mm",
+        "applications": [
+          "5G mmWave (24-100 GHz)",
+          "802.11ad WiFi (60 GHz)",
+          "WiGig (60 GHz)",
+          "Automotive radar (77 GHz)",
+          "Security scanners (70-100 GHz)",
+          "Radio astronomy",
+          "Active Denial System (95 GHz)"
+        ],
+        "5G_mmWave": {
+          "24_GHz": "24.25-27.5 GHz",
+          "28_GHz": "27.5-28.35 GHz",
+          "37_GHz": "37-40 GHz",
+          "39_GHz": "38.6-40 GHz",
+          "47_GHz": "47.2-48.2 GHz"
+        },
+        "atmospheric_absorption": {
+          "60_GHz": "Strong oxygen absorption - short range, secure",
+          "77_GHz": "Low absorption - automotive radar"
+        }
+      },
+      "THF": {
+        "name": "Tremendously High Frequency (Terahertz)",
+        "frequency_range": "300 GHz - 3 THz",
+        "wavelength_range": "1 mm - 100 \u03bcm",
+        "applications": [
+          "6G research (experimental)",
+          "Security imaging (body scanners)",
+          "Spectroscopy",
+          "Medical imaging",
+          "Materials characterization"
+        ],
+        "status": "Emerging technology, 6G target frequencies",
+        "challenges": [
+          "High atmospheric absorption",
+          "Limited range",
+          "Device technology immature",
+          "Power consumption"
+        ]
+      },
+      "Infrared": {
+        "name": "Infrared Radiation",
+        "frequency_range": "300 GHz (3 THz) - 430 THz",
+        "wavelength_range": "1 mm - 700 nm",
+        "subdivisions": {
+          "far_infrared": {
+            "range": "300 GHz - 20 THz (1 mm - 15 \u03bcm)",
+            "applications": [
+              "Thermal imaging",
+              "Astronomy",
+              "Spectroscopy"
+            ]
+          },
+          "mid_infrared": {
+            "range": "20 - 100 THz (15 \u03bcm - 3 \u03bcm)",
+            "applications": [
+              "Heat sensing",
+              "Chemical analysis",
+              "Night vision"
+            ]
+          },
+          "near_infrared": {
+            "range": "100 - 430 THz (3 \u03bcm - 700 nm)",
+            "applications": [
+              "IR cameras",
+              "Remote controls",
+              "Fiber optics",
+              "Pulse oximetry"
+            ]
+          }
+        },
+        "applications": [
+          "Thermal imaging/cameras",
+          "Night vision",
+          "Remote controls",
+          "Infrared spectroscopy",
+          "Heat lamps/therapy",
+          "Fiber optic communication",
+          "Medical diagnostics"
+        ],
+        "biological_effects": [
+          "Tissue heating",
+          "Therapeutic warmth",
+          "Vitamin D synthesis (near-IR borderline)"
+        ]
+      },
+      "Visible_Light": {
+        "name": "Visible Light",
+        "frequency_range": "430 THz - 770 THz",
+        "wavelength_range": "700 nm - 390 nm",
+        "colors": {
+          "red": "430-480 THz (700-625 nm)",
+          "orange": "480-510 THz (625-590 nm)",
+          "yellow": "510-540 THz (590-565 nm)",
+          "green": "540-610 THz (565-500 nm)",
+          "cyan": "610-670 THz (500-485 nm)",
+          "blue": "670-750 THz (485-450 nm)",
+          "violet": "750-770 THz (450-390 nm)"
+        },
+        "applications": [
+          "Vision/illumination",
+          "Photography",
+          "Li-Fi communication",
+          "Optical data transmission",
+          "Laser technology",
+          "Photosynthesis"
+        ],
+        "biological_effects": [
+          "Vision",
+          "Circadian rhythm regulation",
+          "Vitamin D synthesis (UV borderline)",
+          "Mood regulation",
+          "Plant photosynthesis"
+        ]
+      },
+      "Ultraviolet": {
+        "name": "Ultraviolet Radiation",
+        "frequency_range": "770 THz - 30 PHz",
+        "wavelength_range": "390 nm - 10 nm",
+        "subdivisions": {
+          "UVA": {
+            "range": "770 THz - 950 THz (390-315 nm)",
+            "penetration": "Deep into skin",
+            "effects": "Tanning, aging, some DNA damage",
+            "sources": "Sun, tanning beds"
+          },
+          "UVB": {
+            "range": "950 THz - 1.07 PHz (315-280 nm)",
+            "penetration": "Surface skin layers",
+            "effects": "Sunburn, Vitamin D synthesis, skin cancer risk",
+            "sources": "Sun (mostly absorbed by ozone)"
+          },
+          "UVC": {
+            "range": "1.07 PHz - 30 PHz (280-10 nm)",
+            "penetration": "Blocked by atmosphere",
+            "effects": "Germicidal, DNA destruction",
+            "sources": "Germicidal lamps, solar (blocked by atmosphere)"
+          }
+        },
+        "applications": [
+          "Sterilization/disinfection (UVC)",
+          "Black lights (UVA)",
+          "Counterfeit detection",
+          "Medical phototherapy",
+          "Tanning",
+          "Fluorescence"
+        ],
+        "biological_effects": [
+          "Vitamin D synthesis (UVB)",
+          "Skin tanning (UVA/UVB)",
+          "Sunburn (UVB)",
+          "Skin cancer risk",
+          "Eye damage (cataracts)",
+          "Germicidal (UVC)"
+        ]
+      },
+      "X_rays": {
+        "name": "X-ray Radiation",
+        "frequency_range": "30 PHz - 30 EHz",
+        "wavelength_range": "10 nm - 0.01 nm",
+        "subdivisions": {
+          "soft_X_rays": {
+            "range": "30 PHz - 3 EHz (10 nm - 0.1 nm)",
+            "applications": "X-ray microscopy, protein crystallography"
+          },
+          "hard_X_rays": {
+            "range": "3 EHz - 30 EHz (0.1 nm - 0.01 nm)",
+            "applications": "Medical imaging, industrial inspection, security"
+          }
+        },
+        "applications": [
+          "Medical imaging (radiography, CT)",
+          "Dental X-rays",
+          "Airport security scanners",
+          "Industrial inspection",
+          "Crystallography",
+          "Cancer treatment (radiation therapy)",
+          "Astronomy"
+        ],
+        "biological_effects": [
+          "Ionizing radiation - DNA damage",
+          "Cancer risk with high exposure",
+          "Cell death (used in therapy)",
+          "Cumulative lifetime exposure concerns"
+        ],
+        "safety": [
+          "Lead shielding required",
+          "ALARA principle (As Low As Reasonably Achievable)",
+          "Dosimetry for workers",
+          "Regulated by FDA/health authorities"
+        ]
+      },
+      "Gamma_rays": {
+        "name": "Gamma Ray Radiation",
+        "frequency_range": "30 EHz and above",
+        "wavelength_range": "< 0.01 nm (< 10 picometers)",
+        "sources": [
+          "Radioactive decay",
+          "Nuclear reactions",
+          "Cosmic rays",
+          "Pulsars and supernovae",
+          "Particle accelerators"
+        ],
+        "applications": [
+          "Cancer treatment (gamma knife)",
+          "Sterilization (medical equipment, food)",
+          "Industrial gauging",
+          "Astronomy/astrophysics",
+          "Nuclear medicine imaging (PET scans)"
+        ],
+        "biological_effects": [
+          "Highly ionizing",
+          "Deep tissue penetration",
+          "Severe DNA damage",
+          "Radiation sickness at high doses",
+          "Cancer risk",
+          "Cell death (used therapeutically)"
+        ],
+        "shielding": [
+          "Dense materials required (lead, concrete)",
+          "Inverse square law applies",
+          "Time/distance/shielding principles"
+        ]
+      }
+    },
+    "healing": {
+      "Solfeggio_Frequencies": {
+        "description": "Ancient musical scale frequencies claimed to have healing properties",
+        "origin": "Gregorian chants, rediscovered by Dr. Joseph Puleo",
+        "frequencies": {
+          "174_Hz": {
+            "name": "Foundation",
+            "claimed_effects": "Pain reduction, stress relief, security",
+            "note": "Lowest Solfeggio frequency"
+          },
+          "285_Hz": {
+            "name": "Quantum Cognition",
+            "claimed_effects": "Tissue regeneration, cellular repair",
+            "note": "Cell healing frequency"
+          },
+          "396_Hz": {
+            "name": "Liberation from Fear",
+            "claimed_effects": "Release guilt, fear, trauma",
+            "note": "Root chakra (UT)"
+          },
+          "417_Hz": {
+            "name": "Facilitating Change",
+            "claimed_effects": "Remove negative energy, facilitate change",
+            "note": "Sacral chakra (RE)"
+          },
+          "528_Hz": {
+            "name": "Transformation & Miracles (Love Frequency)",
+            "claimed_effects": "DNA repair, transformation, miracles",
+            "note": "Solar plexus chakra (MI) - most researched",
+            "research": "Some studies on DNA repair, stress reduction"
+          },
+          "639_Hz": {
+            "name": "Connecting & Relationships",
+            "claimed_effects": "Harmony in relationships, connection",
+            "note": "Heart chakra (FA)"
+          },
+          "741_Hz": {
+            "name": "Awakening Intuition",
+            "claimed_effects": "Problem solving, expression, detox",
+            "note": "Throat chakra (SOL)"
+          },
+          "852_Hz": {
+            "name": "Returning to Spiritual Order",
+            "claimed_effects": "Spiritual awakening, third eye opening",
+            "note": "Third eye chakra (LA)"
+          },
+          "963_Hz": {
+            "name": "Divine Connection",
+            "claimed_effects": "Connection to higher consciousness",
+            "note": "Crown chakra, highest Solfeggio"
+          }
+        },
+        "scientific_status": "Limited peer-reviewed research, mostly anecdotal",
+        "usage": "Meditation, sound healing, music therapy"
+      },
+      "Schumann_Resonances": {
+        "description": "Earth's electromagnetic resonance frequencies",
+        "fundamental_frequency": "7.83 Hz",
+        "harmonics": [
+          "7.83 Hz (fundamental)",
+          "14.3 Hz (2nd harmonic)",
+          "20.8 Hz (3rd harmonic)",
+          "27.3 Hz (4th harmonic)",
+          "33.8 Hz (5th harmonic)"
+        ],
+        "origin": "Lightning strikes in ionosphere cavity",
+        "claimed_effects": [
+          "Synchronization with brain alpha waves",
+          "Improved well-being",
+          "Reduced stress",
+          "Better sleep",
+          "Enhanced meditation"
+        ],
+        "scientific_status": "Frequency confirmed, health effects under research",
+        "applications": [
+          "Schumann resonance generators",
+          "Meditation enhancement",
+          "Sleep improvement devices"
+        ]
+      },
+      "Brainwave_Frequencies": {
+        "description": "EEG frequency bands corresponding to mental states",
+        "bands": {
+          "Delta": {
+            "range": "0.5 - 4 Hz",
+            "state": "Deep sleep, unconscious",
+            "applications": "Sleep induction, healing"
+          },
+          "Theta": {
+            "range": "4 - 8 Hz",
+            "state": "Deep meditation, creativity, REM sleep",
+            "applications": "Meditation, hypnosis, memory"
+          },
+          "Alpha": {
+            "range": "8 - 13 Hz",
+            "state": "Relaxed awareness, light meditation",
+            "applications": "Stress reduction, learning, creativity",
+            "note": "Overlaps with Schumann resonance (7.83 Hz)"
+          },
+          "Beta": {
+            "range": "13 - 30 Hz",
+            "state": "Active thinking, focus, alertness",
+            "applications": "Concentration, problem-solving"
+          },
+          "Gamma": {
+            "range": "30 - 100 Hz",
+            "state": "Peak awareness, insight, higher processing",
+            "applications": "Learning, memory, peak performance"
+          }
+        },
+        "entrainment_methods": [
+          "Binaural beats",
+          "Isochronic tones",
+          "Monaural beats",
+          "Light and sound machines",
+          "Neurofeedback"
+        ]
+      },
+      "Binaural_Beats": {
+        "description": "Perception of a third frequency from two different frequencies",
+        "mechanism": "Left ear: freq1, Right ear: freq2, Brain perceives: freq2-freq1",
+        "example": "Left: 200 Hz, Right: 210 Hz \u2192 Perceived 10 Hz (alpha)",
+        "frequency_targets": {
+          "Delta": "1-4 Hz (deep sleep)",
+          "Theta": "4-8 Hz (meditation, creativity)",
+          "Alpha": "8-13 Hz (relaxation, learning)",
+          "Beta": "13-30 Hz (focus, alertness)",
+          "Gamma": "30-100 Hz (peak performance)"
+        },
+        "requirements": "Stereo headphones required",
+        "scientific_status": "Some research support for relaxation, focus",
+        "platforms": [
+          "Brain.fm",
+          "Binaural Beats Therapy apps",
+          "YouTube channels",
+          "Insight Timer"
+        ]
+      },
+      "Rife_Frequencies": {
+        "description": "Frequencies claimed to target specific pathogens (Royal Rife)",
+        "history": "1930s Royal Raymond Rife microscope and frequency generator",
+        "claimed_mechanism": "Resonant frequency destruction of microorganisms",
+        "example_frequencies": {
+          "general_health": "10000 Hz, 5000 Hz, 2720 Hz",
+          "pain": "3000 Hz, 95 Hz, 666 Hz",
+          "infection": "880 Hz, 787 Hz, 727 Hz"
+        },
+        "scientific_status": "Not validated by mainstream medicine, FDA concerns",
+        "caution": "Not a substitute for medical treatment",
+        "modern_devices": [
+          "Spooky2 Rife",
+          "BCX Ultra",
+          "GB4000"
+        ]
+      },
+      "PEMF_Therapy": {
+        "name": "Pulsed Electromagnetic Field Therapy",
+        "description": "Low-frequency electromagnetic fields for healing",
+        "frequency_range": "1 Hz - 10,000 Hz typically",
+        "common_frequencies": {
+          "10_Hz": "Pain relief, bone healing",
+          "7.83_Hz": "Schumann resonance alignment",
+          "25_Hz": "Nerve regeneration",
+          "50_Hz": "Ligament healing"
+        },
+        "FDA_approved_uses": [
+          "Bone healing (fractures)",
+          "Pain relief",
+          "Depression (TMS uses magnetic fields)"
+        ],
+        "devices": [
+          "Bemer",
+          "iMRS",
+          "Curatron",
+          "EarthPulse"
+        ],
+        "scientific_status": "Some FDA approvals, ongoing research"
+      },
+      "Color_Light_Therapy": {
+        "description": "Using specific light colors/frequencies for healing",
+        "frequencies": {
+          "Red": "430-480 THz (625-700 nm) - Stimulation, energy",
+          "Orange": "480-510 THz (590-625 nm) - Creativity, vitality",
+          "Yellow": "510-540 THz (565-590 nm) - Mental clarity",
+          "Green": "540-610 THz (500-565 nm) - Balance, healing",
+          "Blue": "670-750 THz (450-485 nm) - Calm, communication",
+          "Indigo": "700-750 THz (420-450 nm) - Intuition",
+          "Violet": "750-770 THz (390-420 nm) - Spirituality"
+        },
+        "applications": [
+          "Seasonal affective disorder (SAD)",
+          "Circadian rhythm regulation",
+          "Jaundice treatment (blue light)",
+          "Wound healing (red/near-IR)",
+          "Mood regulation"
+        ],
+        "scientific_status": "Some medical applications proven (SAD, jaundice)"
+      }
+    },
+    "cellular": {
+      "1G": {
+        "name": "First Generation (Analog)",
+        "years": "1980s",
+        "technology": "Analog cellular (AMPS, NMT, TACS)",
+        "frequencies": {
+          "AMPS": "824-894 MHz (US)",
+          "NMT": "450 MHz, 900 MHz (Nordic)",
+          "TACS": "890-960 MHz (UK, Europe)"
+        },
+        "data_rate": "None - voice only",
+        "status": "Obsolete, networks shut down"
+      },
+      "2G": {
+        "name": "Second Generation (Digital)",
+        "years": "1990s",
+        "technology": "GSM, CDMA, D-AMPS",
+        "frequencies": {
+          "GSM_850": "824-894 MHz (Americas)",
+          "GSM_900": "890-960 MHz (Europe, Asia, Africa)",
+          "GSM_1800": "1710-1880 MHz (DCS)",
+          "GSM_1900": "1850-1990 MHz (PCS Americas)",
+          "CDMA": "824-894 MHz, 1850-1990 MHz"
+        },
+        "data_rate": "9.6-14.4 kbps (GPRS: 56-114 kbps, EDGE: 384 kbps)",
+        "status": "Mostly shut down, some 2G networks remain"
+      },
+      "3G": {
+        "name": "Third Generation",
+        "years": "2000s",
+        "technology": "UMTS, CDMA2000, HSPA",
+        "frequencies": {
+          "UMTS_Band_1": "2100 MHz (most common globally)",
+          "UMTS_Band_2": "1900 MHz (Americas)",
+          "UMTS_Band_4": "1700/2100 MHz (AWS)",
+          "UMTS_Band_5": "850 MHz",
+          "UMTS_Band_8": "900 MHz"
+        },
+        "data_rate": "384 kbps - 2 Mbps (HSPA+: up to 42 Mbps)",
+        "status": "Being phased out in many countries"
+      },
+      "4G_LTE": {
+        "name": "Fourth Generation (LTE/LTE-A)",
+        "years": "2010s",
+        "technology": "LTE, LTE-Advanced",
+        "frequencies": {
+          "Low_band": "600-900 MHz (coverage)",
+          "Mid_band": "1700-2600 MHz (balance)",
+          "High_band": "3300-3800 MHz (capacity)"
+        },
+        "common_bands": {
+          "Band_2": "1900 MHz PCS",
+          "Band_4": "1700/2100 MHz AWS",
+          "Band_7": "2600 MHz",
+          "Band_12": "700 MHz",
+          "Band_13": "700 MHz",
+          "Band_41": "2500 MHz (TDD)",
+          "Band_66": "1700/2100 MHz (AWS-3)"
+        },
+        "data_rate": "100 Mbps - 1 Gbps (LTE-A: up to 3 Gbps)",
+        "status": "Currently dominant"
+      },
+      "5G": {
+        "name": "Fifth Generation",
+        "years": "2020s",
+        "technology": "5G NR (New Radio)",
+        "frequency_ranges": {
+          "Low_band": {
+            "range": "600-900 MHz",
+            "coverage": "Wide coverage, similar to 4G",
+            "speed": "50-250 Mbps"
+          },
+          "Mid_band": {
+            "range": "2.5-3.7 GHz (C-band: 3.7-4.2 GHz)",
+            "coverage": "Moderate coverage",
+            "speed": "100-900 Mbps"
+          },
+          "High_band_mmWave": {
+            "range": "24-100 GHz (24, 28, 37, 39, 47 GHz)",
+            "coverage": "Very limited (100-500m)",
+            "speed": "1-10+ Gbps",
+            "challenges": "Poor penetration, weather sensitive"
+          }
+        },
+        "data_rate": "1-10+ Gbps (theoretical: 20 Gbps)",
+        "latency": "1-10 ms (target: <1ms)",
+        "status": "Rapid deployment ongoing"
+      },
+      "6G": {
+        "name": "Sixth Generation (Future)",
+        "years": "Expected 2030s",
+        "technology": "Terahertz (THz), AI-native, quantum communication",
+        "expected_frequencies": {
+          "Sub_6_GHz": "Continued use for coverage",
+          "mmWave": "24-100 GHz (enhanced)",
+          "Sub_THz": "100-300 GHz (D-band, experimental)",
+          "THz": "300 GHz - 3 THz (target research range)"
+        },
+        "expected_data_rate": "100 Gbps - 1 Tbps",
+        "expected_latency": "<1 ms (target: <0.1 ms)",
+        "features": [
+          "Holographic communication",
+          "Digital twins",
+          "Ambient IoT",
+          "Brain-computer interfaces",
+          "Quantum encryption",
+          "AI-driven network optimization",
+          "Space-terrestrial integration"
+        ],
+        "status": "Research phase, standards development ongoing"
+      },
+      "7G_8G_9G": {
+        "name": "Seventh, Eighth, Ninth Generation (Speculative)",
+        "status": "Theoretical/aspirational",
+        "expected_timeline": "2040s-2050s+",
+        "possible_technologies": [
+          "Full quantum communication networks",
+          "Biological-electronic integration",
+          "Brain-to-brain communication",
+          "Consciousness-level networking",
+          "Space-based mesh networks",
+          "Instantaneous global communication",
+          "Photonic/optical wireless",
+          "Zero-latency holographic presence"
+        ],
+        "frequency_speculation": [
+          "Visible light communication (Li-Fi)",
+          "Optical/infrared wireless",
+          "Quantum entanglement (non-frequency based)",
+          "Novel physics-based communication"
+        ],
+        "note": "Pure speculation - no standards, research, or consensus"
+      }
+    }
+  }
+}
