@@ -1,5 +1,5 @@
 {
-  "extraction_date": "2026-04-06T06:36:19.841706",
+  "extraction_date": "2026-04-07T06:30:24.354201",
   "platforms_processed": 5,
   "total_conversations": 524,
   "total_messages": 3227,
@@ -8,7 +8,7 @@
   "platform_results": {
     "gemini": {
       "platform": "gemini",
-      "extraction_date": "2026-04-06T06:36:19.839108",
+      "extraction_date": "2026-04-07T06:30:24.351966",
       "status": "success",
       "statistics": {
         "total_conversations": 156,
@@ -16,7 +16,7 @@
         "total_code_blocks": 234,
         "date_range": {
           "earliest": "2023-12-01T00:00:00Z",
-          "latest": "2026-04-06T06:36:19.839112"
+          "latest": "2026-04-07T06:30:24.351969"
         }
       },
       "conversations_sample": [
@@ -88,7 +88,7 @@
     },
     "copilot": {
       "platform": "copilot",
-      "extraction_date": "2026-04-06T06:36:19.840577",
+      "extraction_date": "2026-04-07T06:30:24.353376",
       "status": "success",
       "sources": {
         "windows_copilot": {
@@ -108,7 +108,7 @@
     },
     "chatgpt": {
       "platform": "chatgpt",
-      "extraction_date": "2026-04-06T06:36:19.840919",
+      "extraction_date": "2026-04-07T06:30:24.353648",
       "status": "success",
       "statistics": {
         "total_conversations": 234,
@@ -118,7 +118,7 @@
     },
     "claude": {
       "platform": "claude",
-      "extraction_date": "2026-04-06T06:36:19.841301",
+      "extraction_date": "2026-04-07T06:30:24.353909",
       "status": "success",
       "statistics": {
         "total_conversations": 89,
@@ -128,7 +128,7 @@
     },
     "takedowns": {
       "platform": "takedowns",
-      "extraction_date": "2026-04-06T06:36:19.841552",
+      "extraction_date": "2026-04-07T06:30:24.354095",
       "status": "success",
       "statistics": {
         "total_archived_sites": 12,
