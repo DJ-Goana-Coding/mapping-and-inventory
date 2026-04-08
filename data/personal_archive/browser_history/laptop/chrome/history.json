@@ -1,14 +1,14 @@
 {
   "browser": "chrome",
   "device": "laptop",
-  "extraction_date": "2026-04-07T06:30:24.312388",
+  "extraction_date": "2026-04-08T06:31:23.864424",
   "status": "mock",
   "statistics": {
     "total_visits": 5678,
     "unique_domains": 234,
     "date_range": {
       "earliest": "2020-01-01T00:00:00Z",
-      "latest": "2026-04-07T06:30:24.312394"
+      "latest": "2026-04-08T06:31:23.864429"
     }
   },
   "top_domains": [

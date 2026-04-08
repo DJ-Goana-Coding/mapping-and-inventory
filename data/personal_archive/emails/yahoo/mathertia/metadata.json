@@ -1,7 +1,7 @@
 {
   "account": "mathertia@yahoo.com",
   "provider": "yahoo",
-  "extraction_date": "2026-04-07T06:30:24.239030",
+  "extraction_date": "2026-04-08T06:31:23.784852",
   "status": "success",
   "statistics": {
     "total_emails": 987,
@@ -10,7 +10,7 @@
     "total_size_mb": 1234.56,
     "date_range": {
       "earliest": "2016-06-01T00:00:00Z",
-      "latest": "2026-04-07T06:30:24.239033"
+      "latest": "2026-04-08T06:31:23.784856"
     }
   },
   "folders": [
