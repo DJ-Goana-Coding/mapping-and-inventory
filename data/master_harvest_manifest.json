@@ -1,10 +1,10 @@
 {
-  "harvest_timestamp": "2026-04-08T12:36:37.099893Z",
+  "harvest_timestamp": "2026-04-08T13:34:29.375165Z",
   "sources": {
     "partitions": {},
     "models": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-08T12:26:35.355472Z",
+      "last_updated": "2026-04-08T12:49:47.892902Z",
       "total_models": 0,
       "categories": {
         "Core": {
@@ -31,7 +31,7 @@
     },
     "workers": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-08T12:26:37.077017Z",
+      "last_updated": "2026-04-08T13:10:34.828288Z",
       "total_workers": 0,
       "categories": {
         "Vacuums": {
