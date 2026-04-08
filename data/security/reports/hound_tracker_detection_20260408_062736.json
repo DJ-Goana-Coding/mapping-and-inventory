@@ -1,0 +1,416 @@
+{
+  "agent": "Hound Tracker Detection Agent",
+  "timestamp": "2026-04-08T06:27:34.262764",
+  "profile": {
+    "total_trackers": 21,
+    "by_risk": {
+      "critical": 9,
+      "high": 6,
+      "medium": 6,
+      "low": 0
+    },
+    "by_type": {
+      "analytics": 1,
+      "social_trackers": 1,
+      "fingerprinting": 5,
+      "ad_trackers": 4,
+      "telemetry": 1,
+      "session_replay": 4,
+      "cookies": 5
+    },
+    "affected_files": [
+      "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py"
+    ],
+    "recommendations": [
+      "CRITICAL: Remove session replay and fingerprinting trackers immediately",
+      "HIGH: Review and remove analytics and ad trackers",
+      "Consider privacy-friendly analytics alternatives (Plausible, Fathom)",
+      "Remove device fingerprinting code - major privacy violation"
+    ]
+  },
+  "trackers_found": [
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "analytics",
+      "risk": "high",
+      "pattern": "google-analytics\\.com",
+      "match": "google-analytics.com",
+      "line": 67,
+      "context": "                \"domains\": [\n                    \"google-analytics.com\",\n                    \"mixpanel.com\",\n           "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "social_trackers",
+      "risk": "high",
+      "pattern": "connect\\.facebook\\.net",
+      "match": "connect.facebook.net",
+      "line": 86,
+      "context": "                \"domains\": [\n                    \"connect.facebook.net\",\n                    \"facebook.com\",\n           "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "getTimezoneOffset",
+      "match": "getTimezoneOffset",
+      "line": 99,
+      "context": "en\\.width.*screen\\.height\",\n                    r\"getTimezoneOffset\",\n                    r\"canvas\\.toDataURL\",\n     "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "audioContext.*fingerprint",
+      "match": "audioContext.*fingerprint",
+      "line": 101,
+      "context": "      r\"canvas\\.toDataURL\",\n                    r\"audioContext.*fingerprint\",\n                    r\"webgl.*fingerprint\",\n    "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "webgl.*fingerprint",
+      "match": "webgl.*fingerprint",
+      "line": 102,
+      "context": "audioContext.*fingerprint\",\n                    r\"webgl.*fingerprint\",\n                    r\"font.*detection\",\n       "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "font.*detection",
+      "match": "font.*detection",
+      "line": 103,
+      "context": "     r\"webgl.*fingerprint\",\n                    r\"font.*detection\",\n                    r\"battery.*level\"\n         "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "battery.*level",
+      "match": "battery.*level",
+      "line": 104,
+      "context": "        r\"font.*detection\",\n                    r\"battery.*level\"\n                ]\n            },\n            \"ad"
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "doubleclick\\.net",
+      "match": "doubleclick.net",
+      "line": 120,
+      "context": "                \"domains\": [\n                    \"doubleclick.net\",\n                    \"googlesyndication.com\",\n  "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "googlesyndication\\.com",
+      "match": "googlesyndication.com",
+      "line": 121,
+      "context": "          \"doubleclick.net\",\n                    \"googlesyndication.com\",\n                    \"criteo.com\",\n             "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "criteo\\.com",
+      "match": "criteo.com",
+      "line": 122,
+      "context": "    \"googlesyndication.com\",\n                    \"criteo.com\",\n                    \"taboola.com\",\n            "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "taboola\\.com",
+      "match": "taboola.com",
+      "line": 123,
+      "context": "               \"criteo.com\",\n                    \"taboola.com\",\n                    \"outbrain.com\"\n            "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "telemetry",
+      "risk": "medium",
+      "pattern": "sendBeacon",
+      "match": "sendBeacon",
+      "line": 132,
+      "context": "           r\"beacon\\.send\",\n                    r\"sendBeacon\",\n                    r\"crash\\.report\",\n         "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "session.*replay",
+      "match": "session_replay",
+      "line": 139,
+      "context": "fy\"\n                ]\n            },\n            \"session_replay\": {\n                \"risk\": \"critical\",\n         "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "session.*replay",
+      "match": "session.*replay",
+      "line": 147,
+      "context": "         r\"smartlook\\.com\",\n                    r\"session.*replay\",\n                    r\"record.*session\"\n        "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "session.*replay",
+      "match": "session replay",
+      "line": 254,
+      "context": "ofile[\"recommendations\"].append(\"CRITICAL: Remove session replay and fingerprinting trackers immediately\")\n       "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "record.*session",
+      "match": "record.*session",
+      "line": 148,
+      "context": "        r\"session.*replay\",\n                    r\"record.*session\"\n                ]\n            },\n            \"co"
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "setCookie",
+      "match": "setCookie",
+      "line": 155,
+      "context": "   r\"document\\.cookie\\s*=\",\n                    r\"setCookie\",\n                    r\"_ga=\",\n                  "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "_ga=",
+      "match": "_ga=",
+      "line": 156,
+      "context": "              r\"setCookie\",\n                    r\"_ga=\",\n                    r\"_gid=\",\n                 "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "_gid=",
+      "match": "_gid=",
+      "line": 157,
+      "context": "                   r\"_ga=\",\n                    r\"_gid=\",\n                    r\"_fbp=\",\n                 "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "_fbp=",
+      "match": "_fbp=",
+      "line": 158,
+      "context": "                  r\"_gid=\",\n                    r\"_fbp=\",\n                    r\"third.*party.*cookie\"\n   "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "third.*party.*cookie",
+      "match": "third.*party.*cookie",
+      "line": 159,
+      "context": "                  r\"_fbp=\",\n                    r\"third.*party.*cookie\"\n                ]\n            }\n        }\n    \n "
+    }
+  ],
+  "high_risk_trackers": [
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "analytics",
+      "risk": "high",
+      "pattern": "google-analytics\\.com",
+      "match": "google-analytics.com",
+      "line": 67,
+      "context": "                \"domains\": [\n                    \"google-analytics.com\",\n                    \"mixpanel.com\",\n           "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "social_trackers",
+      "risk": "high",
+      "pattern": "connect\\.facebook\\.net",
+      "match": "connect.facebook.net",
+      "line": 86,
+      "context": "                \"domains\": [\n                    \"connect.facebook.net\",\n                    \"facebook.com\",\n           "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "getTimezoneOffset",
+      "match": "getTimezoneOffset",
+      "line": 99,
+      "context": "en\\.width.*screen\\.height\",\n                    r\"getTimezoneOffset\",\n                    r\"canvas\\.toDataURL\",\n     "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "audioContext.*fingerprint",
+      "match": "audioContext.*fingerprint",
+      "line": 101,
+      "context": "      r\"canvas\\.toDataURL\",\n                    r\"audioContext.*fingerprint\",\n                    r\"webgl.*fingerprint\",\n    "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "webgl.*fingerprint",
+      "match": "webgl.*fingerprint",
+      "line": 102,
+      "context": "audioContext.*fingerprint\",\n                    r\"webgl.*fingerprint\",\n                    r\"font.*detection\",\n       "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "font.*detection",
+      "match": "font.*detection",
+      "line": 103,
+      "context": "     r\"webgl.*fingerprint\",\n                    r\"font.*detection\",\n                    r\"battery.*level\"\n         "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "fingerprinting",
+      "risk": "critical",
+      "pattern": "battery.*level",
+      "match": "battery.*level",
+      "line": 104,
+      "context": "        r\"font.*detection\",\n                    r\"battery.*level\"\n                ]\n            },\n            \"ad"
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "doubleclick\\.net",
+      "match": "doubleclick.net",
+      "line": 120,
+      "context": "                \"domains\": [\n                    \"doubleclick.net\",\n                    \"googlesyndication.com\",\n  "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "googlesyndication\\.com",
+      "match": "googlesyndication.com",
+      "line": 121,
+      "context": "          \"doubleclick.net\",\n                    \"googlesyndication.com\",\n                    \"criteo.com\",\n             "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "criteo\\.com",
+      "match": "criteo.com",
+      "line": 122,
+      "context": "    \"googlesyndication.com\",\n                    \"criteo.com\",\n                    \"taboola.com\",\n            "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "ad_trackers",
+      "risk": "high",
+      "pattern": "taboola\\.com",
+      "match": "taboola.com",
+      "line": 123,
+      "context": "               \"criteo.com\",\n                    \"taboola.com\",\n                    \"outbrain.com\"\n            "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "session.*replay",
+      "match": "session_replay",
+      "line": 139,
+      "context": "fy\"\n                ]\n            },\n            \"session_replay\": {\n                \"risk\": \"critical\",\n         "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "session.*replay",
+      "match": "session.*replay",
+      "line": 147,
+      "context": "         r\"smartlook\\.com\",\n                    r\"session.*replay\",\n                    r\"record.*session\"\n        "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "session.*replay",
+      "match": "session replay",
+      "line": 254,
+      "context": "ofile[\"recommendations\"].append(\"CRITICAL: Remove session replay and fingerprinting trackers immediately\")\n       "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "session_replay",
+      "risk": "critical",
+      "pattern": "record.*session",
+      "match": "record.*session",
+      "line": 148,
+      "context": "        r\"session.*replay\",\n                    r\"record.*session\"\n                ]\n            },\n            \"co"
+    }
+  ],
+  "medium_risk_trackers": [
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "telemetry",
+      "risk": "medium",
+      "pattern": "sendBeacon",
+      "match": "sendBeacon",
+      "line": 132,
+      "context": "           r\"beacon\\.send\",\n                    r\"sendBeacon\",\n                    r\"crash\\.report\",\n         "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "setCookie",
+      "match": "setCookie",
+      "line": 155,
+      "context": "   r\"document\\.cookie\\s*=\",\n                    r\"setCookie\",\n                    r\"_ga=\",\n                  "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "_ga=",
+      "match": "_ga=",
+      "line": 156,
+      "context": "              r\"setCookie\",\n                    r\"_ga=\",\n                    r\"_gid=\",\n                 "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "_gid=",
+      "match": "_gid=",
+      "line": 157,
+      "context": "                   r\"_ga=\",\n                    r\"_gid=\",\n                    r\"_fbp=\",\n                 "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "_fbp=",
+      "match": "_fbp=",
+      "line": 158,
+      "context": "                  r\"_gid=\",\n                    r\"_fbp=\",\n                    r\"third.*party.*cookie\"\n   "
+    },
+    {
+      "file": "/home/runner/work/mapping-and-inventory/mapping-and-inventory/scripts/agent_legion/hound_tracker_agent.py",
+      "type": "cookies",
+      "risk": "medium",
+      "pattern": "third.*party.*cookie",
+      "match": "third.*party.*cookie",
+      "line": 159,
+      "context": "                  r\"_fbp=\",\n                    r\"third.*party.*cookie\"\n                ]\n            }\n        }\n    \n "
+    }
+  ],
+  "low_risk_trackers": []
+}
