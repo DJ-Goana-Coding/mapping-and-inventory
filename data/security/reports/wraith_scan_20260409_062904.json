@@ -1,0 +1,694 @@
+{
+  "agent": "Wraith Security Agent",
+  "timestamp": "2026-04-09T06:29:01.646249",
+  "summary": {
+    "threats_found": 78,
+    "suspicious_files": 0,
+    "clean_files": 1584,
+    "quarantined": 0
+  },
+  "threats": [
+    {
+      "path": "scripts/deploy_character_swarms.py",
+      "threats": [
+        "Tracker pattern: tracking\\.js"
+      ],
+      "suspicious": true,
+      "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+    },
+    {
+      "path": "scripts/agent_legion/hound_tracker_agent.py",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+    },
+    {
+      "path": "scripts/agent_legion/wraith_security_agent.py",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260407_001059.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "3550a72d17e4eca6f3ce1c7bbd8e4dd272a6d6fdc2f763c60cccba08cd45d484"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260407_121343.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "8fe49558319cac74799fb3d01b020d8b654ff360ea8579c6b30c0b1c07a7f664"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260404_180627.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "bde3b8e8aadfdf61ef3ba3b9b1f4f43c127d2d573105e8ba0dd55e3d99a26982"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260404_120558.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "5ea52bf23bf0b3c42091df8c1fd44c2cf2e167c9205a8196de513675b52c27b1"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260409_000924.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "4410f1803e9539720972bee3caec9fd540da6a54f29fb3e6c6e908b9a92e9ca0"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260408_001218.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "abdf8442019e753a2a09b40d573aacd9d8e4b49b915ce6166b71453d7973194c"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260405_120558.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "520ce3ddf59c55daf091f1cd2cedfa98f62d2978f1a53cc88d946c490a71b027"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260405_000915.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "6cf6d29eb53248800283286a1385e86efc1ccc0127004854639019fd1e8efabb"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260406_000959.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "ed159475f1bcbf2e9e3e0864459e88888fb73dbde8510d0fbc91b0ef78079bea"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260407_062658.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "1a4e708fbe5f5a4db8b258a8205e26a2623e8431a594d19b589f75983235a0eb"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260406_181516.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "6d610c9939b6ff8816d0750b9ff9cf6d51c9fc760707a654a12389fb714fa7ca"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260407_181611.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "24e1fc2d1ff0f33c2f9bcef7a65a13284cb17f8c67ffcb60be1a073058d74825"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260406_063232.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "effb753a3eb5b65df0e7a6e15853f34999cd71a19a682c49774a93042931cdbf"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260405_062312.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "1f22794f6cb361b13d41ccaef6e61395076aad151c8b63394dad8303a59d7105"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260406_121201.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "f46a3066257ebaa20e40493049c8d10e37b00640d0f74203f34d24a725bf5382"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260408_062736.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "658643d9c9a4231e9addbf4940158223d68e553f1035c96584806c85987db297"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260405_180704.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "14a35597efd963784f4e084a7e9322617aad758e2db4e6ba3dce10ea00501838"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260408_121344.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "0e0906cf520c9fba9798a0c7fde36e406480fca3437ce39afeb6b8e719ea731b"
+    },
+    {
+      "path": "data/forever_learning/reports/learning_collection_20260408_182145.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "44d9fdd7d1b9cb126b627a3ba0df8bcfaecbc427acda35e6d27d3be6bbd24823"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260408_182145.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260406_063232.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260407_001059.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260405_120558.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260407_181611.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260407_121343.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260408_001218.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260406_181516.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260406_000959.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260406_121201.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260408_121343.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260408_062736.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260405_180704.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260405_000915.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/rag_brains/security/incoming/security_20260405_062312.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260408_182143.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "1a8927629b0c0e357088ca46a02187ffdc99e4612549e847545b9365d1689e17"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260406_000957.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "dc1262ca1f1906e15a1ae3b2f0d0ae9ed915abc9dbd437cddab58b8b83774f96"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260407_121343.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "9c29b1e181547e08b1e6b55d777f70a44d5ebe0a152902290a0e5ca3f4a260cf"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260407_181611.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "83af6990980884b42b83e6e94b73842db62ac9d5459f67615f9b6babcbb58e9c"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260408_062736.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "5295371afa9dc1663ccc9e80de9b3b1aae7aeaa3d4a04b374ca3bb7ac2bba21d"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260407_062656.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260408_121343.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "16682fd208d60cc10c1838a79fe1b6f42ca90dec1b114393b755bc2f4f8b10bf"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260404_180626.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "29efd259766a69b4a4c6477ea6f47f6804c60c33f24ba6972e287ede71bf89c0"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260407_001057.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "cfc0ff4c0ad37c204566efca643e922d728ec67364269949272e4c7d477d1f21"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260404_120556.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "1cba13e50c98c691845f7293c1bb7dc1acb8ce5d88b4a814597f7c55024d4f22"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260408_121341.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "d48be613d7281248e0704dd0e2c48fbc7f03cc230090144cc1db9cbde5ceac5c"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260405_000915.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "976578be3ae63243450b79b9eb01719679649c4b37539b8117b8075daf438edc"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260407_121341.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "96b56533ab4e040be8429eabefb17e65ee53974cb93f51127b9692146c0f47c4"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260404_180624.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260405_000913.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "92021b2cd02dea8bf12f2118782fabdac593c7262ebee933206964b8bbd85a68"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260408_001216.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "3367a714ef431758c0d5a4a9d1feadcd53b6fd06ee277e96b5c36910ee7b8d1d"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260407_001059.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "6141d83f1067e4f101521bf2e1770f0ca4c1122f985b790af08efcddaa51b145"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260406_063230.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "e7ea77a8a25a250bee840a181bf066974df7cc3ec7e409e75598b17d85852e1f"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260405_062310.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "627d0a4c3a734a7470a1e7d1bfa880b183e213f66e01fce131f0b86a91341936"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260406_181516.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "41d753cf154dc69fcbd6ec7c91586b4f5d79735a5f312727b749ee8142c2c91b"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260408_001218.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "7e34044b4fca8574a318d0b1dbc43168a06826df2848ad76bd396daee97f04d9"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260405_120556.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "622c5461be541adf2d11bd1637c92497daaa3bf813c6f2667b13132738a0ff52"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260404_120557.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260405_062312.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "8143eb644fc56fc8f7b019a4ef0be1cb73cdf2974fa30aec0bb9a0cbb78e89ae"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260406_000959.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "f42e4e72fa4f77694839b06bfbdf6ac597c9f80c7d7423b7c88ae024fd363c5d"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260409_000922.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "f3abbf8d22c749903ccccbd78ea2ec0f820924698ba957a6770f6d7211e829d9"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260408_182145.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "c0cd5c9c6e7dab5ff93450f4e7965a232436cbe96baf17e1d54beda1a9c7c815"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260407_062658.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "c1cf7e95d712a7c828a31bae5b6c9b330ff3d2502602ff7f002da2f0ecc06e1d"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260406_181515.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "93cf497b2094d4c80016f27a03a7477b564e530fa48e843dc8d5b676cce85cef"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260405_120558.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "dd813aecb319f6c9988a855a3e379df1a228bf6ae2762c36dc4d8e571e3dc7d2"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260406_063232.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "80e84f05bf86de84cf3317ff3f9cc33195dc05e73c11a5c2a12be34f582a57d3"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260408_062734.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "788d428a44cbe7ae89ccaa0f137c09b7189228ac083d9f3802b649db3c48e258"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260405_180704.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "7bbcb2dbc67d2c49a8606fa32dc983ac2c9d7ce4ed2d979391379253b030186f"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260405_180702.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "8b8f9aa36aff92c9c9f623fcbdce757b53fe7ce791057fbe144d6871d3737e31"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260409_000924.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "0c749ae2174614bd01630556813a26a2457662b2ca990396aeb473e3a7b3ee2b"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260407_181610.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "08435a4b16e3560aa942ed85ded247c1f6a3786cf9233b84b0b3fdc381cc55ad"
+    },
+    {
+      "path": "data/security/reports/wraith_scan_20260406_121159.json",
+      "threats": [
+        "Backdoor pattern: reverse_shell",
+        "Backdoor pattern: bind_shell"
+      ],
+      "suspicious": true,
+      "hash": "fa94ecfdeb5f3e63b4c8ff63aa979bbf69264358f4fd637c8eb23eb69d4687fc"
+    },
+    {
+      "path": "data/security/reports/hound_tracker_detection_20260406_121201.json",
+      "threats": [
+        "Tracker pattern: google-analytics\\.com"
+      ],
+      "suspicious": true,
+      "hash": "797e200e32dded169d3a73a3dd5abcd5a0cbe3e1b41b86797975f1f55c009927"
+    }
+  ],
+  "suspicious": [],
+  "quarantined": []
+}
