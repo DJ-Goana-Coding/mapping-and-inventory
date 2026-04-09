@@ -1,7 +1,7 @@
 {
   "account": "chancemather@gmail.com",
   "provider": "gmail",
-  "extraction_date": "2026-04-08T06:31:23.784035",
+  "extraction_date": "2026-04-09T06:32:11.393307",
   "status": "success",
   "statistics": {
     "total_emails": 1234,
@@ -10,7 +10,7 @@
     "total_size_mb": 2345.67,
     "date_range": {
       "earliest": "2015-01-01T00:00:00Z",
-      "latest": "2026-04-08T06:31:23.784039"
+      "latest": "2026-04-09T06:32:11.393312"
     }
   },
   "labels": [
