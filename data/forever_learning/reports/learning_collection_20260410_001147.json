@@ -1,0 +1,1187 @@
+{
+  "agent": "Learning Collector",
+  "timestamp": "2026-04-10T00:11:47.380284",
+  "summary": {
+    "insights_collected": 23,
+    "patterns_identified": 1,
+    "lessons_learned": 2
+  },
+  "insights": [
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 71 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.381064"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 27 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.381291"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 85 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_001059.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "3550a72d17e4eca6f3ce1c7bbd8e4dd272a6d6fdc2f763c60cccba08cd45d484"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_121343.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "8fe49558319cac74799fb3d01b020d8b654ff360ea8579c6b30c0b1c07a7f664"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.382130"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 47 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260406_063232.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.382285"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 43 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260406_063232.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.382859"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 3 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.382955"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 67 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.383091"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 81 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.383509"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 51 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.383661"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 7 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        },
+        {
+          "path": "data/security/reports/wraith_scan_20260404_120556.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "1cba13e50c98c691845f7293c1bb7dc1acb8ce5d88b4a814597f7c55024d4f22"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.383761"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 11 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.383857"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 78 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_001059.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "3550a72d17e4eca6f3ce1c7bbd8e4dd272a6d6fdc2f763c60cccba08cd45d484"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_121343.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "8fe49558319cac74799fb3d01b020d8b654ff360ea8579c6b30c0b1c07a7f664"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.384003"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 59 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.384291"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 31 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.384598"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 15 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.384695"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 88 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_001059.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "3550a72d17e4eca6f3ce1c7bbd8e4dd272a6d6fdc2f763c60cccba08cd45d484"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260409_181803.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "57e8aa753281477df639049d80410f722b7cdff4960eb025e28f096c731909b9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.384843"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 19 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.385776"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 75 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_001059.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "3550a72d17e4eca6f3ce1c7bbd8e4dd272a6d6fdc2f763c60cccba08cd45d484"
+        },
+        {
+          "path": "data/forever_learning/reports/learning_collection_20260407_121343.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "8fe49558319cac74799fb3d01b020d8b654ff360ea8579c6b30c0b1c07a7f664"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.386738"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 39 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260406_063232.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.387743"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 63 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.388359"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 23 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_120558.json",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "3e13ee8cbe14d3fdccc9c68a868d1baaba3fd832fc9768634185f90dbcc4de5d"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.388787"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 55 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260407_062658.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "b0f5e3bd3ebed30683a450a20dbb1e92a9b6cb2119024bc820448b0c812227a9"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.389052"
+    },
+    {
+      "type": "security_pattern",
+      "category": "threat_detection",
+      "insight": "Detected 35 threats",
+      "details": [
+        {
+          "path": "scripts/deploy_character_swarms.py",
+          "threats": [
+            "Tracker pattern: tracking\\.js"
+          ],
+          "suspicious": true,
+          "hash": "7c98c9064f27a3a2f317e640bf56ebc1b2c819e8a96aca29d26d1429f4ebf90b"
+        },
+        {
+          "path": "scripts/agent_legion/hound_tracker_agent.py",
+          "threats": [
+            "Tracker pattern: google-analytics\\.com"
+          ],
+          "suspicious": true,
+          "hash": "05bfb6c69361e5b1079a5e15b50b8cd5d00a8620e9f1293b7afebf576146c909"
+        },
+        {
+          "path": "scripts/agent_legion/wraith_security_agent.py",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "f7242e57411ec481ad4c7a1ab91d8f5cb89543f283b2a218088a45bde65eb6d1"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260404_180627.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        },
+        {
+          "path": "data/rag_brains/security/incoming/security_20260406_063232.json",
+          "threats": [
+            "Backdoor pattern: reverse_shell",
+            "Backdoor pattern: bind_shell"
+          ],
+          "suspicious": true,
+          "hash": "c48526d6ccab0ece62896ec55552472a7430e7e99e128440eb0b44b9ff1fd840"
+        }
+      ],
+      "timestamp": "2026-04-10T00:11:47.389144"
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": "threat_detection",
+      "occurrences": 23,
+      "examples": [
+        "Detected 71 threats",
+        "Detected 27 threats",
+        "Detected 85 threats",
+        "Detected 47 threats",
+        "Detected 43 threats"
+      ],
+      "timestamp": "2026-04-10T00:11:47.389626"
+    }
+  ],
+  "lessons": [
+    {
+      "lesson": "Security monitoring is active and detecting threats",
+      "evidence": "23 security insights collected",
+      "recommendation": "Continue regular security scans and maintain vigilance",
+      "timestamp": "2026-04-10T00:11:47.389665"
+    },
+    {
+      "lesson": "Recurring pattern detected: threat_detection",
+      "evidence": "23 occurrences",
+      "recommendation": "Automate handling of threat_detection",
+      "timestamp": "2026-04-10T00:11:47.389672"
+    }
+  ]
+}
