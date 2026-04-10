@@ -1,5 +1,5 @@
 {
-  "harvest_timestamp": "2026-04-10T18:23:26.023277Z",
+  "harvest_timestamp": "2026-04-10T18:25:05.570025Z",
   "sources": {
     "partitions": {},
     "models": {
@@ -31,7 +31,7 @@
     },
     "workers": {
       "registry_version": "1.0.0",
-      "last_updated": "2026-04-10T13:09:29.482603Z",
+      "last_updated": "2026-04-10T18:23:36.683477Z",
       "total_workers": 0,
       "categories": {
         "Vacuums": {
