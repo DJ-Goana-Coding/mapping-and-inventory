@@ -18,11 +18,10 @@ RUN cd face && npm install
 
 # Install backend dependencies
 COPY requirements.txt .
-# NumPy >= 2.1.0 is required for modern Python wheel compatibility
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application source
 COPY . .
 
 # Start frontend and backend processes
-CMD (cd face && npm run start) & (uvicorn main:app --host 0.0.0.0 --port 7860)
+CMD ["bash", "-lc", "cd face && npm run start & uvicorn main:app --host 0.0.0.0 --port 7860"]
