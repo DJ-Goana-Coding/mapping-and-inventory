@@ -1,44 +1,12 @@
-# Core Streamlit & Web Framework
-streamlit>=1.42.0
-requests>=2.31.0
-
-# Data Processing & Visualization
-pandas>=2.2.3
-plotly>=5.24.1
-networkx>=3.4.2
-
-# Google Services Integration
+# T.I.A. CORE REQUIREMENTS
 google-genai>=1.70.0
-google-api-python-client>=2.100.0
-gspread>=6.1.2
-google-auth>=2.35.0
-google-auth-oauthlib>=1.2.0
-google-auth-httplib2>=0.2.0
-pygsheets>=2.0.6
-
-# HuggingFace Integration
-huggingface_hub>=0.28.1
-transformers>=4.45.0
-accelerate>=0.30.0
-bitsandbytes>=0.43.0
-llama-index>=0.11.0
-smolagents>=1.0.0
-lancedb>=0.12.0
-
-# RAG & Vector Store
-faiss-cpu>=1.9.0
-sentence-transformers>=3.1.0
-
-# System Utilities
-setuptools>=75.0.0
-python-dotenv>=1.0.1
-rich>=13.9.0
-
-# Trading & Web3 (for AION & ORACLE spaces)
-ccxt>=4.0.0
-web3>=6.0.0
-eth-account>=0.10.0
-
-# AI Agents & Orchestration
-instructor>=1.0.0
-pydantic>=2.0.0
+# Fix: NumPy 2.x is required for modern Python wheels on HF
+numpy>=2.1.0
+pandas>=2.2.0
+fastapi
+uvicorn
+spaces
+datasets
+huggingface-hub>=0.30
+# The 0.8.3 Ghost repellent
+setuptools
