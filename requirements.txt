@@ -1,6 +1,6 @@
 # T.I.A. CORE REQUIREMENTS
 google-genai>=1.70.0
-# Fix: NumPy 2.x is required for modern Python wheels on HF
+# Fix: NumPy 2.x is required for modern Python wheels on HuggingFace
 numpy>=2.1.0
 pandas>=2.2.0
 fastapi>=0.110.0

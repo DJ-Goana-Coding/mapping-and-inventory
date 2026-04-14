@@ -24,4 +24,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Start frontend and backend processes
-CMD ["bash", "-lc", "cd face && npm run start & uvicorn main:app --host 0.0.0.0 --port 7860"]
+CMD ["bash", "-lc", "set -euo pipefail; [ -f main.py ] || { echo 'main.py with app is required for uvicorn main:app'; exit 1; }; cd face && npm run start & FRONT_PID=$!; uvicorn main:app --host 0.0.0.0 --port 7860 & API_PID=$!; trap 'kill ${FRONT_PID} ${API_PID}' SIGINT SIGTERM; wait -n ${FRONT_PID} ${API_PID}; kill ${FRONT_PID} ${API_PID}"]
