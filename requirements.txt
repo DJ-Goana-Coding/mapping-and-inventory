@@ -3,10 +3,10 @@ google-genai>=1.70.0
 # Fix: NumPy 2.x is required for modern Python wheels on HF
 numpy>=2.1.0
 pandas>=2.2.0
-fastapi
-uvicorn
-spaces
-datasets
-huggingface-hub>=0.30
+fastapi>=0.110.0
+uvicorn>=0.30.0
+spaces>=0.18.0
+datasets>=2.19.0
+huggingface-hub>=0.30.0
 # The 0.8.3 Ghost repellent
 setuptools
