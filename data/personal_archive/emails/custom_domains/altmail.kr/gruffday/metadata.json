@@ -2,7 +2,7 @@
   "account": "gruffday@altmail.kr",
   "provider": "imap",
   "server": "mail.altmail.kr",
-  "extraction_date": "2026-04-13T06:42:13.749810",
+  "extraction_date": "2026-04-14T06:35:47.490184",
   "status": "success",
   "statistics": {
     "total_emails": 543,
@@ -11,7 +11,7 @@
     "total_size_mb": 876.54,
     "date_range": {
       "earliest": "2018-03-01T00:00:00Z",
-      "latest": "2026-04-13T06:42:13.749812"
+      "latest": "2026-04-14T06:35:47.490187"
     }
   },
   "folders": [

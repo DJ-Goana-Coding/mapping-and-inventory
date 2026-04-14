@@ -1,7 +1,7 @@
 {
   "account": "chanceroofing@gmail.com",
   "provider": "gmail",
-  "extraction_date": "2026-04-13T06:42:13.747415",
+  "extraction_date": "2026-04-14T06:35:47.487922",
   "status": "success",
   "statistics": {
     "total_emails": 1234,
@@ -10,7 +10,7 @@
     "total_size_mb": 2345.67,
     "date_range": {
       "earliest": "2015-01-01T00:00:00Z",
-      "latest": "2026-04-13T06:42:13.747419"
+      "latest": "2026-04-14T06:35:47.487926"
     }
   },
   "labels": [
