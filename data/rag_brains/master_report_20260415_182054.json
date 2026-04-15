@@ -1,0 +1,99 @@
+{
+  "system": "Multi-Brain RAG System",
+  "timestamp": "2026-04-15T18:20:54.397118",
+  "brains": {
+    "security": {
+      "brain": "security",
+      "name": "Security Brain",
+      "description": "Security threats, patterns, vulnerabilities",
+      "statistics": {
+        "documents": 0,
+        "knowledge_graph_nodes": 0,
+        "sources": [
+          "wraith",
+          "scout",
+          "sniper",
+          "hound",
+          "sentinel"
+        ]
+      }
+    },
+    "teaching": {
+      "brain": "teaching",
+      "name": "Teaching Brain",
+      "description": "Wisdom, training, education, growth",
+      "statistics": {
+        "documents": 0,
+        "knowledge_graph_nodes": 0,
+        "sources": [
+          "tia",
+          "aion",
+          "hippy",
+          "jarl",
+          "oracle",
+          "doofy",
+          "goanna"
+        ]
+      }
+    },
+    "supply": {
+      "brain": "supply",
+      "name": "Supply Brain",
+      "description": "Resources, shopping, customization",
+      "statistics": {
+        "documents": 0,
+        "knowledge_graph_nodes": 0,
+        "sources": [
+          "shopper",
+          "customizer"
+        ]
+      }
+    },
+    "technical": {
+      "brain": "technical",
+      "name": "Technical Brain",
+      "description": "Code, systems, infrastructure, tools",
+      "statistics": {
+        "documents": 0,
+        "knowledge_graph_nodes": 0,
+        "sources": [
+          "goanna",
+          "scout",
+          "bridge",
+          "tunnel"
+        ]
+      }
+    },
+    "spiritual": {
+      "brain": "spiritual",
+      "name": "Spiritual Brain",
+      "description": "Healing, love, truth, soul, growth",
+      "statistics": {
+        "documents": 0,
+        "knowledge_graph_nodes": 0,
+        "sources": [
+          "hippy",
+          "jarl",
+          "aion"
+        ]
+      }
+    },
+    "integration": {
+      "brain": "integration",
+      "name": "Integration Brain",
+      "description": "Cross-domain synthesis and insights",
+      "statistics": {
+        "documents": 0,
+        "knowledge_graph_nodes": 0,
+        "sources": [
+          "all"
+        ]
+      }
+    }
+  },
+  "summary": {
+    "total_brains": 6,
+    "total_documents": 0,
+    "total_knowledge_nodes": 0
+  }
+}
