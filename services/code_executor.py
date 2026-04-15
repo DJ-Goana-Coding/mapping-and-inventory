@@ -15,12 +15,6 @@ MAX_EXECUTION_TIME = 30
 # Maximum output length in characters
 MAX_OUTPUT_LENGTH = 50_000
 
-# Blocked modules — prevent dangerous operations in user code
-BLOCKED_IMPORTS = {
-    "shutil.rmtree",
-    "os.system",
-}
-
 
 def execute_python(code: str, timeout: int = MAX_EXECUTION_TIME) -> dict:
     """Execute Python code in a subprocess and return the result.
