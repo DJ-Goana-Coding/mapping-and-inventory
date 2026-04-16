@@ -1,0 +1,15 @@
+{
+  "session_id": "DRIP-20260416012832-0001",
+  "source": "S10_CITADEL_OMEGA_INTEL",
+  "destination": "ghost_fleet_staging",
+  "total_files": 2,
+  "synced_files": 2,
+  "total_bytes": 2248,
+  "synced_bytes": 2248,
+  "status": "COMPLETE",
+  "started_at": "2026-04-16T01:28:32.544502+00:00",
+  "completed_at": "2026-04-16T01:28:32.545243+00:00",
+  "errors": [],
+  "drip_rate_kb": 256,
+  "chunk_size_mb": 10
+}

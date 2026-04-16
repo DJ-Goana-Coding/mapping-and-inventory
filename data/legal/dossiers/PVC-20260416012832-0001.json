@@ -1,0 +1,22 @@
+{
+  "dossier_id": "PVC-20260416012832-0001",
+  "dossier_type": "WASHED_HARVEST",
+  "title": "Demerit Challenge \u2014 DEM-20260416012832-0001",
+  "summary": "Alleged speed camera infringement \u2014 camera signage placement potentially non-compliant with AS 1742",
+  "findings": [
+    {
+      "type": "compliance_violation",
+      "description": "Alleged speed camera infringement \u2014 camera signage placement potentially non-compliant with AS 1742",
+      "severity": "HIGH",
+      "code": "INF-2026-NSW-001234"
+    }
+  ],
+  "evidence_refs": [],
+  "risk_level": "HIGH",
+  "created_at": "2026-04-16T01:28:32.562396+00:00",
+  "metadata": {
+    "source": "Revenue NSW",
+    "total_findings": 1,
+    "trigger_matches": 0
+  }
+}

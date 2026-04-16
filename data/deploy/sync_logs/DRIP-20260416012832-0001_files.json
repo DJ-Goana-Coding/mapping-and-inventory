@@ -1,0 +1,22 @@
+[
+  {
+    "file": "S10_CITADEL_OMEGA_INTEL/.gitkeep",
+    "size_bytes": 0,
+    "chunks": 1,
+    "drip_rate_kb": 256,
+    "expected_seconds": 0.0,
+    "destination": "ghost_fleet_staging",
+    "timestamp": "2026-04-16T01:28:32.544826+00:00",
+    "status": "STAGED"
+  },
+  {
+    "file": "S10_CITADEL_OMEGA_INTEL/README.md",
+    "size_bytes": 2248,
+    "chunks": 1,
+    "drip_rate_kb": 256,
+    "expected_seconds": 0.01,
+    "destination": "ghost_fleet_staging",
+    "timestamp": "2026-04-16T01:28:32.545008+00:00",
+    "status": "STAGED"
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "challenge_id": "CHL-20260416012832-0001",
+  "demerit_record_id": "DEM-20260416012832-0001",
+  "recipient": "Revenue NSW \u2014 Internal Review",
+  "subject": "Internal Review Request \u2014 Infringement INF-2026-NSW-001234",
+  "body": "Date: 16 April 2026\n\nRe: Request for Internal Review\nInfringement Number: INF-2026-NSW-001234\nDate of Infringement: 2026-03-15\nAmount: $800.00\nLocation: Sydney, NSW\n\nTo Whom It May Concern,\n\nI write to request an internal review of the above infringement notice issued under the New South Wales jurisdiction.\n\nDESCRIPTION OF INFRINGEMENT:\nAlleged speed camera infringement \u2014 camera signage placement potentially non-compliant with AS 1742\n\nGROUNDS FOR REVIEW:\n\n1. Defective signage (AS 1742 compliance)\n   Relevant legislation: Road Transport Act 2013 (NSW), Fines Act 1996 (NSW)\n\n2. Calibration certificate expired or unavailable\n   Relevant legislation: Road Transport Act 2013 (NSW), Fines Act 1996 (NSW)\n\n3. Operator certification lapsed\n   Relevant legislation: Road Transport Act 2013 (NSW), Fines Act 1996 (NSW)\n\nSUPPORTING EVIDENCE:\n\n  (Evidence to be attached)\n\nRELIEF SOUGHT:\n  - Withdrawal of infringement notice\n  - Refund of $800.00\n  - Removal of 4 demerit point(s)\n\nI respectfully request that this matter be reviewed in accordance with principles of natural justice and procedural fairness.\n\nYours faithfully,\n[Name]\n[Address]\n[Contact]",
+  "legal_basis": [
+    {
+      "ground": "Defective signage (AS 1742 compliance)",
+      "acts": [
+        "Road Transport Act 2013 (NSW)",
+        "Fines Act 1996 (NSW)",
+        "Road Rules 2014 (NSW)"
+      ]
+    },
+    {
+      "ground": "Calibration certificate expired or unavailable",
+      "acts": [
+        "Road Transport Act 2013 (NSW)",
+        "Fines Act 1996 (NSW)",
+        "Road Rules 2014 (NSW)"
+      ]
+    },
+    {
+      "ground": "Operator certification lapsed",
+      "acts": [
+        "Road Transport Act 2013 (NSW)",
+        "Fines Act 1996 (NSW)",
+        "Road Rules 2014 (NSW)"
+      ]
+    }
+  ],
+  "status": "DRAFTED",
+  "created_at": "2026-04-16T01:28:32.562689+00:00"
+}
