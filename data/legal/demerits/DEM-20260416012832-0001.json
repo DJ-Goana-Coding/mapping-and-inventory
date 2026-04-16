@@ -1,0 +1,14 @@
+{
+  "record_id": "DEM-20260416012832-0001",
+  "category": "TRAFFIC_FINE",
+  "description": "Alleged speed camera infringement \u2014 camera signage placement potentially non-compliant with AS 1742",
+  "amount": 800.0,
+  "date_issued": "2026-03-15",
+  "issuing_authority": "Revenue NSW",
+  "location": "Sydney, NSW",
+  "infringement_number": "INF-2026-NSW-001234",
+  "demerit_points": 4,
+  "challenge_status": "DRAFTED",
+  "created_at": "2026-04-16T01:28:32.562110+00:00",
+  "evidence": []
+}
