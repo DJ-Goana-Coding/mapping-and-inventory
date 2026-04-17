@@ -1,0 +1,42 @@
+[
+  {
+    "content_type": "story",
+    "title": "a/b:CITADEL_BIBLE.md",
+    "content": "Repository: a/b\nPath: CITADEL_BIBLE.md\nPriority: True\nSize: unknown\n",
+    "author": "a/b",
+    "categories": [
+      "creative",
+      "narrative",
+      "citadel-crawl",
+      "priority"
+    ],
+    "ingested_at": "2026-04-17T21:00:11.674537+00:00"
+  },
+  {
+    "content_type": "story",
+    "title": "a/b:src/main.py",
+    "content": "Repository: a/b\nPath: src/main.py\nPriority: False\nSize: unknown\n",
+    "author": "a/b",
+    "categories": [
+      "creative",
+      "narrative",
+      "citadel-crawl",
+      "standard"
+    ],
+    "ingested_at": "2026-04-17T21:00:11.674541+00:00"
+  },
+  {
+    "content_type": "story",
+    "title": "scroll.md",
+    "content": "alpha",
+    "author": "Citadel Archives (GDrive)",
+    "categories": [
+      "creative",
+      "narrative",
+      "gdrive",
+      "citadel-archives",
+      "unknown"
+    ],
+    "ingested_at": "2026-04-17T21:00:11.675745+00:00"
+  }
+]

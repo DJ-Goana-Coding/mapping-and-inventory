@@ -4,15 +4,9 @@ Sophisticated AI coding agent powered by Gemini.
 Writes, reviews, explains, and refactors code on demand.
 Supports: Python, JavaScript, Apps Script, Bash, and more.
 """
-import os
-import json
 from datetime import datetime, timezone
 
-# Gemini keys (shared with tia_connector)
-_GEMINI_KEYS = [
-    os.getenv("GEMINI_API_KEY"),
-    os.getenv("GEMINI_API_KEY_2"),
-]
+from .gemini_rotator import generate_content, get_rotator
 
 CODING_AGENT_SYSTEM_PROMPT = """You are the Citadel Coding Agent — a sovereign, elite software engineer embedded
 in the Q.G.T.N.L. Citadel Omega system.
@@ -43,30 +37,23 @@ OUTPUT FORMAT:
 
 
 def _call_gemini(prompt: str, system_prompt: str = CODING_AGENT_SYSTEM_PROMPT) -> str:
-    """Call Gemini with the coding agent system prompt."""
-    keys = [k for k in _GEMINI_KEYS if k]
-    if not keys:
+    """Call Gemini with the coding agent system prompt.
+
+    Uses the round-robin Gemini key rotator with automatic 429 / ResourceExhausted
+    failover across all configured ``GEMINI_API_KEY*`` values.
+    """
+    if not get_rotator():
         return (
             "❌ CODING AGENT OFFLINE — No Gemini API key detected.\n"
             "Set GEMINI_API_KEY in your HuggingFace Space secrets."
         )
 
     full_prompt = system_prompt + "\n\n" + prompt
-    last_err = "No keys available"
-    for key in keys:
-        try:
-            from google import genai
-
-            client = genai.Client(api_key=key)
-            response = client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=full_prompt,
-            )
-            return response.text
-        except Exception as e:
-            last_err = str(e)
-
-    return f"⏳ CODING AGENT ERROR — All keys exhausted. Last error: {last_err}"
+    try:
+        response = generate_content(model="gemini-2.0-flash", contents=full_prompt)
+        return response.text
+    except Exception as e:  # noqa: BLE001 — surface a friendly error to callers
+        return f"⏳ CODING AGENT ERROR — All keys exhausted. Last error: {e}"
 
 
 def generate_code(instruction: str, language: str = "python", context: str = "") -> str:
