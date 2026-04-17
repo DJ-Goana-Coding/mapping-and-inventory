@@ -76,6 +76,18 @@ def parse_args(argv=None) -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--ask-port",
+        type=int,
+        default=None,
+        help="When set, starts the /v1/ask T.I.A. query server on this port.",
+    )
+    parser.add_argument(
+        "--ask-host",
+        type=str,
+        default="127.0.0.1",
+        help="Host interface for /v1/ask (default: 127.0.0.1 / loopback only).",
+    )
+    parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
@@ -115,12 +127,33 @@ def main(argv=None) -> int:
             else "",
         )
 
+    ask_server = None
+    if args.ask_port is not None:
+        from src.api import AskServer  # local import: optional
+        from src.query import RAGQueryEngine
+
+        ask_server = AskServer(
+            host=args.ask_host,
+            port=args.ask_port,
+            engine=RAGQueryEngine(vector_store=ignition.vector_store),
+        )
+        ask_server.start()
+        logging.info(
+            "🧠 /v1/ask listening on %s%s",
+            ask_server.url,
+            " (PUBLIC BIND — ensure the endpoint is protected)"
+            if args.ask_host not in ("127.0.0.1", "localhost", "::1")
+            else "",
+        )
+
     if args.status_only:
         try:
             print(json.dumps(ignition.status(), indent=2, default=str))
         finally:
             if ingest_server is not None:
                 ingest_server.stop()
+            if ask_server is not None:
+                ask_server.stop()
         return 0
 
     iterations = None if args.daemon else args.iterations
@@ -140,6 +173,8 @@ def main(argv=None) -> int:
     finally:
         if ingest_server is not None:
             ingest_server.stop()
+        if ask_server is not None:
+            ask_server.stop()
     summary = {
         "stability_target": STABILITY_TARGET,
         "ticks_executed": len(results),

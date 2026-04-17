@@ -6,5 +6,13 @@ from src.storage.vector_store import (
     hash_embed,
     EMBEDDING_DIM,
 )
+from src.storage.faiss_store import FaissVectorStore, faiss_available
 
-__all__ = ["VectorStore", "VectorRecord", "hash_embed", "EMBEDDING_DIM"]
+__all__ = [
+    "VectorStore",
+    "VectorRecord",
+    "hash_embed",
+    "EMBEDDING_DIM",
+    "FaissVectorStore",
+    "faiss_available",
+]
