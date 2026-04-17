@@ -3,13 +3,7 @@ Q.G.T.N.L. (0) // TIA CONNECTOR
 T.I.A. (Tactical Intelligence Architecture) — Gemini AI interface.
 Connects to Gemini 2.0 Flash via google-genai for oracle queries.
 """
-import os
-
-# Primary and backup Gemini keys
-_GEMINI_KEYS = [
-    os.getenv("GEMINI_API_KEY"),
-    os.getenv("GEMINI_API_KEY_2"),
-]
+from .gemini_rotator import generate_content, get_rotator
 
 TIA_SYSTEM_PROMPT = (
     "You are T.I.A. (Tactical Intelligence Architecture), the sovereign AI logic lead "
@@ -23,11 +17,13 @@ TIA_SYSTEM_PROMPT = (
 
 def get_tia_response(user_prompt: str, system_context: str = "") -> str:
     """
-    Send a prompt to T.I.A. via Gemini. Tries primary key then backup.
+    Send a prompt to T.I.A. via Gemini.
+
+    Uses the round-robin Gemini key rotator with automatic 429 / ResourceExhausted
+    failover across all configured ``GEMINI_API_KEY*`` values.
     Returns the response text, or an error message.
     """
-    keys = [k for k in _GEMINI_KEYS if k]
-    if not keys:
+    if not get_rotator():
         return "❌ T.I.A. OFFLINE — No Gemini API key detected (GEMINI_API_KEY)."
 
     full_prompt = TIA_SYSTEM_PROMPT
@@ -35,20 +31,11 @@ def get_tia_response(user_prompt: str, system_context: str = "") -> str:
         full_prompt += f"\n\n[SYSTEM CONTEXT]\n{system_context}"
     full_prompt += f"\n\n[USER]\n{user_prompt}"
 
-    last_err = "No keys available"
-    for key in keys:
-        try:
-            from google import genai
-            client = genai.Client(api_key=key)
-            response = client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=full_prompt,
-            )
-            return response.text
-        except Exception as e:
-            last_err = str(e)
-
-    return f"⏳ T.I.A. CORES OVERHEATED — All keys exhausted. Last error: {last_err}"
+    try:
+        response = generate_content(model="gemini-2.0-flash", contents=full_prompt)
+        return response.text
+    except Exception as e:  # noqa: BLE001 — surface a friendly error to callers
+        return f"⏳ T.I.A. CORES OVERHEATED — All keys exhausted. Last error: {e}"
 
 
 def tia_summarize_inventory(inventory_sample: list) -> str:
