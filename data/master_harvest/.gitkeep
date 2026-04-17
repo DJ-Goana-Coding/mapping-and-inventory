@@ -1,0 +1,13 @@
+# Master Harvest Archive
+
+This directory is the landing zone for the central markdown archives that feed the
+Mapping-and-Inventory RAG ingestion engine.
+
+- Drop `.md` / `.txt` archives (master harvest transmissions, knowledge graph exports,
+  district scrolls, etc.) directly into this folder.
+- The core ingestion scripts (`scripts/rag_ingest.py`) are wired to read from here
+  by default when the legacy `master_intelligence_map.txt` is unavailable.
+- Run `python ignite_hub_memory.py` from the repository root to trigger the central
+  ingestion process against this directory.
+
+This `.gitkeep` ensures the directory is tracked even when empty.

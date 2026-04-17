@@ -8,3 +8,10 @@ networkx>=3.3
 huggingface-hub>=0.30.0
 # The 0.8.3 Ghost repellent
 setuptools>=75.0.0
+# RAG ingestion engine
+sentence-transformers>=2.7.0
+faiss-cpu>=1.8.0
+# FastAPI bridge + hub ignition client
+fastapi>=0.110.0
+uvicorn>=0.27.0
+requests>=2.32.3
