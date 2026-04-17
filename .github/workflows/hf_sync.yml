@@ -1,0 +1,124 @@
+name: 🤗 HF Sync Bridge — Mapping-and-Inventory
+
+# The Sync Bridge: pushes the `main` branch of THIS repository to the
+# Hugging Face Space `DJ-Goanna-Coding/Mapping-and-Inventory` using the
+# `HF_TOKEN` secret. Designed to be highly resilient — retries on transient
+# failures, validates the token before pushing, and never leaks credentials.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      force_push:
+        description: 'Force push to HuggingFace (overwrites Space history)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hf-sync-mapping-and-inventory
+  cancel-in-progress: false
+
+env:
+  HF_SPACE_ORG: "DJ-Goanna-Coding"
+  HF_SPACE_NAME: "Mapping-and-Inventory"
+
+jobs:
+  push-to-hf:
+    name: 🚀 Push main → HF Space
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: 🏛️ Announce sync
+        run: |
+          echo "════════════════════════════════════════════════════════════"
+          echo "🤗 HF SYNC BRIDGE — Mapping-and-Inventory"
+          echo "════════════════════════════════════════════════════════════"
+          echo "GitHub Repo : ${{ github.repository }}"
+          echo "Target Space: ${{ env.HF_SPACE_ORG }}/${{ env.HF_SPACE_NAME }}"
+          echo "Triggered by: ${{ github.event_name }}"
+          echo "Commit      : ${{ github.sha }}"
+          echo "════════════════════════════════════════════════════════════"
+
+      - name: 🔐 Verify HF_TOKEN is configured
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "❌ HF_TOKEN secret is not configured."
+            echo "   Add it at: https://github.com/${{ github.repository }}/settings/secrets/actions"
+            exit 1
+          fi
+          echo "✅ HF_TOKEN is present."
+
+      - name: 📥 Checkout full history (main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          lfs: true
+          persist-credentials: false
+
+      - name: ⚙️ Configure Git identity
+        run: |
+          git config --global user.email "citadel-sync@users.noreply.huggingface.co"
+          git config --global user.name  "Citadel HF Sync Bot"
+
+      - name: 🚀 Push to HuggingFace Space (resilient, with retries)
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          FORCE_PUSH: ${{ github.event.inputs.force_push }}
+        run: |
+          set -euo pipefail
+
+          HF_SPACE_URL="https://huggingface.co/spaces/${HF_SPACE_ORG}/${HF_SPACE_NAME}"
+          # Embed the token via credential helper so it never appears in the URL / logs.
+          AUTHED_URL="https://citadel-sync:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE_ORG}/${HF_SPACE_NAME}"
+
+          echo "::add-mask::${HF_TOKEN}"
+          echo "📤 Target: ${HF_SPACE_URL}"
+
+          git remote remove hf 2>/dev/null || true
+          git remote add hf "${AUTHED_URL}"
+
+          PUSH_FLAGS=""
+          if [ "${FORCE_PUSH:-false}" = "true" ]; then
+            PUSH_FLAGS="--force"
+            echo "⚠️  Force push enabled via workflow_dispatch input."
+          fi
+
+          # Retry up to 3 times to ride out transient HF/Git 5xx glitches.
+          attempt=1
+          max_attempts=3
+          until git push ${PUSH_FLAGS} hf HEAD:main; do
+            if [ "${attempt}" -ge "${max_attempts}" ]; then
+              echo "❌ Push failed after ${attempt} attempts."
+              git remote remove hf || true
+              exit 1
+            fi
+            sleep_for=$(( attempt * 10 ))
+            echo "⚠️  Push attempt ${attempt} failed. Retrying in ${sleep_for}s..."
+            sleep "${sleep_for}"
+            attempt=$(( attempt + 1 ))
+          done
+
+          echo "✅ Successfully pushed main → ${HF_SPACE_URL}"
+          git remote remove hf || true
+
+      - name: 📊 Sync summary
+        if: always()
+        run: |
+          echo "════════════════════════════════════════════════════════════"
+          echo "📊 HF SYNC RESULT"
+          echo "════════════════════════════════════════════════════════════"
+          echo "Space : https://huggingface.co/spaces/${HF_SPACE_ORG}/${HF_SPACE_NAME}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Status: ${{ job.status }}"
+          echo "Synced: $(date -u)"
+          echo "════════════════════════════════════════════════════════════"
