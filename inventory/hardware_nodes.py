@@ -108,6 +108,19 @@ class HardwareInventory:
         self._nodes[key] = definition
         return definition
 
+    def update_node(self, node_id: str, updates: Dict[str, Any]) -> Dict[str, Any]:
+        """Merge *updates* into the existing node definition for *node_id*.
+
+        Raises ``KeyError`` if the node does not exist.  This is the
+        supported public API for telemetry-driven field updates; direct
+        access to ``_nodes`` should be avoided.
+        """
+        key = node_id.lower().replace(" ", "_").replace("-", "_")
+        if key not in self._nodes:
+            raise KeyError(f"Unknown node '{node_id}'. Available: {', '.join(self._nodes)}")
+        self._nodes[key].update(updates)
+        return self._nodes[key]
+
     # ------------------------------------------------------------------
     # Frequency check
     # ------------------------------------------------------------------

@@ -26,6 +26,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from ingestion.omni_harvest import OmniHarvestIgnition, STABILITY_TARGET  # noqa: E402
+from src.storage import VectorStore  # noqa: E402
 
 
 def parse_args(argv=None) -> argparse.Namespace:
@@ -48,6 +49,33 @@ def parse_args(argv=None) -> argparse.Namespace:
         help="Print subsystem status and exit without running a tick.",
     )
     parser.add_argument(
+        "--daemon",
+        action="store_true",
+        help="Run as a 24/7 background cycle (continuous loop, no iteration limit).",
+    )
+    parser.add_argument(
+        "--vector-store-dir",
+        type=str,
+        default=None,
+        help="Directory for persistent vector store (default: data/vector_store).",
+    )
+    parser.add_argument(
+        "--ingest-port",
+        type=int,
+        default=None,
+        help="When set, starts the /v1/ingest HTTP server on this port.",
+    )
+    parser.add_argument(
+        "--ingest-host",
+        type=str,
+        default="127.0.0.1",
+        help=(
+            "Host interface for /v1/ingest (default: 127.0.0.1 / loopback only). "
+            "Use 0.0.0.0 to accept telemetry from S10/Oppo-Node over the network — "
+            "only do this behind a trusted boundary / reverse proxy with authentication."
+        ),
+    )
+    parser.add_argument(
         "-v",
         "--verbose",
         action="store_true",
@@ -63,19 +91,55 @@ def main(argv=None) -> int:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
 
-    ignition = OmniHarvestIgnition()
+    ignition = OmniHarvestIgnition(
+        vector_store=VectorStore(
+            data_dir=Path(args.vector_store_dir) if args.vector_store_dir else None
+        ),
+    )
+
+    ingest_server = None
+    if args.ingest_port is not None:
+        from src.api import IngestServer  # local import: optional
+
+        ingest_server = IngestServer(
+            host=args.ingest_host,
+            port=args.ingest_port,
+            harvester=ignition.physical_harvest,
+        )
+        ingest_server.start()
+        logging.info(
+            "🛰️ /v1/ingest listening on %s%s",
+            ingest_server.url,
+            " (PUBLIC BIND — ensure the endpoint is protected)"
+            if args.ingest_host not in ("127.0.0.1", "localhost", "::1")
+            else "",
+        )
 
     if args.status_only:
-        print(json.dumps(ignition.status(), indent=2, default=str))
+        try:
+            print(json.dumps(ignition.status(), indent=2, default=str))
+        finally:
+            if ingest_server is not None:
+                ingest_server.stop()
         return 0
 
+    iterations = None if args.daemon else args.iterations
     logging.info(
-        "🔥 Ignition online — stability target = %d", STABILITY_TARGET
+        "🔥 Ignition online — stability target = %d%s",
+        STABILITY_TARGET,
+        " (daemon mode)" if args.daemon else "",
     )
-    results = ignition.run(
-        iterations=args.iterations,
-        interval_seconds=args.interval,
-    )
+    try:
+        results = ignition.run(
+            iterations=iterations,
+            interval_seconds=args.interval,
+        )
+    except KeyboardInterrupt:  # pragma: no cover - interactive path
+        logging.info("Ignition interrupted by operator")
+        results = ignition.history()
+    finally:
+        if ingest_server is not None:
+            ingest_server.stop()
     summary = {
         "stability_target": STABILITY_TARGET,
         "ticks_executed": len(results),

@@ -1,0 +1,68 @@
+[
+  {
+    "content_type": "story",
+    "title": "a/b:CITADEL_BIBLE.md",
+    "content": "Repository: a/b\nPath: CITADEL_BIBLE.md\nPriority: True\nSize: 10\n",
+    "author": "a/b",
+    "categories": [
+      "creative",
+      "narrative",
+      "citadel-crawl",
+      "priority"
+    ],
+    "ingested_at": "2026-04-17T17:13:12.420064+00:00"
+  },
+  {
+    "content_type": "story",
+    "title": "c/d:CITADEL_BIBLE.md",
+    "content": "Repository: c/d\nPath: CITADEL_BIBLE.md\nPriority: True\nSize: 10\n",
+    "author": "c/d",
+    "categories": [
+      "creative",
+      "narrative",
+      "citadel-crawl",
+      "priority"
+    ],
+    "ingested_at": "2026-04-17T17:13:12.420068+00:00"
+  },
+  {
+    "content_type": "story",
+    "title": "a/b:src/main.py",
+    "content": "Repository: a/b\nPath: src/main.py\nPriority: False\nSize: 20\n",
+    "author": "a/b",
+    "categories": [
+      "creative",
+      "narrative",
+      "citadel-crawl",
+      "standard"
+    ],
+    "ingested_at": "2026-04-17T17:13:12.420071+00:00"
+  },
+  {
+    "content_type": "story",
+    "title": "c/d:src/main.py",
+    "content": "Repository: c/d\nPath: src/main.py\nPriority: False\nSize: 20\n",
+    "author": "c/d",
+    "categories": [
+      "creative",
+      "narrative",
+      "citadel-crawl",
+      "standard"
+    ],
+    "ingested_at": "2026-04-17T17:13:12.420073+00:00"
+  },
+  {
+    "content_type": "story",
+    "title": "archive_01.md",
+    "content": "alpha signal",
+    "author": "Citadel Archives (GDrive)",
+    "categories": [
+      "creative",
+      "narrative",
+      "gdrive",
+      "citadel-archives",
+      "unknown"
+    ],
+    "ingested_at": "2026-04-17T17:13:12.420125+00:00"
+  }
+]

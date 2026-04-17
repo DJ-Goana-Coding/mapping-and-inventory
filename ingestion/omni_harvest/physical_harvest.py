@@ -123,9 +123,9 @@ class PhysicalHarvest:
             definition.setdefault("source", source)
             try:
                 self.hardware.get_node(node_id)
-                # Exists: merge new fields into the existing node.
-                key = node_id.lower().replace(" ", "_").replace("-", "_")
-                self.hardware._nodes[key].update(definition)  # noqa: SLF001
+                # Exists: merge new fields into the existing node via
+                # the public ``update_node`` API.
+                self.hardware.update_node(node_id, definition)
             except KeyError:
                 self.hardware.add_node(node_id, definition)
             touched.append(node_id)

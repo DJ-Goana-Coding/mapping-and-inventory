@@ -49,6 +49,7 @@ class TickResult:
     gdrive_documents: int
     synapse_documents: int
     synapse_new_documents: int
+    vector_records: int = 0
     rag_flush: Dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> Dict[str, Any]:
@@ -66,6 +67,7 @@ class OmniHarvestIgnition:
         physical_harvest: Optional[PhysicalHarvest] = None,
         gdrive_bridge: Optional[GDriveBridge] = None,
         tia_synapse: Optional[TiaSynapse] = None,
+        vector_store: Optional[Any] = None,
         telemetry_source: Optional[Callable[[], Iterable[Any]]] = None,
         sleeper: Callable[[float], None] = time.sleep,
         stability_target: int = STABILITY_TARGET,
@@ -75,6 +77,7 @@ class OmniHarvestIgnition:
         self.physical_harvest = physical_harvest or PhysicalHarvest()
         self.gdrive_bridge = gdrive_bridge or GDriveBridge(universal_rag=self.universal_rag)
         self.tia_synapse = tia_synapse or TiaSynapse()
+        self.vector_store = vector_store
         self.telemetry_source = telemetry_source
         self.sleeper = sleeper
         self.stability_target = stability_target
@@ -95,17 +98,31 @@ class OmniHarvestIgnition:
         self._iteration += 1
         started = datetime.now(timezone.utc).isoformat()
         synapse_before = self.tia_synapse.document_count()
+        vector_before = len(self.vector_store) if self.vector_store is not None else 0
 
         # 1. Great Crawl
         crawl_docs = self.github_crawler.crawl_all()
         priority = [d for d in crawl_docs if d.priority]
         for doc in crawl_docs:
+            doc_id = f"crawl:{doc.repo}:{doc.path}"
+            text = f"{doc.repo} {doc.path}"
             self.tia_synapse.on_new_data(
-                doc_id=f"crawl:{doc.repo}:{doc.path}",
-                text=f"{doc.repo} {doc.path}",
+                doc_id=doc_id,
+                text=text,
                 source="github_crawl",
                 path=doc.path,
             )
+            if self.vector_store is not None:
+                self.vector_store.upsert(
+                    doc_id=doc_id,
+                    text=text,
+                    metadata={
+                        "repo": doc.repo,
+                        "path": doc.path,
+                        "priority": doc.priority,
+                        "source": "github_crawl",
+                    },
+                )
 
         # 2. Physical Harvest — optional telemetry source.
         telemetry_packets = 0
@@ -118,23 +135,44 @@ class OmniHarvestIgnition:
                     continue
                 telemetry_packets += 1
                 for node_id in record.get("updates", []):
+                    tel_doc_id = f"telemetry:{record['source']}:{node_id}"
+                    tel_text = f"{record['source']} {record['kind']} {node_id}"
                     self.tia_synapse.on_new_data(
-                        doc_id=f"telemetry:{record['source']}:{node_id}",
-                        text=f"{record['source']} {record['kind']} {node_id}",
+                        doc_id=tel_doc_id,
+                        text=tel_text,
                         source="physical_harvest",
                         path=f"{record['source']}/{record['kind']}/{node_id}",
                     )
+                    if self.vector_store is not None:
+                        self.vector_store.upsert(
+                            doc_id=tel_doc_id,
+                            text=tel_text,
+                            metadata={
+                                "source": "physical_harvest",
+                                "telemetry_source": record["source"],
+                                "kind": record["kind"],
+                                "node_id": node_id,
+                            },
+                        )
 
         # 3. GDrive Bridge
         gdrive_items = self.gdrive_bridge.ingest_archives()
         for item in gdrive_items:
             title = item.get("title", "")
+            content = item.get("content", "")
+            gd_doc_id = f"gdrive:{title}"
             self.tia_synapse.on_new_data(
-                doc_id=f"gdrive:{title}",
-                text=f"{title} {item.get('content', '')}",
+                doc_id=gd_doc_id,
+                text=f"{title} {content}",
                 source="gdrive_bridge",
                 path=title,
             )
+            if self.vector_store is not None:
+                self.vector_store.upsert(
+                    doc_id=gd_doc_id,
+                    text=f"{title}\n{content}",
+                    metadata={"source": "gdrive", "path": title},
+                )
 
         # 4. Flush Universal-RAG queue to HF Spaces.
         try:
@@ -144,6 +182,7 @@ class OmniHarvestIgnition:
             flush = {"error": str(exc)}
 
         synapse_after = self.tia_synapse.document_count()
+        vector_after = len(self.vector_store) if self.vector_store is not None else 0
         finished = datetime.now(timezone.utc).isoformat()
 
         result = TickResult(
@@ -156,6 +195,7 @@ class OmniHarvestIgnition:
             gdrive_documents=len(gdrive_items),
             synapse_documents=synapse_after,
             synapse_new_documents=max(0, synapse_after - synapse_before),
+            vector_records=max(0, vector_after - vector_before),
             rag_flush=flush,
         )
         self._history.append(result)
