@@ -240,3 +240,107 @@ def test_ignite_tia_cli(mini_repo: Path) -> None:
     )
     assert result.returncode == 0, result.stderr
     assert "CITADEL-BOT-INDEX" in result.stdout
+
+
+# --------------------------------------------------------------------------- #
+# rag_knowledge_base section
+# --------------------------------------------------------------------------- #
+def _rkb_fixture(root: Path) -> None:
+    """Add files exercising the classifier and deep-read logic."""
+    # Files inside scanned partitions with various semantic purposes.
+    (root / "Partition_01" / "trader_engine.py").write_text("x", encoding="utf-8")
+    (root / "Partition_01" / "adobe_plugin.json").write_text("{}", encoding="utf-8")
+    (root / "Partition_02" / "notes.txt").write_text("note", encoding="utf-8")
+    (root / "Partition_03" / "architecture.md").write_text("# arch", encoding="utf-8")
+    (root / "Partition_04" / "system_manifest.json").write_text("{}", encoding="utf-8")
+    (root / "Partition_46" / "random.bin").write_bytes(b"\x00")  # excluded ext
+    # A README somewhere outside the partitions.
+    (root / "docs").mkdir(exist_ok=True)
+    (root / "docs" / "README.md").write_text("hi", encoding="utf-8")
+
+
+def test_rag_knowledge_base_section_present(mini_repo: Path) -> None:
+    _rkb_fixture(mini_repo)
+    _, manifest_path = bgm.generate(mini_repo)
+    rkb = json.loads(manifest_path.read_text())["rag_knowledge_base"]
+    assert rkb["schema_version"].startswith("1.")
+    assert "Partition_01" in rkb["scope"]["partitions_scanned"]
+    assert "Partition_46" in rkb["scope"]["partitions_present"]
+    assert rkb["scope"]["partition_file_extensions"] == [".json", ".md", ".py", ".txt"]
+    assert "unclassified" in rkb["classifier"]["labels"]
+
+
+def test_rag_classifier_labels(mini_repo: Path) -> None:
+    _rkb_fixture(mini_repo)
+    _, manifest_path = bgm.generate(mini_repo)
+    rkb = json.loads(manifest_path.read_text())["rag_knowledge_base"]
+    by_part = {p["partition"]: p for p in rkb["partitions"]}
+    paths = {f["path"]: f for f in by_part["Partition_01"]["files"]}
+    assert paths["Partition_01/trader_engine.py"]["semantic_purpose"] == "Trading Logic"
+    assert paths["Partition_01/adobe_plugin.json"]["semantic_purpose"] == "Adobe Plugin"
+    arch = {f["path"]: f for f in by_part["Partition_03"]["files"]}
+    assert arch["Partition_03/architecture.md"]["semantic_purpose"] == "Architecture Doc"
+    sysm = {f["path"]: f for f in by_part["Partition_04"]["files"]}
+    assert sysm["Partition_04/system_manifest.json"]["semantic_purpose"] == "System Manifest"
+
+
+def test_rag_partition_scan_excludes_other_extensions(mini_repo: Path) -> None:
+    _rkb_fixture(mini_repo)
+    _, manifest_path = bgm.generate(mini_repo)
+    rkb = json.loads(manifest_path.read_text())["rag_knowledge_base"]
+    by_part = {p["partition"]: p for p in rkb["partitions"]}
+    paths = {f["path"] for f in by_part["Partition_46"]["files"]}
+    assert all(not p.endswith(".bin") for p in paths)
+
+
+def test_rag_deep_read_index_finds_all(mini_repo: Path) -> None:
+    _rkb_fixture(mini_repo)
+    _, manifest_path = bgm.generate(mini_repo)
+    rkb = json.loads(manifest_path.read_text())["rag_knowledge_base"]
+    docs = rkb["deep_read_documents"]["documents"]
+    paths = {d["path"] for d in docs}
+    # README.md from /docs and from each Partition fixture directory plus
+    # the architecture.md and system_manifest.json from the fixtures must
+    # all appear in the deep-read index.
+    assert "docs/README.md" in paths
+    assert "Partition_03/architecture.md" in paths
+    assert "Partition_04/system_manifest.json" in paths
+    assert "system_manifest.json" in paths  # root-level manifest from base fixture
+
+
+def test_rag_cross_repo_status_is_honest(mini_repo: Path) -> None:
+    _, manifest_path = bgm.generate(mini_repo)
+    rkb = json.loads(manifest_path.read_text())["rag_knowledge_base"]
+    cri = rkb["cross_repo_ingestion"]
+    assert cri["status"] == "not_available_in_sandbox"
+    assert cri["discovery_exists"] is False
+    assert "total_fleet_crawler.py" in cri["hint"]
+
+
+def test_rag_section_is_deterministic(mini_repo: Path) -> None:
+    _rkb_fixture(mini_repo)
+    _, manifest_path = bgm.generate(mini_repo)
+    first = manifest_path.read_text(encoding="utf-8")
+    _, manifest_path2 = bgm.generate(mini_repo)
+    assert first == manifest_path2.read_text(encoding="utf-8")
+
+
+def test_rag_secret_files_in_partitions_redacted(tmp_path: Path) -> None:
+    # Build a minimal repo with a secret-looking file inside a scanned partition.
+    root = tmp_path / "repo"
+    root.mkdir()
+    (root / "requirements.txt").write_text("\n", encoding="utf-8")
+    p = root / "Partition_01"
+    p.mkdir()
+    (p / "credentials.json").write_text("hunter2-partition", encoding="utf-8")
+    (p / "ok.py").write_text("x", encoding="utf-8")
+    _, manifest_path = bgm.generate(root)
+    raw = manifest_path.read_text(encoding="utf-8")
+    assert "hunter2-partition" not in raw
+    rkb = json.loads(raw)["rag_knowledge_base"]
+    by_part = {pp["partition"]: pp for pp in rkb["partitions"]}
+    by_path = {f["path"]: f for f in by_part["Partition_01"]["files"]}
+    assert by_path["Partition_01/credentials.json"]["redacted"] is True
+    assert "sha256_16" not in by_path["Partition_01/credentials.json"]
+    assert by_path["Partition_01/ok.py"].get("redacted") is None
+    assert "sha256_16" in by_path["Partition_01/ok.py"]
