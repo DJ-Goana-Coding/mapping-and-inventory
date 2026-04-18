@@ -92,6 +92,14 @@ BYPASS_SCRIPT_CANDIDATES = (
 # RAG dependencies whose presence in requirements.txt we surface.
 RAG_DEPS = ("faiss-cpu", "sentence-transformers", "huggingface-hub")
 
+# Fleet-map inputs (see fleet/README.md). Both are optional. The registry is
+# operator-curated and authoritative; the discovery file is machine-generated
+# by scripts/total_fleet_crawler.py and only contributes entries whose
+# repo_name is not already in the registry.
+FLEET_REGISTRY_REL = "fleet/fleet_registry.json"
+FLEET_DISCOVERY_REL = "fleet/fleet_discovery.json"
+FLEET_ENTRY_FIELDS = ("repo_name", "github_url", "hf_space_url", "role", "status")
+
 
 # --------------------------------------------------------------------------- #
 # Helpers
@@ -283,6 +291,95 @@ def detect_bypass_scripts(root: Path) -> dict:
     }
 
 
+def _load_fleet_file(path: Path) -> tuple[list[dict], str | None]:
+    """Load a fleet input file. Returns (entries, error_or_none).
+
+    Missing file → ([], None). Malformed file → ([], "<reason>") so the
+    manifest records *why* it ignored the file rather than crashing.
+    """
+    if not path.exists():
+        return [], None
+    try:
+        with path.open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (OSError, json.JSONDecodeError) as exc:
+        return [], f"parse_error: {exc}"
+    if not isinstance(data, dict):
+        return [], "invalid: top-level must be an object"
+    raw_entries = data.get("entries", [])
+    if not isinstance(raw_entries, list):
+        return [], "invalid: 'entries' must be an array"
+    cleaned: list[dict] = []
+    for item in raw_entries:
+        if not isinstance(item, dict):
+            continue
+        repo_name = item.get("repo_name")
+        github_url = item.get("github_url")
+        if not isinstance(repo_name, str) or not repo_name:
+            continue
+        if not isinstance(github_url, str) or not github_url:
+            continue
+        entry: dict = {}
+        for field in FLEET_ENTRY_FIELDS:
+            if field in item:
+                entry[field] = item[field]
+        cleaned.append(entry)
+    return cleaned, None
+
+
+def build_fleet_map(root: Path) -> dict:
+    """Merge the operator registry with optional crawler discovery output.
+
+    Registry entries are authoritative. Discovery entries are appended only
+    when their ``repo_name`` is not already present in the registry, and are
+    tagged with ``source: "discovery"`` so consumers can tell them apart.
+    No fields are invented; in particular, ``hf_space_url`` is preserved
+    exactly as supplied (or absent).
+    """
+    registry_entries, registry_error = _load_fleet_file(root / FLEET_REGISTRY_REL)
+    discovery_entries, discovery_error = _load_fleet_file(root / FLEET_DISCOVERY_REL)
+
+    seen: set[str] = set()
+    merged: list[dict] = []
+    for entry in registry_entries:
+        name = entry["repo_name"]
+        if name in seen:
+            continue
+        seen.add(name)
+        merged.append({**entry, "source": "registry"})
+    for entry in discovery_entries:
+        name = entry["repo_name"]
+        if name in seen:
+            continue
+        seen.add(name)
+        merged.append({**entry, "source": "discovery"})
+
+    merged.sort(key=lambda e: e["repo_name"])
+
+    sources: dict = {
+        "registry": {
+            "path": FLEET_REGISTRY_REL,
+            "exists": (root / FLEET_REGISTRY_REL).exists(),
+            "entry_count": len(registry_entries),
+        },
+        "discovery": {
+            "path": FLEET_DISCOVERY_REL,
+            "exists": (root / FLEET_DISCOVERY_REL).exists(),
+            "entry_count": len(discovery_entries),
+        },
+    }
+    if registry_error:
+        sources["registry"]["error"] = registry_error
+    if discovery_error:
+        sources["discovery"]["error"] = discovery_error
+
+    return {
+        "entry_count": len(merged),
+        "sources": sources,
+        "entries": merged,
+    }
+
+
 def _latest_mtime(root: Path) -> float:
     # Exclude our own generated artifacts so re-runs don't chase their own
     # mtimes (which would break determinism).
@@ -335,6 +432,7 @@ def build_global_manifest(
             ),
         },
         "bypass_scripts_present": detect_bypass_scripts(root),
+        "fleet_map": build_fleet_map(root),
         "out_of_scope": [
             "credential mapping or relocation",
             "creation of Partition_05..45 directories",
