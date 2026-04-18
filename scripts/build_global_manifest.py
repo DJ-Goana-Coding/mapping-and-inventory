@@ -101,6 +101,26 @@ FLEET_DISCOVERY_REL = "fleet/fleet_discovery.json"
 FLEET_ENTRY_FIELDS = ("repo_name", "github_url", "hf_space_url", "role", "status")
 
 
+# Hugging Face datasets known to the system. Each is recorded as an object so
+# operators can attach verification receipts later. We do NOT call the HF API
+# from this script; ``verified`` defaults to ``false`` and only the operator
+# (or an out-of-band tool with credentials) may flip it via a receipts file.
+HF_DATASETS_KNOWN = (
+    {
+        "repo_id": "DJ-Goana-Coding/CITADEL_OMEGA_Inventory",
+        "kind": "dataset",
+        "env_var": "HF_DATASET_REPO",
+    },
+)
+HF_RECEIPTS_REL = "fleet/hf_receipts.json"
+
+# Operator-supplied receipts that flip otherwise-unknown coherence gates
+# (e.g. "C# Private Nexus reached the GDrive bucket via CITADEL-BOT tunnel").
+# This file is hand-written by the operator after they've personally verified
+# the gate; this script never invents its contents.
+NEXUS_RECEIPTS_REL = "fleet/nexus_receipts.json"
+
+
 # --------------------------------------------------------------------------- #
 # Helpers
 # --------------------------------------------------------------------------- #
@@ -356,6 +376,10 @@ def build_fleet_map(root: Path) -> dict:
 
     merged.sort(key=lambda e: e["repo_name"])
 
+    # Discovery aggregate — derived purely from whatever the crawler wrote.
+    # Counts are zero when no discovery file exists; never invented.
+    aggregate = _discovery_aggregate(root / FLEET_DISCOVERY_REL)
+
     sources: dict = {
         "registry": {
             "path": FLEET_REGISTRY_REL,
@@ -376,8 +400,102 @@ def build_fleet_map(root: Path) -> dict:
     return {
         "entry_count": len(merged),
         "sources": sources,
+        "aggregate": aggregate,
         "entries": merged,
     }
+
+
+def _discovery_aggregate(path: Path) -> dict:
+    """Derive aggregate counts from a discovery file (crawler output).
+
+    Returns zeroed counts when the file is absent or malformed. Never
+    fabricates totals — every number is a count of something the crawler
+    actually recorded.
+    """
+    base = {
+        "total_repos": 0,
+        "repos_with_system_manifest": 0,
+        "repos_with_file_index": 0,
+        "repos_with_hf_space_url": 0,
+        "total_modules": 0,
+    }
+    if not path.exists():
+        return base
+    try:
+        with path.open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (OSError, json.JSONDecodeError):
+        return base
+    if not isinstance(data, dict):
+        return base
+    entries = data.get("entries", [])
+    if not isinstance(entries, list):
+        return base
+    for item in entries:
+        if not isinstance(item, dict):
+            continue
+        base["total_repos"] += 1
+        if item.get("has_system_manifest") is True:
+            base["repos_with_system_manifest"] += 1
+        if item.get("has_file_index") is True:
+            base["repos_with_file_index"] += 1
+        hf = item.get("hf_space_url")
+        if isinstance(hf, str) and hf:
+            base["repos_with_hf_space_url"] += 1
+        mc = item.get("module_count")
+        if isinstance(mc, int) and mc >= 0:
+            base["total_modules"] += mc
+    return base
+
+
+def _load_hf_receipts(path: Path) -> dict:
+    """Load operator-signed HF dataset verification receipts.
+
+    Schema: ``{"verified": {"<repo_id>": {"verified_at": "<iso8601>"}, ...}}``.
+    Missing or malformed file → empty dict (gates remain ``verified: false``).
+    """
+    if not path.exists():
+        return {}
+    try:
+        with path.open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    verified = data.get("verified", {})
+    return verified if isinstance(verified, dict) else {}
+
+
+def build_hf_datasets(root: Path) -> list[dict]:
+    """Return the first-class list of known HF datasets, ``verified`` flags.
+
+    Defaults are ``verified: false`` / ``verified_at: null``. The only way to
+    flip a gate is for the operator to supply ``fleet/hf_receipts.json`` with
+    the relevant ``repo_id``. We never call HF from here.
+    """
+    receipts = _load_hf_receipts(root / HF_RECEIPTS_REL)
+    out: list[dict] = []
+    for ds in HF_DATASETS_KNOWN:
+        repo_id = ds["repo_id"]
+        receipt = receipts.get(repo_id) if isinstance(receipts.get(repo_id), dict) else None
+        verified_at = None
+        verified = False
+        if receipt is not None:
+            va = receipt.get("verified_at")
+            if isinstance(va, str) and va:
+                verified = True
+                verified_at = va
+        out.append(
+            {
+                "repo_id": repo_id,
+                "kind": ds["kind"],
+                "env_var": ds["env_var"],
+                "verified": verified,
+                "verified_at": verified_at,
+            }
+        )
+    return sorted(out, key=lambda d: d["repo_id"])
 
 
 def _latest_mtime(root: Path) -> float:
@@ -425,7 +543,7 @@ def build_global_manifest(
             "gdrive_archive_env_var": "GDRIVE_ARCHIVE_ID",
             "hf_dataset_storage": "DJ-Goana-Coding/CITADEL_OMEGA_Inventory",
             "hf_dataset_env_var": "HF_DATASET_REPO",
-            "hf_datasets": [],
+            "hf_datasets": build_hf_datasets(root),
             "notes": (
                 "Identifiers only. Authentication must be supplied at runtime "
                 "via environment variables; never embed secrets in this manifest."

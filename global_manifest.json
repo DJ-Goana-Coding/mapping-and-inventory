@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-04-18T12:47:19.351275+00:00",
+  "generated_at": "2026-04-18T13:07:19.444840+00:00",
   "generator": "scripts/build_global_manifest.py",
   "repo_assets": {
-    "file_count": 2065,
+    "file_count": 2072,
     "redacted_count": 1,
-    "total_size_bytes": 27558025,
+    "total_size_bytes": 27613087,
     "extension_counts": {
       ".csv": 2,
       ".db": 1,
       ".ini": 1,
-      ".json": 670,
+      ".json": 674,
       ".log": 4,
-      ".md": 332,
-      ".py": 487,
+      ".md": 333,
+      ".py": 489,
       ".sample": 14,
       ".sh": 49,
       ".ts": 1,
@@ -43,6 +43,7 @@
       "data",
       "deploy",
       "docs",
+      "fleet",
       "frontend",
       "ingestion",
       "inventory",
@@ -228,7 +229,15 @@
     "gdrive_archive_env_var": "GDRIVE_ARCHIVE_ID",
     "hf_dataset_storage": "DJ-Goana-Coding/CITADEL_OMEGA_Inventory",
     "hf_dataset_env_var": "HF_DATASET_REPO",
-    "hf_datasets": [],
+    "hf_datasets": [
+      {
+        "repo_id": "DJ-Goana-Coding/CITADEL_OMEGA_Inventory",
+        "kind": "dataset",
+        "env_var": "HF_DATASET_REPO",
+        "verified": false,
+        "verified_at": null
+      }
+    ],
     "notes": "Identifiers only. Authentication must be supplied at runtime via environment variables; never embed secrets in this manifest."
   },
   "bypass_scripts_present": {
@@ -238,6 +247,29 @@
     "scripts/harvest_gdrive_accounts.py": true,
     "scripts/harvest_email_accounts.py": true,
     "scripts/clone_citadel_omega_libs.sh": true
+  },
+  "fleet_map": {
+    "entry_count": 0,
+    "sources": {
+      "registry": {
+        "path": "fleet/fleet_registry.json",
+        "exists": true,
+        "entry_count": 0
+      },
+      "discovery": {
+        "path": "fleet/fleet_discovery.json",
+        "exists": false,
+        "entry_count": 0
+      }
+    },
+    "aggregate": {
+      "total_repos": 0,
+      "repos_with_system_manifest": 0,
+      "repos_with_file_index": 0,
+      "repos_with_hf_space_url": 0,
+      "total_modules": 0
+    },
+    "entries": []
   },
   "out_of_scope": [
     "credential mapping or relocation",

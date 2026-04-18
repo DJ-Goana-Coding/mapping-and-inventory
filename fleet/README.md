@@ -44,3 +44,54 @@ Field rules:
 Entries are sorted by `repo_name` in the emitted `fleet_map` for
 deterministic output. If both files are absent or empty, the manifest
 emits `"fleet_map": {"entries": []}` rather than crashing.
+
+## Crawler enrichment fields
+
+When written by `scripts/total_fleet_crawler.py`, each entry in
+`fleet_discovery.json` may additionally carry:
+
+* `has_readme`, `has_manifest`, `has_system_manifest`, `has_file_index`
+  — booleans recording whether the crawler found each file in the sibling.
+* `manifest_sha`, `system_manifest_sha`, `file_index_sha` — Git blob SHAs
+  reported by the GitHub API for traceability.
+* `module_count` — count of source files in the sibling's
+  `inventory/file_index.json`, restricted to the extensions
+  `.py .ts .tsx .js .jsx .cs .go .rs .java`. Omitted if the sibling has
+  no `file_index.json`.
+
+The build script never invents these fields and never overrides registry
+entries with discovery entries.
+
+## Verification receipts (operator-only)
+
+Two optional, hand-written files flip otherwise-unknown coherence gates
+reported by `python ignite_tia.py --network-status`:
+
+* **`hf_receipts.json`** — flips `verified` on individual HF datasets:
+
+  ```json
+  {
+    "verified": {
+      "DJ-Goana-Coding/CITADEL_OMEGA_Inventory": {
+        "verified_at": "2026-04-18T12:00:00+00:00"
+      }
+    }
+  }
+  ```
+
+* **`nexus_receipts.json`** — flips the external coherence gates
+  (C# Private Nexus reachable, GDrive CITADEL-BOT tunnel open,
+  Adobe/VTS logic query succeeded):
+
+  ```json
+  {
+    "csharp_nexus_reachable": {"verified_at": "2026-04-18T12:00:00+00:00"},
+    "gdrive_tunnel_open":    {"verified_at": "2026-04-18T12:00:00+00:00"},
+    "adobe_vts_query_ok":    {"verified_at": "2026-04-18T12:00:00+00:00"}
+  }
+  ```
+
+Neither this build script nor `ignite_tia.py` ever performs network I/O
+to verify these gates — they remain `false` until you (the operator)
+write the receipt after personally confirming the condition. This keeps
+the manifest truthful and CI-safe.

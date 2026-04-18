@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "root": ".",
-  "file_count": 2065,
+  "file_count": 2072,
   "files": [
     {
       "path": ".dockerignore",
@@ -1210,8 +1210,8 @@
     {
       "path": "ignite_tia.py",
       "extension": ".py",
-      "size": 4613,
-      "sha256_16": "c1107643832e4b72",
+      "size": 11738,
+      "sha256_16": "f551126c1ed93cc9",
       "redacted": false
     },
     {
@@ -9432,6 +9432,20 @@
       "redacted": false
     },
     {
+      "path": "data/rag_sync/rag_payload_20260418_130638.json",
+      "extension": ".json",
+      "size": 1662,
+      "sha256_16": "a160eb058b3b8f37",
+      "redacted": false
+    },
+    {
+      "path": "data/rag_sync/rag_payload_20260418_130648.json",
+      "extension": ".json",
+      "size": 990,
+      "sha256_16": "e790d50589d87bfa",
+      "redacted": false
+    },
+    {
       "path": "data/research_runs/summary_20260406.md",
       "extension": ".md",
       "size": 787,
@@ -11427,6 +11441,13 @@
       "redacted": false
     },
     {
+      "path": "data/vector_store/vector_store_faiss.json",
+      "extension": ".json",
+      "size": 4176,
+      "sha256_16": "c88af8a0ed2ac2b7",
+      "redacted": false
+    },
+    {
       "path": "data/vibration_love/vibration_love_system.json",
       "extension": ".json",
       "size": 2795,
@@ -11732,6 +11753,20 @@
       "extension": ".md",
       "size": 9082,
       "sha256_16": "d884c002789ddf0d",
+      "redacted": false
+    },
+    {
+      "path": "fleet/README.md",
+      "extension": ".md",
+      "size": 3388,
+      "sha256_16": "60351ae06e3d5016",
+      "redacted": false
+    },
+    {
+      "path": "fleet/fleet_registry.json",
+      "extension": ".json",
+      "size": 49,
+      "sha256_16": "d389d9dddef2ec1e",
       "redacted": false
     },
     {
@@ -12059,8 +12094,8 @@
     {
       "path": "scripts/build_global_manifest.py",
       "extension": ".py",
-      "size": 13085,
-      "sha256_16": "ae99353b4d398697",
+      "size": 20993,
+      "sha256_16": "a871ed2c81775813",
       "redacted": false
     },
     {
@@ -12922,6 +12957,13 @@
       "extension": ".py",
       "size": 12520,
       "sha256_16": "051ea541cb3910c9",
+      "redacted": false
+    },
+    {
+      "path": "scripts/total_fleet_crawler.py",
+      "extension": ".py",
+      "size": 11695,
+      "sha256_16": "8363a190cc8939c6",
       "redacted": false
     },
     {
@@ -14133,6 +14175,13 @@
       "extension": ".py",
       "size": 10717,
       "sha256_16": "0ed92805655751eb",
+      "redacted": false
+    },
+    {
+      "path": "tests/test_fleet_map.py",
+      "extension": ".py",
+      "size": 18069,
+      "sha256_16": "f1730df0ca60d4f8",
       "redacted": false
     },
     {
