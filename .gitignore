@@ -119,3 +119,9 @@ data/pioneer_trader/*
 data/personas/*
 !data/personas/.gitkeep
 !data/personas/ai_personas_for_tia.json
+
+# OMNI-RECEPTION runtime artifacts (vector store + RAG sync payloads)
+data/vector_store/*
+!data/vector_store/.gitkeep
+data/rag_sync/*
+!data/rag_sync/.gitkeep
