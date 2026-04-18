@@ -13,6 +13,11 @@ Two modes are supported:
 2. **Remote HTTP POST**: when ``--remote`` or ``HUB_API_URL`` is supplied,
    posts to a local FastAPI instance (``POST {url}/ingest``) so a long-lived
    service can handle the ingestion asynchronously.
+3. **OMNI-RECEPTION ignition**: when ``--omni-reception`` is supplied, runs
+   :class:`src.orchestration.omni_reception.OmniReceptionOrchestrator` to
+   compose the five Librarian subsystems (Deep Crawl, Vault Union, GDrive
+   Synapse, Real-Time Bridge, Query Interface) into a single in-process
+   ignition.
 
 Usage:
 
@@ -24,6 +29,10 @@ Usage:
 
     # Trigger a running FastAPI hub
     python ignite_hub_memory.py --remote http://127.0.0.1:8000
+
+    # Trigger the OMNI-RECEPTION master orchestrator
+    python ignite_hub_memory.py --omni-reception
+    python ignite_hub_memory.py --omni-reception --no-deep-crawl --no-bridge
 
 Exit codes:
     0 = ingestion kicked off successfully
@@ -112,6 +121,41 @@ def _ingest_remote(api_url: str, harvest_dir: Path) -> int:
     return 0
 
 
+def _ingest_omni_reception(harvest_dir: Path, args) -> int:
+    """Trigger the OMNI-RECEPTION master orchestrator in-process."""
+    if str(REPO_ROOT) not in sys.path:
+        sys.path.insert(0, str(REPO_ROOT))
+    try:
+        from src.orchestration.omni_reception import OmniReceptionOrchestrator
+    except Exception as exc:
+        logger.error("❌ Could not import OmniReceptionOrchestrator: %s", exc)
+        return 1
+
+    logger.info("🛰️  Igniting OMNI-RECEPTION orchestrator (vault_root=%s)", harvest_dir)
+    try:
+        orch = OmniReceptionOrchestrator(vault_root=harvest_dir)
+        report = orch.ignite(
+            deep_crawl=not args.no_deep_crawl,
+            vault_union=not args.no_vault_union,
+            gdrive_synapse=not args.no_gdrive_synapse,
+            start_bridge=not args.no_bridge,
+        )
+    except Exception as exc:
+        logger.exception("💥 OMNI-RECEPTION ignition failed: %s", exc)
+        return 2
+    finally:
+        try:
+            orch.stop_real_time_bridge()  # type: ignore[name-defined]
+        except Exception:  # pragma: no cover - defensive
+            pass
+
+    logger.info(
+        "📊 OMNI-RECEPTION report: %s",
+        json.dumps(report.as_dict(), indent=2, default=str),
+    )
+    return 2 if report.errors else 0
+
+
 def _parse_args(argv: Optional[list] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -130,12 +174,32 @@ def _parse_args(argv: Optional[list] = None) -> argparse.Namespace:
         help="Base URL of a running FastAPI hub (e.g. http://127.0.0.1:8000). "
              "If omitted, ingestion runs in-process.",
     )
+    parser.add_argument(
+        "--omni-reception",
+        action="store_true",
+        help="Trigger the OMNI-RECEPTION master orchestrator instead of "
+             "the legacy harvest-dir ingestion path.",
+    )
+    parser.add_argument("--no-deep-crawl", action="store_true",
+                        help="OMNI-RECEPTION: skip the GitHub Deep Crawl.")
+    parser.add_argument("--no-vault-union", action="store_true",
+                        help="OMNI-RECEPTION: skip the Partition_xx Vault Union.")
+    parser.add_argument("--no-gdrive-synapse", action="store_true",
+                        help="OMNI-RECEPTION: skip the GDrive External Synapse.")
+    parser.add_argument("--no-bridge", action="store_true",
+                        help="OMNI-RECEPTION: skip starting the /v1/ingest bridge.")
     return parser.parse_args(argv)
 
 
 def main(argv: Optional[list] = None) -> int:
     args = _parse_args(argv)
-    harvest_dir = Path(args.harvest_dir).resolve()
+    # When the OMNI-RECEPTION orchestrator is requested and the user
+    # didn't override --harvest-dir, default the vault root to the repo
+    # root so Partition_01..46 are discoverable.
+    if args.omni_reception and args.harvest_dir == str(DEFAULT_HARVEST_DIR):
+        harvest_dir = REPO_ROOT
+    else:
+        harvest_dir = Path(args.harvest_dir).resolve()
     rag_store = Path(args.rag_store).resolve()
 
     if not harvest_dir.exists():
@@ -146,6 +210,8 @@ def main(argv: Optional[list] = None) -> int:
 
     logger.info("🏰 Hub Ignition — harvest_dir=%s", harvest_dir)
 
+    if args.omni_reception:
+        return _ingest_omni_reception(harvest_dir, args)
     if args.remote:
         return _ingest_remote(args.remote, harvest_dir)
     return _ingest_locally(harvest_dir, rag_store)
