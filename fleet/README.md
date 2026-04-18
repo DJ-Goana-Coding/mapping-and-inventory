@@ -95,3 +95,104 @@ Neither this build script nor `ignite_tia.py` ever performs network I/O
 to verify these gates — they remain `false` until you (the operator)
 write the receipt after personally confirming the condition. This keeps
 the manifest truthful and CI-safe.
+
+## Cross-repo RAG corpus (operator-only)
+
+`fleet_corpus.jsonl` is an *optional* JSON-lines artifact produced by
+`scripts/cross_repo_rag_ingest.py`. It contains the literal text of a
+fixed allow-list of documentation/manifest "bibles" across every sibling
+repository owned by the configured GitHub user/org (default
+`DJ-Goana-Coding`):
+
+* `README.md`
+* `ARCHITECTURE.md`
+* `system_manifest.json`
+* `manifest.json`
+* `FOUNDATION_MANIFEST.md`
+
+Each line is one record:
+
+```json
+{"repo": "Vortex", "path": "README.md", "sha": "<git blob sha>", "content": "..."}
+```
+
+The ingester is **opt-in** (requires `GH_TOKEN` or `GITHUB_TOKEN`),
+read-only over the GitHub REST API, never invents records for missing
+files, skips binary payloads, and truncates per-file content at
+256 KiB (configurable via `--max-bytes`, with a `truncated: true`
+flag on any cut record). It is intended to feed downstream RAG
+runtimes; it is **not** consumed by `build_global_manifest.py` and
+does not change the shape of `global_manifest.json`.
+
+## Synaptic topology map (operator-only)
+
+`fleet_topology.json` (with a companion `fleet_topology.md` summary)
+is an *optional* artifact produced by `scripts/topology_mapper.py`. It
+maps **existing infrastructure** across every sibling repo — it does
+not vacuum or harvest text. For each repo it enumerates the file tree
+in one `git/trees?recursive=1` call and classifies entries into three
+buckets:
+
+* **bridges/tunnels** — `rclone*.conf`, `*webhook*`, `*tunnel*`,
+  `CITADEL-BOT*`, anything under `bridge/` or `bridges/`.
+* **existing RAGs** — `faiss_index/*`, `*.faiss`, `vector_store/*`,
+  `chroma*/`, `embeddings/*`, `rag_*.json`, and `system_manifest.json`
+  / `manifest.json` / `global_manifest.json`.
+* **automated workers** — `.github/workflows/*.{yml,yaml}`,
+  `crontab*`, `*daemon*.{py,sh}`, `*worker*.{py,sh}`.
+
+Cross-repo edges are inferred by reading each `.github/workflows/*.yml`
+file (bounded by `--max-workflow-bytes` and `--max-workflows`) and
+scanning for references to other sibling repo names — either as
+`<owner>/<repo>` substrings or as standalone tokens. Each such mention
+becomes one edge:
+
+```json
+{"from": "Vortex", "to": "Pioneer-Trader",
+ "via": "github_workflow", "evidence": ".github/workflows/sync.yml"}
+```
+
+**Hugging Face datasets** are tracked as a first-class infrastructure
+type. For every sibling the mapper records `node.hf_datasets` whenever
+it finds an evidence-backed reference to `huggingface.co/datasets/<owner>/<name>`
+in any of:
+
+- the GitHub `homepage` field,
+- the GitHub `description`,
+- a `topics` entry of the form `hf-dataset:<owner>/<name>`,
+- a workflow YAML file (same scan that produces cross-repo edges),
+- on-disk path-based declarations (`datasets.json`, `hf_dataset*.yml`,
+  `huggingface*.yml`/`yaml`).
+
+Each HF reference also produces a synthetic edge
+`{from: <repo>, to: "hf://<owner>/<name>", via: "hf_dataset_reference",
+evidence: <source>}` so the topology graph stays uniform.
+
+A repo with zero detected artifacts in **all four** categories
+(bridges, RAGs, workers, HF datasets) is flagged `is_orphan: true` and
+listed in `topology["orphans"]`. The companion `fleet_topology.md`
+surfaces the orphan and edge lists in operator-readable form.
+
+### Missing-link audit
+
+`fleet/missing_links.md` is a focused gap audit produced from the same
+run. It lists **only** the broken bridges, orphaned repositories, and
+disconnected datasets that need to be wired before T.I.A.'s neural
+network is whole:
+
+1. **Orphan repositories** — zero artifacts in any category.
+2. **Source-only nodes** — workers but no bridge / RAG / HF dataset to
+   talk through (a worker firing into the void).
+3. **Sink-only nodes** — bridge / RAG / HF dataset but no worker to
+   invoke them (data sitting cold).
+4. **Broken edges** — workflow references whose target sibling is
+   itself an orphan; the bridge lands nowhere.
+
+The audit is a **pure function over `fleet_topology.json`** — it
+invents nothing. Every gap entry traces back to evidence already in
+the topology JSON.
+
+Like the other fleet tools the mapper is opt-in (requires
+`GH_TOKEN`/`GITHUB_TOKEN`), read-only, deterministic, and never
+fabricates artifacts, edges, HF references, or orphan flags without
+direct API evidence. It is not consumed by `build_global_manifest.py`.
