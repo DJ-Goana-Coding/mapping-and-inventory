@@ -119,3 +119,7 @@ data/pioneer_trader/*
 data/personas/*
 !data/personas/.gitkeep
 !data/personas/ai_personas_for_tia.json
+
+# Master Hub vector store (generated artifacts)
+data/vector_store/*.index
+data/vector_store/*.json

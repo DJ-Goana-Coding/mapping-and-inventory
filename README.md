@@ -22,6 +22,21 @@ Connects ARK repos, GDrive, T.I.A., datasets, and all device nodes.
 - 🧠 **T.I.A. Oracle** — Gemini-powered AI chat with system context
 - ☁️ **Cloud Sync** — rclone-based GDrive sync controls
 
+## 🏛 Master Hub API (FastAPI sidecar)
+
+The HF Space runs a **multi-process weld**: the Streamlit faceplate (`app.py`) on port 7860 plus a FastAPI sidecar (`main_api.py`) on port 8000, launched together by `scripts/start_hub.sh`. The sidecar serves a local FAISS-backed RAG index over the Master Harvest fragments.
+
+```bash
+# Rebuild the index from disk
+python -m services.rag_hub --reindex
+
+# Or via the running sidecar
+curl -X POST http://localhost:8000/v1/ingest
+curl 'http://localhost:8000/v1/query?q=harvest+workflow&k=5'
+```
+
+See [`data/master_harvest/INDEX.md`](data/master_harvest/INDEX.md) for the indexed fragment catalog and architecture diagram.
+
 ## Workflows
 
 ### 🌉 Global Repository Bridge (NEW)

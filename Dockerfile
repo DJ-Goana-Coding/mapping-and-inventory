@@ -20,13 +20,15 @@ COPY . .
 # Create necessary data directories
 RUN mkdir -p data/spiritual_intelligence data/tarot_readings data/models \
     data/workers data/datasets data/Mapping-and-Inventory-storage \
-    data/coding_agent_output
+    data/coding_agent_output data/vector_store data/master_harvest
 
+# Ensure the multi-process launcher is executable in the image.
+RUN chmod +x scripts/start_hub.sh
+
+# Streamlit faceplate (HF Space user-facing) on 7860.
+# FastAPI sidecar (/v1/ingest, /v1/query) on 8000, container-internal.
 EXPOSE 7860
+EXPOSE 8000
 
-# Launch Streamlit faceplate on port 7860
-CMD ["streamlit", "run", "app.py", \
-     "--server.port=7860", \
-     "--server.address=0.0.0.0", \
-     "--server.headless=true", \
-     "--browser.gatherUsageStats=false"]
+# Multi-process weld: FastAPI sidecar + Streamlit HUD.
+CMD ["bash", "scripts/start_hub.sh"]
