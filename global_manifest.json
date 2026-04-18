@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-04-18T13:07:19.444840+00:00",
+  "generated_at": "2026-04-18T13:27:52.287421+00:00",
   "generator": "scripts/build_global_manifest.py",
   "repo_assets": {
-    "file_count": 2072,
+    "file_count": 2070,
     "redacted_count": 1,
-    "total_size_bytes": 27613087,
+    "total_size_bytes": 27627755,
     "extension_counts": {
       ".csv": 2,
       ".db": 1,
       ".ini": 1,
-      ".json": 674,
+      ".json": 671,
       ".log": 4,
       ".md": 333,
-      ".py": 489,
+      ".py": 490,
       ".sample": 14,
       ".sh": 49,
       ".ts": 1,
@@ -270,6 +270,1401 @@
       "total_modules": 0
     },
     "entries": []
+  },
+  "rag_knowledge_base": {
+    "schema_version": "1.0.0",
+    "scope": {
+      "partitions_scanned": [
+        "Partition_01",
+        "Partition_02",
+        "Partition_03",
+        "Partition_04",
+        "Partition_46"
+      ],
+      "partitions_present": [
+        "Partition_01",
+        "Partition_02",
+        "Partition_03",
+        "Partition_04",
+        "Partition_46"
+      ],
+      "partitions_missing": [],
+      "partition_file_extensions": [
+        ".json",
+        ".md",
+        ".py",
+        ".txt"
+      ],
+      "deep_read_basenames": [
+        "README.md",
+        "system_manifest.json",
+        "architecture.md"
+      ]
+    },
+    "classifier": {
+      "rule_count": 47,
+      "labels": [
+        "Adobe Plugin",
+        "Architecture Doc",
+        "Archive Vault",
+        "Bridge Module",
+        "Citadel Doc",
+        "Citadel Intel",
+        "Core Module",
+        "Data Asset",
+        "Deployment",
+        "District Manifest",
+        "Documentation",
+        "Fleet Map",
+        "Forever Learning",
+        "Frontend Asset",
+        "Ingestion Pipeline",
+        "Legal Doc",
+        "Manifest/Inventory",
+        "Multimedia Config",
+        "Operator Script",
+        "Persona Asset",
+        "RAG Component",
+        "Research",
+        "Security",
+        "Service Module",
+        "System Manifest",
+        "TIA Core",
+        "Template",
+        "Test",
+        "Trading Logic",
+        "Vamguard Asset",
+        "Worker Config",
+        "unclassified"
+      ],
+      "default_label": "unclassified",
+      "rules": [
+        {
+          "order": 0,
+          "label": "System Manifest"
+        },
+        {
+          "order": 1,
+          "label": "Architecture Doc"
+        },
+        {
+          "order": 2,
+          "label": "Documentation"
+        },
+        {
+          "order": 3,
+          "label": "Trading Logic"
+        },
+        {
+          "order": 4,
+          "label": "Trading Logic"
+        },
+        {
+          "order": 5,
+          "label": "District Manifest"
+        },
+        {
+          "order": 6,
+          "label": "Forever Learning"
+        },
+        {
+          "order": 7,
+          "label": "Archive Vault"
+        },
+        {
+          "order": 8,
+          "label": "Worker Config"
+        },
+        {
+          "order": 9,
+          "label": "Worker Config"
+        },
+        {
+          "order": 10,
+          "label": "Vamguard Asset"
+        },
+        {
+          "order": 11,
+          "label": "Vamguard Asset"
+        },
+        {
+          "order": 12,
+          "label": "TIA Core"
+        },
+        {
+          "order": 13,
+          "label": "TIA Core"
+        },
+        {
+          "order": 14,
+          "label": "TIA Core"
+        },
+        {
+          "order": 15,
+          "label": "Citadel Intel"
+        },
+        {
+          "order": 16,
+          "label": "Ingestion Pipeline"
+        },
+        {
+          "order": 17,
+          "label": "Manifest/Inventory"
+        },
+        {
+          "order": 18,
+          "label": "Manifest/Inventory"
+        },
+        {
+          "order": 19,
+          "label": "Fleet Map"
+        },
+        {
+          "order": 20,
+          "label": "Security"
+        },
+        {
+          "order": 21,
+          "label": "Legal Doc"
+        },
+        {
+          "order": 22,
+          "label": "Test"
+        },
+        {
+          "order": 23,
+          "label": "Operator Script"
+        },
+        {
+          "order": 24,
+          "label": "Service Module"
+        },
+        {
+          "order": 25,
+          "label": "Core Module"
+        },
+        {
+          "order": 26,
+          "label": "Frontend Asset"
+        },
+        {
+          "order": 27,
+          "label": "Frontend Asset"
+        },
+        {
+          "order": 28,
+          "label": "Template"
+        },
+        {
+          "order": 29,
+          "label": "Template"
+        },
+        {
+          "order": 30,
+          "label": "Documentation"
+        },
+        {
+          "order": 31,
+          "label": "Persona Asset"
+        },
+        {
+          "order": 32,
+          "label": "Research"
+        },
+        {
+          "order": 33,
+          "label": "Data Asset"
+        },
+        {
+          "order": 34,
+          "label": "Deployment"
+        },
+        {
+          "order": 35,
+          "label": "Bridge Module"
+        },
+        {
+          "order": 36,
+          "label": "Core Module"
+        },
+        {
+          "order": 37,
+          "label": "Adobe Plugin"
+        },
+        {
+          "order": 38,
+          "label": "Multimedia Config"
+        },
+        {
+          "order": 39,
+          "label": "Trading Logic"
+        },
+        {
+          "order": 40,
+          "label": "Citadel Doc"
+        },
+        {
+          "order": 41,
+          "label": "TIA Core"
+        },
+        {
+          "order": 42,
+          "label": "Vamguard Asset"
+        },
+        {
+          "order": 43,
+          "label": "RAG Component"
+        },
+        {
+          "order": 44,
+          "label": "Manifest/Inventory"
+        },
+        {
+          "order": 45,
+          "label": "Deployment"
+        },
+        {
+          "order": 46,
+          "label": "Test"
+        }
+      ]
+    },
+    "partitions": [
+      {
+        "partition": "Partition_01",
+        "present": true,
+        "file_count": 86,
+        "files": [
+          {
+            "path": "Partition_01/LAPTOP_F_MANIFEST.json",
+            "extension": ".json",
+            "size": 178764,
+            "mtime": "2026-04-18T13:24:50.699506+00:00",
+            "semantic_purpose": "Manifest/Inventory",
+            "sha256_16": "ff9121cb974c13e1"
+          },
+          {
+            "path": "Partition_01/README_APPS_SCRIPT.md",
+            "extension": ".md",
+            "size": 7987,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "a046840cad8188a6"
+          },
+          {
+            "path": "Partition_01/adreno_icd.json",
+            "extension": ".json",
+            "size": 130,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "5aa5fad4030726d8"
+          },
+          {
+            "path": "Partition_01/aetheric_log.txt",
+            "extension": ".txt",
+            "size": 551,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "dfbffc8ee15914a8"
+          },
+          {
+            "path": "Partition_01/agent_memory.json",
+            "extension": ".json",
+            "size": 286,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "1b9a20075734eabb"
+          },
+          {
+            "path": "Partition_01/aion_kinetic.py",
+            "extension": ".py",
+            "size": 1683,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "ce52b9c9d9770aff"
+          },
+          {
+            "path": "Partition_01/app.py",
+            "extension": ".py",
+            "size": 3354,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "fc92a958eb8299d8"
+          },
+          {
+            "path": "Partition_01/apps_script_toolbox.py",
+            "extension": ".py",
+            "size": 8764,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "ca8b36fd418cc414"
+          },
+          {
+            "path": "Partition_01/ark_master.py",
+            "extension": ".py",
+            "size": 5659,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "b67ef0171314164f"
+          },
+          {
+            "path": "Partition_01/ark_master_v23.py",
+            "extension": ".py",
+            "size": 7462,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "1cb98cc4bb98358c"
+          },
+          {
+            "path": "Partition_01/ark_swarm_v25.py",
+            "extension": ".py",
+            "size": 9152,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "2fb69c14754c5255"
+          },
+          {
+            "path": "Partition_01/ark_swarm_v26.py",
+            "extension": ".py",
+            "size": 8642,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "998a95c59f575c0a"
+          },
+          {
+            "path": "Partition_01/ark_swarm_v27.py",
+            "extension": ".py",
+            "size": 9596,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "967ef513b18c7f6a"
+          },
+          {
+            "path": "Partition_01/ark_swarm_v28.py",
+            "extension": ".py",
+            "size": 6170,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "9ebeb6b6a877bed5"
+          },
+          {
+            "path": "Partition_01/ark_swarm_v29.py",
+            "extension": ".py",
+            "size": 3457,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "ff671163a4d4b3a0"
+          },
+          {
+            "path": "Partition_01/big_doofy.py",
+            "extension": ".py",
+            "size": 1227,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "b83c006fd4c7658b"
+          },
+          {
+            "path": "Partition_01/cgal_shield.py",
+            "extension": ".py",
+            "size": 2007,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "08a9e7df2431fb50"
+          },
+          {
+            "path": "Partition_01/citadel_agentic_swarm.py",
+            "extension": ".py",
+            "size": 6002,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "a2767565d51d92f0"
+          },
+          {
+            "path": "Partition_01/citadel_archivist.py",
+            "extension": ".py",
+            "size": 8747,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "0c791902e4ab9172"
+          },
+          {
+            "path": "Partition_01/citadel_live.py",
+            "extension": ".py",
+            "size": 2803,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "4bbe3370759cd73e"
+          },
+          {
+            "path": "Partition_01/citadel_live_fire.py",
+            "extension": ".py",
+            "size": 1521,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "464fd40f6009588c"
+          },
+          {
+            "path": "Partition_01/citadel_master_bridge.py",
+            "extension": ".py",
+            "size": 4209,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "e388121d7daebdf2"
+          },
+          {
+            "path": "Partition_01/citadel_mobile.py",
+            "extension": ".py",
+            "size": 3692,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "787556f7f21c11c1"
+          },
+          {
+            "path": "Partition_01/citadel_reality_bridge.py",
+            "extension": ".py",
+            "size": 5830,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "72928da39f87f04c"
+          },
+          {
+            "path": "Partition_01/citadel_reporter.py",
+            "extension": ".py",
+            "size": 14559,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "9225e4a077113682"
+          },
+          {
+            "path": "Partition_01/citadel_swarm_v31.py",
+            "extension": ".py",
+            "size": 7999,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "58f8a59061572712"
+          },
+          {
+            "path": "Partition_01/citadel_total_hud.py",
+            "extension": ".py",
+            "size": 5820,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "61e154c154709c5b"
+          },
+          {
+            "path": "Partition_01/citadel_trader.py",
+            "extension": ".py",
+            "size": 3663,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "4a49a2acc2c5791b"
+          },
+          {
+            "path": "Partition_01/citadel_v34.py",
+            "extension": ".py",
+            "size": 7207,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "f08ad2418f5362f2"
+          },
+          {
+            "path": "Partition_01/citadel_v35.py",
+            "extension": ".py",
+            "size": 6674,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "238063f357de5f58"
+          },
+          {
+            "path": "Partition_01/citadel_v36.py",
+            "extension": ".py",
+            "size": 8000,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "cd424663405e8424"
+          },
+          {
+            "path": "Partition_01/citadel_v38.py",
+            "extension": ".py",
+            "size": 9540,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "b626b97e275d5887"
+          },
+          {
+            "path": "Partition_01/citadel_v39.py",
+            "extension": ".py",
+            "size": 7633,
+            "mtime": "2026-04-18T13:24:50.700582+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "55c8e32673c8bd1e"
+          },
+          {
+            "path": "Partition_01/citadel_v40.py",
+            "extension": ".py",
+            "size": 7899,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "57095899828e987c"
+          },
+          {
+            "path": "Partition_01/cloud_uplink.py",
+            "extension": ".py",
+            "size": 1550,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "85dee64d8a5c811d"
+          },
+          {
+            "path": "Partition_01/comm_link.py",
+            "extension": ".py",
+            "size": 2785,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "0f47652941f1bc85"
+          },
+          {
+            "path": "Partition_01/deep_intel_log.txt",
+            "extension": ".txt",
+            "size": 5288,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "8e599efa6908056f"
+          },
+          {
+            "path": "Partition_01/dj_goanna.py",
+            "extension": ".py",
+            "size": 2059,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "27d3a9f3ca423b1b"
+          },
+          {
+            "path": "Partition_01/drive_omni_search.py",
+            "extension": ".py",
+            "size": 3246,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "8d510009624069e4"
+          },
+          {
+            "path": "Partition_01/drive_sweep.py",
+            "extension": ".py",
+            "size": 2370,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "f1ec0740788bb713"
+          },
+          {
+            "path": "Partition_01/drive_sync.py",
+            "extension": ".py",
+            "size": 926,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "721bde755251759e"
+          },
+          {
+            "path": "Partition_01/genesis_swarm.py",
+            "extension": ".py",
+            "size": 1876,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "362851fd4ad934e6"
+          },
+          {
+            "path": "Partition_01/ghost_sanctuary.py",
+            "extension": ".py",
+            "size": 1277,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "40c42af07d43ab46"
+          },
+          {
+            "path": "Partition_01/hippy_oneill.py",
+            "extension": ".py",
+            "size": 1295,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "e58a790a9a28ce32"
+          },
+          {
+            "path": "Partition_01/jarl_loveday.py",
+            "extension": ".py",
+            "size": 1307,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "2a189fba066febad"
+          },
+          {
+            "path": "Partition_01/kinetic_trigger.py",
+            "extension": ".py",
+            "size": 331,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "e8de08806e55b37a"
+          },
+          {
+            "path": "Partition_01/local_harvester.py",
+            "extension": ".py",
+            "size": 1744,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "7dffd0548f6876b4"
+          },
+          {
+            "path": "Partition_01/master_inventory.json",
+            "extension": ".json",
+            "size": 15060,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Manifest/Inventory",
+            "sha256_16": "61ebfcefedfc5cc9"
+          },
+          {
+            "path": "Partition_01/master_key_hunt.py",
+            "extension": ".py",
+            "size": 1542,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "1e5894895e02a328"
+          },
+          {
+            "path": "Partition_01/master_vault.json",
+            "extension": ".json",
+            "size": 594,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "redacted": true
+          },
+          {
+            "path": "Partition_01/mexc_balance.py",
+            "extension": ".py",
+            "size": 609,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "fcafbc6a2426f4ff"
+          },
+          {
+            "path": "Partition_01/mexc_fleet.py",
+            "extension": ".py",
+            "size": 1439,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "8afb3caad481af54"
+          },
+          {
+            "path": "Partition_01/mexc_live.py",
+            "extension": ".py",
+            "size": 1016,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "1d666d15ae1d0838"
+          },
+          {
+            "path": "Partition_01/mexc_skim_to_fuel.py",
+            "extension": ".py",
+            "size": 1089,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "8acf4a883d914e30"
+          },
+          {
+            "path": "Partition_01/ms_genesis.py",
+            "extension": ".py",
+            "size": 1431,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "f0f435c0f8cdddf4"
+          },
+          {
+            "path": "Partition_01/nexus_uplink.py",
+            "extension": ".py",
+            "size": 4520,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "f4d4d4eb9e62084e"
+          },
+          {
+            "path": "Partition_01/omega.py",
+            "extension": ".py",
+            "size": 1,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "01ba4719c80b6fe9"
+          },
+          {
+            "path": "Partition_01/omega_audit_log.txt",
+            "extension": ".txt",
+            "size": 17369,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "a69152e03f23a8ea"
+          },
+          {
+            "path": "Partition_01/omni_brain_mesh.py",
+            "extension": ".py",
+            "size": 3361,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "500b102f8564d75c"
+          },
+          {
+            "path": "Partition_01/omni_harvester.py",
+            "extension": ".py",
+            "size": 6778,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "e08ebeb969f4e1c0"
+          },
+          {
+            "path": "Partition_01/omni_mapper.py",
+            "extension": ".py",
+            "size": 2127,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "b37f1ec01b250e97"
+          },
+          {
+            "path": "Partition_01/omni_sweep.py",
+            "extension": ".py",
+            "size": 3090,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "c59dfd42ad071077"
+          },
+          {
+            "path": "Partition_01/omni_vector_mesh.json",
+            "extension": ".json",
+            "size": 2,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "RAG Component",
+            "sha256_16": "4f53cda18c2baa0c"
+          },
+          {
+            "path": "Partition_01/oppo_blade_v8.py",
+            "extension": ".py",
+            "size": 1214,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "e5d694cdf254170d"
+          },
+          {
+            "path": "Partition_01/oppo_node.py",
+            "extension": ".py",
+            "size": 5939,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "c2022ca775d70da2"
+          },
+          {
+            "path": "Partition_01/oracle_vision.py",
+            "extension": ".py",
+            "size": 1442,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "f1a2d5f20b04bd7a"
+          },
+          {
+            "path": "Partition_01/precious_metals_tracker.py",
+            "extension": ".py",
+            "size": 4453,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "2ce95556c0ec5f2e"
+          },
+          {
+            "path": "Partition_01/proportional_skim.py",
+            "extension": ".py",
+            "size": 2189,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "81825e3dfadf29f2"
+          },
+          {
+            "path": "Partition_01/reconstruct_manifest.py",
+            "extension": ".py",
+            "size": 1376,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "Manifest/Inventory",
+            "sha256_16": "2d2dc9a8c352eef3"
+          },
+          {
+            "path": "Partition_01/soul_log.json",
+            "extension": ".json",
+            "size": 956,
+            "mtime": "2026-04-18T13:24:50.701506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "dacaf8cb5f0c45c1"
+          },
+          {
+            "path": "Partition_01/swarm_audit.py",
+            "extension": ".py",
+            "size": 1429,
+            "mtime": "2026-04-18T13:24:50.702506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "c0aa210555f7cb82"
+          },
+          {
+            "path": "Partition_01/swarm_memory.json",
+            "extension": ".json",
+            "size": 76,
+            "mtime": "2026-04-18T13:24:50.702506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "cdafb5b79c525a6e"
+          },
+          {
+            "path": "Partition_01/the_signal.py",
+            "extension": ".py",
+            "size": 1623,
+            "mtime": "2026-04-18T13:24:50.702506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "7aa015cc7300e98a"
+          },
+          {
+            "path": "Partition_01/tia_atomic.py",
+            "extension": ".py",
+            "size": 1247,
+            "mtime": "2026-04-18T13:24:50.702506+00:00",
+            "semantic_purpose": "TIA Core",
+            "sha256_16": "7fcf58794f4dd8dc"
+          },
+          {
+            "path": "Partition_01/tia_sos.py",
+            "extension": ".py",
+            "size": 1615,
+            "mtime": "2026-04-18T13:24:50.702506+00:00",
+            "semantic_purpose": "TIA Core",
+            "sha256_16": "752c758b917f64f7"
+          },
+          {
+            "path": "Partition_01/titan_master.py",
+            "extension": ".py",
+            "size": 2520,
+            "mtime": "2026-04-18T13:24:50.702506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "ed8a9757b05c9c08"
+          },
+          {
+            "path": "Partition_01/universal_atlas.json",
+            "extension": ".json",
+            "size": 4755426,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "e2ea7cfb92d5d233"
+          },
+          {
+            "path": "Partition_01/vanguard_v10_titan.py",
+            "extension": ".py",
+            "size": 2604,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "5ab78db671b016c3"
+          },
+          {
+            "path": "Partition_01/vanguard_v2.py",
+            "extension": ".py",
+            "size": 2435,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "b19a593ca9ffc132"
+          },
+          {
+            "path": "Partition_01/vanguard_v3.py",
+            "extension": ".py",
+            "size": 2779,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "376755b764f487db"
+          },
+          {
+            "path": "Partition_01/vanguard_v5_legion.py",
+            "extension": ".py",
+            "size": 3204,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "692f4f5c5bc4bbaf"
+          },
+          {
+            "path": "Partition_01/vanguard_v5_moon.py",
+            "extension": ".py",
+            "size": 3526,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "901844f0287a8e68"
+          },
+          {
+            "path": "Partition_01/vanguard_v6_treasury.py",
+            "extension": ".py",
+            "size": 3560,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "47ab19711b884009"
+          },
+          {
+            "path": "Partition_01/vanguard_v7_moonshot.py",
+            "extension": ".py",
+            "size": 3049,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "246d53c02f39a4de"
+          },
+          {
+            "path": "Partition_01/vanguard_v7_shadow.py",
+            "extension": ".py",
+            "size": 3345,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "87c99c8da4427167"
+          },
+          {
+            "path": "Partition_01/vault.py",
+            "extension": ".py",
+            "size": 11378,
+            "mtime": "2026-04-18T13:24:50.712506+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "2484376daeda4002"
+          }
+        ]
+      },
+      {
+        "partition": "Partition_02",
+        "present": true,
+        "file_count": 6,
+        "files": [
+          {
+            "path": "Partition_02/forensic_ingest.py",
+            "extension": ".py",
+            "size": 7037,
+            "mtime": "2026-04-18T13:24:50.713725+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "47df3690585ea7ee"
+          },
+          {
+            "path": "Partition_02/omni_brain_mesh.py",
+            "extension": ".py",
+            "size": 3361,
+            "mtime": "2026-04-18T13:24:50.713725+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "500b102f8564d75c"
+          },
+          {
+            "path": "Partition_02/s10_uplink.py",
+            "extension": ".py",
+            "size": 6619,
+            "mtime": "2026-04-18T13:24:50.713725+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "91b4a19e19adc1e3"
+          },
+          {
+            "path": "Partition_02/tia_atomic.py",
+            "extension": ".py",
+            "size": 1247,
+            "mtime": "2026-04-18T13:24:50.713725+00:00",
+            "semantic_purpose": "TIA Core",
+            "sha256_16": "7fcf58794f4dd8dc"
+          },
+          {
+            "path": "Partition_02/tia_sos.py",
+            "extension": ".py",
+            "size": 1615,
+            "mtime": "2026-04-18T13:24:50.713725+00:00",
+            "semantic_purpose": "TIA Core",
+            "sha256_16": "752c758b917f64f7"
+          },
+          {
+            "path": "Partition_02/cgal_project/mexc_admiral.py",
+            "extension": ".py",
+            "size": 1193,
+            "mtime": "2026-04-18T13:24:50.713725+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "ff846e2c0459b076"
+          }
+        ]
+      },
+      {
+        "partition": "Partition_03",
+        "present": true,
+        "file_count": 2,
+        "files": [
+          {
+            "path": "Partition_03/mexc_balance.py",
+            "extension": ".py",
+            "size": 609,
+            "mtime": "2026-04-18T13:24:50.714032+00:00",
+            "semantic_purpose": "Trading Logic",
+            "sha256_16": "fcafbc6a2426f4ff"
+          },
+          {
+            "path": "Partition_03/precious_metals_tracker.py",
+            "extension": ".py",
+            "size": 4453,
+            "mtime": "2026-04-18T13:24:50.714032+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "2ce95556c0ec5f2e"
+          }
+        ]
+      },
+      {
+        "partition": "Partition_04",
+        "present": true,
+        "file_count": 2,
+        "files": [
+          {
+            "path": "Partition_04/citadel_agentic_swarm.py",
+            "extension": ".py",
+            "size": 6002,
+            "mtime": "2026-04-18T13:24:50.714032+00:00",
+            "semantic_purpose": "Citadel Doc",
+            "sha256_16": "a2767565d51d92f0"
+          },
+          {
+            "path": "Partition_04/genesis_swarm.py",
+            "extension": ".py",
+            "size": 1876,
+            "mtime": "2026-04-18T13:24:50.714144+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "362851fd4ad934e6"
+          }
+        ]
+      },
+      {
+        "partition": "Partition_46",
+        "present": true,
+        "file_count": 10,
+        "files": [
+          {
+            "path": "Partition_46/master_key_hunt.py",
+            "extension": ".py",
+            "size": 1542,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "1e5894895e02a328"
+          },
+          {
+            "path": "Partition_46/reconstruct_manifest.py",
+            "extension": ".py",
+            "size": 1376,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "Manifest/Inventory",
+            "sha256_16": "2d2dc9a8c352eef3"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/3_Stories.txt",
+            "extension": ".txt",
+            "size": 435,
+            "mtime": "2026-04-18T13:24:50.714189+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "3ca7fe469c0cec9b"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/Lore_20260330_104556_Unnamed.txt",
+            "extension": ".txt",
+            "size": 140,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "f9ca838ca9d267d5"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/Tia_Soul.txt",
+            "extension": ".txt",
+            "size": 93,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "TIA Core",
+            "sha256_16": "31cc57edcbc37cc0"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/aetheric_log.txt",
+            "extension": ".txt",
+            "size": 551,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "dfbffc8ee15914a8"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/deep_intel_log.txt",
+            "extension": ".txt",
+            "size": 5288,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "8e599efa6908056f"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/logs.txt",
+            "extension": ".txt",
+            "size": 504,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "06c81bb84afe8bda"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/omega_audit_log.txt",
+            "extension": ".txt",
+            "size": 17369,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "a69152e03f23a8ea"
+          },
+          {
+            "path": "Partition_46/WASHING_HARVEST_STAGING/requirements.txt",
+            "extension": ".txt",
+            "size": 55,
+            "mtime": "2026-04-18T13:24:50.714218+00:00",
+            "semantic_purpose": "unclassified",
+            "sha256_16": "06c337a2951b590a"
+          }
+        ]
+      }
+    ],
+    "deep_read_documents": {
+      "document_count": 28,
+      "purpose_counts": {
+        "Architecture Doc": 1,
+        "Documentation": 26,
+        "System Manifest": 1
+      },
+      "documents": [
+        {
+          "path": ".github/agents/README.md",
+          "basename": "README.md",
+          "size": 1477,
+          "mtime": "2026-04-18T13:24:50.676978+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "423e7c735f39aaf1455adedaeb8a5f8b1934f02afa395b7297ef48b51929c692"
+        },
+        {
+          "path": ".github/workflow-templates/README.md",
+          "basename": "README.md",
+          "size": 2554,
+          "mtime": "2026-04-18T13:24:50.677022+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "0d95df505f01d48d3cb348e5de1b57ea68a1b9c3b91c751dbeb4f0687854d0dd"
+        },
+        {
+          "path": "PERSONA_SHOPPING/README.md",
+          "basename": "README.md",
+          "size": 8775,
+          "mtime": "2026-04-18T13:24:50.699506+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "9d402c7739d87e05fcc3aa4a425f7aef37f6605e223a49dd73880947d63e62b5"
+        },
+        {
+          "path": "README.md",
+          "basename": "README.md",
+          "size": 9150,
+          "mtime": "2026-04-18T13:24:50.714506+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "fabe3268db583fb861595bec6d9dffeb3c3f01f917ce98ea77aa5cac70e1f6bf"
+        },
+        {
+          "path": "Research/README.md",
+          "basename": "README.md",
+          "size": 1083,
+          "mtime": "2026-04-18T13:24:50.715189+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "5a92fa3b3a01b7d5ea1068db75e0d3a28b1155c13862c4196c4f82d28335f0da"
+        },
+        {
+          "path": "S10_CITADEL_OMEGA_INTEL/README.md",
+          "basename": "README.md",
+          "size": 2248,
+          "mtime": "2026-04-18T13:24:50.715381+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "b21bdad8e873247b7cf5517555986f6595187785f1971222727b250039ace656"
+        },
+        {
+          "path": "TIA_MASTER_BUILD/ARCHITECTURE.md",
+          "basename": "ARCHITECTURE.md",
+          "size": 18888,
+          "mtime": "2026-04-18T13:24:50.716506+00:00",
+          "semantic_purpose": "Architecture Doc",
+          "sha256": "08148362d9007e4e580d94ec7f79347344d92e856f501336baf5706a1a9c38fd"
+        },
+        {
+          "path": "TIA_MASTER_BUILD/README.md",
+          "basename": "README.md",
+          "size": 10811,
+          "mtime": "2026-04-18T13:24:50.717398+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "3708a518c6b214dec8aed800df4b0ccb4e23d058f7000de61ef0c4e51e1d0469"
+        },
+        {
+          "path": "TIA_MASTER_BUILD/workers/README.md",
+          "basename": "README.md",
+          "size": 7987,
+          "mtime": "2026-04-18T13:24:50.719170+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "a046840cad8188a6c2f53d929a6a0c097300a05b1ee70dc7e75e581257982546"
+        },
+        {
+          "path": "Trading_Garages/README.md",
+          "basename": "README.md",
+          "size": 162,
+          "mtime": "2026-04-18T13:24:50.719506+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "c4899f05aad822572f79a2316649c8802732dfe1e62a4fc07ecd5150e5e8a90e"
+        },
+        {
+          "path": "Trading_Garages/Trading_Garage_SpareParts/README.md",
+          "basename": "README.md",
+          "size": 575,
+          "mtime": "2026-04-18T13:24:50.720324+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "67bab663360a68e83cb3f0c74a35235cc51cc8dec5026ef62d65f64553fb071c"
+        },
+        {
+          "path": "data/spiritual_intelligence/README.md",
+          "basename": "README.md",
+          "size": 12122,
+          "mtime": "2026-04-18T13:24:50.746705+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "b2bf20c67dc876a94ccb0d637d1fa8bfececbbd1569009fa0f5c8de0fc22b595"
+        },
+        {
+          "path": "data/spoke_artifacts/README.md",
+          "basename": "README.md",
+          "size": 2823,
+          "mtime": "2026-04-18T13:24:50.747505+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "2b6413212a52ae957833c32eea62b776532dcbbc86ee4f60014aef8ccddc7d79"
+        },
+        {
+          "path": "data/vector_store/README.md",
+          "basename": "README.md",
+          "size": 385,
+          "mtime": "2026-04-18T13:24:50.749506+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "0a05a89109c72c324548a99954294277aff6fdc22ff786aed1a3f41cac485239"
+        },
+        {
+          "path": "docs/archive/session_logs/README.md",
+          "basename": "README.md",
+          "size": 715,
+          "mtime": "2026-04-18T13:24:50.751505+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "fc87db01a269debc6f2b1823c1ca1df986947052efe5da33c2d35e0a7c9a3ecb"
+        },
+        {
+          "path": "fleet/README.md",
+          "basename": "README.md",
+          "size": 3388,
+          "mtime": "2026-04-18T13:24:50.751505+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "60351ae06e3d5016ee5bf131d198bd678ac0e6952ab20269dd6cd96758abe13f"
+        },
+        {
+          "path": "scripts/README.md",
+          "basename": "README.md",
+          "size": 22827,
+          "mtime": "2026-04-18T13:24:50.758074+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "ff79c5534576f3be4944bdf74534b858e0a8df6679461dd4f823d5d3879ea480"
+        },
+        {
+          "path": "scripts/agent_legion/README.md",
+          "basename": "README.md",
+          "size": 13009,
+          "mtime": "2026-04-18T13:24:50.758445+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "472ef9de4ca0ca7182feb770b2dc253832e08ce4195c45e362695b5fa367eeba"
+        },
+        {
+          "path": "scripts/citadel_grand_unification/README.md",
+          "basename": "README.md",
+          "size": 8726,
+          "mtime": "2026-04-18T13:24:50.760505+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "f4c54f7ba9146c053b6c8bc31ce5fa69af287aeca6d3269c9a58bcacaa7cf3cc"
+        },
+        {
+          "path": "scripts/mobile_citadel/README.md",
+          "basename": "README.md",
+          "size": 6720,
+          "mtime": "2026-04-18T13:24:50.764505+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "a9fad8ce66d4cad8d2562225285e8561cf4bbc378efbe3c3b0daa733602e66b2"
+        },
+        {
+          "path": "sentinel-scout-templates/README.md",
+          "basename": "README.md",
+          "size": 1382,
+          "mtime": "2026-04-18T13:24:50.771384+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "96fa7999f338521c1e74e0a98bceb7f680d33dd4cbd33380cd308b7683a3727e"
+        },
+        {
+          "path": "sync_reports/README.md",
+          "basename": "README.md",
+          "size": 264,
+          "mtime": "2026-04-18T13:24:50.773360+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "b2e89810d11d67919ec87cc42c958ec6b446d2b4abe7a0adf09bb443b4be9f1c"
+        },
+        {
+          "path": "system_manifest.json",
+          "basename": "system_manifest.json",
+          "size": 205,
+          "mtime": "2026-04-18T13:24:50.773522+00:00",
+          "semantic_purpose": "System Manifest",
+          "sha256": "052f3f14547068e8294c3ddd230f3e91b6a0323c8b69ee7f5a75c4705d9f867d"
+        },
+        {
+          "path": "tia-architect-core-templates/README.md",
+          "basename": "README.md",
+          "size": 4985,
+          "mtime": "2026-04-18T13:24:50.775420+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "fdd6c90bdfff76cfb24cda5c6e3faa96ed6529ac6db582e85b060201f4a6e395"
+        },
+        {
+          "path": "tia-architect-core-templates/workers/README.md",
+          "basename": "README.md",
+          "size": 7987,
+          "mtime": "2026-04-18T13:24:50.775746+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "a046840cad8188a6c2f53d929a6a0c097300a05b1ee70dc7e75e581257982546"
+        },
+        {
+          "path": "tia-citadel-templates/README.md",
+          "basename": "README.md",
+          "size": 1635,
+          "mtime": "2026-04-18T13:24:50.775836+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "ddf8c39aec571ef1d97d6ac4b824b0db1319ba942ec013b4b68f639c842bceb1"
+        },
+        {
+          "path": "vamguard_templates/README.md",
+          "basename": "README.md",
+          "size": 207,
+          "mtime": "2026-04-18T13:24:50.776511+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "dca88ebb3685c8bd078c0008102a663e511c492e113d160ae71f74b5cf099a2a"
+        },
+        {
+          "path": "workers/README.md",
+          "basename": "README.md",
+          "size": 1541,
+          "mtime": "2026-04-18T13:24:50.777391+00:00",
+          "semantic_purpose": "Documentation",
+          "sha256": "6cc3813a6360e7ef9f512303984235507b602362df400080f673937366b07aca"
+        }
+      ]
+    },
+    "semantic_purpose_summary": {
+      "total_files_classified": 106,
+      "purpose_counts": {
+        "Citadel Doc": 17,
+        "Manifest/Inventory": 4,
+        "RAG Component": 1,
+        "TIA Core": 5,
+        "Trading Logic": 7,
+        "unclassified": 72
+      }
+    },
+    "cross_repo_ingestion": {
+      "status": "not_available_in_sandbox",
+      "discovery_path": "fleet/fleet_discovery.json",
+      "discovery_exists": false,
+      "hint": "Run 'python scripts/total_fleet_crawler.py' on a workstation with GH_TOKEN (or GITHUB_TOKEN) set to populate fleet/fleet_discovery.json. The build script will then merge its output into 'fleet_map' on the next run."
+    }
   },
   "out_of_scope": [
     "credential mapping or relocation",

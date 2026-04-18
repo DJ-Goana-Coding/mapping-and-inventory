@@ -30,6 +30,16 @@ import sys
 from pathlib import Path
 from typing import Iterable
 
+# Support both ``python scripts/build_global_manifest.py`` (script mode) and
+# ``from scripts import build_global_manifest`` (package/namespace import).
+try:  # pragma: no cover - exercised by both modes
+    from . import rag_knowledge_base as _rkb
+except ImportError:  # script-mode fallback
+    _here = Path(__file__).resolve().parent
+    if str(_here) not in sys.path:
+        sys.path.insert(0, str(_here))
+    import rag_knowledge_base as _rkb  # type: ignore[no-redef]
+
 SCHEMA_VERSION = "1.0.0"
 
 # Directories never walked into.
@@ -551,6 +561,7 @@ def build_global_manifest(
         },
         "bypass_scripts_present": detect_bypass_scripts(root),
         "fleet_map": build_fleet_map(root),
+        "rag_knowledge_base": _rkb.build_rag_knowledge_base(root, _matches_secret),
         "out_of_scope": [
             "credential mapping or relocation",
             "creation of Partition_05..45 directories",

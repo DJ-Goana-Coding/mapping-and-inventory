@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "root": ".",
-  "file_count": 2072,
+  "file_count": 2070,
   "files": [
     {
       "path": ".dockerignore",
@@ -8126,7 +8126,7 @@
       "path": "data/models/models_manifest.json",
       "extension": ".json",
       "size": 426,
-      "sha256_16": "0512d825b9f6c59b",
+      "sha256_16": "7e24681c28d87204",
       "redacted": false
     },
     {
@@ -9429,20 +9429,6 @@
       "extension": ".json",
       "size": 1662,
       "sha256_16": "bdec0a746a80cbda",
-      "redacted": false
-    },
-    {
-      "path": "data/rag_sync/rag_payload_20260418_130638.json",
-      "extension": ".json",
-      "size": 1662,
-      "sha256_16": "a160eb058b3b8f37",
-      "redacted": false
-    },
-    {
-      "path": "data/rag_sync/rag_payload_20260418_130648.json",
-      "extension": ".json",
-      "size": 990,
-      "sha256_16": "e790d50589d87bfa",
       "redacted": false
     },
     {
@@ -11441,13 +11427,6 @@
       "redacted": false
     },
     {
-      "path": "data/vector_store/vector_store_faiss.json",
-      "extension": ".json",
-      "size": 4176,
-      "sha256_16": "c88af8a0ed2ac2b7",
-      "redacted": false
-    },
-    {
       "path": "data/vibration_love/vibration_love_system.json",
       "extension": ".json",
       "size": 2795,
@@ -11493,7 +11472,7 @@
       "path": "data/workers/workers_manifest.json",
       "extension": ".json",
       "size": 509,
-      "sha256_16": "e8b1b04962a5bef0",
+      "sha256_16": "d2583f6a224d346f",
       "redacted": false
     },
     {
@@ -12094,8 +12073,8 @@
     {
       "path": "scripts/build_global_manifest.py",
       "extension": ".py",
-      "size": 20993,
-      "sha256_16": "a871ed2c81775813",
+      "size": 21553,
+      "sha256_16": "364bebda1a5da983",
       "redacted": false
     },
     {
@@ -12747,6 +12726,13 @@
       "extension": ".py",
       "size": 10495,
       "sha256_16": "e6d1005dd7b6df3f",
+      "redacted": false
+    },
+    {
+      "path": "scripts/rag_knowledge_base.py",
+      "extension": ".py",
+      "size": 15702,
+      "sha256_16": "c26d56ef4254d571",
       "redacted": false
     },
     {
@@ -14201,8 +14187,8 @@
     {
       "path": "tests/test_global_manifest.py",
       "extension": ".py",
-      "size": 9125,
-      "sha256_16": "32d2595f0d5b97d2",
+      "size": 14359,
+      "sha256_16": "cfeb8176ad92b585",
       "redacted": false
     },
     {
