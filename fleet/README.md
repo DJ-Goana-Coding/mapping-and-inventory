@@ -123,3 +123,39 @@ files, skips binary payloads, and truncates per-file content at
 flag on any cut record). It is intended to feed downstream RAG
 runtimes; it is **not** consumed by `build_global_manifest.py` and
 does not change the shape of `global_manifest.json`.
+
+## Synaptic topology map (operator-only)
+
+`fleet_topology.json` (with a companion `fleet_topology.md` summary)
+is an *optional* artifact produced by `scripts/topology_mapper.py`. It
+maps **existing infrastructure** across every sibling repo — it does
+not vacuum or harvest text. For each repo it enumerates the file tree
+in one `git/trees?recursive=1` call and classifies entries into three
+buckets:
+
+* **bridges/tunnels** — `rclone*.conf`, `*webhook*`, `*tunnel*`,
+  `CITADEL-BOT*`, anything under `bridge/` or `bridges/`.
+* **existing RAGs** — `faiss_index/*`, `*.faiss`, `vector_store/*`,
+  `chroma*/`, `embeddings/*`, `rag_*.json`, and `system_manifest.json`
+  / `manifest.json` / `global_manifest.json`.
+* **automated workers** — `.github/workflows/*.{yml,yaml}`,
+  `crontab*`, `*daemon*.{py,sh}`, `*worker*.{py,sh}`.
+
+Cross-repo edges are inferred by reading each `.github/workflows/*.yml`
+file (bounded by `--max-workflow-bytes` and `--max-workflows`) and
+scanning for references to other sibling repo names — either as
+`<owner>/<repo>` substrings or as standalone tokens. Each such mention
+becomes one edge:
+
+```json
+{"from": "Vortex", "to": "Pioneer-Trader",
+ "via": "github_workflow", "evidence": ".github/workflows/sync.yml"}
+```
+
+A repo with zero detected artifacts in all three categories is flagged
+`is_orphan: true` and listed in `topology["orphans"]`. The companion
+`fleet_topology.md` surfaces the orphan list and the edge list in
+operator-readable form. Like the other fleet tools the mapper is
+opt-in (requires `GH_TOKEN`/`GITHUB_TOKEN`), read-only, deterministic,
+and never fabricates artifacts, edges, or orphan flags without direct
+API evidence. It is not consumed by `build_global_manifest.py`.
