@@ -288,7 +288,7 @@ def _commit_one_file(
         return CommitFileResult(
             path=path,
             status="error",
-            detail=f"GET {get_resp.status_code}: {get_resp.text[:200]}",
+            detail=f"GitHub GET returned status {get_resp.status_code}",
         )
 
     payload: dict = {
@@ -320,7 +320,7 @@ def _commit_one_file(
     return CommitFileResult(
         path=path,
         status="error",
-        detail=f"PUT {put_resp.status_code}: {put_resp.text[:200]}",
+        detail=f"GitHub PUT returned status {put_resp.status_code}",
     )
 
 
@@ -341,10 +341,20 @@ def system_commit(
             detail="GH_TOKEN is not configured on the server.",
         )
 
-    # Defensive path validation — block traversal and absolute paths.
+    # Defensive path validation — block traversal, absolute paths, backslashes,
+    # control chars, and any '..' fragment anywhere in a segment.
     for f in req.files:
         norm = f.path.strip()
-        if not norm or norm.startswith("/") or ".." in norm.split("/"):
+        segments = norm.split("/")
+        invalid = (
+            not norm
+            or norm.startswith("/")
+            or "\\" in norm
+            or any(ord(c) < 0x20 for c in norm)
+            or any(seg in ("", ".", "..") for seg in segments)
+            or any(".." in seg for seg in segments)
+        )
+        if invalid:
             raise HTTPException(
                 status_code=400,
                 detail=f"Invalid file path: {f.path!r}",

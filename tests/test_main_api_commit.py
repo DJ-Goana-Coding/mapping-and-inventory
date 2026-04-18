@@ -42,7 +42,9 @@ def client():
 
 
 def test_command_deck_origin_in_allow_list_no_trailing_slash():
-    assert "https://citadel-nexus-private.vercel.app" in main_api.ALLOWED_ORIGINS
+    expected_origin = "https://citadel-nexus-private.vercel.app"
+    # Use equality membership (not substring) so this is an exact-match check.
+    assert any(o == expected_origin for o in main_api.ALLOWED_ORIGINS)
     for origin in main_api.ALLOWED_ORIGINS:
         assert not origin.endswith("/"), f"trailing slash on {origin!r}"
 
