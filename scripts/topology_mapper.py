@@ -53,6 +53,7 @@ from typing import Any, Iterable
 DEFAULT_OWNER = "DJ-Goana-Coding"
 DEFAULT_OUTPUT_REL = "fleet/fleet_topology.json"
 DEFAULT_REPORT_REL = "fleet/fleet_topology.md"
+DEFAULT_MISSING_REL = "fleet/missing_links.md"
 GITHUB_API = "https://api.github.com"
 USER_AGENT = "mapping-and-inventory-topology-mapper/1.0"
 
@@ -75,6 +76,19 @@ MAX_WORKFLOWS_PER_REPO = 25
 CAT_BRIDGE = "bridge"
 CAT_RAG = "rag"
 CAT_WORKER = "worker"
+CAT_HF = "hf_dataset"
+
+# Regex used to recover ``owner/name`` slugs from any text we read
+# (workflow YAML, repo description, manifest payloads). Restricted to
+# huggingface.co/datasets/ URLs to avoid false positives on model or
+# Space URLs.
+_HF_DATASET_RE = re.compile(
+    r"huggingface\.co/datasets/([A-Za-z0-9_.\-]+/[A-Za-z0-9_.\-]+)",
+    re.IGNORECASE,
+)
+# Topic marker convention used elsewhere in the repo (see
+# total_fleet_crawler.py): ``hf-dataset:<owner>/<name>``.
+_HF_TOPIC_PREFIX = "hf-dataset:"
 
 
 def _glob(*patterns: str):
@@ -137,6 +151,11 @@ ARTIFACT_RULES: tuple[tuple[Any, str, str], ...] = (
      "rag_manifest", CAT_RAG),
     (_basename_glob("system_manifest.json", "manifest.json", "global_manifest.json"),
      "system_manifest", CAT_RAG),
+
+    # --- Hugging Face dataset declarations (path-based) -------------------
+    (_basename_glob("datasets.json", "hf_dataset*.yml", "hf_dataset*.yaml",
+                    "huggingface*.yml", "huggingface*.yaml"),
+     "hf_dataset_declaration", CAT_HF),
 )
 
 
@@ -274,11 +293,12 @@ def fetch_workflow_text(
 # Per-repo classification + edge extraction
 # --------------------------------------------------------------------------- #
 def classify_paths(paths: Iterable[str]) -> dict[str, list[dict]]:
-    """Bucket ``paths`` into the three artifact categories (sorted)."""
+    """Bucket ``paths`` into the four artifact categories (sorted)."""
     buckets: dict[str, list[dict]] = {
         CAT_BRIDGE: [],
         CAT_RAG: [],
         CAT_WORKER: [],
+        CAT_HF: [],
     }
     for p in paths:
         result = classify_path(p)
@@ -316,6 +336,38 @@ def _extract_repo_references(
     return refs
 
 
+def _extract_hf_dataset_refs(text: str) -> set[str]:
+    """Return every ``owner/name`` HF dataset slug referenced in ``text``."""
+    if not text:
+        return set()
+    return {m.group(1) for m in _HF_DATASET_RE.finditer(text)}
+
+
+def _hf_refs_from_repo_meta(repo_meta: dict) -> set[str]:
+    """HF dataset slugs declared by the repo's GitHub metadata.
+
+    Sources:
+      * ``homepage`` (only if it is an HF dataset URL)
+      * ``description`` (literal HF dataset URL substring)
+      * ``topics`` containing ``hf-dataset:<owner>/<name>`` markers
+    """
+    refs: set[str] = set()
+    homepage = repo_meta.get("homepage")
+    if isinstance(homepage, str):
+        refs |= _extract_hf_dataset_refs(homepage)
+    description = repo_meta.get("description")
+    if isinstance(description, str):
+        refs |= _extract_hf_dataset_refs(description)
+    topics = repo_meta.get("topics")
+    if isinstance(topics, list):
+        for t in topics:
+            if isinstance(t, str) and t.lower().startswith(_HF_TOPIC_PREFIX):
+                slug = t.split(":", 1)[1].strip()
+                if "/" in slug:
+                    refs.add(slug)
+    return refs
+
+
 def extract_workflow_edges(
     owner: str,
     repo_name: str,
@@ -325,10 +377,18 @@ def extract_workflow_edges(
     opener: Any = None,
     max_workflows: int = MAX_WORKFLOWS_PER_REPO,
     max_bytes: int = MAX_WORKFLOW_BYTES,
-) -> list[dict]:
-    """For each workflow, return edges referencing other sibling repos."""
+) -> tuple[list[dict], list[dict]]:
+    """For each workflow, return ``(edges, hf_records)``.
+
+    ``edges`` are sibling-repo references (``{from, to, via, evidence}``).
+    ``hf_records`` are HF dataset slugs literally referenced by the
+    workflow YAML (``{repo_id, evidence}``). Both lists are deduped on
+    ``(target, evidence)`` and sorted for determinism.
+    """
     edges: list[dict] = []
-    seen: set[tuple[str, str, str]] = set()
+    hf_records: list[dict] = []
+    seen_edges: set[tuple[str, str, str]] = set()
+    seen_hf: set[tuple[str, str]] = set()
     # Cap how many workflow files we read per repo.
     for path in sorted(workflow_paths)[:max_workflows]:
         text = fetch_workflow_text(
@@ -339,16 +399,24 @@ def extract_workflow_edges(
         refs = _extract_repo_references(text, owner, sibling_names, repo_name)
         for target in refs:
             key = (repo_name, target, path)
-            if key in seen:
+            if key in seen_edges:
                 continue
-            seen.add(key)
+            seen_edges.add(key)
             edges.append({
                 "from": repo_name,
                 "to": target,
                 "via": "github_workflow",
                 "evidence": path,
             })
-    return edges
+        for slug in _extract_hf_dataset_refs(text):
+            key_hf = (slug, path)
+            if key_hf in seen_hf:
+                continue
+            seen_hf.add(key_hf)
+            hf_records.append({"repo_id": slug, "evidence": path})
+    edges.sort(key=lambda e: (e["from"], e["to"], e["evidence"]))
+    hf_records.sort(key=lambda r: (r["repo_id"], r["evidence"]))
+    return edges, hf_records
 
 
 # --------------------------------------------------------------------------- #
@@ -391,7 +459,7 @@ def build_topology(
             a["path"] for a in artifacts[CAT_WORKER]
             if a["kind"] == "github_workflow"
         ]
-        edges = extract_workflow_edges(
+        edges, workflow_hf_records = extract_workflow_edges(
             owner,
             name,
             workflow_paths,
@@ -403,7 +471,38 @@ def build_topology(
         )
         all_edges.extend(edges)
 
-        artifact_total = sum(len(v) for v in artifacts.values())
+        # Aggregate HF dataset references for this node, deduped on
+        # (repo_id, evidence). Sources: GitHub repo metadata + the
+        # workflow scan we already paid for above. We never invent
+        # repo_id values — every record cites its evidence.
+        hf_seen: set[tuple[str, str]] = set()
+        hf_datasets: list[dict] = []
+        for slug in sorted(_hf_refs_from_repo_meta(repo_meta)):
+            key = (slug, "github_metadata")
+            if key in hf_seen:
+                continue
+            hf_seen.add(key)
+            hf_datasets.append({"repo_id": slug, "evidence": "github_metadata"})
+        for record in workflow_hf_records:
+            key = (record["repo_id"], record["evidence"])
+            if key in hf_seen:
+                continue
+            hf_seen.add(key)
+            hf_datasets.append(record)
+        hf_datasets.sort(key=lambda r: (r["repo_id"], r["evidence"]))
+
+        # Cross-repo edges to HF datasets: one per (slug, evidence).
+        for record in hf_datasets:
+            all_edges.append({
+                "from": name,
+                "to": f"hf://{record['repo_id']}",
+                "via": "hf_dataset_reference",
+                "evidence": record["evidence"],
+            })
+
+        artifact_total = (
+            sum(len(v) for v in artifacts.values()) + len(hf_datasets)
+        )
         node = {
             "repo": name,
             "github_url": repo_meta.get("html_url")
@@ -415,7 +514,9 @@ def build_topology(
                 "bridges": artifacts[CAT_BRIDGE],
                 "rags": artifacts[CAT_RAG],
                 "workers": artifacts[CAT_WORKER],
+                "hf_datasets_paths": artifacts[CAT_HF],
             },
+            "hf_datasets": hf_datasets,
             "artifact_count": artifact_total,
             "is_orphan": artifact_total == 0,
         }
@@ -430,6 +531,7 @@ def build_topology(
         "bridge_artifacts": sum(len(n["artifacts"]["bridges"]) for n in nodes),
         "rag_artifacts": sum(len(n["artifacts"]["rags"]) for n in nodes),
         "worker_artifacts": sum(len(n["artifacts"]["workers"]) for n in nodes),
+        "hf_dataset_references": sum(len(n["hf_datasets"]) for n in nodes),
         "edge_count": len(all_edges),
         "orphan_count": len(orphans),
     }
@@ -461,7 +563,8 @@ def render_markdown(topology: dict) -> str:
         f"- **Bridges/tunnels:** {s['bridge_artifacts']}",
         f"- **Existing RAGs:** {s['rag_artifacts']}",
         f"- **Automated workers:** {s['worker_artifacts']}",
-        f"- **Cross-repo workflow edges:** {s['edge_count']}",
+        f"- **HF dataset references:** {s.get('hf_dataset_references', 0)}",
+        f"- **Cross-repo edges:** {s['edge_count']}",
         f"- **Orphan nodes:** {s['orphan_count']}",
         "",
         "## Orphan nodes",
@@ -469,8 +572,8 @@ def render_markdown(topology: dict) -> str:
     ]
     if topology["orphans"]:
         lines.append(
-            "These repositories have no detected bridges, RAGs, or "
-            "workers — they are isolated nodes waiting for a bridge."
+            "These repositories have no detected bridges, RAGs, workers, "
+            "or HF datasets — they are isolated nodes waiting for a bridge."
         )
         lines.append("")
         for name in topology["orphans"]:
@@ -488,7 +591,152 @@ def render_markdown(topology: dict) -> str:
                 f"(`{e['evidence']}`)"
             )
     else:
-        lines.append("_No cross-repo workflow references detected._")
+        lines.append("_No cross-repo references detected._")
+    lines.append("")
+    return "\n".join(lines)
+
+
+# --------------------------------------------------------------------------- #
+# Missing-link audit (broken bridges / orphans / disconnected datasets)
+# --------------------------------------------------------------------------- #
+def audit_missing_links(topology: dict) -> dict:
+    """Categorise gaps in the topology. Pure function over the JSON.
+
+    Categories (each backed by direct evidence already in ``topology``):
+
+    * ``orphans`` — nodes with zero artifacts in every category.
+    * ``source_only`` — nodes with workers but no bridge / RAG / HF
+      dataset to talk through. A "worker with nothing to say."
+    * ``sink_only`` — nodes with a bridge / RAG / HF dataset but no
+      worker to invoke them. A "brain with no nervous system."
+    * ``edges_to_orphan_targets`` — edges whose ``to`` is a sibling
+      node listed in ``orphans``. The bridge lands nowhere.
+    """
+    by_repo: dict[str, dict] = {n["repo"]: n for n in topology.get("nodes", [])}
+    orphans: list[str] = list(topology.get("orphans", []))
+    orphan_set = set(orphans)
+
+    source_only: list[str] = []
+    sink_only: list[str] = []
+    for node in topology.get("nodes", []):
+        if node["is_orphan"]:
+            continue  # already covered
+        a = node["artifacts"]
+        has_worker = bool(a["workers"])
+        has_outlet = bool(
+            a["bridges"] or a["rags"]
+            or a.get("hf_datasets_paths") or node.get("hf_datasets")
+        )
+        if has_worker and not has_outlet:
+            source_only.append(node["repo"])
+        elif has_outlet and not has_worker:
+            sink_only.append(node["repo"])
+
+    edges_to_orphan_targets: list[dict] = []
+    for edge in topology.get("edges", []):
+        target = edge.get("to", "")
+        # HF dataset edges have synthetic "hf://..." targets — skip;
+        # those are handled via sink_only on the source side.
+        if target.startswith("hf://"):
+            continue
+        if target in orphan_set and target in by_repo:
+            edges_to_orphan_targets.append(edge)
+
+    source_only.sort()
+    sink_only.sort()
+    edges_to_orphan_targets.sort(
+        key=lambda e: (e["from"], e["to"], e["evidence"])
+    )
+
+    return {
+        "orphans": orphans,
+        "source_only": source_only,
+        "sink_only": sink_only,
+        "edges_to_orphan_targets": edges_to_orphan_targets,
+        "summary": {
+            "orphan_count": len(orphans),
+            "source_only_count": len(source_only),
+            "sink_only_count": len(sink_only),
+            "broken_edge_count": len(edges_to_orphan_targets),
+        },
+    }
+
+
+def render_missing_links(topology: dict, audit: dict | None = None) -> str:
+    """Render the focused gap audit as Markdown."""
+    if audit is None:
+        audit = audit_missing_links(topology)
+    s = audit["summary"]
+    total = (
+        s["orphan_count"]
+        + s["source_only_count"]
+        + s["sink_only_count"]
+        + s["broken_edge_count"]
+    )
+    lines: list[str] = [
+        "# Missing links",
+        "",
+        "Broken bridges, orphaned repositories, and disconnected datasets "
+        "across the Citadel fleet. Every entry is backed by direct evidence "
+        "in `fleet/fleet_topology.json` — nothing here is invented.",
+        "",
+        f"- **Owner:** `{topology['owner']}`",
+        f"- **Generated at:** {topology['generated_at']}",
+        f"- **Total gap items:** {total}",
+        "",
+        "## Orphan repositories",
+        "",
+        "_Repos with **no** detected bridges, RAGs, workers, or HF datasets._",
+        "",
+    ]
+    if audit["orphans"]:
+        for name in audit["orphans"]:
+            lines.append(f"- `{name}` — needs at least one bridge, worker, "
+                         "or RAG before T.I.A. can route through it.")
+    else:
+        lines.append("_None._")
+    lines += [
+        "",
+        "## Source-only nodes (workers with nothing to talk to)",
+        "",
+        "_Repos that have automated workers but no bridge, RAG, or HF "
+        "dataset attached. The worker fires into the void._",
+        "",
+    ]
+    if audit["source_only"]:
+        for name in audit["source_only"]:
+            lines.append(f"- `{name}` — wire a bridge / RAG / HF dataset.")
+    else:
+        lines.append("_None._")
+    lines += [
+        "",
+        "## Sink-only nodes (data with no worker)",
+        "",
+        "_Repos with a bridge, RAG, or HF dataset but no automated worker "
+        "to invoke them. The data sits cold._",
+        "",
+    ]
+    if audit["sink_only"]:
+        for name in audit["sink_only"]:
+            lines.append(f"- `{name}` — add a workflow / cron / daemon.")
+    else:
+        lines.append("_None._")
+    lines += [
+        "",
+        "## Broken edges (bridges that land on orphans)",
+        "",
+        "_Workflow references that point at a sibling repo which itself has "
+        "no infrastructure to receive the call._",
+        "",
+    ]
+    if audit["edges_to_orphan_targets"]:
+        for e in audit["edges_to_orphan_targets"]:
+            lines.append(
+                f"- `{e['from']}` → `{e['to']}` via {e['via']} "
+                f"(`{e['evidence']}`) — target is an orphan."
+            )
+    else:
+        lines.append("_None._")
     lines.append("")
     return "\n".join(lines)
 
@@ -509,6 +757,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--report", type=Path, default=None,
         help=f"Path to Markdown companion (default: <repo>/{DEFAULT_REPORT_REL})",
+    )
+    parser.add_argument(
+        "--missing-links", type=Path, default=None, dest="missing_links",
+        help=f"Path to gap-audit Markdown (default: <repo>/{DEFAULT_MISSING_REL})",
     )
     parser.add_argument(
         "--root", type=Path,
@@ -545,6 +797,9 @@ def main(argv: list[str] | None = None) -> int:
 
     output: Path = args.output or (args.root.resolve() / DEFAULT_OUTPUT_REL)
     report: Path = args.report or (args.root.resolve() / DEFAULT_REPORT_REL)
+    missing: Path = (
+        args.missing_links or (args.root.resolve() / DEFAULT_MISSING_REL)
+    )
 
     try:
         topology = build_topology(
@@ -557,6 +812,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"topology_mapper: {exc}", file=sys.stderr)
         return 1
 
+    audit = audit_missing_links(topology)
+
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
         json.dumps(topology, indent=2, ensure_ascii=False, sort_keys=True)
@@ -565,11 +822,15 @@ def main(argv: list[str] | None = None) -> int:
     )
     report.parent.mkdir(parents=True, exist_ok=True)
     report.write_text(render_markdown(topology), encoding="utf-8")
+    missing.parent.mkdir(parents=True, exist_ok=True)
+    missing.write_text(render_missing_links(topology, audit), encoding="utf-8")
     print(json.dumps({
         "owner": topology["owner"],
         "summary": topology["summary"],
+        "audit": audit["summary"],
         "output": str(output),
         "report": str(report),
+        "missing_links": str(missing),
     }, indent=2))
     return 0
 

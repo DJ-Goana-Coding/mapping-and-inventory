@@ -152,10 +152,47 @@ becomes one edge:
  "via": "github_workflow", "evidence": ".github/workflows/sync.yml"}
 ```
 
-A repo with zero detected artifacts in all three categories is flagged
-`is_orphan: true` and listed in `topology["orphans"]`. The companion
-`fleet_topology.md` surfaces the orphan list and the edge list in
-operator-readable form. Like the other fleet tools the mapper is
-opt-in (requires `GH_TOKEN`/`GITHUB_TOKEN`), read-only, deterministic,
-and never fabricates artifacts, edges, or orphan flags without direct
-API evidence. It is not consumed by `build_global_manifest.py`.
+**Hugging Face datasets** are tracked as a first-class infrastructure
+type. For every sibling the mapper records `node.hf_datasets` whenever
+it finds an evidence-backed reference to `huggingface.co/datasets/<owner>/<name>`
+in any of:
+
+- the GitHub `homepage` field,
+- the GitHub `description`,
+- a `topics` entry of the form `hf-dataset:<owner>/<name>`,
+- a workflow YAML file (same scan that produces cross-repo edges),
+- on-disk path-based declarations (`datasets.json`, `hf_dataset*.yml`,
+  `huggingface*.yml`/`yaml`).
+
+Each HF reference also produces a synthetic edge
+`{from: <repo>, to: "hf://<owner>/<name>", via: "hf_dataset_reference",
+evidence: <source>}` so the topology graph stays uniform.
+
+A repo with zero detected artifacts in **all four** categories
+(bridges, RAGs, workers, HF datasets) is flagged `is_orphan: true` and
+listed in `topology["orphans"]`. The companion `fleet_topology.md`
+surfaces the orphan and edge lists in operator-readable form.
+
+### Missing-link audit
+
+`fleet/missing_links.md` is a focused gap audit produced from the same
+run. It lists **only** the broken bridges, orphaned repositories, and
+disconnected datasets that need to be wired before T.I.A.'s neural
+network is whole:
+
+1. **Orphan repositories** — zero artifacts in any category.
+2. **Source-only nodes** — workers but no bridge / RAG / HF dataset to
+   talk through (a worker firing into the void).
+3. **Sink-only nodes** — bridge / RAG / HF dataset but no worker to
+   invoke them (data sitting cold).
+4. **Broken edges** — workflow references whose target sibling is
+   itself an orphan; the bridge lands nowhere.
+
+The audit is a **pure function over `fleet_topology.json`** — it
+invents nothing. Every gap entry traces back to evidence already in
+the topology JSON.
+
+Like the other fleet tools the mapper is opt-in (requires
+`GH_TOKEN`/`GITHUB_TOKEN`), read-only, deterministic, and never
+fabricates artifacts, edges, HF references, or orphan flags without
+direct API evidence. It is not consumed by `build_global_manifest.py`.

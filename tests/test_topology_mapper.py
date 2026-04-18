@@ -341,4 +341,212 @@ def test_topology_empty_owner(monkeypatch, tmp_path) -> None:
     assert data["summary"]["repos_scanned"] == 0
     md = rep.read_text()
     assert "No orphans detected" in md
-    assert "No cross-repo workflow references detected" in md
+    assert "No cross-repo references detected" in md
+
+
+# --------------------------------------------------------------------------- #
+# Hugging Face dataset detection
+# --------------------------------------------------------------------------- #
+def test_extract_hf_dataset_refs_from_text() -> None:
+    text = (
+        "uses: actions/checkout@v4\n"
+        "env:\n"
+        "  DS: https://huggingface.co/datasets/DJ-Goana-Coding/CITADEL_OMEGA_Inventory\n"
+        "  ALSO: huggingface.co/datasets/some-org/another_set\n"
+        "  MODEL: https://huggingface.co/some-org/not-a-dataset\n"
+    )
+    refs = tm._extract_hf_dataset_refs(text)
+    assert refs == {
+        "DJ-Goana-Coding/CITADEL_OMEGA_Inventory",
+        "some-org/another_set",
+    }
+
+
+def test_hf_refs_from_repo_metadata_sources() -> None:
+    repo_meta = {
+        "name": "Vortex",
+        "homepage": "https://huggingface.co/datasets/DJ-Goana-Coding/X",
+        "description": "See https://huggingface.co/datasets/Other/Y for more.",
+        "topics": ["ai", "hf-dataset:DJ-Goana-Coding/Z", "hf-dataset:bad"],
+    }
+    refs = tm._hf_refs_from_repo_meta(repo_meta)
+    assert refs == {
+        "DJ-Goana-Coding/X",
+        "Other/Y",
+        "DJ-Goana-Coding/Z",  # malformed "hf-dataset:bad" topic skipped
+    }
+
+
+def test_hf_dataset_path_classifier() -> None:
+    samples = {
+        "datasets.json": ("hf_dataset_declaration", tm.CAT_HF),
+        "config/hf_dataset_main.yml": ("hf_dataset_declaration", tm.CAT_HF),
+        "huggingface.yaml": ("hf_dataset_declaration", tm.CAT_HF),
+    }
+    for path, expected in samples.items():
+        assert tm.classify_path(path) == expected, path
+
+
+def test_topology_records_hf_datasets_from_workflows_and_metadata(
+    monkeypatch, tmp_path
+) -> None:
+    monkeypatch.setenv("GH_TOKEN", "ghp_test")
+
+    repos = [
+        {
+            "name": "Vortex",
+            "default_branch": "main",
+            "homepage": "https://huggingface.co/datasets/DJ-Goana-Coding/V_DS",
+            "topics": ["hf-dataset:DJ-Goana-Coding/Extra"],
+        },
+    ]
+    trees = {"Vortex": _tree([".github/workflows/sync.yml"])}
+    workflows = {
+        ("Vortex", ".github/workflows/sync.yml"):
+            "env:\n  DS: https://huggingface.co/datasets/Other/Y\n",
+    }
+    out = tmp_path / "t.json"
+    with _install_fake_http(monkeypatch, repos, trees, workflows):
+        rc = tm.main([
+            "--root", str(tmp_path),
+            "--output", str(out),
+            "--report", str(tmp_path / "r.md"),
+            "--missing-links", str(tmp_path / "m.md"),
+        ])
+    assert rc == 0
+    node = json.loads(out.read_text())["nodes"][0]
+    slugs = {r["repo_id"] for r in node["hf_datasets"]}
+    assert slugs == {
+        "DJ-Goana-Coding/V_DS",       # from homepage
+        "DJ-Goana-Coding/Extra",      # from topics
+        "Other/Y",                    # from workflow YAML
+    }
+    # Each record must cite its evidence (no fabrication).
+    for r in node["hf_datasets"]:
+        assert r["evidence"]
+    # And the topology grew an hf_dataset_reference edge per record.
+    edges = json.loads(out.read_text())["edges"]
+    hf_edges = [e for e in edges if e["via"] == "hf_dataset_reference"]
+    assert {e["to"] for e in hf_edges} == {
+        "hf://DJ-Goana-Coding/V_DS",
+        "hf://DJ-Goana-Coding/Extra",
+        "hf://Other/Y",
+    }
+    # HF presence flips Vortex out of orphan status even with no other
+    # workers/RAGs apart from the workflow.
+    assert node["is_orphan"] is False
+
+
+# --------------------------------------------------------------------------- #
+# Missing-link audit
+# --------------------------------------------------------------------------- #
+def _node(name: str, *, workers=0, bridges=0, rags=0, hf=0) -> dict:
+    return {
+        "repo": name,
+        "github_url": f"https://github.com/x/{name}",
+        "default_branch": "main",
+        "status": "active",
+        "tree_truncated": False,
+        "artifacts": {
+            "bridges": [{"path": f"b{i}", "kind": "k"} for i in range(bridges)],
+            "rags":    [{"path": f"r{i}", "kind": "k"} for i in range(rags)],
+            "workers": [{"path": f"w{i}", "kind": "github_workflow"}
+                        for i in range(workers)],
+            "hf_datasets_paths": [],
+        },
+        "hf_datasets": [{"repo_id": f"o/d{i}", "evidence": "github_metadata"}
+                        for i in range(hf)],
+        "artifact_count": workers + bridges + rags + hf,
+        "is_orphan": (workers + bridges + rags + hf) == 0,
+    }
+
+
+def test_audit_missing_links_buckets_correctly() -> None:
+    topology = {
+        "owner": "x",
+        "generated_at": "2026-04-18T00:00:00+00:00",
+        "summary": {},
+        "nodes": [
+            _node("Orphan"),                        # → orphan
+            _node("OnlyWorker", workers=1),         # → source_only
+            _node("OnlyBridge", bridges=1),         # → sink_only
+            _node("OnlyRag", rags=1),               # → sink_only
+            _node("OnlyHF", hf=1),                  # → sink_only
+            _node("Healthy", workers=1, bridges=1), # excluded
+        ],
+        "edges": [
+            {"from": "Healthy", "to": "Orphan", "via": "github_workflow",
+             "evidence": ".github/workflows/x.yml"},  # broken
+            {"from": "Healthy", "to": "OnlyWorker", "via": "github_workflow",
+             "evidence": ".github/workflows/y.yml"},  # ok
+            {"from": "Healthy", "to": "hf://o/d", "via": "hf_dataset_reference",
+             "evidence": "github_metadata"},          # hf edges ignored
+        ],
+        "orphans": ["Orphan"],
+    }
+    audit = tm.audit_missing_links(topology)
+    assert audit["orphans"] == ["Orphan"]
+    assert audit["source_only"] == ["OnlyWorker"]
+    assert audit["sink_only"] == ["OnlyBridge", "OnlyHF", "OnlyRag"]
+    assert len(audit["edges_to_orphan_targets"]) == 1
+    assert audit["edges_to_orphan_targets"][0]["to"] == "Orphan"
+    s = audit["summary"]
+    assert s["orphan_count"] == 1
+    assert s["source_only_count"] == 1
+    assert s["sink_only_count"] == 3
+    assert s["broken_edge_count"] == 1
+
+
+def test_render_missing_links_includes_all_sections() -> None:
+    topology = {
+        "owner": "x", "generated_at": "2026-04-18T00:00:00+00:00",
+        "summary": {}, "nodes": [_node("L")], "edges": [], "orphans": ["L"],
+    }
+    md = tm.render_missing_links(topology)
+    assert "# Missing links" in md
+    assert "## Orphan repositories" in md
+    assert "## Source-only nodes" in md
+    assert "## Sink-only nodes" in md
+    assert "## Broken edges" in md
+    assert "`L`" in md
+    # Empty sections render `_None._` rather than being silently dropped.
+    assert md.count("_None._") == 3  # source_only, sink_only, broken_edges
+
+
+def test_render_missing_links_all_clean() -> None:
+    topology = {
+        "owner": "x", "generated_at": "2026-04-18T00:00:00+00:00",
+        "summary": {},
+        "nodes": [_node("Healthy", workers=1, rags=1)],
+        "edges": [], "orphans": [],
+    }
+    md = tm.render_missing_links(topology)
+    # All four sections should report _None._
+    assert md.count("_None._") == 4
+
+
+def test_main_writes_missing_links_file(monkeypatch, tmp_path) -> None:
+    monkeypatch.setenv("GH_TOKEN", "ghp_test")
+    repos = [
+        {"name": "Healthy", "default_branch": "main"},
+        {"name": "Lonely", "default_branch": "main"},
+    ]
+    trees = {
+        "Healthy": _tree([".github/workflows/x.yml", "bridge/g.py"]),
+        "Lonely": _tree(["README.md"]),
+    }
+    out = tmp_path / "t.json"
+    rep = tmp_path / "t.md"
+    miss = tmp_path / "missing.md"
+    with _install_fake_http(monkeypatch, repos, trees, {}):
+        rc = tm.main([
+            "--root", str(tmp_path),
+            "--output", str(out),
+            "--report", str(rep),
+            "--missing-links", str(miss),
+        ])
+    assert rc == 0
+    assert miss.exists()
+    content = miss.read_text()
+    assert "# Missing links" in content
+    assert "`Lonely`" in content
