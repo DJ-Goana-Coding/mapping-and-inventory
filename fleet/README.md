@@ -95,3 +95,31 @@ Neither this build script nor `ignite_tia.py` ever performs network I/O
 to verify these gates — they remain `false` until you (the operator)
 write the receipt after personally confirming the condition. This keeps
 the manifest truthful and CI-safe.
+
+## Cross-repo RAG corpus (operator-only)
+
+`fleet_corpus.jsonl` is an *optional* JSON-lines artifact produced by
+`scripts/cross_repo_rag_ingest.py`. It contains the literal text of a
+fixed allow-list of documentation/manifest "bibles" across every sibling
+repository owned by the configured GitHub user/org (default
+`DJ-Goana-Coding`):
+
+* `README.md`
+* `ARCHITECTURE.md`
+* `system_manifest.json`
+* `manifest.json`
+* `FOUNDATION_MANIFEST.md`
+
+Each line is one record:
+
+```json
+{"repo": "Vortex", "path": "README.md", "sha": "<git blob sha>", "content": "..."}
+```
+
+The ingester is **opt-in** (requires `GH_TOKEN` or `GITHUB_TOKEN`),
+read-only over the GitHub REST API, never invents records for missing
+files, skips binary payloads, and truncates per-file content at
+256 KiB (configurable via `--max-bytes`, with a `truncated: true`
+flag on any cut record). It is intended to feed downstream RAG
+runtimes; it is **not** consumed by `build_global_manifest.py` and
+does not change the shape of `global_manifest.json`.
