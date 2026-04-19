@@ -22,6 +22,8 @@ if "services.rag_hub" not in sys.modules:
         raise RuntimeError("rag hub disabled in tests")
 
     rag_stub.get_hub = _get_hub_stub
+    rag_stub.DEVICE_FRAGMENT_GLOBS = ()  # added: required by main_api.py and telemetry_bridge.py
+    rag_stub.REPO_ROOT = __import__("pathlib").Path(__file__).resolve().parent.parent
     sys.modules["services.rag_hub"] = rag_stub
     setattr(services_pkg, "rag_hub", rag_stub)
 
