@@ -38,7 +38,7 @@ import hmac
 import logging
 import os
 from contextlib import asynccontextmanager
-from typing import List, Optional
+from typing import List, Optional, Set
 
 import requests
 from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Query, Request
@@ -95,12 +95,52 @@ app = FastAPI(
 # trailing slash so browser preflights succeed for the live operator UI.
 CITADEL_COMMAND_DECK_ORIGIN = "https://citadel-nexus-private.vercel.app"
 
-ALLOWED_ORIGINS: List[str] = [
+# Static defaults — the command-deck origin is always guaranteed regardless
+# of any operator-supplied env override.
+_DEFAULT_ALLOWED_ORIGINS: List[str] = [
     CITADEL_COMMAND_DECK_ORIGIN,
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:7860",
 ]
+
+
+def _load_allowed_origins() -> List[str]:
+    """Merge the static defaults with the ``ALLOWED_ORIGINS`` env secret.
+
+    ``ALLOWED_ORIGINS`` (set in the Mapping Hub secret store and mirrored to
+    every spoke) is a comma- or whitespace-separated list of origin URLs.
+    Entries with a trailing slash are normalised to the no-slash form so
+    browser preflights still match. Duplicates are deduplicated while
+    preserving insertion order. The Vercel command-deck origin is always
+    guaranteed to be present.
+    """
+    merged: List[str] = []
+    seen: Set[str] = set()
+
+    def _add(origin: str) -> None:
+        cleaned = origin.strip().rstrip("/")
+        if cleaned and cleaned not in seen:
+            seen.add(cleaned)
+            merged.append(cleaned)
+
+    for origin in _DEFAULT_ALLOWED_ORIGINS:
+        _add(origin)
+
+    raw = os.getenv("ALLOWED_ORIGINS", "")
+    if raw:
+        # Split on commas or whitespace so either format works.
+        for token in raw.replace("\n", ",").split(","):
+            _add(token)
+
+    # Defensive: if a misconfigured env override somehow stripped the deck,
+    # restore it. The Vercel HUD must always be allowed.
+    if CITADEL_COMMAND_DECK_ORIGIN not in seen:
+        _add(CITADEL_COMMAND_DECK_ORIGIN)
+    return merged
+
+
+ALLOWED_ORIGINS: List[str] = _load_allowed_origins()
 
 app.add_middleware(
     CORSMiddleware,

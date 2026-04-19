@@ -3,15 +3,16 @@
 # Streamlit faceplate (app.py) together inside the HF Space container.
 #
 # Streamlit owns port 7860 (HF Space user-facing port).
-# FastAPI sidecar owns port 8000 (container-internal API gateway for
-# /v1/ingest and /v1/query).
+# FastAPI sidecar owns port 10000 (the SOVEREIGN_HUD_ALIGNMENT v26.59
+# "PORT_RESONANCE_WELD" frequency required for the Vercel Command Deck
+# to recognize the node). Override with API_PORT if needed.
 #
 # Both processes share the same data/vector_store/ FAISS index. If either
 # child exits, the container exits so HF Spaces will restart it.
 
 set -euo pipefail
 
-API_PORT="${API_PORT:-8000}"
+API_PORT="${API_PORT:-10000}"
 UI_PORT="${UI_PORT:-7860}"
 
 echo "════════════════════════════════════════════════════════════"
