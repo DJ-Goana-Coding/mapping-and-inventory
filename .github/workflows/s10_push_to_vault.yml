@@ -102,6 +102,7 @@ jobs:
           echo "📊 Updating worker_status.json..."
           python3 -c "
           import json
+          import os
           import datetime
           
           if os.path.exists('worker_status.json'):

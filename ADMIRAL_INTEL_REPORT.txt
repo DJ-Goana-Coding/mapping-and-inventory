@@ -1,0 +1,168 @@
+================================================================================
+  ADMIRAL INTEL REPORT — mapping-and-inventory (Citadel Librarian Hub)
+  Generated: 2026-04-19
+================================================================================
+
+This report documents exactly what is missing, broken, or unfinished in this
+repository for the Admiral orchestrating the autonomous build.
+
+--------------------------------------------------------------------------------
+SECTION 1 — REQUIRED ENVIRONMENT VARIABLES (HF Space Secrets)
+--------------------------------------------------------------------------------
+
+  MISSING / UNSET:
+  ┌─────────────────────────────┬────────────┬─────────────────────────────────────────────────────┐
+  │ Variable                    │ Priority   │ Purpose                                             │
+  ├─────────────────────────────┼────────────┼─────────────────────────────────────────────────────┤
+  │ HF_TOKEN                    │ CRITICAL   │ Auth gate for POST /v1/system/commit and HF API     │
+  │ GH_TOKEN / GITHUB_TOKEN     │ CRITICAL   │ GitHub Contents API for all commit operations       │
+  │ GEMINI_API_KEY              │ CRITICAL   │ T.I.A. chat, Coding Agent, all Gemini calls         │
+  │ GITHUB_WEBHOOK_SECRET       │ HIGH       │ HMAC validation for POST /v1/webhook/github         │
+  │ GDRIVE_SERVICE_ACCOUNT_JSON │ HIGH       │ Google Drive rclone auth (GDrive tab in Streamlit)  │
+  │ RCLONE_CONFIG_DATA          │ HIGH       │ rclone.conf base64 blob for workflows               │
+  │ GEMINI_API_KEY_2            │ MEDIUM     │ Failover Gemini key #2 for rate-limit rotation      │
+  │ GEMINI_API_KEY_3            │ MEDIUM     │ Failover Gemini key #3                              │
+  │ HF_WEBHOOK_MAPPING          │ MEDIUM     │ Webhook URL so HF Space pulls on GitHub push        │
+  └─────────────────────────────┴────────────┴─────────────────────────────────────────────────────┘
+
+  HOW TO CHECK (without leaking values):
+    curl https://<space-url>:8000/v1/system/status
+    → "tokens" section shows booleans for HF_TOKEN, GH_TOKEN, GEMINI_API_KEY,
+      and GITHUB_WEBHOOK_SECRET.
+
+--------------------------------------------------------------------------------
+SECTION 2 — MISSING FILES / DEAD ENDS
+--------------------------------------------------------------------------------
+
+  1. data/vector_store/harvest.index
+     STATUS: Gitignored — does not exist on cold container start.
+     IMPACT: GET /v1/stats returns {"loaded": false}. Queries return empty.
+     FIX:    POST /v1/ingest after every container rebuild.  start_hub.sh
+             already attempts this automatically if the file is absent.
+
+  2. Partition_01/oppo_node.py
+     STATUS: Referenced by services/worker_bridge.py line 243 — the file EXISTS
+             in Partition_01/ so this dead-end is now RESOLVED.
+     ACTION: No change needed.
+
+  3. Research/S10/ directory
+     STATUS: Referenced in s10_push_to_vault.yml but directory does not yet
+             exist in the repo.
+     FIX:    Create the directory with a .gitkeep or let the S10 device create
+             it on first push.
+
+  4. data/master_harvest/INDEX.md
+     STATUS: Listed in DEFAULT_FRAGMENT_GLOBS — file does not exist yet.
+     IMPACT: Warning in reindex log; silently skipped (non-fatal).
+     FIX:    Either create a stub INDEX.md or remove from globs.
+
+  5. scripts/s10_push_to_vault.yml — Python block missing `import os`
+     STATUS: The Update Worker Status step runs Python code that calls
+             `os.path.exists` but `import os` is absent from the inline script.
+     IMPACT: Workflow step will fail with NameError: name 'os' is not defined.
+     FIX:    Add `import os` before the `if os.path.exists(...)` line in the
+             YAML Python block.
+
+  6. CITADEL_COMMAND_DECK_ORIGIN hardcoded in main_api.py
+     STATUS: set to "https://citadel-nexus-private.vercel.app".
+     IMPACT: If the Vercel URL ever changes, browser CORS preflights fail.
+     FIX:    Move to CITADEL_COMMAND_DECK_URL env var with fallback.
+
+  7. GITHUB_WEBHOOK_SECRET not set → open webhook
+     STATUS: POST /v1/webhook/github accepts all requests when
+             GITHUB_WEBHOOK_SECRET is absent.
+     IMPACT: Any caller can trigger a reindex (low severity, but wasteful).
+     FIX:    Set GITHUB_WEBHOOK_SECRET in HF Space secrets and in the GitHub
+             repo webhook configuration.
+
+--------------------------------------------------------------------------------
+SECTION 3 — NAMING INCONSISTENCIES
+--------------------------------------------------------------------------------
+
+  VAMGUARD vs VANGUARD
+  ├── "VAMGUARD" appears in: Partition_01/, vamguard_templates/, VAMGUARD_TITAN/,
+  │   S10_VAMGUARD_TECHNOLOGY_ARSENAL.md, and ~20 other markdown files.
+  └── "VANGUARD" appears in: Partition_01/vanguard_v*.py (the actual code files).
+  RESOLUTION: These are the SAME technology. VAMGUARD = documentation/branding name.
+              VANGUARD = code variable/class name. Do NOT rename either; treat them
+              as semantic aliases. The RAG system is now aware of this via LIBRARIAN_RAG_INGEST.md.
+
+  DJ-Goana-Coding vs DJ-Goanna-Coding
+  ├── GitHub org: DJ-Goana-Coding  (single 'n')
+  └── HF Space org: DJ-Goanna-Coding  (double 'n') — app.py line 60
+  RESOLUTION: Intentional — GitHub and HuggingFace accounts use different spellings.
+              Do not "fix" one to match the other.
+
+--------------------------------------------------------------------------------
+SECTION 4 — DEVICE NODE INTEGRATION STATUS
+--------------------------------------------------------------------------------
+
+  S10 Field Uplink (Mackay)
+  ├── Push path:     S10 → GDrive:CITADEL_OMEGA_INTEL/ → GitHub:S10_CITADEL_OMEGA_INTEL/
+  ├── Workflow:      .github/workflows/s10_push_to_vault.yml (manual dispatch only)
+  ├── RAG coverage:  ✅ Added — S10_CITADEL_OMEGA_INTEL/**/*.md + *.txt
+  ├── Auto-ingest:   ✅ POST /v1/webhook/github triggers reindex on S10 path changes
+  └── GAPS:          s10_push_to_vault.yml has missing `import os` bug (see Section 2 #5).
+                     Workflow is manual-dispatch only — no automatic trigger on device push.
+                     TO FIX: Add a `push:` trigger or schedule trigger to the workflow.
+
+  Oppo Librarian Node
+  ├── Push path:     Oppo → GitHub:Partition_01/ (direct Termux git push)
+  ├── Workflow:      No dedicated Oppo push workflow exists yet.
+  ├── RAG coverage:  ✅ Added — Partition_01/*.txt + *.md + *.json
+  ├── Auto-ingest:   ✅ POST /v1/webhook/github triggers reindex on Partition_01/ changes
+  └── GAPS:          No GitHub Actions workflow to validate/process Oppo pushes.
+                     Partition_01/aetheric_log.txt and deep_intel_log.txt are plain text
+                     logs — they WILL be indexed by the RAG as raw telemetry fragments.
+
+--------------------------------------------------------------------------------
+SECTION 5 — MISSING PERMISSIONS
+--------------------------------------------------------------------------------
+
+  • GitHub repo webhook must be configured to POST to:
+      https://<hf-space-api-url>/v1/webhook/github
+    with Secret = $GITHUB_WEBHOOK_SECRET and Content-Type = application/json.
+    Events: push (at minimum).
+
+  • HF Space must have "Allow internet access" enabled (it is enabled by default
+    for public Spaces; confirm for private Spaces).
+
+  • GH_TOKEN requires `contents:write` and `metadata:read` scopes to create/update
+    files via POST /v1/system/commit.
+
+  • GEMINI_API_KEY must have the "Generative Language API" enabled in Google Cloud.
+
+--------------------------------------------------------------------------------
+SECTION 6 — STRATEGIC NEXT STEPS (PRIORITY ORDER)
+--------------------------------------------------------------------------------
+
+  P1 — IMMEDIATE (blocks all device-ingest flows)
+  ☐ Set HF_TOKEN, GH_TOKEN, GEMINI_API_KEY in HF Space secrets.
+  ☐ Configure GitHub webhook → /v1/webhook/github with GITHUB_WEBHOOK_SECRET.
+  ☐ Fix `import os` bug in s10_push_to_vault.yml (Update Worker Status step).
+  ☐ Call POST /v1/ingest once after next container rebuild to seed the FAISS index.
+
+  P2 — HIGH (automates device intel flow end-to-end)
+  ☐ Create Research/S10/ directory with .gitkeep so S10 cargo path exists.
+  ☐ Add `push: branches: [main]` trigger to s10_push_to_vault.yml so S10 pushes
+    automatically sync without manual dispatch.
+  ☐ Create an oppo_push_to_vault.yml workflow mirroring s10_push_to_vault.yml for
+    the Oppo node (targeting Partition_01/).
+  ☐ Set GDRIVE_SERVICE_ACCOUNT_JSON for GDrive tab functionality.
+
+  P3 — MEDIUM (improves resilience and observability)
+  ☐ Set GEMINI_API_KEY_2 / _3 so Gemini key rotation has real failovers.
+  ☐ Set HF_WEBHOOK_MAPPING so HF Space pulls from GitHub instantly on push.
+  ☐ Move CITADEL_COMMAND_DECK_ORIGIN to CITADEL_COMMAND_DECK_URL env var.
+  ☐ Create data/master_harvest/INDEX.md stub to silence reindex warning.
+
+  P4 — LOW (polish and completeness)
+  ☐ Add exponential backoff around generate_content() calls (see Dev Trap #4
+    in LIBRARIAN_RAG_INGEST.md).
+  ☐ Build a GitHub Actions workflow that calls POST /v1/ingest/device after any
+    push to a device path, ensuring the FAISS index is always current.
+  ☐ Verify rclone is in packages.txt for GDrive functionality inside HF Space.
+
+================================================================================
+END OF ADMIRAL INTEL REPORT
+================================================================================

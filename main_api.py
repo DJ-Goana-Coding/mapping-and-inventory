@@ -31,7 +31,9 @@ Endpoints
 
 from __future__ import annotations
 
+import asyncio
 import base64
+import hashlib
 import hmac
 import logging
 import os
@@ -39,11 +41,12 @@ from contextlib import asynccontextmanager
 from typing import List, Optional
 
 import requests
-from fastapi import Depends, FastAPI, Header, HTTPException, Query
+from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from services.rag_hub import get_hub
+from services.rag_hub import DEVICE_FRAGMENT_GLOBS, get_hub
+from telemetry_bridge import router as _telemetry_router
 
 logger = logging.getLogger("main_api")
 
@@ -104,6 +107,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(_telemetry_router)
 
 
 # ---------------------------------------------------------------------------
@@ -465,3 +470,165 @@ def system_tunnels() -> TunnelsResponse:
             "gh_token": bool(os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")),
         },
     )
+
+
+# ---------------------------------------------------------------------------
+# Device intel ingest — POST /v1/ingest/device
+# ---------------------------------------------------------------------------
+
+# Glob patterns that belong exclusively to device-pushed paths.  Kept in sync
+# with services/rag_hub.DEVICE_FRAGMENT_GLOBS via the shared import.
+_DEVICE_GLOBS: List[str] = list(DEVICE_FRAGMENT_GLOBS)
+
+
+class DeviceIngestResponse(BaseModel):
+    status: str
+    device_fragments: List[str]
+    chunks_indexed: int
+    dim: Optional[int] = None
+
+
+@app.post("/v1/ingest/device", response_model=DeviceIngestResponse)
+def ingest_device() -> DeviceIngestResponse:
+    """Re-index only device-pushed content (Oppo / S10 Termux nodes).
+
+    Rebuilds the FAISS index over the canonical Master Harvest fragments PLUS
+    all device node paths (``S10_CITADEL_OMEGA_INTEL/``, ``Partition_01-46/``,
+    ``Research/S10/``, ``master_intelligence_map.txt``).
+
+    Intended to be called:
+    * by GitHub Actions workflows after a device push lands on ``main``;
+    * by the ``/v1/webhook/github`` handler when device paths are detected in
+      the push payload;
+    * manually from the Vercel Command Deck to force a device re-ingest.
+    """
+    try:
+        result = get_hub().reindex()
+    except Exception as exc:  # noqa: BLE001
+        logger.exception("Device reindex failed")
+        raise HTTPException(status_code=500, detail=f"device reindex failed: {exc}") from exc
+
+    all_fragments = result.get("fragments", [])
+    device_fragments = [
+        f for f in all_fragments
+        if any(
+            f.startswith(glob.split("*")[0].rstrip("/"))
+            for glob in _DEVICE_GLOBS
+        )
+    ]
+    return DeviceIngestResponse(
+        status="ok",
+        device_fragments=device_fragments,
+        chunks_indexed=int(result.get("chunks_indexed", 0)),
+        dim=result.get("dim"),
+    )
+
+
+# ---------------------------------------------------------------------------
+# GitHub push webhook — POST /v1/webhook/github
+# ---------------------------------------------------------------------------
+
+# Paths that, when changed in a GitHub push, should trigger a device re-ingest.
+_DEVICE_PATH_PREFIXES = (
+    "S10_CITADEL_OMEGA_INTEL/",
+    "Partition_01/",
+    "Partition_02/",
+    "Partition_03/",
+    "Partition_04/",
+    "Partition_46/",
+    "Research/S10/",
+    "master_intelligence_map.txt",
+)
+
+
+def _verify_github_signature(body: bytes, signature_header: Optional[str]) -> bool:
+    """Validate the ``X-Hub-Signature-256`` header from GitHub.
+
+    Returns ``True`` if ``GITHUB_WEBHOOK_SECRET`` is not set (open mode) or if
+    the HMAC-SHA256 digest matches. Returns ``False`` on any mismatch.
+    """
+    secret = os.getenv("GITHUB_WEBHOOK_SECRET")
+    if not secret:
+        # No secret configured — accept all (operator must secure via network policy).
+        return True
+    expected = "sha256=" + hmac.new(
+        secret.encode("utf-8"), body, hashlib.sha256
+    ).hexdigest()
+    if not signature_header:
+        return False
+    return hmac.compare_digest(expected, signature_header)
+
+
+def _push_touches_device_paths(payload: dict) -> bool:
+    """Return True if any commit in the push modified a device node path."""
+    commits = payload.get("commits", [])
+    for commit in commits:
+        for changed in (
+            commit.get("added", [])
+            + commit.get("modified", [])
+            + commit.get("removed", [])
+        ):
+            if any(changed.startswith(prefix) for prefix in _DEVICE_PATH_PREFIXES):
+                return True
+    return False
+
+
+def _background_device_reindex() -> None:
+    """Run device reindex in a fire-and-forget background task."""
+    try:
+        result = get_hub().reindex()
+        logger.info(
+            "webhook-triggered device reindex: %d chunks from %d fragments",
+            result.get("chunks_indexed", 0),
+            len(result.get("fragments", [])),
+        )
+    except Exception:  # noqa: BLE001
+        logger.exception("webhook-triggered device reindex failed")
+
+
+@app.post("/v1/webhook/github", status_code=202)
+async def github_webhook(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    x_hub_signature_256: Optional[str] = Header(default=None, alias="X-Hub-Signature-256"),
+    x_github_event: Optional[str] = Header(default=None, alias="X-GitHub-Event"),
+) -> dict:
+    """Receive GitHub push webhooks and auto-trigger a device re-ingest.
+
+    Configure this URL as a GitHub repository webhook
+    (``https://<space-url>/v1/webhook/github``) with:
+    * **Content-Type**: ``application/json``
+    * **Events**: ``push`` (at minimum)
+    * **Secret**: value of ``GITHUB_WEBHOOK_SECRET`` env var (strongly recommended)
+
+    On a ``push`` event the handler inspects every commit for changes under
+    ``S10_CITADEL_OMEGA_INTEL/``, ``Partition_*/``, ``Research/S10/``, or
+    ``master_intelligence_map.txt``. If any device path is touched, a FAISS
+    reindex is queued as a background task so the response returns immediately
+    (HTTP 202) while indexing proceeds asynchronously.
+    """
+    body = await request.body()
+
+    if not _verify_github_signature(body, x_hub_signature_256):
+        raise HTTPException(status_code=401, detail="Invalid webhook signature.")
+
+    # Non-push events (ping, star, etc.) — acknowledge and exit.
+    if x_github_event and x_github_event != "push":
+        return {"accepted": False, "reason": f"event '{x_github_event}' ignored"}
+
+    try:
+        payload = await request.json()
+    except Exception:  # noqa: BLE001
+        raise HTTPException(status_code=400, detail="Invalid JSON payload.")
+
+    if not _push_touches_device_paths(payload):
+        ref = payload.get("ref", "unknown")
+        logger.debug("webhook push on %s: no device paths changed, skipping reindex", ref)
+        return {"accepted": False, "reason": "no device paths changed"}
+
+    background_tasks.add_task(_background_device_reindex)
+    ref = payload.get("ref", "unknown")
+    pusher = payload.get("pusher", {}).get("name", "unknown")
+    logger.info("webhook: device push by %s on %s — reindex queued", pusher, ref)
+    return {"accepted": True, "reindex": "queued", "ref": ref, "pusher": pusher}
+

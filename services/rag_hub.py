@@ -50,6 +50,35 @@ EMBEDDING_DIM = 384  # MiniLM-L6-v2 fixed dimension
 # Cross-mesh weld: covers TIA, AETHER, generic harvest reports, and the
 # machine-readable manifest schema, so /v1/query can answer questions that
 # span every fragment family without further configuration.
+
+# Device node paths — content pushed to GitHub by the Oppo and S10 Termux nodes.
+# These are merged into DEFAULT_FRAGMENT_GLOBS so every cold-start reindex and
+# every explicit /v1/ingest call automatically picks up the latest device intel.
+DEVICE_FRAGMENT_GLOBS: Sequence[str] = (
+    # S10 Field Uplink intel (S10 → GDrive → GitHub flow per s10_push_to_vault.yml)
+    "S10_CITADEL_OMEGA_INTEL/**/*.md",
+    "S10_CITADEL_OMEGA_INTEL/**/*.txt",
+    # Oppo Librarian node builds and logs (Partition_01 = primary Oppo workspace)
+    "Partition_01/*.txt",
+    "Partition_01/*.md",
+    "Partition_01/*.json",
+    # S10 secondary partition
+    "Partition_02/*.md",
+    "Partition_02/*.txt",
+    # Additional device partitions (further Oppo/S10 builds)
+    "Partition_03/*.md",
+    "Partition_03/*.txt",
+    "Partition_04/*.md",
+    "Partition_04/*.txt",
+    "Partition_46/*.md",
+    "Partition_46/*.txt",
+    # Research/S10 cargo directory
+    "Research/S10/**/*.md",
+    "Research/S10/**/*.txt",
+    # Master intelligence map — aggregated device surveyor output
+    "master_intelligence_map.txt",
+)
+
 DEFAULT_FRAGMENT_GLOBS: Sequence[str] = (
     "TIA_MASTER_HARVEST.txt",
     "AETHER_HARVEST_COMPLETE.md",
@@ -57,6 +86,7 @@ DEFAULT_FRAGMENT_GLOBS: Sequence[str] = (
     "data/master_harvest_manifest.json",
     "data/AETHER_HARVEST_DISCOVERY_MANIFEST.json",
     "data/master_harvest/INDEX.md",
+    *DEVICE_FRAGMENT_GLOBS,
 )
 
 # Chunking parameters. Conservative defaults — small enough to keep the
