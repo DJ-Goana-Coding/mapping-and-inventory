@@ -15,3 +15,8 @@ faiss-cpu>=1.8.0
 fastapi>=0.110.0
 uvicorn>=0.27.0
 requests>=2.32.3
+# Google stack — activates GDrive tunnels and Sheets connectors
+gspread>=6.1.0
+google-auth>=2.29.0
+google-auth-oauthlib>=1.2.0
+google-api-python-client>=2.130.0

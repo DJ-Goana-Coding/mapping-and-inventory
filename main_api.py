@@ -22,6 +22,11 @@ Endpoints
                                 the GitHub Contents API. Authenticated with
                                 ``HF_TOKEN`` (header ``X-HF-Token``); commits
                                 are pushed using ``GH_TOKEN``.
+* ``GET  /v1/system/tunnels`` — Reachability probe for the Hugging Face,
+                                Google Drive and GitHub tunnels plus the
+                                presence (never the value) of ``HF_TOKEN``
+                                and ``GH_TOKEN``. The "Green Light" panel
+                                for the Vercel HUD.
 """
 
 from __future__ import annotations
@@ -30,6 +35,7 @@ import base64
 import hmac
 import logging
 import os
+from contextlib import asynccontextmanager
 from typing import List, Optional
 
 import requests
@@ -41,6 +47,29 @@ from services.rag_hub import get_hub
 
 logger = logging.getLogger("main_api")
 
+
+def _preflight_token_check() -> None:
+    """Log whether HF_TOKEN and GH_TOKEN are configured.
+
+    Only the *presence* (boolean) is ever logged — never the token value or
+    any prefix/suffix of it. This lets the Vercel HUD fail-fast on missing
+    credentials instead of waiting for a 503 on first commit attempt.
+    """
+    hf_present = bool(os.getenv("HF_TOKEN"))
+    gh_present = bool(os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN"))
+    logger.info(
+        "preflight: HF_TOKEN=%s GH_TOKEN=%s",
+        "present" if hf_present else "missing",
+        "present" if gh_present else "missing",
+    )
+
+
+@asynccontextmanager
+async def _lifespan(_app: FastAPI):
+    _preflight_token_check()
+    yield
+
+
 app = FastAPI(
     title="CITADEL OMEGA — Master Hub API",
     description=(
@@ -49,6 +78,7 @@ app = FastAPI(
         "Master Harvest fragments."
     ),
     version="1.0.0",
+    lifespan=_lifespan,
 )
 
 
@@ -178,6 +208,21 @@ class CommitResponse(BaseModel):
     repo: str
     branch: Optional[str]
     results: List[CommitFileResult]
+
+
+class TunnelStatus(BaseModel):
+    name: str
+    url: str
+    status: str  # "ok" | "unreachable" | "auth_required"
+    http_status: Optional[int] = None
+    detail: Optional[str] = None
+
+
+class TunnelsResponse(BaseModel):
+    huggingface: TunnelStatus
+    gdrive: TunnelStatus
+    github: TunnelStatus
+    tokens: dict
 
 
 # ---------------------------------------------------------------------------
@@ -374,3 +419,49 @@ def system_commit(
     ]
 
     return CommitResponse(repo=req.repo, branch=req.branch, results=results)
+
+
+# ---------------------------------------------------------------------------
+# Tunnel reachability probe — GET /v1/system/tunnels
+# ---------------------------------------------------------------------------
+
+
+def _probe_tunnel(name: str, url: str, timeout: float = 2.0) -> TunnelStatus:
+    """HEAD-probe an upstream tunnel and classify the result.
+
+    Any 2xx/3xx response is "ok". 401/403 is "auth_required" (the tunnel is
+    reachable, credentials are the only thing missing). Anything else —
+    timeouts, DNS errors, connection refused — is "unreachable".
+    """
+    try:
+        resp = requests.head(url, timeout=timeout, allow_redirects=True)
+    except requests.RequestException as exc:
+        return TunnelStatus(name=name, url=url, status="unreachable", detail=str(exc))
+
+    code = resp.status_code
+    if 200 <= code < 400:
+        status = "ok"
+    elif code in (401, 403):
+        status = "auth_required"
+    else:
+        status = "unreachable"
+    return TunnelStatus(name=name, url=url, status=status, http_status=code)
+
+
+@app.get("/v1/system/tunnels", response_model=TunnelsResponse)
+def system_tunnels() -> TunnelsResponse:
+    """Reachability probe for the three Vercel-HUD "Green Light" tunnels.
+
+    Probes Hugging Face, Google Drive, and GitHub with a short HEAD request
+    and reports per-tunnel status alongside the presence (never the value) of
+    ``HF_TOKEN`` and ``GH_TOKEN``.
+    """
+    return TunnelsResponse(
+        huggingface=_probe_tunnel("huggingface", "https://huggingface.co/"),
+        gdrive=_probe_tunnel("gdrive", "https://www.googleapis.com/drive/v3/about"),
+        github=_probe_tunnel("github", "https://api.github.com/"),
+        tokens={
+            "hf_token": bool(os.getenv("HF_TOKEN")),
+            "gh_token": bool(os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")),
+        },
+    )

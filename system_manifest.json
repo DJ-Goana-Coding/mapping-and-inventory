@@ -3,5 +3,6 @@
   "architect": "Chance",
   "version": "25.0.OMNI",
   "nodes": ["Ubuntu_Core", "Oppo_Termux", "S10_Uplink", "Laptop_Matrix"],
+  "role": "LIBRARIAN",
   "status": "STAINLESS"
 }
