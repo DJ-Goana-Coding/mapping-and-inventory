@@ -386,8 +386,12 @@ async def list_entities() -> Dict:
     return entities
 
 if __name__ == "__main__":
+    import os
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # PORT_WELD: standardise on the SOVEREIGN_HUD_ALIGNMENT v26.59 frequency
+    # (port 10000) so the Vercel Command Deck can recognise this node.
+    port = int(os.getenv("PORT") or os.getenv("API_PORT") or "10000")
+    uvicorn.run(app, host="0.0.0.0", port=port)
 '''
         
         api_path = self.rag_dir / "search_api.py"

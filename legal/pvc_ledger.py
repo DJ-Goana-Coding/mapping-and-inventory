@@ -169,31 +169,29 @@ class PvCLedger:
             "total_recovered_aud": self.total_recovered_aud(),
             "total_outstanding_aud": self.total_outstanding_aud(),
             "output_dir": str(self.output_dir),
-═══════════════════════════════════════════════════════════════════════════
-CITIZEN VS. CORRUPTION (PvC) LEDGER — The Sovereign Audit (v22.2121)
-═══════════════════════════════════════════════════════════════════════════
-Purpose: Forensic accountability ledger for trading & legal documentation
-Authority: Admiral Chance M.S. — OMNI-TIA Vascular Expansion
+        }
 
-Functions:
-  - generate_dossier():   Synthesise Washed Harvest data into reports
-  - track_demerits():     Log unjust levies (fines/demerit points)
-  - remediation_bot():    Auto-draft challenge letters (Sydney/QLD grid)
 
-Integration:
-  - Receives trade data from trading/harvest_moon.py
-  - Cross-references src/pvc_trigger_map.json
-  - Outputs to data/legal/dossiers/ and data/legal/challenges/
-═══════════════════════════════════════════════════════════════════════════
-"""
+# ═══════════════════════════════════════════════════════════════════════════
+# CITIZEN VS. CORRUPTION (PvC) LEDGER — The Sovereign Audit (v22.2121)
+# ═══════════════════════════════════════════════════════════════════════════
+# Purpose: Forensic accountability ledger for trading & legal documentation
+# Authority: Admiral Chance M.S. — OMNI-TIA Vascular Expansion
+#
+# Functions:
+#   - generate_dossier():   Synthesise Washed Harvest data into reports
+#   - track_demerits():     Log unjust levies (fines/demerit points)
+#   - remediation_bot():    Auto-draft challenge letters (Sydney/QLD grid)
+#
+# Integration:
+#   - Receives trade data from trading/harvest_moon.py
+#   - Cross-references src/pvc_trigger_map.json
+#   - Outputs to data/legal/dossiers/ and data/legal/challenges/
+# ═══════════════════════════════════════════════════════════════════════════
 
-import json
 import logging
 from dataclasses import dataclass, field, asdict
-from datetime import datetime, timezone
 from enum import Enum
-from pathlib import Path
-from typing import Optional
 
 # ═══════════════════════════════════════════════════════════════════════════
 # CONSTANTS — Relative Paths Only (Stainless Pipeline Rule #1)
@@ -772,12 +770,13 @@ class RemediationBot:
 # UNIFIED PVC LEDGER — Convenience Interface
 # ═══════════════════════════════════════════════════════════════════════════
 
-class PvCLedger:
+class PvCSovereignLedger:
     """
-    Unified Citizen vs. Corruption Ledger interface.
+    Unified Citizen vs. Corruption Sovereign Ledger interface.
 
     Combines dossier generation, demerit tracking, and automated
-    remediation into a single API.
+    remediation into a single API. Distinct from :class:`PvCLedger`
+    (the Person-vs-Camera dispute tracker defined above).
     """
 
     def __init__(self):
@@ -863,27 +862,18 @@ class PvCLedger:
 # CLI convenience
 # ---------------------------------------------------------------------------
 
-def main():
-    ledger = PvCLedger()
-    ledger.add_dispute("F001", amount_aud=800.0, description="Speed camera — Bruce Hwy", location="Sarina")
-    ledger.add_dispute("F002", amount_aud=450.0, description="Red-light camera — Sydney St")
-    ledger.resolve_dispute("F001", outcome="won")
-    ledger.resolve_dispute("F002", outcome="pending")
-
-    print("⚖️ PvC LEDGER — Status")
-    print(json.dumps(ledger.status(), indent=2))
 # ═══════════════════════════════════════════════════════════════════════════
 # MAIN — Boot Sequence
 # ═══════════════════════════════════════════════════════════════════════════
 
 def main():
-    """Boot the PvC Ledger and run a diagnostic cycle."""
+    """Boot the PvC Sovereign Ledger and run a diagnostic cycle."""
     logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     print("⚖️  PvC LEDGER — Sovereign Audit Ignition")
     print("=" * 60)
 
-    ledger = PvCLedger()
+    ledger = PvCSovereignLedger()
 
     # Diagnostic: Track a sample demerit
     result = ledger.full_pipeline(
