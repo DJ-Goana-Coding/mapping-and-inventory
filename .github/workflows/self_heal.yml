@@ -1,0 +1,105 @@
+name: 🛡 Self-Heal Circuit
+
+# QGTNL_TOTAL_SINGULARITY_WELD_v9293 §4 SELF_HEAL_CIRCUIT
+#
+# Thin meta-orchestrator that probes the live HF Space `/healthz` endpoint
+# on a schedule (and on demand) and dispatches the existing repair
+# workflows when the node returns a 5xx (e.g. 503 Service Unavailable) or
+# a configured secret is missing/expired.
+#
+# This workflow is intentionally NOT a duplicate of `autonomous_repair.yml`,
+# `emergency_repair_tia_core.yml`, `repair_all_spaces.yml`, or
+# `repair_tia_core_space.yml` — it only *triggers* them; it does not
+# re-implement repair logic.
+
+on:
+  schedule:
+    # Every 30 minutes — light health probe.
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual self-heal trigger'
+        required: false
+        default: 'manual'
+        type: string
+      force:
+        description: 'Force a repair dispatch even if /healthz returns 200'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: self-heal
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    name: Probe & dispatch repair on 503
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe /healthz
+        id: probe
+        env:
+          HEALTHZ_URL: ${{ vars.HEALTHZ_URL }}
+        run: |
+          set -u
+          url="${HEALTHZ_URL:-https://citadel-nexus-private.vercel.app/healthz}"
+          echo "Probing $url"
+          # --max-time bounds the probe; fail-soft so we always emit a status.
+          status=$(curl -sS -o /tmp/health.body -w "%{http_code}" \
+                   --max-time 15 "$url" || echo "000")
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          echo "Health probe HTTP status: $status"
+          head -c 2000 /tmp/health.body || true
+
+      - name: Decide
+        id: decide
+        env:
+          STATUS: ${{ steps.probe.outputs.status }}
+          FORCE: ${{ github.event.inputs.force }}
+        run: |
+          set -u
+          # Trigger repair on any 5xx, on connection failure (000), or if forced.
+          needs_repair="false"
+          case "$STATUS" in
+            5*|000) needs_repair="true" ;;
+          esac
+          if [ "$FORCE" = "true" ]; then
+            needs_repair="true"
+          fi
+          echo "needs_repair=$needs_repair" >> "$GITHUB_OUTPUT"
+          echo "Self-heal decision: needs_repair=$needs_repair (status=$STATUS, force=$FORCE)"
+
+      - name: Dispatch autonomous_repair.yml
+        if: steps.decide.outputs.needs_repair == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || github.token }}
+          STATUS: ${{ steps.probe.outputs.status }}
+        run: |
+          set -eu
+          echo "Triggering autonomous_repair.yml (mode=full) due to status=$STATUS"
+          gh workflow run autonomous_repair.yml \
+            --repo "$GITHUB_REPOSITORY" \
+            --ref "$GITHUB_REF_NAME" \
+            -f mode=full
+
+      - name: Summary
+        if: always()
+        env:
+          STATUS: ${{ steps.probe.outputs.status }}
+          NEEDS_REPAIR: ${{ steps.decide.outputs.needs_repair }}
+        run: |
+          {
+            echo "## 🛡 Self-Heal Circuit"
+            echo ""
+            echo "- Probe status: \`$STATUS\`"
+            echo "- Repair dispatched: \`$NEEDS_REPAIR\`"
+            echo ""
+            echo "_Triggers \`autonomous_repair.yml\` on 5xx / connection failure._"
+          } >> "$GITHUB_STEP_SUMMARY"

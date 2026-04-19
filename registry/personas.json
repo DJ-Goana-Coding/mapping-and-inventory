@@ -1,0 +1,31 @@
+{
+  "$schema": "./schema.json",
+  "version": "v9293.1",
+  "directive": "QGTNL_TOTAL_SINGULARITY_WELD_v9293 §5 SOVEREIGN_REGISTRY",
+  "personas": [
+    {
+      "id": "AION",
+      "display_name": "AION",
+      "toroidal_core": "Core_Alpha",
+      "functional_block": "Sovereign Cognition / Strategic Reasoning",
+      "primary_modules": ["services/ark_engine.py", "services/intel_summarizer.py"],
+      "notes": "Top-level reasoning persona. Owns long-horizon planning."
+    },
+    {
+      "id": "TIA",
+      "display_name": "T.I.A. (The Intelligent Architect)",
+      "toroidal_core": "Core_Beta",
+      "functional_block": "Architecture / Code Synthesis",
+      "primary_modules": ["main_api.py", "services/tia_connector.py", "services/coding_agent.py"],
+      "notes": "Owns the FastAPI gateway and code-commit pipeline. Bound to PORT 10000."
+    },
+    {
+      "id": "ORACLE",
+      "display_name": "Oracle",
+      "toroidal_core": "Core_Gamma",
+      "functional_block": "Retrieval / RAG / Knowledge Surfacing",
+      "primary_modules": ["services/rag_hub.py", "ingestion/universal_rag.py", "ingestion/rag_sync.py"],
+      "notes": "Owns FAISS index + retrieval. Read-only consumer of the vault."
+    }
+  ]
+}
