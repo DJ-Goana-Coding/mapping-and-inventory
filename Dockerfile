@@ -26,9 +26,10 @@ RUN mkdir -p data/spiritual_intelligence data/tarot_readings data/models \
 RUN chmod +x scripts/start_hub.sh
 
 # Streamlit faceplate (HF Space user-facing) on 7860.
-# FastAPI sidecar (/v1/ingest, /v1/query) on 8000, container-internal.
+# FastAPI sidecar (/v1/ingest, /v1/query, /v1/system/status) on 10000 —
+# the SOVEREIGN_HUD_ALIGNMENT v26.59 PORT_RESONANCE_WELD frequency.
 EXPOSE 7860
-EXPOSE 8000
+EXPOSE 10000
 
 # Multi-process weld: FastAPI sidecar + Streamlit HUD.
 CMD ["bash", "scripts/start_hub.sh"]
