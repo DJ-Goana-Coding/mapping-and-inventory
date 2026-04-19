@@ -1,0 +1,170 @@
+{
+  "manifest_version": "2.0.0",
+  "generated_at": "2026-04-19T15:41:28Z",
+  "hub": {
+    "name": "mapping-and-inventory",
+    "github_url": "https://github.com/DJ-Goana-Coding/mapping-and-inventory",
+    "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory",
+    "api_base": "https://DJ-Goanna-Coding-Mapping-and-Inventory.hf.space",
+    "ingest_endpoint": "/v1/bridge/ingest",
+    "heartbeat_endpoint": "/v1/bridge/heartbeat",
+    "status_endpoint": "/v1/system/status",
+    "auth_header": "X-Spoke-Token",
+    "auth_secret_env": "SPOKE_SHARED_SECRET"
+  },
+  "required_hub_secrets": {
+    "HF_TOKEN": "HuggingFace API token — auth gate for /v1/system/commit",
+    "GH_TOKEN": "GitHub PAT with contents:write — commit bridge",
+    "GEMINI_API_KEY": "Primary Gemini key — T.I.A. and Coding Agent",
+    "SPOKE_SHARED_SECRET": "Shared secret for /v1/bridge/* authentication",
+    "GITHUB_WEBHOOK_SECRET": "HMAC secret for /v1/webhook/github push events",
+    "GDRIVE_SERVICE_ACCOUNT_JSON": "GDrive service-account JSON for rclone auth",
+    "RCLONE_CONFIG_DATA": "rclone.conf base64 blob used by GH Actions workflows"
+  },
+  "spokes": {
+    "ARK-CORE": {
+      "role": "Sovereign Intelligence Engine / Device Sync Orchestrator",
+      "github_url": "https://github.com/DJ-Goana-Coding/ARK_CORE",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/ARK-CORE",
+      "required_secrets": ["GEMINI_API_KEY", "HF_TOKEN", "GH_TOKEN", "GDRIVE_SERVICE_ACCOUNT_JSON"],
+      "push_paths": ["Partition_01/", "Partition_02/", "data/"],
+      "ingest_trigger": "push",
+      "status": "integrated"
+    },
+    "TIA-ARCHITECT-CORE": {
+      "role": "T.I.A. Oracle / Primary AI Interface",
+      "github_url": "https://github.com/DJ-Goana-Coding/TIA-ARCHITECT-CORE",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/TIA-ARCHITECT-CORE",
+      "required_secrets": ["GEMINI_API_KEY", "HF_TOKEN", "GH_TOKEN"],
+      "push_paths": ["TIA_MASTER_BUILD/", "data/"],
+      "ingest_trigger": "push",
+      "status": "repair-needed",
+      "notes": "pandas/numpy Python 3.13 compatibility issue — see repair_all_spaces.yml"
+    },
+    "VAMGUARD-TITAN": {
+      "role": "VAMGUARD Wheel & Spokes Infrastructure",
+      "github_url": "https://github.com/DJ-Goana-Coding/VAMGUARD_TITAN",
+      "hf_space_url": "",
+      "required_secrets": ["HF_TOKEN", "GH_TOKEN"],
+      "push_paths": ["VAMGUARD_TITAN/", "vamguard_templates/"],
+      "ingest_trigger": "push",
+      "status": "pending"
+    },
+    "CITADEL-OMEGA": {
+      "role": "Citadel Master Orchestrator",
+      "github_url": "https://github.com/DJ-Goana-Coding/CITADEL_OMEGA",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/CITADEL_OMEGA",
+      "required_secrets": ["GEMINI_API_KEY", "HF_TOKEN", "GH_TOKEN"],
+      "push_paths": ["data/citadel_mesh/"],
+      "ingest_trigger": "schedule",
+      "status": "pending"
+    },
+    "ORACLE": {
+      "role": "Divination / Oracle AI Interface",
+      "github_url": "https://github.com/DJ-Goana-Coding/ORACLE",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/ORACLE",
+      "required_secrets": ["GEMINI_API_KEY", "HF_TOKEN"],
+      "push_paths": ["data/"],
+      "ingest_trigger": "push",
+      "status": "pending"
+    },
+    "AION": {
+      "role": "AION Temporal Intelligence",
+      "github_url": "https://github.com/DJ-Goana-Coding/AION",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/AION",
+      "required_secrets": ["GEMINI_API_KEY", "HF_TOKEN"],
+      "push_paths": ["data/"],
+      "ingest_trigger": "push",
+      "status": "pending"
+    },
+    "GENESIS-RESEARCH-RACK": {
+      "role": "321GB Research Data Vault",
+      "github_url": "https://github.com/DJ-Goana-Coding/Genesis-Research-Rack",
+      "hf_space_url": "https://huggingface.co/datasets/DJ-Goanna-Coding/Genesis-Research-Rack",
+      "required_secrets": ["HF_TOKEN", "GH_TOKEN", "GDRIVE_SERVICE_ACCOUNT_JSON"],
+      "push_paths": ["data/master_harvest/", "data/rag_brains/"],
+      "ingest_trigger": "schedule",
+      "status": "pending"
+    },
+    "S10-FIELD-UPLINK": {
+      "role": "S10 Device Node — Termux Field Uplink (Mackay)",
+      "github_url": "https://github.com/DJ-Goana-Coding/mapping-and-inventory/tree/main/S10_CITADEL_OMEGA_INTEL",
+      "hf_space_url": "",
+      "required_secrets": ["GH_TOKEN", "RCLONE_CONFIG_DATA"],
+      "push_paths": ["S10_CITADEL_OMEGA_INTEL/", "Research/S10/"],
+      "ingest_trigger": "push",
+      "status": "active",
+      "notes": "Pushes via Termux git. Webhook → /v1/webhook/github triggers auto-reindex."
+    },
+    "OPPO-LIBRARIAN": {
+      "role": "Oppo Device Node — Termux Librarian (Finch Hatton)",
+      "github_url": "https://github.com/DJ-Goana-Coding/mapping-and-inventory/tree/main/Partition_01",
+      "hf_space_url": "",
+      "required_secrets": ["GH_TOKEN"],
+      "push_paths": ["Partition_01/", "Partition_02/"],
+      "ingest_trigger": "push",
+      "status": "active",
+      "notes": "Direct Termux git push. Partition_01 = primary Oppo workspace."
+    },
+    "PIONEER-TRADER": {
+      "role": "Trading Intelligence and Pioneer Coordination",
+      "github_url": "https://github.com/DJ-Goana-Coding/Pioneer-Trader",
+      "hf_space_url": "",
+      "required_secrets": ["GEMINI_API_KEY", "GH_TOKEN"],
+      "push_paths": ["data/pioneer_trader/", "data/trading_strategies/"],
+      "ingest_trigger": "push",
+      "status": "pending"
+    },
+    "CITADEL-GENETICS": {
+      "role": "Ancestral DNA / Citadel Genetics Research",
+      "github_url": "https://github.com/DJ-Goana-Coding/Citadel_Genetics",
+      "hf_space_url": "",
+      "required_secrets": ["GH_TOKEN"],
+      "push_paths": ["data/"],
+      "ingest_trigger": "manual",
+      "status": "pending"
+    },
+    "GOANNA-CODING": {
+      "role": "Primary Coding Environment / Apps Script Factory",
+      "github_url": "https://github.com/DJ-Goana-Coding/goanna_coding",
+      "hf_space_url": "https://huggingface.co/spaces/DJ-Goanna-Coding/goanna_coding",
+      "required_secrets": ["GEMINI_API_KEY", "HF_TOKEN"],
+      "push_paths": ["data/"],
+      "ingest_trigger": "push",
+      "status": "pending"
+    }
+  },
+  "device_nodes": {
+    "S10": {
+      "location": "Mackay, QLD",
+      "type": "Samsung Galaxy S10",
+      "termux_push_target": "S10_CITADEL_OMEGA_INTEL/ + Research/S10/",
+      "gdrive_target": "gdrive:CITADEL_OMEGA_INTEL/",
+      "workflow": ".github/workflows/s10_push_to_vault.yml"
+    },
+    "OPPO": {
+      "location": "Finch Hatton, QLD",
+      "type": "Oppo Mobile — Termux Librarian",
+      "termux_push_target": "Partition_01/",
+      "gdrive_target": "gdrive:GENESIS_VAULT/OPPO_CARGO/",
+      "workflow": "direct git push via Termux"
+    }
+  },
+  "connection_protocol": {
+    "spoke_to_hub_rest": {
+      "endpoint": "POST /v1/bridge/ingest",
+      "auth": "X-Spoke-Token: <SPOKE_SHARED_SECRET>",
+      "body_fields": ["spoke_name", "spoke_url", "fragments", "artifacts", "metadata"]
+    },
+    "spoke_to_hub_webhook": {
+      "endpoint": "POST /v1/webhook/github",
+      "auth": "X-Hub-Signature-256 HMAC-SHA256",
+      "trigger": "GitHub push to device paths"
+    },
+    "hub_to_spoke_commit": {
+      "endpoint": "POST /v1/system/commit",
+      "auth": "X-HF-Token: <HF_TOKEN>",
+      "action": "Writes files back to spoke GitHub repo via Contents API"
+    }
+  }
+}

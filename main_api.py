@@ -47,6 +47,8 @@ from pydantic import BaseModel, Field
 
 from services.rag_hub import DEVICE_FRAGMENT_GLOBS, get_hub
 from telemetry_bridge import router as _telemetry_router
+from services.universal_bridge import router as _bridge_router
+from api.v1_telemetry import router as _telemetry_v1_router
 
 logger = logging.getLogger("main_api")
 
@@ -109,6 +111,8 @@ app.add_middleware(
 )
 
 app.include_router(_telemetry_router)
+app.include_router(_bridge_router)
+app.include_router(_telemetry_v1_router)
 
 
 # ---------------------------------------------------------------------------
