@@ -1,7 +1,7 @@
 {
   "account": "mynewemail110411@gmail.com",
   "provider": "gmail",
-  "extraction_date": "2026-04-18T06:25:14.616346",
+  "extraction_date": "2026-04-19T06:33:44.247872",
   "status": "success",
   "statistics": {
     "total_emails": 1234,
@@ -10,7 +10,7 @@
     "total_size_mb": 2345.67,
     "date_range": {
       "earliest": "2015-01-01T00:00:00Z",
-      "latest": "2026-04-18T06:25:14.616350"
+      "latest": "2026-04-19T06:33:44.247875"
     }
   },
   "labels": [

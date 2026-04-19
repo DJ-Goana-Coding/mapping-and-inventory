@@ -1,5 +1,5 @@
 {
-  "harvest_date": "2026-04-18T06:25:14.619196",
+  "harvest_date": "2026-04-19T06:33:44.250604",
   "total_accounts": 8,
   "accounts_processed": 8,
   "total_emails_extracted": 7305,
@@ -11,7 +11,7 @@
     {
       "account": "chanceroofing@gmail.com",
       "provider": "gmail",
-      "extraction_date": "2026-04-18T06:25:14.615794",
+      "extraction_date": "2026-04-19T06:33:44.247313",
       "status": "success",
       "statistics": {
         "total_emails": 1234,
@@ -20,7 +20,7 @@
         "total_size_mb": 2345.67,
         "date_range": {
           "earliest": "2015-01-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.615799"
+          "latest": "2026-04-19T06:33:44.247319"
         }
       },
       "labels": [
@@ -58,7 +58,7 @@
     {
       "account": "mynewemail110411@gmail.com",
       "provider": "gmail",
-      "extraction_date": "2026-04-18T06:25:14.616346",
+      "extraction_date": "2026-04-19T06:33:44.247872",
       "status": "success",
       "statistics": {
         "total_emails": 1234,
@@ -67,7 +67,7 @@
         "total_size_mb": 2345.67,
         "date_range": {
           "earliest": "2015-01-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.616350"
+          "latest": "2026-04-19T06:33:44.247875"
         }
       },
       "labels": [
@@ -105,7 +105,7 @@
     {
       "account": "chancemather@gmail.com",
       "provider": "gmail",
-      "extraction_date": "2026-04-18T06:25:14.616841",
+      "extraction_date": "2026-04-19T06:33:44.248316",
       "status": "success",
       "statistics": {
         "total_emails": 1234,
@@ -114,7 +114,7 @@
         "total_size_mb": 2345.67,
         "date_range": {
           "earliest": "2015-01-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.616845"
+          "latest": "2026-04-19T06:33:44.248319"
         }
       },
       "labels": [
@@ -152,7 +152,7 @@
     {
       "account": "chancemather@yahoo.com",
       "provider": "yahoo",
-      "extraction_date": "2026-04-18T06:25:14.617294",
+      "extraction_date": "2026-04-19T06:33:44.248752",
       "status": "success",
       "statistics": {
         "total_emails": 987,
@@ -161,7 +161,7 @@
         "total_size_mb": 1234.56,
         "date_range": {
           "earliest": "2016-06-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.617297"
+          "latest": "2026-04-19T06:33:44.248755"
         }
       },
       "folders": [
@@ -191,7 +191,7 @@
     {
       "account": "mathertia@yahoo.com",
       "provider": "yahoo",
-      "extraction_date": "2026-04-18T06:25:14.617603",
+      "extraction_date": "2026-04-19T06:33:44.249000",
       "status": "success",
       "statistics": {
         "total_emails": 987,
@@ -200,7 +200,7 @@
         "total_size_mb": 1234.56,
         "date_range": {
           "earliest": "2016-06-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.617607"
+          "latest": "2026-04-19T06:33:44.249003"
         }
       },
       "folders": [
@@ -231,7 +231,7 @@
       "account": "oceanic105@carpkingdom.com",
       "provider": "imap",
       "server": "mail.carpkingdom.com",
-      "extraction_date": "2026-04-18T06:25:14.617916",
+      "extraction_date": "2026-04-19T06:33:44.249290",
       "status": "success",
       "statistics": {
         "total_emails": 543,
@@ -240,7 +240,7 @@
         "total_size_mb": 876.54,
         "date_range": {
           "earliest": "2018-03-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.617920"
+          "latest": "2026-04-19T06:33:44.249293"
         }
       },
       "folders": [
@@ -267,7 +267,7 @@
       "account": "gruffday@altmail.kr",
       "provider": "imap",
       "server": "mail.altmail.kr",
-      "extraction_date": "2026-04-18T06:25:14.618211",
+      "extraction_date": "2026-04-19T06:33:44.249544",
       "status": "success",
       "statistics": {
         "total_emails": 543,
@@ -276,7 +276,7 @@
         "total_size_mb": 876.54,
         "date_range": {
           "earliest": "2018-03-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.618214"
+          "latest": "2026-04-19T06:33:44.249547"
         }
       },
       "folders": [
@@ -303,7 +303,7 @@
       "account": "hippy@carpkingdom.com",
       "provider": "imap",
       "server": "mail.carpkingdom.com",
-      "extraction_date": "2026-04-18T06:25:14.618522",
+      "extraction_date": "2026-04-19T06:33:44.249809",
       "status": "success",
       "statistics": {
         "total_emails": 543,
@@ -312,7 +312,7 @@
         "total_size_mb": 876.54,
         "date_range": {
           "earliest": "2018-03-01T00:00:00Z",
-          "latest": "2026-04-18T06:25:14.618526"
+          "latest": "2026-04-19T06:33:44.249812"
         }
       },
       "folders": [

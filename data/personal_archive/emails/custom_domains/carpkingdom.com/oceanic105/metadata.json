@@ -2,7 +2,7 @@
   "account": "oceanic105@carpkingdom.com",
   "provider": "imap",
   "server": "mail.carpkingdom.com",
-  "extraction_date": "2026-04-18T06:25:14.617916",
+  "extraction_date": "2026-04-19T06:33:44.249290",
   "status": "success",
   "statistics": {
     "total_emails": 543,
@@ -11,7 +11,7 @@
     "total_size_mb": 876.54,
     "date_range": {
       "earliest": "2018-03-01T00:00:00Z",
-      "latest": "2026-04-18T06:25:14.617920"
+      "latest": "2026-04-19T06:33:44.249293"
     }
   },
   "folders": [
