@@ -59,6 +59,16 @@ SPOKE_REGISTRY_PATH = REPO_ROOT / "data" / "spoke_sync_registry.json"
 
 _registry_lock = threading.Lock()
 
+# Known allowed artifact filenames.  Spoke artifact filenames are validated
+# against this allowlist so that no user-supplied string ever appears as a
+# file-system path component.  Extend this set to support new well-known files.
+_ALLOWED_ARTIFACT_NAMES: frozenset = frozenset({
+    "TREE.md", "INVENTORY.json", "SCAFFOLD.md", "README.md",
+    "system_manifest.json", "rag_fragments.txt", "sync_metadata.json",
+    "worker_status.json", "master_intelligence_map.txt", "requirements.txt",
+    "app.py", "aetheric_log.txt", "partition_manifest.json",
+})
+
 # ---------------------------------------------------------------------------
 # Header normalisation helpers
 # ---------------------------------------------------------------------------
@@ -80,6 +90,23 @@ _HEADER_ALIASES: Dict[str, List[str]] = {
         "x-source-url", "x_source_url",
     ],
 }
+
+
+def _spoke_artifacts_dir(spoke_name: str) -> Path:
+    """Return a safe, fixed sub-directory for *spoke_name* artifacts.
+
+    The directory name is derived entirely from a SHA-256 hash of the spoke
+    name so that no user-supplied string ever appears as a file-system path
+    component.  A ``spoke_label.txt`` file inside records the human-readable
+    name for auditability.
+    """
+    dir_key = hashlib.sha256(spoke_name.encode("utf-8")).hexdigest()[:24]
+    spoke_dir = SPOKE_ARTIFACTS_DIR / dir_key
+    spoke_dir.mkdir(parents=True, exist_ok=True)
+    label_file = spoke_dir / "spoke_label.txt"
+    if not label_file.exists():
+        label_file.write_text(spoke_name, encoding="utf-8")
+    return spoke_dir
 
 
 def _normalise_headers(raw: dict) -> Dict[str, str]:
@@ -182,9 +209,7 @@ def _maybe_reindex(spoke_name: str, fragments: List[str]) -> None:
         return
     try:
         from services.rag_hub import get_hub  # lazy import to stay test-friendly
-        safe_dir_name = re.sub(r"[^\w\-]", "_", spoke_name)[:64]
-        spoke_dir = SPOKE_ARTIFACTS_DIR / safe_dir_name
-        spoke_dir.mkdir(parents=True, exist_ok=True)
+        spoke_dir = _spoke_artifacts_dir(spoke_name)
         harvest_path = spoke_dir / "rag_fragments.txt"
         harvest_path.write_text("\n\n---\n\n".join(fragments), encoding="utf-8")
         logger.info("Wrote %d fragment(s) from %s → %s", len(fragments), spoke_name, harvest_path)
@@ -269,27 +294,22 @@ async def bridge_ingest(
     artifacts: Dict[str, str] = body.get("artifacts", {})
     metadata: Dict[str, Any] = body.get("metadata", {})
 
-    # Sanitise spoke_name to a safe directory component (alphanumeric, hyphens, underscores).
-    safe_spoke_dir_name = re.sub(r"[^\w\-]", "_", spoke_name)[:64]
-
-    # Persist named artifact files
+    # Persist named artifact files.
+    # Directory is derived from a SHA-256 hash of spoke_name so no user-supplied
+    # string appears as a file-system path component.
+    # Filenames are validated against a fixed allowlist for the same reason.
+    saved = 0
     if artifacts:
-        spoke_dir = SPOKE_ARTIFACTS_DIR / safe_spoke_dir_name
-        spoke_dir.mkdir(parents=True, exist_ok=True)
+        spoke_dir = _spoke_artifacts_dir(spoke_name)
         for filename, content in artifacts.items():
-            # Strip directory components, then remove any characters outside
-            # a safe allowlist so the final path stays within spoke_dir.
-            safe_name = re.sub(r"[^\w\-.]", "_", Path(filename).name)[:128]
-            if not safe_name or safe_name.startswith("."):
-                # Skip hidden or empty filenames
+            # Validate against allowlist — reject anything not on it.
+            candidate = Path(filename).name
+            if candidate not in _ALLOWED_ARTIFACT_NAMES:
+                logger.warning("Rejected artifact '%s' from spoke '%s': not on allowlist", filename, spoke_name)
                 continue
-            artifact_path = spoke_dir / safe_name
-            # Final guard: confirm resolved path is still inside spoke_dir.
-            if spoke_dir not in artifact_path.resolve().parents and artifact_path.resolve() != spoke_dir:
-                logger.warning("Rejected artifact path escape attempt: %s", filename)
-                continue
-            artifact_path.write_text(content, encoding="utf-8")
-        logger.info("Wrote %d artifact(s) for spoke '%s'", len(artifacts), spoke_name)
+            (spoke_dir / candidate).write_text(content, encoding="utf-8")
+            saved += 1
+        logger.info("Wrote %d artifact(s) for spoke '%s'", saved, spoke_name)
 
     # Update registry
     _update_registry(spoke_name, spoke_url, {**metadata, "fragments_received": len(fragments)})
@@ -302,7 +322,7 @@ async def bridge_ingest(
         "accepted": True,
         "spoke": spoke_name,
         "fragments_queued": len(fragments),
-        "artifacts_saved": len(artifacts),
+        "artifacts_saved": saved,
         "reindex": "queued" if fragments else "skipped",
     }
 
