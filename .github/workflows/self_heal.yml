@@ -49,7 +49,15 @@ jobs:
           HEALTHZ_URL: ${{ vars.HEALTHZ_URL }}
         run: |
           set -u
-          url="${HEALTHZ_URL:-https://citadel-nexus-private.vercel.app/healthz}"
+          url="${HEALTHZ_URL:-}"
+          if [ -z "$url" ]; then
+            echo "::warning::vars.HEALTHZ_URL is not configured; skipping probe."
+            echo "Configure the FastAPI gateway's /healthz URL in repo Variables"
+            echo "(e.g. https://<hf-space-host>/healthz on port 10000) to enable"
+            echo "automatic self-heal dispatch."
+            echo "status=skipped" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           echo "Probing $url"
           # --max-time bounds the probe; fail-soft so we always emit a status.
           status=$(curl -sS -o /tmp/health.body -w "%{http_code}" \
@@ -66,9 +74,11 @@ jobs:
         run: |
           set -u
           # Trigger repair on any 5xx, on connection failure (000), or if forced.
+          # Skip dispatch entirely when the probe was skipped (no URL configured).
           needs_repair="false"
           case "$STATUS" in
             5*|000) needs_repair="true" ;;
+            skipped) needs_repair="false" ;;
           esac
           if [ "$FORCE" = "true" ]; then
             needs_repair="true"
