@@ -1,0 +1,233 @@
+{
+  "scan_timestamp": "2026-04-19T04:02:04.752936",
+  "github_repos": [
+    {
+      "repo_name": "mapping-and-inventory",
+      "platform": "github",
+      "scan_timestamp": "2026-04-19T04:02:04.752954",
+      "health_score": 17,
+      "max_score": 100,
+      "status": "critical",
+      "issues": [
+        {
+          "category": "ci_failure",
+          "severity": "critical",
+          "description": "CI/CD pipeline failing or missing"
+        }
+      ],
+      "checks": {
+        "ci_status": {
+          "has_ci": true,
+          "passing": false,
+          "latest_run": null,
+          "run_url": "https://github.com/DJ-Goana-Coding/mapping-and-inventory/actions/runs/24620531194"
+        },
+        "security": {
+          "alerts_enabled": false,
+          "alerts_count": 0
+        },
+        "dependencies": {
+          "has_dependencies": true,
+          "outdated_count": 0,
+          "vulnerable_count": 0
+        },
+        "documentation": {
+          "has_readme": true,
+          "readme_size": 13509
+        },
+        "activity": {
+          "last_update": "2026-04-19T02:04:29Z",
+          "days_since_update": 0,
+          "stale": false
+        }
+      }
+    },
+    {
+      "repo_name": "CITADEL_OMEGA",
+      "platform": "github",
+      "scan_timestamp": "2026-04-19T04:02:05.565979",
+      "health_score": 17,
+      "max_score": 100,
+      "status": "critical",
+      "issues": [
+        {
+          "category": "ci_failure",
+          "severity": "critical",
+          "description": "CI/CD pipeline failing or missing"
+        }
+      ],
+      "checks": {
+        "ci_status": {
+          "has_ci": true,
+          "passing": false,
+          "latest_run": null,
+          "run_url": "https://github.com/DJ-Goana-Coding/CITADEL_OMEGA/actions/runs/24620525038"
+        },
+        "security": {
+          "alerts_enabled": false,
+          "alerts_count": 0
+        },
+        "dependencies": {
+          "has_dependencies": true,
+          "outdated_count": 0,
+          "vulnerable_count": 0
+        },
+        "documentation": {
+          "has_readme": true,
+          "readme_size": 21418
+        },
+        "activity": {
+          "last_update": "2026-04-19T01:39:52Z",
+          "days_since_update": 0,
+          "stale": false
+        }
+      }
+    },
+    {
+      "repo_name": "tias-citadel",
+      "platform": "github",
+      "scan_timestamp": "2026-04-19T04:02:06.492728",
+      "health_score": 0,
+      "max_score": 100,
+      "status": "critical",
+      "issues": [
+        {
+          "category": "ci_failure",
+          "severity": "critical",
+          "description": "CI/CD pipeline failing or missing"
+        },
+        {
+          "category": "missing_documentation",
+          "severity": "medium",
+          "description": "Missing README or documentation"
+        },
+        {
+          "category": "stale_repo",
+          "severity": "low",
+          "description": "No activity in 999 days"
+        }
+      ],
+      "checks": {
+        "ci_status": {
+          "has_ci": false,
+          "passing": false,
+          "error": "Unable to fetch CI status"
+        },
+        "security": {
+          "alerts_enabled": false,
+          "alerts_count": 0
+        },
+        "dependencies": {
+          "has_dependencies": true,
+          "outdated_count": 0,
+          "vulnerable_count": 0
+        },
+        "documentation": {
+          "has_readme": false,
+          "readme_size": 0
+        },
+        "activity": {
+          "stale": true,
+          "days_since_update": 999
+        }
+      }
+    }
+  ],
+  "huggingface_spaces": [
+    {
+      "repo_name": "TIA-ARCHITECT-CORE",
+      "platform": "huggingface",
+      "scan_timestamp": "2026-04-19T04:02:06.888008",
+      "health_score": 0,
+      "max_score": 100,
+      "status": "critical",
+      "issues": [
+        {
+          "category": "space_not_running",
+          "severity": "critical",
+          "description": "Space status: PAUSED"
+        }
+      ],
+      "checks": {
+        "space_status": {
+          "status": "PAUSED",
+          "sdk": "gradio"
+        },
+        "build_status": {
+          "build_successful": true,
+          "build_time": "unknown"
+        },
+        "requirements": {
+          "has_requirements": true,
+          "has_conflicts": false
+        }
+      }
+    },
+    {
+      "repo_name": "Mapping-and-Inventory",
+      "platform": "huggingface",
+      "scan_timestamp": "2026-04-19T04:02:07.029327",
+      "health_score": 0,
+      "max_score": 100,
+      "status": "critical",
+      "issues": [
+        {
+          "category": "space_not_running",
+          "severity": "critical",
+          "description": "Space status: SLEEPING"
+        }
+      ],
+      "checks": {
+        "space_status": {
+          "status": "SLEEPING",
+          "sdk": "docker"
+        },
+        "build_status": {
+          "build_successful": true,
+          "build_time": "unknown"
+        },
+        "requirements": {
+          "has_requirements": true,
+          "has_conflicts": false
+        }
+      }
+    },
+    {
+      "repo_name": "Omega-Trader",
+      "platform": "huggingface",
+      "scan_timestamp": "2026-04-19T04:02:07.107957",
+      "health_score": 0,
+      "max_score": 100,
+      "status": "critical",
+      "issues": [
+        {
+          "category": "space_not_running",
+          "severity": "critical",
+          "description": "Space status: unknown"
+        }
+      ],
+      "checks": {
+        "space_status": {
+          "status": "unknown",
+          "error": "HTTP 404"
+        },
+        "build_status": {
+          "build_successful": true,
+          "build_time": "unknown"
+        },
+        "requirements": {
+          "has_requirements": true,
+          "has_conflicts": false
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total_scanned": 6,
+    "healthy": 0,
+    "warning": 0,
+    "unhealthy": 0,
+    "critical": 6,
+    "error": 0
+  }
+}
