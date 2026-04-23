@@ -1,3 +1,9 @@
+from fastapi import FastAPI, Request
+import uvicorn
+import os
+
+app = FastAPI()
+
 """
 Q.G.T.N.L. (0) // MAPPING & INVENTORY LIBRARIAN
 Citadel Omega Sovereign HUD — Central mapping and inventory dashboard.
@@ -918,3 +924,12 @@ with tabs[6]:
     with st.expander("View worker_status.json", expanded=False):
         st.json(worker_status)
 
+
+
+@app.get('/')
+def health_check():
+    return {'status': 'SUCCESS', 'message': 'T.I.A. Awake in mapping-and-inventory.'}
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 10000))
+    uvicorn.run(app, host='0.0.0.0', port=port)
