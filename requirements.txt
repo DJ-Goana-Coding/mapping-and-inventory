@@ -1,18 +1,7 @@
-# Core Streamlit & Web Framework
-streamlit==1.36.0
-requests==2.31.0
-
-# Data Processing & Visualization
-pandas==2.0.3
-plotly==5.22.0
-networkx==3.3
-
-# Google Services Integration
-google-genai>=0.8.0
-gspread==6.1.2
-google-auth==2.29.0
-google-auth-oauthlib==1.2.0
-google-auth-httplib2==0.2.0
-
-# HuggingFace Integration
-huggingface_hub==0.26.2
+fastapi
+uvicorn
+streamlit
+requests
+pydantic
+python-multipart
+google-api-python-client
