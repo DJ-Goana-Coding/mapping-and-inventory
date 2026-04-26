@@ -1,0 +1,4 @@
+SOURCE: ADMIRAL UPLOAD
+STATUS: PURIFIED
+TARGET: Citadel Audit: Architecture and Progress
+GOAL: 9,293 STABILITY
