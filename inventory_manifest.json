@@ -1,7 +1,23 @@
 {
-  "node": "MAPPING_AND_INVENTORY",
-  "status": "SYNCED",
-  "architect": "DJ-Goanna",
-  "device_sync": ["Oppo-Navigator", "S10-Garrison"],
-  "vault_size": "321GB"
+  "timestamp": "2026-05-10T00:00:00Z",
+  "partitions": [
+    "sentinel-grid",
+    "archive-core"
+  ],
+  "districts": [
+    {
+      "name": "Genesis Vault",
+      "files": [
+        "master_inventory.json",
+        "wallet_anchors.json"
+      ]
+    },
+    {
+      "name": "Sentinel Archives",
+      "files": [
+        "api_conduits.json",
+        "shard_index.json"
+      ]
+    }
+  ]
 }

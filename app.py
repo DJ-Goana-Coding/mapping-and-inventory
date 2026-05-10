@@ -1,6 +1,6 @@
-import streamlit as st
 import json
 import os
+import streamlit as st
 
 st.set_page_config(page_title="CITADEL INVENTORY", page_icon="📜", layout="centered")
 
@@ -17,12 +17,16 @@ st.title("📜 CITADEL MASTER LEDGER")
 st.markdown("<div class='terminal-box'>", unsafe_allow_html=True)
 st.subheader("GRID STATUS: SECURED")
 
-if os.path.exists("inventory_manifest.json"):
-    with open("inventory_manifest.json", "r") as f:
-        data = json.load(f)
-    st.json(data)
+manifest_path = "inventory_manifest.json"
+if os.path.exists(manifest_path):
+    try:
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        st.json(data)
+    except json.JSONDecodeError:
+        st.error("[!] VORTEX ERROR: Inventory Manifest could not be parsed.")
 else:
-    st.error("[!] VORTEX ERROR: Inventory Manifest Missing. Scan required.")
+    st.warning("Inventory manifest not found yet. Upload one to display ledger data.")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
