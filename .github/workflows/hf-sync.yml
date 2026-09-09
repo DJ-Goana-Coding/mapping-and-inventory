@@ -1,0 +1,70 @@
+name: Sync Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hf-sync-mapping-and-inventory
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require HF_TOKEN secret
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "Missing required repository secret: HF_TOKEN" >&2
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+          persist-credentials: false
+
+      - name: Sync main to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_URL: https://huggingface.co/spaces/DJ-Goanna-Coding/Mapping-and-Inventory
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          auth_header="AUTHORIZATION: Basic $(printf 'user:%s' "$HF_TOKEN" | base64 | tr -d '\n')"
+          remote_sha="$(git -c "http.extraHeader=${auth_header}" ls-remote --heads "$HF_SPACE_URL" main | awk '{print $1}')"
+
+          if [ -z "$remote_sha" ]; then
+            git -c "http.extraHeader=${auth_header}" push "$HF_SPACE_URL" HEAD:main
+            exit 0
+          fi
+
+          git -c "http.extraHeader=${auth_header}" fetch --no-tags "$HF_SPACE_URL" "main:refs/remotes/hf-space/main"
+
+          if git merge-base --is-ancestor "refs/remotes/hf-space/main" HEAD; then
+            git -c "http.extraHeader=${auth_header}" push "$HF_SPACE_URL" HEAD:main
+            exit 0
+          fi
+
+          # The Space may start from a template history unrelated to this repository.
+          # In that case, GitHub main is the source of truth, so first use a lease tied
+          # to the exact remote SHA we fetched. If the remote moves before push, refresh
+          # once and do a final force push to keep the Space synchronized reliably.
+          if git -c "http.extraHeader=${auth_header}" push --force-with-lease=refs/heads/main:"$remote_sha" "$HF_SPACE_URL" HEAD:main; then
+            exit 0
+          fi
+
+          git -c "http.extraHeader=${auth_header}" fetch --no-tags "$HF_SPACE_URL" "main:refs/remotes/hf-space/main"
+          git -c "http.extraHeader=${auth_header}" push --force "$HF_SPACE_URL" HEAD:main
